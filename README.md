@@ -26,3 +26,4 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, F
 2. Import GEDCOM into GRAMPS
 3. Create Latex text report from GRAMPS
     + Settings
+4. Run scripts for find/replace and to change formatting
