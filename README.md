@@ -1,22 +1,25 @@
 # CarnellRettgersFamilyHistory
-The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, Fett-Bechtel families
+
+The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, and Fett-Bechtel families
 
 ## Book Outline
 
 1. Volume I - Military History
-2. Volumne II - Connell-Langston, Smith-Josey
+2. Volumne II - Connell, Langston, Smith, Josey
     + Ancestors of William Connell
     + Ancestors of Nellie D Langston
-    + Descendants of Connell-Langston
     + Ancestors of Kendrick Smith
     + Ancestors of Jewel Norene Josey
-    + Descendants of Smith-Josey
-3. Volume III - Rettgers-Hartenstine, Fett-Bechtel
-    + Ancestors of Ithamar Rettgers
-    + Ancestors of Laura Hartenstine
-    + Descendants of Rettgers-Hartenstine
+3. Volume III - Rettgers, Hartenstine, Fett, Bechtel
+    + Ancestors of Ithamar Benedict Rettgers
+    + Ancestors of Laura Tyson Hartenstine
     + Ancestors of Floyd William Fett
     + Ancestors of Florence Ethel Bechtel
+4. Volume IV - Connell-Langston and Smith-Josey Descendants For Living Family
+    + Descendants of Connell-Langston
+    + Descendants of Smith-Josey
+5. Volume V - Rettgers-Hartenstine and Fett-Bechtel Descendants for Living Family
+    + Descendants of Rettgers-Hartenstine
     + Descendants of Fett-Bechtel
 
 ## Latex export process
