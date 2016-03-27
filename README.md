@@ -21,9 +21,44 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, F
 
 ## Latex export process
 
-1. Export GEDCOM from Family Tree Maker
+1. Sync Family Tree Maker 2014 with Ancestry
+2. Export GEDCOM from Family Tree Maker
+    + File -> Export...
+    + Entire File
+    + Output format: GEDCOM 5.5
+    + Privatize Living People: Yes
+    + Include Private Facts: No
+    + Include Private Notes: No
+    + Include Media Files: No
+    + OK
+    + Destination: Other
+    + Character Set: UTF-8
+3. Open GRAMPS
+    + Delete the old tree and create a new one
+    + Family Trees -> Import... (Choose the latest GEDCOM file)
+4. Create Ancestral Reports
+    + Reports -> Text Reports -> Detailed Ancestral Report
+    + Report Options
+        + Select a Different Person -> show all
+            + Ithamar Rettgers
+        + Number: 1000
+        + Given Surname Suffix
+        + Include Data Marked Private: No
+        + Generations: 20
+        + Page Break between generations: No
+        + Page Break before end notes: yes
+        + Translation: Default
+    + Content
+        + All no except:  "Use Full dates instead of only the year", "List children", "Add descendant reference in child list"
+    + Include
+        + All no except:  "Include Sources"
+    + Missing Information:
+        + All no
+    + Choose the Filename
+    + Repeat Reports
+        + Laura Hartenstine
+        + Floyd Fett
+        + Florence Bechtel
+5. Create Descendant Reports
     + Settings
-2. Import GEDCOM into GRAMPS
-3. Create Latex text report from GRAMPS
-    + Settings
-4. Run scripts for find/replace and to change formatting
+5. Run scripts for find/replace and to change formatting
