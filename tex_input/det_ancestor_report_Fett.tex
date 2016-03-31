@@ -1,0 +1,2954 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for Floyd William Fett \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1.}%
+\textbf{Floyd William Fett .  }Son of John L Fett and Catharine B Lebo.    Born 1891-09-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a, 9, 10a, 11, 12 }.   Died 1956-10-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{4a, 9, 13a, 10a, 11 }.   Buried 1956-10-25 in Exeter, Berks, Pennsylvania, USA \textsuperscript{4a, 9, 13b, 13c, 11 }.  Married Florence Ethel Bechtel 1917-12-17 in Reading, Berks, Pennsylvania, USA \textsuperscript{14a, 14a, 15, 14a, 16, 14a, 16, 13d }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Spouse: Florence Ethel Bechtel . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 1891-12-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 14a, 8b, 11, 9, 17, 17, 17, 17, 17, 17 }.   Baptized 1892-01-04 in Reading, Berks, Pennsylvania, USA \textsuperscript{14a }.  Died 1969-06-27 in Camp Hill, Cumberland, Pennsylvania, USA \textsuperscript{15, 11, 9, 13e, 13f }.   Buried 1969-06-30 in Reiffton, Berks County, Pennsylvania, USA \textsuperscript{11, 9, 13f }.  Daughter of John High Bechtel and Clara E Savage.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Florence Ethel Bechtel and Floyd William Fett \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Clementine Florence Fett.  Born 1919-02-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{3a, 18a, 12, 17 }.   Died 2000-02-18 in Kutztown, Berks, Pennsylvania, USA \textsuperscript{18a, 13g, 13h, 12 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Gene Catherine Fett.  Born 1922-02-13 in Reading, Berks, Pennsylvania, USA \textsuperscript{2a, 1a, 18b, 19, 20, 9, 17, 12 }.   Died 2004-03-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{18b, 20, 9, 13i, 13j, 12 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Living Fett.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2.}%
+\textbf{John L Fett .  }Son of Jost John Fett.   Born 1867-06-28 in Wargenbach, Germany \textsuperscript{7a, 3b, 8a, 2b, 10, 21a, 9, 15, 22a, 11, 9 }.   Died 1932-10-15 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 9, 15, 13k, 13l, 11, 9 }.   Buried 1932-10-19 in Reading, Berks County, Pennsylvania, USA \textsuperscript{9, 13k, 11, 9 }.  Married Catharine B Lebo 1890-11-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 14b, 16, 16 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{1.0}{0}%
+\grlisthead{3.}%
+\textbf{Catharine B Lebo .  }Daughter of William Lebo and Miranda Zerbe.    Born 1867-11-00 in Pennsylvania, USA \textsuperscript{7a, 15, 8a, 3b, 23a, 24a, 2b, 10, 9 }.   Died 1936-09-21 in Reading, Berks, Pennsylvania, USA \textsuperscript{15, 10, 9, 13c }.   Buried 1936-09-24 in Reading, Berks County, Pennsylvania, USA \textsuperscript{9, 13m }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine B Lebo and John L Fett \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Minnie C Fett.  Born 1905 \textsuperscript{9, 15, 11 }.   Died 1908 \textsuperscript{9, 15, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Harold John Fett.  Born 1893-04-24 in Pennsylvania, USA \textsuperscript{7a, 6b, 3c, 5b, 8a, 25, 26, 14b, 12 }.   Died BET 30 JUN AND 01 JUL 1942 in Orange, Essex, New Jersey, USA \textsuperscript{13n, 12 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Floyd William Fett [1].  Born 1891-09-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a, 9, 10a, 11, 12 }.   Died 1956-10-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{4a, 9, 13a, 10a, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4.}%
+\textbf{Jost John Fett .  }Died before 1922.   Relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Unknown and Jost John Fett \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John L Fett [2].  Born 1867-06-28 in Wargenbach, Germany \textsuperscript{7a, 3b, 8a, 2b, 10, 21a, 9, 15, 22a, 11, 9 }.   Died 1932-10-15 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 9, 15, 13k, 13l, 11, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{1.0}{0}%
+\grlisthead{6.}%
+\textbf{William Lebo .  }Son of Henry Lebo Jr and Catharine Wagner.    Born between 13 and 1829-08-29 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{27a, 24b, 28a, 23a, 9, 9, 14b }.   Died 1895-04-04 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 9, 9, 29, 13o, 13p }.   Buried 1895-04-09 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 9, 9, 13q }.  Relationship with Miranda Zerbe.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{1.0}{0}%
+\grlisthead{7.}%
+\textbf{Miranda Zerbe .  }Daughter of John Zerbe and Barbara Heim.    Born 1829-12-12 in Pennsylvania, USA \textsuperscript{8c, 23a, 27b, 28a, 24b }.   Died 1905-01-03 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 29, 9, 13r }.   Buried 1905-01-09 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 9, 13s, 13t }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Miranda Zerbe and William Lebo \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Sarah Lebo.  Born 1865-05-16 in Pennsylvania, USA \textsuperscript{10, 23a, 3d, 8c, 24a, 7b }.   Died 1928-04-02 in West Reading, Berks, Pennsylvania, USA \textsuperscript{10, 13u, 13v }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Clara Lebo.  Born 1852-11-18 in Myerstown, Lebanon, Pennsylvania, USA \textsuperscript{24c, 28a, 10, 8d, 23b, 9 }.   Died 1908-12-11 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 9, 13w, 13x }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Charles Lebo.  Born about 1855 in Pennsylvania, USA \textsuperscript{28a, 9 }.   Died 1864-04-10 \textsuperscript{9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+William F Lebo.  Born about 1871 in Pennsylvania, USA \textsuperscript{23a, 8c }.   Died after 1902.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Catharine B Lebo [3].  Born 1867-11-00 in Pennsylvania, USA \textsuperscript{7a, 15, 8a, 3b, 23a, 24a, 2b, 10, 9 }.   Died 1936-09-21 in Reading, Berks, Pennsylvania, USA \textsuperscript{15, 10, 9, 13c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Willis Henry Lebo.  Born 1858-06-14 in Pennsylvania, USA \textsuperscript{24b, 23c, 8e, 7c, 3e, 28a, 10, 9, 11 }.   Died 1927-08-28 in Williamsport, Lycoming, Pennsylvania, USA \textsuperscript{10, 13y, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+John A Lebo.  Born 1859-10-12 in Myerstown, Lebanon, Pennsylvania, USA \textsuperscript{23a, 10, 8a, 7d, 3f }.   Died 1927-08-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 13z, 13aa }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{1.0}{0}%
+\grlisthead{12.}%
+\textbf{Henry Lebo Jr .  }Son of Henry Lebo and Catharine Unknown (Lebo).    Born 1768 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{30a }.   Died 1846.   Relationship with Catharine Wagner.  Also married Regina Theiss 1796-10-09 in Jackson, Lebanon, Pennsylvania, USA \textsuperscript{31a, 30a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Regina Theiss and Henry Lebo Jr \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Peter Lebo.  Born 1809-01-15 \textsuperscript{32a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Unknown Lebo.  Born 1803.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Anna Maria Lebo.  Born 1804.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+John Lebo.  Born 1797-01-31 \textsuperscript{9 }.   Died 1843-10-31 \textsuperscript{9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{1.0}{0}%
+\grlisthead{13.}%
+\textbf{Catharine Wagner .  }Born 1804.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Wagner and Henry Lebo Jr \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+David P Lebo.  Born 1825-12-30 in Pennsylvania, USA \textsuperscript{9, 23d }.   Died 1890-04-17 in Reading, Berks, Pennsylvania, USA \textsuperscript{9, 13ab }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+William Lebo [6].  Born between 13 and 1829-08-29 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{27a, 24b, 28a, 23a, 9, 9, 14b }.   Died 1895-04-04 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 9, 9, 29, 13o, 13p }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{1.0}{0}%
+\grlisthead{14.}%
+\textbf{John Zerbe .  }Son of Michael Zerbe Jr and Elizabeth Weil or Shaffer.    Born 1800-12-03 in Pennsylvania, USA \textsuperscript{28b, 9, 27b, 11, 33a }.   Baptized 1801-04-04 in Stouchsburg, Berks County, Pennsylvania, USA \textsuperscript{33a }.  Died 1862-05-29 \textsuperscript{9, 11 }.   Buried in Rehrersburg, Berks County, Pennsylvania, USA \textsuperscript{9, 11 }.  Relationship with Barbara Heim.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{1.0}{0}%
+\grlisthead{15.}%
+\textbf{Barbara Heim .  }Born 1789-08-24 in Pennsylvania, USA \textsuperscript{28b, 27b, 9, 11 }.   Died 1862-08-21 \textsuperscript{9, 11 }.   Buried in Rehrersburg, Berks County, Pennsylvania, USA \textsuperscript{9, 11 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Barbara Heim and John Zerbe \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Reuben Zerbe.  Born 1827-05-08 in Pennsylvania \textsuperscript{11, 9, 28c, 23e }.   Died 1885-04-03 \textsuperscript{11, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+William Henry Zerbe.  Born 1824-08-18 in Berks County, Pennsylvania, USA \textsuperscript{24d, 28d, 23f, 34a, 14c, 9 }.   Died 1894-02-11 in Reading, Berks, Pennsylvania, USA \textsuperscript{29, 14c, 35a, 13ac, 9, 13ad }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Miranda Zerbe [7].  Born 1829-12-12 in Pennsylvania, USA \textsuperscript{8c, 23a, 27b, 28a, 24b }.   Died 1905-01-03 in Reading, Berks, Pennsylvania, USA \textsuperscript{14b, 29, 9, 13r }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Percival Zerbe.  Born 1835-08-15 in Pennsylvania, USA \textsuperscript{7e, 9, 27c, 3g, 28e, 24e, 10, 23g, 8f }.   Died 1920-11-06 in Reading, Berks, Pennsylvania, USA \textsuperscript{13ae, 9, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{1.0}{0}%
+\grlisthead{24.}%
+\textbf{Henry Lebo .  }Son of Peter Lebo and Margaret Unkonwn (Lebo).    Born about 1742 in Pennsylvania, USA.   Died 1802 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{36a, 36b, 37a, 38a }.   Relationship with Catharine Unknown (Lebo).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{1.0}{0}%
+\grlisthead{25.}%
+\textbf{Catharine Unknown (Lebo) .  }Born about 1746.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Unknown (Lebo) and Henry Lebo \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Johannes Lebo.  Born 1766-02-21 \textsuperscript{9, 11 }.   Died 1798-03-30 \textsuperscript{9, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Elizabeth Lebo.  Born 1778.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Anna Catharine Lebo.  Born 1774.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Ann Maria Lebo.  Born 1796.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Johannes Peter Lebo.  Born 1772-01-21 in Berks County, Pennsylvania, USA \textsuperscript{32 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Johann Adam Lebo.  Born 1784.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Henry Lebo Jr [12].  Born 1768 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{30a }.   Died 1846.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Johann Jacob Lebo.  Born 1781.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Susanna Lebo.  Born 1764.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Elizabeth Magdalena Lebo.  Born 1788.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{1.0}{0}%
+\grlisthead{28.}%
+\textbf{Michael Zerbe Jr .  }Son of Michael Zerbe and Anna Maria Dormeier.    Born 1777-07-07 \textsuperscript{9, 11 }.   Baptized 1777-07-05 \textsuperscript{39 }.  Died 1844-11-12 \textsuperscript{9, 11, 33b }.   Buried 1844-11-14 in Stouchsburg, Berks County, Pennsylvania, USA \textsuperscript{9, 11, 33b }.  Relationship with Elizabeth Weil or Shaffer.  Also married Unknown 1799-05-24 \textsuperscript{40 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{1.0}{0}%
+\grlisthead{29.}%
+\textbf{Elizabeth Weil or Shaffer .  }Born 1780-02-21 \textsuperscript{9, 11 }.   Died 1840-05-04 \textsuperscript{9, 11 }.   Buried in Stouchsburg, Berks County, Pennsylvania, USA \textsuperscript{9, 11 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Weil or Shaffer and Michael Zerbe Jr \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Jacob Zerbe.  Born 1802-09-24 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{14d, 9, 24f, 33c, 11 }.   Died 1875-09-10 in Berks County, Pennsylvania, USA \textsuperscript{14d, 9, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Michael Zerbe.  Born 1816-12-30 in Berks County, Pennsylvania, USA \textsuperscript{33d }.   Died 1902-02-25 in Lebanon County, Pennsylvania, USA \textsuperscript{9, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Magdelena Zerbe.  Born 1812-11-30 in Pennsylvania, USA \textsuperscript{24g, 27d, 23h, 9, 11 }.   Died 1886-02-01 \textsuperscript{9, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Esther Zerbe.  Born 1820-08-04 \textsuperscript{9, 14d }.   Died 1902-05-20 \textsuperscript{9, 14d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Maria Zerbe.  Born 1808-01-03 in Tulpehocken, Berks, Pennsylvania, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jonathan Zerbe.  Born 1812-07-31 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{14e, 28f, 27e, 11, 24h, 9 }.   Died 1877-04-03 in Schaefferstown, Lebanon, Pennsylvania, USA \textsuperscript{14e, 11, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+John Zerbe [14].  Born 1800-12-03 in Pennsylvania, USA \textsuperscript{28b, 9, 27b, 11, 33a }.   Died 1862-05-29 \textsuperscript{9, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Elizabeth Zerbe.  Born 1806-01-14 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{9, 14d, 28g, 27f, 11 }.   Died 1864-10-22 in Berks, Pennsylvania, USA \textsuperscript{9, 14d, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Lydia Zerbe.  Born 1815-02-05 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{24i, 28h, 27g, 41, 33e }.   Died 1872-05-13 in Carey, Wyandot, Ohio, USA \textsuperscript{42a, 41 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 6 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{48.}%
+\grminpghead{1.0}{0}%
+\grlisthead{48.}%
+\textbf{Peter Lebo .  }Son of Johannes John Lebo LeBeau and First Wife Unknown (Lebo).    Died about 1783 in Pennsylvania, USA \textsuperscript{38b, 38c, 38c }.   Relationship with Margaret Unkonwn (Lebo).  Also relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{49.}%
+\grminpghead{1.0}{0}%
+\grlisthead{49.}%
+\textbf{Margaret Unkonwn (Lebo) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Margaret Unkonwn (Lebo) and Peter Lebo \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Magdalena Lebo.  Born 1744-02-20 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{32 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Susanna Lebo.  Born about 1751 in Tulpehocken, Berks, Pennsylvania, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Christina Lebo.  Baptized 1746-10-26 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{32 }.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Henry Lebo [24].  Born about 1742 in Pennsylvania, USA.   Died 1802 in Tulpehocken, Berks, Pennsylvania, USA \textsuperscript{36a, 36b, 37a, 38a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Peter Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jacob Lebo.  Born oldest.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{56.}%
+\grminpghead{1.0}{0}%
+\grlisthead{56.}%
+\textbf{Michael Zerbe .  }Son of George Peter Zerbe and Anna Christina Lauck Loucks.    Born 1744 \textsuperscript{43 }.   Died 1806 \textsuperscript{44 }.   Relationship with Anna Maria Dormeier.  Also married Unknown 1776-06-04 \textsuperscript{45, 33f }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{57.}%
+\grminpghead{1.0}{0}%
+\grlisthead{57.}%
+\textbf{Anna Maria Dormeier .  }Daughter of Nicholas Dornmeier.   Born 1755.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anna Maria Dormeier and Michael Zerbe \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Anna Marie Zerbe.  Born 1781-02-06 in Berks County, Pennsylvania, USA \textsuperscript{33g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Elizabeth Zerbe.  Born 1782-08-28 in Berks County, Pennsylvania, USA \textsuperscript{33h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Magdalene Zerbe.  Born 1788-04-24 in Berks County, Pennsylvania, USA \textsuperscript{33i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Barbara Zerbe.  Born 1791-09-29 in Berks County, Pennsylvania, USA \textsuperscript{33j }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Anna Margarette Zerbe.  Born before 1800-02-07 \textsuperscript{27h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Johannes (son of michael) Zerbe.  Born 1796-02-24 in Berks County, Pennsylvania, USA \textsuperscript{33k }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Michael Zerbe Jr [28].  Born 1777-07-07 \textsuperscript{9, 11 }.   Died 1844-11-12 \textsuperscript{9, 11, 33b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Salome Zerbe.  Born 1779-03-12 in Berks County, Pennsylvania, USA \textsuperscript{33l, 28i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Eva Zerbe.  Born 1793-09-20 in Berks County, Pennsylvania, USA \textsuperscript{33m, 24j }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 7 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{96.}%
+\grminpghead{1.0}{0}%
+\grlisthead{96.}%
+\textbf{Johannes John Lebo LeBeau .  }Died about 1759 in Pennsylvania, USA \textsuperscript{38d, 38a, 38a }.   Married Anna Mary Croiiet 1708-07-04 in Ludwigshafen Am Rhein, Rhineland-Palatinate, Germany \textsuperscript{46a }.  Also relationship with First Wife Unknown (Lebo).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anna Mary Croiiet and Johannes John Lebo LeBeau \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Henry Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Maria Magdalena Lebo.  Born 1723-05-03 in Ludwigshafen Am Rhein, Rhineland-Palatinate, Germany.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Isaac Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Paul Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Jacob Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Mary Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Elizabeth Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Anna Margaretha Lebo.  Born 1717-05-20 in Ludwigshafen Am Rhein, Rhineland-Palatinate, Germany.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Leonard Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{97.}%
+\grminpghead{1.0}{0}%
+\grlisthead{97.}%
+\textbf{First Wife Unknown (Lebo) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of First Wife Unknown (Lebo) and Johannes John Lebo LeBeau \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Abraham Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Margaret Lebo.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Peter Lebo [48].  Died about 1783 in Pennsylvania, USA \textsuperscript{38b, 38c, 38c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{112.}%
+\grminpghead{1.0}{0}%
+\grlisthead{112.}%
+\textbf{George Peter Zerbe .  }Son of Martin (Johann Martin) Zerbe and Anna Elizabeth Jungel.    Born about 1702 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{47a, 48, 9 }.   Baptized 1702-01-22 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{49 }.  Died about 1782 in Tulpehocken Township, Berks County, Pennsylvania, USA \textsuperscript{47a, 50, 9 }.   Buried in Hegins, Schuylkill County, Pennsylvania, USA \textsuperscript{9 }.  Married Anna Christina Lauck Loucks 1736 \textsuperscript{15, 15, 51 }.  Also relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{113.}%
+\grminpghead{1.0}{0}%
+\grlisthead{113.}%
+\textbf{Anna Christina Lauck Loucks .  }Daughter of Abraham Lauck Loucks and Anna Catharina Becker.    Born 1715-10-24 in West Camp, Ulster, New York, USA \textsuperscript{15, 30b, 52 }.   Baptized 1715-10-30 in West Camp, Ulster, New York, USA \textsuperscript{15 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anna Christina Lauck Loucks and George Peter Zerbe \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Elizabeth Zerbe.  Born 1740 in Berks County, Pennsylvania, USA \textsuperscript{53, 9 }.   Died 1796 in Schuylkill County, Pennsylvania, USA \textsuperscript{54 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Johannes Zerbe.  Born BET 27 JAN AND 03 FEB 1745 in Berks County, Pennsylvania, USA \textsuperscript{33n }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Peter Zerbe.  Born 1738 \textsuperscript{55, 15, 56 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Maria Catharine Zerbe.  Born 1750-06-05 in Berks County, Pennsylvania, USA \textsuperscript{33o }.   Died 1751-11-13 \textsuperscript{57, 33p }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Anna Maria Zerbe.  Born 1748-04-23 in Berks County, Pennsylvania, USA \textsuperscript{33q }.   Died 1827-05-24 in Pine Grove, Schuylkill County, Pennsylvania, USA \textsuperscript{9, 14d, 58 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Michael Zerbe [56].  Born 1744 \textsuperscript{43 }.   Died 1806 \textsuperscript{44 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Valentine Zerbe.  Born 1748 \textsuperscript{59 }.   Died about 1813 in Pennsylvania, USA \textsuperscript{38e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+John George Zerbe.  Born 1752-04-24 in Berks County, Pennsylvania, USA \textsuperscript{9, 33r }.   Died 1814-01-19 in Schuylkill, Pennsylvania, USA \textsuperscript{60, 9, 11, 47a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{114.}%
+\grminpghead{1.0}{0}%
+\grlisthead{114.}%
+\textbf{Nicholas Dornmeier .  }Relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Unknown and Nicholas Dornmeier \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Anna Maria Dormeier [57].  Born 1755.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 8 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{224.}%
+\grminpghead{1.0}{0}%
+\grlisthead{224.}%
+\textbf{Martin (Johann Martin) Zerbe .  }Born 1671-12-00 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{9, 15 }.   Baptized 1671-12-17 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{61 }.  Died between 1739 and 1750 in Pennsylvania, USA \textsuperscript{62 }.   Buried in North Heidelberg, Berks County, Pennsylvania, USA \textsuperscript{9 }.  Married Anna Elizabeth Jungel 1697-02-11 in Germany \textsuperscript{63a, 15, 64 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{225.}%
+\grminpghead{1.0}{0}%
+\grlisthead{225.}%
+\textbf{Anna Elizabeth Jungel .  }Born 1671 in Germany \textsuperscript{63a, 15 }.   Died 1750-07-22 in Stouchsburg, Berks County, Pennsylvania, USA \textsuperscript{9, 65, 66, 15, 33s }.   Buried 1750-07-22 in Stouchsburg, Berks County, Pennsylvania, USA \textsuperscript{9, 33s }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anna Elizabeth Jungel and Martin (Johann Martin) Zerbe \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Johann Japhet Zerbe.  Born about 1705 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{67, 9 }.   Died 1797 in Bernville, Berks County, Pennsylvania, USA \textsuperscript{9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Johann Henrich Zerbe.  Born about 1697 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+John Zerbe.  Born 1722 \textsuperscript{68 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Johan Jacob (John Jacob) Zerbe.  Born about 1698 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{63b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Johann Japhet (Infant) Zerbe.  Born about 1704 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{69 }.   Died 1704-02-00 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{70 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Johann Philipp Zerbe.  Born about 1708 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{71, 9 }.   Died in Tappan, Rockland County, New York, USA \textsuperscript{71, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+John Jacob Zerbe.  Born 1714 \textsuperscript{72 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Maria Margaretta Zerbe.  Born 1716 in West Camp, Ulster County, New York, USA \textsuperscript{73, 30c }.   Died about 1787 in Berks County, Pennsylvania, USA \textsuperscript{30c, 9, 66 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+George Peter Zerbe [112].  Born about 1702 in Kettenbach, Rheingau-Taunus-Kreis, Hesse, Germany \textsuperscript{47a, 48, 9 }.   Died about 1782 in Tulpehocken Township, Berks County, Pennsylvania, USA \textsuperscript{47a, 50, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Elizabeth Maria Zerbe.  Born 1712 in Livingston, Columbia, New York, USA \textsuperscript{30d, 52, 15, 74, 71 }.   Died 1749 in New Ringgold, Schuylkill County, Pennsylvania, USA \textsuperscript{30d, 66 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xi.}%
+Elizabeth Zerbe.  Born 1729-06-10 \textsuperscript{75 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xii.}%
+Barbara Zerbe.  Born 1720 in Livingston, Columbia, New York, USA \textsuperscript{30e, 76 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{226.}%
+\grminpghead{1.0}{0}%
+\grlisthead{226.}%
+\textbf{Abraham Lauck Loucks .  }Born 1691 in Germany \textsuperscript{9, 52, 52, 11 }.   Baptized 1691-03-01 in Wallau, Hessen- Nassau, Prussia, Germany \textsuperscript{15 }.  Died 1771-08-00 in Heidelberg, Berks, Pennsylvania, USA \textsuperscript{15, 9, 11 }.   Buried 1772-08-00 in Heidelberg, Berks, Pennsylvania, USA \textsuperscript{15, 9, 11 }.  Married Anna Catharina Becker 1710-09-27 in Dillenburg, Lahn-Dill-Kreis, Hessen, Germany \textsuperscript{15, 15, 77 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{227.}%
+\grminpghead{1.0}{0}%
+\grlisthead{227.}%
+\textbf{Anna Catharina Becker .  }Born 1696-03-05 in Dillenburg, Lahn-Dill-Kreis, Hessen, Germany \textsuperscript{15, 52 }.   Baptized 1696-03-21 in Dillenburg, Hessen- Nassau, Prussia, Dillenburg, Lahn-Dill-Kreis, Hessen, Germany \textsuperscript{15 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anna Catharina Becker and Abraham Lauck Loucks \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+George Louck.  Born 1717 in Albany County, New York, USA \textsuperscript{9, 15, 52, 11, 30f, 30g }.   Died 1784-02-00 in Berks County, Pennsylvania, USA \textsuperscript{9, 15, 11, 30f, 30g, 38a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Maria Catharina Louck.  Born 1711-09-07 in West Camp, Ulster, New York, USA \textsuperscript{30h, 15, 11, 52, 52 }.   Died 1797 in Berks County, Pennsylvania, USA \textsuperscript{30h, 11 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Anna Catharina Loucks.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Anna Christina Lauck Loucks [113].  Born 1715-10-24 in West Camp, Ulster, New York, USA \textsuperscript{15, 30b, 52 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Abraham Louck.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Elizabeth Louck.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 10A; Enumeration District: 70-72 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 11B; Enumeration District: 0049; Image: 502.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 7A; Enumeration District: 0028; Image: 632.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T625\_1538; Page: 7A; Enumeration District: 112; Image: 21 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T625\_1537; Page: 2A; Enumeration District: 82; Image: 287 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Wilmington Ward 7, New Castle, Delaware;Roll: T625\_203; Page: 4B; Enumeration District: 63; Image: 15 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: Reading Ward 8, Berks, Pennsylvania; Roll:T625\_1537; Page: 1B; Enumeration District: 78; Image: 198 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1920; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T625\_1538; Page: 15A; Enumeration District: 119; Image: 233 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1920; Census Place: Reading Ward 11, Berks, Pennsylvania; Roll:T625\_1537; Page: 14A; Enumeration District: 92; Image: 561 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1920; Census Place: Reading Ward 14, Berks, Pennsylvania; Roll:T625\_1537; Page: 5A; Enumeration District: 106; Image: 942 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-4; Folder Number: 150 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+Ancestry.com, "U.S., World War II Draft Registration Cards, 1942", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+The National Archives at St. Louis; St. Louis, Missouri; World War IIdraft cards (Fourth Registration) for the State of Pennsylvania; State Headquarters: Pennsylvania; Microfilm Series: M1951; Microfilm Roll: 91 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+The National Archives at St. Louis; St. Louis, Missouri; World War IIDraft Cards (Fourth Registration) for the State of New Jersey; State Headquarters: New Jersey; Microfilm Series: M1986 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: Pennsylvania; Registration County: Adams; Roll:1909284; Draft Board: 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Registration State: Delaware; Registration County: New Castle; Roll:1570613; Draft Board: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T624\_1314; Page: 2A; Enumeration District: 0075; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T624\_1314; Page: 5B; Enumeration District: 0072; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Reading Ward 16, Berks, Pennsylvania; Roll:T624\_1315; Page: 4B; Enumeration District: 0110; FHL microfilm: 1375328 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: Reading Ward 11, Berks, Pennsylvania; Roll:T624\_1314; Page: 11B; Enumeration District: 0082; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1910; Census Place: Reading Ward 16, Berks, Pennsylvania; Roll:T624\_1315; Page: 12B; Enumeration District: 0109; FHL microfilm: 1375328 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Reading Ward 11, Berks, Pennsylvania; Roll:1379; Enumeration District: 0084; FHL microfilm: 1241379 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Cumru, Berks, Pennsylvania; Roll: 1376;Page: 9B; Enumeration District: 0013; FHL microfilm: 1241376 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:1378; Page: 7A; Enumeration District: 0074; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: Reading Ward 16, Berks, Pennsylvania; Roll:1379; Enumeration District: 0102; FHL microfilm: 1241379 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Lebanon Ward 1, Lebanon, Pennsylvania; Roll:1428; Page: 12B; Enumeration District: 0122; FHL microfilm: 1241428 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: Reading Ward 6, Berks, Pennsylvania; Roll:1378; Page: 9A; Enumeration District: 0065; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Floyd W Fett, PA Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+Ancestry.com, "Web: Pennsylvania, Find A Grave Index, 1682-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+"Reading Eagle", Location: Reading, Berks, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Reading Eagle, Page 1, Column 2 Floyd Fett Obituary 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Reading Eagle, Page 21, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Reading Eagle, Page 22, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Floyd Fett and Florence Bechtel Wedding 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Reading Eagle, Page 29, Column 2 - Mrs Florence E Fett 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Reading Eagle, Page 29, Column 5, Florence Fett Death Notice 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Clementine Fett Black Funeral Notice, Reading Eagle, Page B4, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Clementine Fett Black Obituary, Reading Eagle, Page B12, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Reading Eagle Obituary, Page B7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Reading Eagle Death Notice, Page B5, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Reading Eagle, Page 12, Column 1 John L Fett Death Notice 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+John L Fett Obituary, Reading Eagle, Page 10, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Reading Eagle, Page 22, Column 6 Catharine B Lebo Fett 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Harold J Fett Obituary, Reading Eagle, Page 23, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+William Lebo, Reading Eagle Death Notice, Page 6 Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+William Lebo, Reading Eagle Obituary, Page 1, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+William Lebo, Reading Eagle Funeral Announcement, Page 4, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Reading Eagle, Page 1, Column 3, Miranda Zerbe Lebo Obituary 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Reading Eagle, Page 10, Miranda Zerbe Lebo Death Notice 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{t:}%
+\grminpghead{1.9}{0}%
+\grlisthead{t:}%
+Reading Eagle, Page 3, Column 5 Miranda Zerbe Lebo Funeral 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{u:}%
+\grminpghead{1.9}{0}%
+\grlisthead{u:}%
+Reading Eagle Obituary, Page 2, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{v:}%
+\grminpghead{1.9}{0}%
+\grlisthead{v:}%
+Sarah Lebo Hageman Death Notice, Reading Eagle, Page 22, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{w:}%
+\grminpghead{1.9}{0}%
+\grlisthead{w:}%
+Clara Lebo Winter Death Notice, Reading Eagle, Page 13, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{x:}%
+\grminpghead{1.9}{0}%
+\grlisthead{x:}%
+Clara Lebo Winter Obituary, Reading Eagle, Page 1, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{y:}%
+\grminpghead{1.9}{0}%
+\grlisthead{y:}%
+Willis Lebo, Reading Eagle Obituary, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{z:}%
+\grminpghead{1.9}{0}%
+\grlisthead{z:}%
+John A Lebo, Reading Eagle Obituary, Page 2, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aa:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aa:}%
+John Lebo, Reading Eagle Death Notice, Page 28, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ab:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ab:}%
+Reading Eagle, Page 1, Column 4, David Lebo Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ac:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ac:}%
+William H Zerbe Obituary, Reading Eagle, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ad:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ad:}%
+William H Zerbe Death Notice, Reading Eagle, Page 4, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ae:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ae:}%
+Obituary for Percival Zerbe 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+Ancestry.com, "Pennsylvania and New Jersey, Church and Town Records, 1708-1985", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 574 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 577 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 574 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 350 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Heritage Consulting, "Millennium File", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2003; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+Ancestry.com, "Berks County, Pennsylvania Marriages, 1885-1929", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+Ancestry.com, "U.S. School Yearbooks", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Number: 571-30-9424; Issue State: California; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Number: 166-18-8829; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+Ancestry.com, "Web: Obituary Daily Times Index, 1995-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+Ancestry.com, "U.S. Passport Applications, 1795-1925", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2007; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+National Archives and Records Administration (NARA); Washington D.C.;Passport Applications, January 2, 1906 - March 31, 1925; Collection Number: ARC Identifier 583830 / MLR Number A1 534; NARA Series: M1490; Roll \#: 2082 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+Staatsarchiv Hamburg, "Hamburg Passenger Lists, 1850-1934", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2008; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Staatsarchiv Hamburg; Volume: 373-7 I, VIII A 1 Band 289; Seite: 1409 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 373A; Enumeration District: 056; Image: 0145 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 397B; Enumeration District: 057; Image: 0195 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 373B; Enumeration District: 056; Image: 0146 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Mill Creek, Lebanon, Pennsylvania; Roll:1145; Family History Film: 1255145; Page: 189A; Enumeration District: 129; Image: 0537 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Union, Snyder, Pennsylvania; Roll: 1194;Family History Film: 1255194; Page: 62A; Enumeration District: 149; Image: 0559 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1101;Family History Film: 1255101; Page: 68A; Enumeration District: 042; Image: 0301 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1101;Family History Film: 1255101; Page: 184C; Enumeration District: 047; Image: 0538 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1880; Census Place: Tulpehocken, Berks, Pennsylvania; Roll:1100; Family History Film: 1255100; Page: 318A; Enumeration District: 067; Image: 0642 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Jackson, Lebanon, Pennsylvania; Roll:M593\_1361; Page: 151A; Image: 305; Family History Library Film: 552860 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1870; Census Place: Jackson, Lebanon, Pennsylvania; Roll:M593\_1361; Page: 150B; Image: 304; Family History Library Film: 552860 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1870; Census Place: Jackson, Lebanon, Pennsylvania; Roll:M593\_1361; Page: 126B; Image: 256; Family History Library Film: 552860 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1870; Census Place: Bethel, Berks, Pennsylvania; Roll:M593\_1305; Page: 97B; Image: 204; Family History Library Film: 552804 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1870; Census Place: Bethel, Berks, Pennsylvania; Roll:M593\_1305; Page: 99A; Image: 207; Family History Library Film: 552804 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1870; Census Place: Bethel, Berks, Pennsylvania; Roll:M593\_1305; Page: 88A; Image: 183; Family History Library Film: 552804 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1870; Census Place: Tulpehocken, Berks, Pennsylvania; Roll:M593\_1308; Page: 380B; Image: 276; Family History Library Film: 552807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1870; Census Place: Heidelberg, Lebanon, Pennsylvania; Roll:M593\_1361; Page: 105A; Image: 213; Family History Library Film: 552860 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1870; Census Place: Crawford, Wyandot, Ohio; Roll: M593\_1284;Page: 683A; Image: 153; Family History Library Film: 552783 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1870; Census Place: Flowerfield, St Joseph, Michigan; Roll:M593\_700; Page: 130A; Image: 263; Family History Library Film: 552199 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+Ancestry.com, "Delaware Marriage Records, 1806-1933", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+Ancestry.com, "U.S., WWI Civilian Draft Registrations, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Tulpehocken, Berks, Pennsylvania; Roll:M432\_752; Page: 42A; Image: 89 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: Bethel, Berks, Pennsylvania; Roll: M432\_752;Page: 163A; Image: 331 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1850; Census Place: Upper Tulpehocken, Berks, Pennsylvania;Roll: M432\_752; Page: 89A; Image: 183 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1850; Census Place: Swatara, Lebanon, Pennsylvania; Roll:M432\_791; Page: 185A; Image: 375 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1850; Census Place: Schaefferstown, Lebanon, Pennsylvania; Roll:M432\_791; Page: 22B; Image: 48 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1850; Census Place: Tulpehocken, Berks, Pennsylvania; Roll:M432\_752; Page: 40B; Image: 86 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1850; Census Place: Mifflin, Dauphin, Pennsylvania; Roll:M432\_775; Page: 409B; Image: 388 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1850; Census Place: Pine Grove, Schuylkill, Pennsylvania; Roll:M432\_826; Page: 451B; Image: 586 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: Bethel, Berks, Pennsylvania; Roll:M653\_1073; Page: 104; Image: 109; Family History Library Film: 805073 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1860; Census Place: Bethel, Berks, Pennsylvania; Roll:M653\_1073; Page: 102; Image: 107; Family History Library Film: 805073 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1860; Census Place: Bethel, Berks, Pennsylvania; Roll:M653\_1073; Page: 83; Image: 88; Family History Library Film: 805073 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1860; Census Place: Lebanon, Lebanon, Pennsylvania; Roll:M653\_1128; Page: 365; Image: 372; Family History Library Film: 805128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1860; Census Place: North Heidelberg, Berks, Pennsylvania; Roll:M653\_1074; Page: 496; Image: 150; Family History Library Film: 805074 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1860; Census Place: Heidelberg, Lebanon, Pennsylvania; Roll:M653\_1129; Page: 628; Image: 236; Family History Library Film: 805129 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1860; Census Place: Tulpehocken, Berks, Pennsylvania; Roll:M653\_1074; Page: 681; Image: 343; Family History Library Film: 805074 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1860; Census Place: Crawford, Wyandot, Ohio; Roll: M653\_1054;Page: 471; Image: 245; Family History Library Film: 805054 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1860; Census Place: Hartley, Union, Pennsylvania; Roll:M653\_1188; Page: 777; Image: 103; Family History Library Film: 805188 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+Ancestry.com, "Reading, Pennsylvania Deaths, 1873-1905", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Edmund West, comp., "Family Data Collection - Individual Records", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Birth year: 1768; Birth city: of Tulpehockentp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Birth year: 1715; Birth city: West Camp; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Birth year: 1715; Birth city: Livingston Manor; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Birth year: 1712; Birth city: Livingston Manor; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Birth year: 1720; Birth city: Livingston Manor; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Birth year: 1717; Birth city: Or Heidelberg; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Birth year: 1717; Birth city: Heidelberg; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Birth year: 1711; Birth city: West Camp; Birth state: NY 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Lineages, Inc., comp, "Lebanon County, Pennsylvania Marriages, 1769-1864: Trinity TulpehockenReformed Congregation", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Marriages 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+Ancestry.com, "Pennsylvania Church Records - Adams, Berks, and Lancaster Counties,1729-1881", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+Frederick S Weiser, "Records of Christ Lutheran Church, Stouchsburg, Pennsylvania", Name: The Pennsylvania German Society; Location: Birdsboro,Pennsylvania, USA; Date: 1990; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+John Zerbe Birth and Baptism 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Michael Zerbe Death, Part II, Page 127-128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Jacob Zerbe Birth and Baptism, Part I, Page 109 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Michael Zerbe Birth and Baptism, Part I, page 128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Lydia Zerbe Birth and Baptism, Part I, Page 124 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Marriage of Michael Zerben and Anna Maria Dornmeier, Part II, page47-48 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Anne Marie Zerbe Baptism and Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Elizabeth Zerbe baptism and birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Magdalene Zerbe Birth and Baptism, Part I, page 74 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Barbara Zerbe Birth and Baptism, Part I, Page 83 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Johannes Zerbe Baptism and Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Salome Zerbe birth and baptism, Part I, Page 50 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Eva Zerbe Birth and Baptism 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Birth and Baptism of Johannes Zerbe, Part I, Page 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Maria Catharine Zerbe Birth and Baptism, Part I, Page 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Maria Zerbe Burial, Part II, Page 100 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Anna Maria Zerbe Birth and Baptism 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Joh. George Birth and Baptism, Part I, Page 11 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Death of Anna Jungel, Part II, Page 100 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+Ancestry.com, "U.S., Civil War Draft Registrations Records, 1863-1865", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+National Archives and Records Administration (NARA); ConsolidatedLists of Civil War Draft Registration Records (Provost Marshal General's Bureau; Consolidated Enrollment Lists, 1863-1865); Record Group: 110, Records of the Provost Marshal General's Bureau 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+"Reading Times" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William H Zerbe Obituary, Reading Times, Page 1, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+"Last Will and Testament of Henry Lebo" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Transcription of Will of Henry Lebo 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Will Amendment of Henry Lebo 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "Index of Berks County, Pennsylvania, wills and administration records,1752-1850", Name: The Generations Network, Inc.; Location: Provo, UT; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Index for Henry Lebo's will 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+Ancestry.com, "Pennsylvania, Wills and Probate Records, 1683-1993", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Wills, 1752-1860 ; Index to Wills, 1752-1915; Author: Berks County(Pennsylvania). Register of Wills; Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Will Abstracts, 1721-1820; Probate Place: Lancaster, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Wills, 1730-1908; Index, 1729-1947; Author: Lancaster County(Pennsylvania). Register of Wills; Probate Place: Lancaster, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Wills, 1752-1860; Index, 1752-1915; Author: Berks County(Pennsylvania). Register of Wills; Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Administration Letters and Bonds, 1752-1851 ; Index to AdministrationLetters and Bonds, 1752-1915; Author: Pennsylvania. Orphans' Court (Berks County); Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+Ancestry.com, "Ohio, Rutherford B. Hayes Presidential Center Obituary Index,1810s-2013", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{0.75}{0}%
+\grlisthead{42.}%
+"Wyandot County Republican", Location: Wyandot, Ohio, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Lydia Zerbe Walborn Death Notice, Wyandot County Republican, Page 3,Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{43.}%
+\grminpghead{0.75}{0}%
+\grlisthead{43.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{44.}%
+\grminpghead{0.75}{0}%
+\grlisthead{44.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{45.}%
+\grminpghead{0.75}{0}%
+\grlisthead{45.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{46.}%
+\grminpghead{0.75}{0}%
+\grlisthead{46.}%
+Annette Kunselman Burgert, "Palatine Origins of Some Pennsylvania Pioneers", Name: AKB Publications; Location: Myerstown, Pennsylvania, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Johannes Lebo Immigration 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{47.}%
+\grminpghead{0.75}{0}%
+\grlisthead{47.}%
+Ancestry.com, "U.S., Sons of the American Revolution Membership Applications,1889-1970", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Volume: 326; SAR Membership Number: 65193 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{48.}%
+\grminpghead{0.75}{0}%
+\grlisthead{48.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{49.}%
+\grminpghead{0.75}{0}%
+\grlisthead{49.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{50.}%
+\grminpghead{0.75}{0}%
+\grlisthead{50.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{51.}%
+\grminpghead{0.75}{0}%
+\grlisthead{51.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{52.}%
+\grminpghead{0.75}{0}%
+\grlisthead{52.}%
+Edmund West, comp., "Family Data Collection - Births", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{53.}%
+\grminpghead{0.75}{0}%
+\grlisthead{53.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{54.}%
+\grminpghead{0.75}{0}%
+\grlisthead{54.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{55.}%
+\grminpghead{0.75}{0}%
+\grlisthead{55.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{56.}%
+\grminpghead{0.75}{0}%
+\grlisthead{56.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{57.}%
+\grminpghead{0.75}{0}%
+\grlisthead{57.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{58.}%
+\grminpghead{0.75}{0}%
+\grlisthead{58.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{59.}%
+\grminpghead{0.75}{0}%
+\grlisthead{59.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{60.}%
+\grminpghead{0.75}{0}%
+\grlisthead{60.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{61.}%
+\grminpghead{0.75}{0}%
+\grlisthead{61.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{62.}%
+\grminpghead{0.75}{0}%
+\grlisthead{62.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{63.}%
+\grminpghead{0.75}{0}%
+\grlisthead{63.}%
+Yates Publishing, "U.S. and International Marriage Records, 1560-1900", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Source number: 314.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: DER 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Source number: 312.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: DER 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64.}%
+\grminpghead{0.75}{0}%
+\grlisthead{64.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{65.}%
+\grminpghead{0.75}{0}%
+\grlisthead{65.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{66.}%
+\grminpghead{0.75}{0}%
+\grlisthead{66.}%
+Edmund West, comp., "Family Data Collection - Deaths", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{67.}%
+\grminpghead{0.75}{0}%
+\grlisthead{67.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{68.}%
+\grminpghead{0.75}{0}%
+\grlisthead{68.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{69.}%
+\grminpghead{0.75}{0}%
+\grlisthead{69.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{70.}%
+\grminpghead{0.75}{0}%
+\grlisthead{70.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{71.}%
+\grminpghead{0.75}{0}%
+\grlisthead{71.}%
+Ancestry.com, "International, Find A Grave Index for Select Locations, 1300s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{72.}%
+\grminpghead{0.75}{0}%
+\grlisthead{72.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{73.}%
+\grminpghead{0.75}{0}%
+\grlisthead{73.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{74.}%
+\grminpghead{0.75}{0}%
+\grlisthead{74.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{75.}%
+\grminpghead{0.75}{0}%
+\grlisthead{75.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{76.}%
+\grminpghead{0.75}{0}%
+\grlisthead{76.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{77.}%
+\grminpghead{0.75}{0}%
+\grlisthead{77.}%
+Edmund West, comp., "Family Data Collection - Marriages", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}

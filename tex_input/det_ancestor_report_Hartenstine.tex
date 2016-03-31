@@ -1,0 +1,4501 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for Laura Tyson Hartenstine \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1.}%
+\textbf{Laura Tyson Hartenstine .  }Daughter of Jacob S Hartenstine and Ida Miller.    Born 1897-07-26 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5a, 6a, 3b, 7a, 8 }.   Baptized 1908-06-07 in Reading, Berks, Pennsylvania, USA \textsuperscript{3a, 3b }.  Died 1977-12-18 in Cornwall, Lebanon, Pennsylvania, USA \textsuperscript{5a, 9a, 9b, 8 }.   Buried 1977-12-21 in Reading, Berks, Pennsylvania, USA \textsuperscript{9a, 9b, 8 }.  Married Ithamar Benadict Rettgers 1920-09-29 in Reading, Berks, Pennsylvania, USA \textsuperscript{3a, 3a, 3a, 3a, 10a, 11, 9c }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Spouse: Ithamar Benadict Rettgers . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 1898-01-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{7b, 12a, 2a, 13a, 14, 4b, 6b, 3c, 15, 8, 16, 16 }.   Died 1937-02-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{12a, 13a, 15, 8, 9d, 9e }.   Buried 1937-02-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{12a, 8, 9d, 9f }.  Son of Frederick H Rettgers and Sarah (Sallie) E Morrisson.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Laura Tyson Hartenstine and Ithamar Benadict Rettgers \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Living Rettgers.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Joyce Ann Rettgers.  Born 1935-05-27 in Reading, Adams, Pennsylvania, USA \textsuperscript{1b, 17, 18a, 19 }.   Died 2014-06-04 in Johnson City, Carter, Tennessee, USA \textsuperscript{20a, 18a, 19 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Robert Edgar Rettgers.  Born 1923-07-28 in Reading, Berks, Pennsylvania, USA \textsuperscript{1b, 3a, 17, 2a, 21, 19, 21, 21, 21, 22a, 8, 23 }.   Died 2014-07-09 in Mechanicsburg, Cumberland, Pennsylvania, USA \textsuperscript{24a, 19, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Forrest Ithamar Rettgers.  Born 1921-11-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{3a, 1b, 5b, 2a, 17, 8, 25, 23 }.   Died 1995-06-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{5b, 8, 9g, 25 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2.}%
+\textbf{Jacob S Hartenstine .  }Son of Heber Hartenstine and Mary Ann Seivard.    Born 1870-03-27 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4a, 26a, 27a, 28, 8 }.   Died 1902-05-09 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{28, 8, 9h }.   Buried 1902-05-13 \textsuperscript{8, 9h, 9i }.  Married Ida Miller 1889-04-27 in Chester County, Pennsylvania, USA \textsuperscript{29a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{1.0}{0}%
+\grlisthead{3.}%
+\textbf{Ida Miller .  }Daughter of James V Miller and Mary Ann Mock.    Born 1870-12-16 in St Peters, Chester, Pennsylvania, USA \textsuperscript{4a, 6a, 2b, 7c, 28, 30, 1c, 8, 15a }.   Died 1951-01-19 in Reading, Berks, Pennsylvania, USA \textsuperscript{8, 9j, 15a, 9k }.   Buried 1951-01-23 \textsuperscript{8, 9j, 15a, 9k }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ida Miller and Jacob S Hartenstine \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Ida Myrtle Hartenstine.  Born 1892-10-26 in Warwick, Chester, Pennsylvania, USA \textsuperscript{8 }.   Died 1893-01-14 in Warwick, Chester, Pennsylvania, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Maurice M Hartenstine.  Born 1891-03-23 in Warwick, Chester, Pennsylvania, USA \textsuperscript{31 }.   Died 1898-12-31 in Warwick, Chester, Pennsylvania, USA \textsuperscript{31 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Infant Hartenstine.  Born 1900-03-19 in Pottstown, Chester, Pennsylvania, USA.   Died 1900-03-19 in Pottstown, Chester, Pennsylvania, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Lulu Erma Hartenstine.  Born 1894-02-09 in Warwick, Chester, Pennsylvania, USA \textsuperscript{8 }.   Died 1894-09-21 in Warwick, Chester, Pennsylvania, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Clarence Heber Hartenstine.  Born 1898-09-26 in Pennsylvania, USA \textsuperscript{4a, 2b, 28, 1d, 8 }.   Died 1953-03-08 in Brentwood, Prince George's, Maryland, USA \textsuperscript{32, 8, 9l, 9m }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Laura Tyson Hartenstine [1].  Born 1897-07-26 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5a, 6a, 3b, 7a, 8 }.   Died 1977-12-18 in Cornwall, Lebanon, Pennsylvania, USA \textsuperscript{5a, 9a, 9b, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Herbert Hartenstine.  Born 1895-03-19 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4a, 28, 6c, 33a, 8, 16, 12b }.   Died 1919-05-19 in Chatham, Barnstable, Massachusetts, USA \textsuperscript{8, 9n, 34a, 9o, 35, 9p, 12b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Mary Stella Hartenstine.  Born 1889-07-14 in Warwick, Chester, Pennsylvania, USA \textsuperscript{28, 4c, 8, 2c, 6a, 1e, 7c, 25 }.   Died 1984-04-15 in Berks County, Pennsylvania, USA \textsuperscript{8, 9q, 9r }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4.}%
+\textbf{Heber Hartenstine .  }Son of Jacob Hartenstine and Ann Cook.    Born 1838-05-21 in Pennsylvania, USA \textsuperscript{27a, 28, 36a, 37, 38a, 39a, 8 }.   Died 1879-07-16 in Warwick, Chester County, Pennsylvania, USA \textsuperscript{37, 39a, 8, 40a }.   Buried in Pine Swamp, Chester County, Pennsylvania, USA \textsuperscript{37, 8 }.  Relationship with Mary Ann Seivard.  Also married Sarah Ann Nichols 1860-10-16 in Pottstown, Chester, Pennsylvania, USA \textsuperscript{41a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah Ann Nichols and Heber Hartenstine \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Unknown Hartenstine.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{1.0}{0}%
+\grlisthead{5.}%
+\textbf{Mary Ann Seivard .  }Daughter of Abraham (Abram) Seivard and Catharine Keinard.    Born 1842-11-08 in Pennsylvania, USA \textsuperscript{42, 7d, 6d, 28, 4d, 2d, 27a, 26b, 8, 36b, 37, 38b }.   Died 1932-01-28 in New Castle County, Delaware, USA \textsuperscript{42, 8, 9s, 9t, 37 }.   Buried 1932-01-31 in Pine Swamp, Chester County, Pennsylvania, USA \textsuperscript{8, 9t, 37 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Ann Seivard and Heber Hartenstine \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Abraham Hartenstine.  Born 1868-11-13 in Chester, Pennsylvania, USA \textsuperscript{7e, 4e, 2e, 27a, 6e, 15, 43 }.   Died 1954-10-30 in Broomall, Delaware, Pennsylvania, USA \textsuperscript{15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+David Bitler Hartenstine.  Born 1876-02-09 in Warwick, Chester, Pennsylvania, USA \textsuperscript{7f, 1f, 8, 2f, 4f, 6f, 33b, 26b, 44, 37, 15, 25 }.   Died 1960-06-28 in Phoenixville, Chester, Pennsylvania, USA \textsuperscript{8, 45a, 45b, 37, 15, 25 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Jonathan Hartenstine.  Born 1878-02-12 \textsuperscript{26b, 7d, 6f, 1g, 2g, 6d, 4d, 44, 15, 37 }.   Died 1948-04-13 in New Britain, Bucks, Pennsylvania, USA \textsuperscript{8, 15, 45c, 45d, 37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Jacob S Hartenstine [2].  Born 1870-03-27 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4a, 26a, 27a, 28, 8 }.   Died 1902-05-09 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{28, 8, 9h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Harry W Hartenstine.  Born 1864-09-24 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4g, 27a, 1h, 7g, 26c, 6g, 2d, 8, 37, 25 }.   Died 1941-04-18 in Wilmington, New Castle, Delaware, USA \textsuperscript{8, 45e, 37, 25 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Howard Urnings Hartenstine.  Born 1866-07-12 in Chester County, Pennsylvania, USA \textsuperscript{15, 2h, 6h, 27a, 1i, 7h, 8, 46 }.   Died 1941-10-28 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15, 8, 45f, 45g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Ann Seivard and Frank Comstock \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Frank Comstock.  Born 1882-12-19 in Pennsylvania, USA \textsuperscript{2i, 47a, 5c, 8, 6i, 33c, 1j, 7i }.   Died 1970-05-15 in Pennsylvania, USA \textsuperscript{45h, 45i, 5c, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{1.0}{0}%
+\grlisthead{6.}%
+\textbf{James V Miller .  }Son of John H Miller and Martha Thomas.    Born 1837-09-18 in Pottstown, Chester, Pennsylvania, USA \textsuperscript{48, 38c }.   Died 1925-02-25 in West Bradford, Chester, Pennsylvania, USA \textsuperscript{48 }.   Married Mary Ann Mock about 1859.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{1.0}{0}%
+\grlisthead{7.}%
+\textbf{Mary Ann Mock .  }Daughter of Adam Mock and Rebecca Wynn.    Born 1832-11-22 in Robeson, Berks, Pennsylvania, USA \textsuperscript{48, 15 }.   Died 1913-05-27 in Warwick, Chester, Pennsylvania, USA \textsuperscript{48, 9u, 15 }.   Buried \textsuperscript{48 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Ann Mock and James V Miller \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Joseph S Miller.  Born 1868-02-08 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4h, 8 }.   Died 1900-12-21 in Pennsylvania, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Theodore S Miller.  Born 1866-01-01 in Warwick, Chester, Pennsylvania, USA \textsuperscript{49a, 15 }.   Died 1936-10-05 in Collier, Allegheny, Pennsylvania, USA \textsuperscript{15, 9v }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Sarah Ann Miller.  Born 1869-03-18 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4i, 15, 6j, 8 }.   Died 1912-01-23 in Lorane, Berks, Pennsylvania, USA \textsuperscript{15, 9w, 9x, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Morris Thomas Miller.  Born 1874-01-07 in Warwick, Chester, Pennsylvania, USA \textsuperscript{50a, 33d, 2j, 15b, 1k, 2k, 6k, 7j }.   Died 1951-06-30 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15b, 9y }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Fridolan Miller.  Born 1872-03-10 in Warwick, Chester, Pennsylvania, USA \textsuperscript{6l, 7k, 2l, 4j, 8, 15 }.   Died 1953-12-05 in Spring City, Chester, Pennsylvania, USA \textsuperscript{8, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Elizabeth Miller.  Born 1860-03-21 in Warwick, Chester, Pennsylvania, USA \textsuperscript{26d, 8 }.   Died 1898-07-03 \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Ida Miller [3].  Born 1870-12-16 in St Peters, Chester, Pennsylvania, USA \textsuperscript{4a, 6a, 2b, 7c, 28, 30, 1c, 8, 15a }.   Died 1951-01-19 in Reading, Berks, Pennsylvania, USA \textsuperscript{8, 9j, 15a, 9k }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Martha A Miller.  Born 1861-09-05 in Warwick, Chester, Pennsylvania, USA \textsuperscript{4k, 15c, 37, 8 }.   Died 1908-09-08 in Upper Gwynedd, Montgomery, Pennsylvania, USA \textsuperscript{15c, 51a, 37, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+James Miller Jr V.  Born 1864-09-13 in Warwick, Chester, Pennsylvania, USA \textsuperscript{48 }.   Died 1896-03-03 in Warwick, Chester, Pennsylvania, USA \textsuperscript{48 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+John Miller.  Born 1862-01-14 in Warwick, Chester, Pennsylvania, USA \textsuperscript{49a, 15, 6m }.   Died 1911-01-29 in Chester County, Pennsylvania, USA \textsuperscript{15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8.}%
+\textbf{Jacob Hartenstine .  }Son of Jacob Hottenstein and Catharine Unknown.    Born 1802-06-20 in Pennsylvania, USA \textsuperscript{36c, 27a, 38a, 28 }.   Died 1888-12-16.   Relationship with Ann Cook.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{1.0}{0}%
+\grlisthead{9.}%
+\textbf{Ann Cook .  }Born between 1805 and 1814 in Pennsylvania, USA \textsuperscript{38a, 27a, 36c }.   Buried in Warwick, Chester County, Pennsylvania, USA \textsuperscript{8 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ann Cook and Jacob Hartenstine \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Anna Hartenstine.  Born 1841-01-13 in Chester County, Pennsylvania, USA \textsuperscript{4l, 26a, 38a, 6n, 15, 27a, 36c, 7l }.   Died 1922-09-02 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15, 9z, 52a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Jacob B Hartenstine.  Born 1844-04-14 in Pennsylvania, USA \textsuperscript{27b, 26a, 38a, 4l, 36c, 6o, 15, 8 }.   Died 1919-09-07 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15, 9aa, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Margarett Hartenstine.  Born between 1835 and 1836 in Pennsylvania, USA \textsuperscript{38a, 36a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Heber Hartenstine [4].  Born 1838-05-21 in Pennsylvania, USA \textsuperscript{27a, 28, 36a, 37, 38a, 39a, 8 }.   Died 1879-07-16 in Warwick, Chester County, Pennsylvania, USA \textsuperscript{37, 39a, 8, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Elizabeth Hartenstine.  Born 1827-12-04 in Berks County, Pennsylvania, USA \textsuperscript{4l, 8, 36c, 38a, 15 }.   Died 1906-09-07 in Berks County, Pennsylvania, USA \textsuperscript{8, 9ab, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{1.0}{0}%
+\grlisthead{10.}%
+\textbf{Abraham (Abram) Seivard .  }Son of Jacob Seivard (Seibert) and Catharine Wolf.    Born about 1806 in Berks County, Pennsylvania, USA \textsuperscript{36b, 38b }.   Died 1878-09-24 in Robeson, Berks, Pennsylvania, USA \textsuperscript{8, 53a, 54a }.   Buried in Morgantown, Berks County, Pennsylvania, USA \textsuperscript{8 }.  Relationship with Catharine Keinard.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{1.0}{0}%
+\grlisthead{11.}%
+\textbf{Catharine Keinard .  }Born about 1808 in Berks County, Pennsylvania, USA \textsuperscript{36b, 38b, 26e }.   Died 1882-08-31 \textsuperscript{8 }.   Buried in Morgantown, Berks County, Pennsylvania, USA \textsuperscript{8 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Keinard and Abraham (Abram) Seivard \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Elizabeth A Seivard.  Born 1845 in Pennsylvania, USA \textsuperscript{38b, 26f, 4m, 6p, 8 }.   Died 1928 in Maryland, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Henry Seivard.  Born 1839-11-12 in Birdsboro, Berks, Pennsylvania, USA \textsuperscript{38b, 26g, 7m, 6q, 15 }.   Died 1925-02-04 in Reading, Berks, Pennsylvania, USA \textsuperscript{9ac, 9ad, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Catharine Seivard.  Born 1832-11-09 in Pennsylvania, USA \textsuperscript{38b, 26e, 15, 36d, 6r, 8, 3d }.   Died 1921-01-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{15, 8, 3d, 9ae, 9af }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Ellen Seivard.  Born about 1835 in Pennsylvania, USA \textsuperscript{38b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Mary Ann Seivard [5].  Born 1842-11-08 in Pennsylvania, USA \textsuperscript{42, 7d, 6d, 28, 4d, 2d, 27a, 26b, 8, 36b, 37, 38b }.   Died 1932-01-28 in New Castle County, Delaware, USA \textsuperscript{42, 8, 9s, 9t, 37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jacob Seivard.  Born 1837-01-14 in Berks County, Pennsylvania, USA \textsuperscript{4l, 15, 26a, 38b }.   Died 1918-08-23 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15, 52b, 52c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Abraham Seivard.  Born 1849-05-06 in Pennsylvania, USA \textsuperscript{36b, 26h, 8, 38b, 4n, 15 }.   Died 1909-04-12 in Reading, Berks, Pennsylvania, USA \textsuperscript{9ag, 8, 40b, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{1.0}{0}%
+\grlisthead{12.}%
+\textbf{John H Miller .  }Born 1795-01-10 in St Peters, Chester, Pennsylvania, USA \textsuperscript{27c, 36e, 38c, 8, 37 }.   Died 1876-09-16 \textsuperscript{8, 37 }.   Buried in Pine Swamp, Chester County, Pennsylvania, USA \textsuperscript{8, 37 }.  Married Martha Thomas 1817-01-26 in Warwick, Chester, Pennsylvania, USA \textsuperscript{3e, 3e }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{1.0}{0}%
+\grlisthead{13.}%
+\textbf{Martha Thomas .  }Born 1798-02-07 in St Peters, Chester, Pennsylvania, USA \textsuperscript{36e, 38c, 27c, 8 }.   Died 1892-09-13 \textsuperscript{8, 9ah }.   Buried 1892-09-17 in Pine Swamp, Chester County, Pennsylvania, USA \textsuperscript{8, 9ah }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Martha Thomas and John H Miller \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Sarah Miller.  Born 1842 in Chester, Pennsylvania, USA \textsuperscript{38c, 8, 3f, 55, 55 }.   Died 1899-09-09 in Philadelphia, Pennsylvania, USA \textsuperscript{3e, 8, 3f, 56a, 55, 3e, 55 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+William Miller.  Born 1827-03-23 in Pennsylvania, USA \textsuperscript{26i, 27c, 38c, 8, 4o }.   Died 1904-09-22 \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Adeline B Miller.  Born 1832-05-20 in Pennsylvania, USA \textsuperscript{6s, 7n, 36f, 3g, 4p, 15, 8, 26j, 27d }.   Died 1925-06-07 in Reading, Berks, Pennsylvania, USA \textsuperscript{3g, 15, 8, 9ai, 9aj }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+James V Miller [6].  Born 1837-09-18 in Pottstown, Chester, Pennsylvania, USA \textsuperscript{48, 38c }.   Died 1925-02-25 in West Bradford, Chester, Pennsylvania, USA \textsuperscript{48 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Barbaner Miller.  Born about 1830 in Pennsylvania, USA \textsuperscript{38c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Philip T Miller.  Born 1820-10-09 in Pennsylvania, USA \textsuperscript{38c, 27c, 36g, 3e, 26k, 8 }.   Died 1912-02-19 in Warwick, Chester, Pennsylvania, USA \textsuperscript{8, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{1.0}{0}%
+\grlisthead{14.}%
+\textbf{Adam Mock .  }Son of Jacob Mock and Elizabeth Unknown.    Born about 1802 in Berks, Pennsylvania, USA \textsuperscript{57a, 3d }.   Died 1835-08-12 in Berks, Pennsylvania, USA \textsuperscript{54a, 54b, 3d, 57a }.   Buried in Warwick, Chester County, Pennsylvania, USA.  Married Rebecca Wynn about 1826 in Berks, Pennsylvania, USA \textsuperscript{57a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{1.0}{0}%
+\grlisthead{15.}%
+\textbf{Rebecca Wynn .  }Daughter of David Wynn and Mary Myers.    Born about 1803 in Pennsylvania, USA \textsuperscript{58a, 3d }.   Died 1856-10-13 in Berks County, Pennsylvania, USA \textsuperscript{54c, 54d, 3d }.   Buried in Warwick, Chester County, Pennsylvania, USA \textsuperscript{3d }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Rebecca Wynn and Adam Mock \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Oliver Mock.  Born 1833-12-04 in Berks, Pennsylvania, USA \textsuperscript{37, 27e, 59a, 26l }.   Died 1891-01-08 \textsuperscript{37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+David Mock.  Born 1836-04-13 in Berks, Pennsylvania, USA \textsuperscript{12c, 8 }.   Died 1919-06-13 in Longswamp, Berks, Pennsylvania, USA \textsuperscript{12c, 15, 9ak, 8, 9al }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Matilda Mock.  Born between 1828 and 1830 in Berks, Pennsylvania, USA \textsuperscript{60a }.   Died 1852-09-08 in Warwick, Chester, Pennsylvania, USA \textsuperscript{60a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Mary Ann Mock [7].  Born 1832-11-22 in Robeson, Berks, Pennsylvania, USA \textsuperscript{48, 15 }.   Died 1913-05-27 in Warwick, Chester, Pennsylvania, USA \textsuperscript{48, 9u, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+John Mock.  Born 1828-03-18 in Berks, Pennsylvania, USA \textsuperscript{26m, 3h, 8 }.   Died 1885-08-26 in Birdsboro, Berks, Pennsylvania, USA \textsuperscript{9am, 3h, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16.}%
+\textbf{Jacob Hottenstein .  }Died about 1849.   Relationship with Catharine Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{1.0}{0}%
+\grlisthead{17.}%
+\textbf{Catharine Unknown .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Unknown and Jacob Hottenstein \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Hartenstine.  Born 1796-12-09 in Pennsylvania, USA \textsuperscript{3e, 27f, 36h }.   Died 1882-11-14 in Lancaster, Pennsylvania, USA \textsuperscript{3e, 3e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Christina Hartenstine.  Born 1811-11-05 in Pennsylvania, USA \textsuperscript{3e, 26c, 4q, 36h, 38a, 8, 37 }.   Died 1901-02-03 in Lancaster, Pennsylvania, USA \textsuperscript{3e, 8, 37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Mary Hartenstine.  Born before 1774.   Died before 1849.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Peter Hartenstine.  Born 1814 in Pennsylvania, USA \textsuperscript{38d, 27g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Elizabeth Hartenstine.  Born 1804-02-07 in Pennsylvania, USA \textsuperscript{36i, 38e, 8, 27h }.   Died 1876-03-29 in Reading, Berks, Pennsylvania, USA \textsuperscript{8, 9an, 61a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Henry Hartenstine.  Born 1807-06-07 in Pennsylvania, USA \textsuperscript{27e, 38d, 8, 36j }.   Died 1892-11-06 in Chester County, Pennsylvania, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Jacob Hartenstine [8].  Born 1802-06-20 in Pennsylvania, USA \textsuperscript{36c, 27a, 38a, 28 }.   Died 1888-12-16.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Hanna Hartenstine.  Born 1774.   Died 1848-03-31.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+James Hartenstine.  Born 1793-11-14 in Pennsylvania, USA \textsuperscript{62, 8, 37, 39b, 3e }.   Died 1850-02-25 in Lancaster, Pennsylvania, USA \textsuperscript{8, 37, 39b, 3e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Catharine Hartenstine.  Born about 1803 in Pennsylvania, USA \textsuperscript{6t, 38d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{1.0}{0}%
+\grlisthead{20.}%
+\textbf{Jacob Seivard (Seibert) .  }Born about 1780 in Robeson, Berks, Pennsylvania, USA \textsuperscript{63, 38f }.   Relationship with Catharine Wolf.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{1.0}{0}%
+\grlisthead{21.}%
+\textbf{Catharine Wolf .  }Daughter of Casper (Jasper) Wolf.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Wolf and Jacob Seivard (Seibert) \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Seivard.  Died before 1895.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Elizabeth (Betsy) Seivard.  Born about 1820 in Pennsylvania, USA \textsuperscript{27i, 38g }.   Died between 1870 and 1898.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Hannah Seivard.  Born 1804-09-23 in Pennsylvania, USA \textsuperscript{27j, 36k, 38h, 3i, 26n, 8, 26o, 9ao }.   Died 1898-02-13 in Berks, Pennsylvania, USA \textsuperscript{8, 40c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Jacob Seivard.  Died before 1895.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Abraham (Abram) Seivard [10].  Born about 1806 in Berks County, Pennsylvania, USA \textsuperscript{36b, 38b }.   Died 1878-09-24 in Robeson, Berks, Pennsylvania, USA \textsuperscript{8, 53a, 54a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Mary Seivard.  Born about 1815.   Died 1895-07-30 in Robeson, Berks, Pennsylvania, USA \textsuperscript{40d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Catharine Seivard.  Born 1820-04-01 in Berks, Pennsylvania, USA \textsuperscript{3i, 26p, 27k, 8, 38i, 3i }.   Died 1892-10-09 \textsuperscript{8, 3i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{1.0}{0}%
+\grlisthead{28.}%
+\textbf{Jacob Mock .  }Born about 1754 in Pennsylvania, USA \textsuperscript{64 }.   Died 1810 in Berks, Pennsylvania, USA \textsuperscript{54a }.   Relationship with Elizabeth Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{1.0}{0}%
+\grlisthead{29.}%
+\textbf{Elizabeth Unknown .  }Born about 1760.   Died 1828 in Berks, Pennsylvania, USA \textsuperscript{57a, 54a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Unknown and Jacob Mock \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Elizabeth Mock.  Born 1792 in Berks, Pennsylvania, USA \textsuperscript{37, 8 }.   Died 1857-04-08 \textsuperscript{37, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Catharine Mock.  Born between 1785 and 1796 in Berks, Pennsylvania, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Mathias Mock.  Born 1800-08-19 in Berks, Pennsylvania, USA \textsuperscript{3i }.   Died after 1860.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Sarah Mock.  Born between 1790 and 1799 in Berks, Pennsylvania, USA.   Died after 1828.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+John Mock.  Born about 1784 in Pennsylvania, USA.   Died after 1832.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Adam Mock [14].  Born about 1802 in Berks, Pennsylvania, USA \textsuperscript{57a, 3d }.   Died 1835-08-12 in Berks, Pennsylvania, USA \textsuperscript{54a, 54b, 3d, 57a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Rebecca Mock.  Born 1789-09-16 in Berks, Pennsylvania, USA \textsuperscript{36l, 37, 8 }.   Died 1862-09-03 in Warwick, Chester, Pennsylvania, USA \textsuperscript{37, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Jacob Mock.  Born 1785-11-21 in Berks, Pennsylvania, USA \textsuperscript{57a, 38j }.   Died 1859-08-26 in Berks, Pennsylvania, USA \textsuperscript{57a, 3e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{1.0}{0}%
+\grlisthead{30.}%
+\textbf{David Wynn .  }Son of James Wynn and Rebecca Steele.    Born about 1772 \textsuperscript{3d }.   Died 1848-02-17 in Chester County, Pennsylvania, USA \textsuperscript{54a, 54c, 3d, 8 }.   Buried in Warwick, Chester County, Pennsylvania, USA \textsuperscript{8 }.  Relationship with Mary Myers.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{1.0}{0}%
+\grlisthead{31.}%
+\textbf{Mary Myers .  }Born about 1774 \textsuperscript{3d }.   Died 1841-11-27 in Chester County, Pennsylvania, USA \textsuperscript{3d }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Myers and David Wynn \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Anna M Wynn.  Born 1812 in Chester County, Pennsylvania, USA \textsuperscript{38k, 36m, 8, 3j, 55, 37 }.   Died 1865-11-03 in Philadelphia, Philadelphia, Pennsylvania, USA \textsuperscript{8, 3j, 55, 37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Harriett Wynn.  Born 1808-11-06 in Pennsylvania, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Samuel Wynn.  Born 1805-08-11 in Pennsylvania, USA \textsuperscript{12d, 8, 3d, 26q, 27l, 38l, 36n }.   Died 1880-06-05 in Pennsylvania, USA \textsuperscript{12d, 8, 3d, 40e, 54d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Mary Wynn.  Born 1803.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+David Wynn.  Born about 1801 in Pennsylvania, USA \textsuperscript{36o, 38m }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+James Wynn.  Born about 1804 in Pennsylvania, USA \textsuperscript{36p }.   Died 1861-05-31 in Pennsylvania, USA \textsuperscript{8, 37 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Rebecca Wynn [15].  Born about 1803 in Pennsylvania, USA \textsuperscript{58a, 3d }.   Died 1856-10-13 in Berks County, Pennsylvania, USA \textsuperscript{54c, 54d, 3d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Catherine Wynn.  Born 1798.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+John Wynn.  Born about 1791 in Pennsylvania, USA \textsuperscript{38n, 36q }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Margaret Wynn.  Born 1818 in Pennsylvania, USA \textsuperscript{38o, 8, 36r, 27m }.   Died 1889 in Pennsylvania, USA \textsuperscript{8, 54e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 6 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{1.0}{0}%
+\grlisthead{42.}%
+\textbf{Casper (Jasper) Wolf .  }Relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Unknown and Casper (Jasper) Wolf \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Catharine Wolf [21].  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{60.}%
+\grminpghead{1.0}{0}%
+\grlisthead{60.}%
+\textbf{James Wynn .  }Son of Jonathan Wynne and Ann Warner.    Born 1736-03-28 in Pennsylvania, USA \textsuperscript{3d, 65a, 66a }.   Died 1817 in Pennsylvania, USA \textsuperscript{3d }.   Married Rebecca Steele 1768 in Pennsylvania, USA \textsuperscript{65a, 65a }.  Also married Unknown 1768 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{67 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{61.}%
+\grminpghead{1.0}{0}%
+\grlisthead{61.}%
+\textbf{Rebecca Steele .  }Born 1746-10-05 in Chester County, Pennsylvania, USA \textsuperscript{3d, 8 }.   Died 1827-09-25 in Lancaster, Pennsylvania, USA \textsuperscript{3d, 8, 37 }.   Buried in Warwick, Chester County, Pennsylvania, USA \textsuperscript{8, 37 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Rebecca Steele and James Wynn \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Elizabeth Wynn.  Born 1769 in East Nantmeal, Chester, Pennsylvania, USA.   Died before 1827.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Thomas Wynn.  Born about 1780 in Pennsylvania, USA \textsuperscript{38p }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+James Wynn.  Born about 1773.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Margaret Wynn.  Born 1768 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{38q, 3d, 68, 69a }.   Died 1862-09-15 in Chester County, Pennsylvania, USA \textsuperscript{8, 3d, 37, 69a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+David Wynn [30].  Born about 1772 \textsuperscript{3d }.   Died 1848-02-17 in Chester County, Pennsylvania, USA \textsuperscript{54a, 54c, 3d, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jonathan Wynn.  Born 1767-10-18 in Pennsylvania, USA \textsuperscript{66b, 65b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Rebecca Wynn.  Born 1776-02-17 \textsuperscript{8 }.   Died 1847-12-17 in Lancaster, Pennsylvania, USA \textsuperscript{3d, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 7 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{120.}%
+\grminpghead{1.0}{0}%
+\grlisthead{120.}%
+\textbf{Jonathan Wynne .  }Son of Jonathan Wynne and Sarah Greaves (Graves).    Born 1704 in Philadelphia County, Pennsylvania, USA \textsuperscript{68, 65c, 70, 8, 69b, 71a, 72a, 73a }.   Died 1788-04-17 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{54f, 70, 8, 66c, 74, 69b, 71a, 73a }.   Married Ann Warner 1730-06-16 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{66d, 65c, 65c, 66c, 69b, 75a, 72a, 72a, 76 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{121.}%
+\grminpghead{1.0}{0}%
+\grlisthead{121.}%
+\textbf{Ann Warner .  }Daughter of Isaac Warner and Anne Craven.    Born between 1708 and 1710 in Philadelphia County, Pennsylvania, USA \textsuperscript{70, 8, 65c, 75a, 77, 78 }.   Died 1786-03-09 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{70, 66d, 8, 75a, 71a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ann Warner and Jonathan Wynne \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Samuel Wynn.  Born 1731-08-22 in Pennsylvania, USA \textsuperscript{66e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Thomas Wynn.  Born 1750-10-27 in Chester County, Pennsylvania, USA \textsuperscript{66f, 65d, 65e, 69c, 79, 68 }.   Died 1819-06-09 in Fayette County, Pennsylvania, USA \textsuperscript{66f, 69c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Mary Wynn.  Born 1733-11-19 \textsuperscript{66g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Esther Wynn.  Born 1738-01-28 in Pennsylvania, USA \textsuperscript{66h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+James Wynn [60].  Born 1736-03-28 in Pennsylvania, USA \textsuperscript{3d, 65a, 66a }.   Died 1817 in Pennsylvania, USA \textsuperscript{3d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jonathan Wynn.  Born 1749-10-28 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{66i, 71a, 65f, 69d, 68 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Jane Wynn.  Born 1754-01-16 in Pennsylvania, USA \textsuperscript{66j }.   Died 1831-12-27 in Fayette County, Pennsylvania, USA \textsuperscript{66j }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Isaac Wynn.  Born 1741-08-24 in Chester County, Pennsylvania, USA \textsuperscript{66k, 68, 69e, 65g, 70, 8 }.   Died 1807-10-09 in Fayette County, Pennsylvania, USA \textsuperscript{66k, 69e, 70, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Hannah Wynn.  Born 1743-02-25 in Pennsylvania, USA \textsuperscript{66l, 65h, 37, 3d, 8 }.   Died 1826-03-01 in Lancaster, Pennsylvania, USA \textsuperscript{66l, 37, 3d, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Warner Wynn.  Born 1747-01-28 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{66m, 69f, 65i, 80, 69f }.   Died 1827 in Butler County, Ohio, USA \textsuperscript{69f, 69f }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xi.}%
+Elizabeth Wynn.  Born 1755-10-23 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{66n, 65j, 81a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 8 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{240.}%
+\grminpghead{1.0}{0}%
+\grlisthead{240.}%
+\textbf{Jonathan Wynne .  }Son of Thomas Wynne and Martha Buttall.    Born about 1669 in Wales \textsuperscript{37, 65k, 65l, 8, 68, 68, 37, 28, 68, 73a }.   Died between 1719 and 1721 in Pennsylvania, USA \textsuperscript{74, 37, 8, 37, 28, 66o, 74, 82, 73a }.   Buried in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{37, 8, 37 }.  Married Sarah Greaves (Graves) 1694 in Philadelphia, Philadelphia, Pennsylvania, USA \textsuperscript{65k, 65m, 69g, 65l, 65k, 65l, 67, 66o, 65m }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{241.}%
+\grminpghead{1.0}{0}%
+\grlisthead{241.}%
+\textbf{Sarah Greaves (Graves) .  }Born between 1659 and 1680 in Pennsylvania or CT \textsuperscript{68, 64, 65k, 8, 69g, 37, 65l, 28 }.   Died 1744 in Philadelphia County, Pennsylvania, USA \textsuperscript{8, 69g, 37, 28, 83a }.   Buried in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{8, 37, 83a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah Greaves (Graves) and Jonathan Wynne \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Thomas Wynne.  Born 1695 in Pennsylvania, USA \textsuperscript{68, 65n, 28, 8 }.   Died 1751 in Philadelphia, Philadelphia County, Pennsylvania, USA \textsuperscript{66p, 28, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Mary Wynne.  Born 1703 in Pennsylvania, USA \textsuperscript{65o, 69h, 65p }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Jonathan Wynne [120].  Born 1704 in Philadelphia County, Pennsylvania, USA \textsuperscript{68, 65c, 70, 8, 69b, 71a, 72a, 73a }.   Died 1788-04-17 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{54f, 70, 8, 66c, 74, 69b, 71a, 73a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+John Wynne.  Died after 1774 \textsuperscript{84 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Elizabeth Wynne.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Sidney Wynne.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Hannah Wynne.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Martha Wynne.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{242.}%
+\grminpghead{1.0}{0}%
+\grlisthead{242.}%
+\textbf{Isaac Warner .  }Son of William Warner and Ann Dyde.    Born about 1670 in Worcestershire, England \textsuperscript{8, 37 }.   Died 1727 in Pennsylvania, USA \textsuperscript{8, 85, 37, 83b }.   Buried in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{8, 37 }.  Married Anne Craven 1692 in Philadelphia, Pennsylvania, USA \textsuperscript{86, 83c, 87, 87, 83c }.  Also married Unknown 1699 in Philadelphia County, Pennsylvania, USA \textsuperscript{67 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{243.}%
+\grminpghead{1.0}{0}%
+\grlisthead{243.}%
+\textbf{Anne Craven .  }Daughter of James Craven.   Born between 1669 and 1670 in Philadelphia, Pennsylvania, USA \textsuperscript{68, 64, 69i }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Anne Craven and Isaac Warner \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Ann Warner [121].  Born between 1708 and 1710 in Philadelphia County, Pennsylvania, USA \textsuperscript{70, 8, 65c, 75a, 77, 78 }.   Died 1786-03-09 in East Nantmeal, Chester, Pennsylvania, USA \textsuperscript{70, 66d, 8, 75a, 71a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 9 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{480.}%
+\grminpghead{1.0}{0}%
+\grlisthead{480.}%
+\textbf{Thomas Wynne .  }Born 1627 in Caerwys, Flintshire, Wales \textsuperscript{37, 28, 65q, 65m, 8, 68, 70 }.   Died 1692 in Philadelphia, Philadelphia County, Pennsylvania, USA \textsuperscript{37, 83d, 8, 74, 70, 88 }.   Buried in Philadelphia, Philadelphia County, Pennsylvania, USA \textsuperscript{37, 83d, 8 }.  Relationship with Elizabeth Unknown (Wynne).  Also married Martha Buttall about 1655 in Wales \textsuperscript{65q, 65r, 65q, 65r }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{481.}%
+\grminpghead{1.0}{0}%
+\grlisthead{481.}%
+\textbf{Martha Buttall .  }Born 1627 in Wales \textsuperscript{68, 65m, 68, 65r, 28 }.   Died 1670 in Philadelphia, Philadelphia, Pennsylvania, USA \textsuperscript{74 }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Martha Buttall and Thomas Wynne \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Hannah Wynne.  Born 1664 in Bronvedog, Flintshire, Wales \textsuperscript{65s, 68 }.   Died 1750-09-22 in Philadelphia, Delaware, Pennsylvania, USA \textsuperscript{89a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Sidney Wynne.  Born 1664 in Flintshire, Wales \textsuperscript{65t, 68 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Rebecca Wynne.  Born 1662 in Wales \textsuperscript{90a, 65u, 90b, 66q }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Tabitha Wynne.  Born in Wales.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Mary Wynne.  Born 1659 in Caerwys, Flintshire, Wales \textsuperscript{28, 66r, 8, 65v }.   Died between 1726-09-27 and 1738-07-29 in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{28, 66r, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Jonathan Wynne [240].  Born about 1669 in Wales \textsuperscript{37, 65k, 65l, 8, 68, 68, 37, 28, 68, 73a }.   Died between 1719 and 1721 in Pennsylvania, USA \textsuperscript{74, 37, 8, 37, 28, 66o, 74, 82, 73a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{484.}%
+\grminpghead{1.0}{0}%
+\grlisthead{484.}%
+\textbf{William Warner .  }Born about 1627 in Worcestershire, England \textsuperscript{28, 8, 37 }.   Baptized 1627-07-08 \textsuperscript{28 }.  Died about 1706 in Philadelphia County, Pennsylvania, USA \textsuperscript{28, 8, 37, 74 }.   Buried in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{8, 37 }.  Relationship with Ann Dyde.  Also married Unknown 1656-11-00 in Philadelphia, Philadelphia, Pennsylvania, USA \textsuperscript{67 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{485.}%
+\grminpghead{1.0}{0}%
+\grlisthead{485.}%
+\textbf{Ann Dyde .  }Born about 1630 in Worcestershire, England \textsuperscript{8, 37, 28 }.   Died about 1705 in Montgomery County, Pennsylvania, USA \textsuperscript{8, 37, 83e, 85 }.   Buried in Merion Station, Montgomery County, Pennsylvania, USA \textsuperscript{8, 37 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ann Dyde and William Warner \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Isaac Warner [242].  Born about 1670 in Worcestershire, England \textsuperscript{8, 37 }.   Died 1727 in Pennsylvania, USA \textsuperscript{8, 85, 37, 83b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{486.}%
+\grminpghead{1.0}{0}%
+\grlisthead{486.}%
+\textbf{James Craven .  }Relationship with Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Unknown and James Craven \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Anne Craven [243].  Born between 1669 and 1670 in Philadelphia, Pennsylvania, USA \textsuperscript{68, 64, 69i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 6A; Enumeration District: 70-80 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 6B; Enumeration District: 70-80 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3679; Page: 8A; Enumeration District: 70-57 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1940; Census Place: Colmar Manor, Prince George's, Maryland;Roll: T627\_1556; Page: 4A; Enumeration District: 17-11 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3678; Page: 2B; Enumeration District: 70-14 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1940; Census Place: Upper Merion, Montgomery, Pennsylvania;Roll: T627\_3585; Page: 5A; Enumeration District: 46-214 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1940; Census Place: West Whiteland, Chester, Pennsylvania; Roll:T627\_3467; Page: 4B; Enumeration District: 15-126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1940; Census Place: Wilmington, New Castle, Delaware; Roll:T627\_551; Page: 12A; Enumeration District: 4-74 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1940; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:T627\_3583; Page: 13A; Enumeration District: 46-174 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1940; Census Place: Wallace, Chester, Pennsylvania; Roll:T627\_3467; Page: 3B; Enumeration District: 15-95 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1940; Census Place: Warwick, Chester, Pennsylvania; Roll:T627\_3467; Page: 61A; Enumeration District: 15-96 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2002;Page: 27A; Enumeration District: 0061; Image: 967.0; FHL microfilm: 2341736 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2002;Page: 6B; Enumeration District: 0040; Image: 77.0; FHL microfilm: 2341736 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 7B; Enumeration District: 0009; Image: 15.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1930; Census Place: Wilmington, New Castle, Delaware; Roll: 290;Page: 17A; Enumeration District: 0040; Image: 572.0; FHL microfilm: 2340025 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1930; Census Place: Marple, Delaware, Pennsylvania; Roll: 2032;Page: 3B; Enumeration District: 0090; Image: 104.0; FHL microfilm: 2341766 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1930; Census Place: Schuylkill, Chester, Pennsylvania; Roll:2020; Page: 13B; Enumeration District: 0069; Image: 857.0; FHL microfilm: 2341754 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1930; Census Place: Downingtown, Chester, Pennsylvania; Roll:2019; Page: 1A; Enumeration District: 0019; Image: 420.0; FHL microfilm: 2341753 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1930; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:2084; Page: 16B; Enumeration District: 0122; Image: 889.0; FHL microfilm: 2341818 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1930; Census Place: Wallace, Chester, Pennsylvania; Roll: 2020;Page: 4A; Enumeration District: 0081; Image: 446.0; FHL microfilm: 2341754 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1930; Census Place: Wilkes-Barre, Luzerne, Pennsylvania; Roll:2073; Page: 18B; Enumeration District: 0270; Image: 1008.0; FHL microfilm: 2341807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 16A; Enumeration District: 0048; Image: 457.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1930; Census Place: East Vincent, Chester, Pennsylvania; Roll:2019; Page: 12A; Enumeration District: 0033; Image: 811.0; FHL microfilm: 2341753 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+Ancestry.com, "Pennsylvania and New Jersey, Church and Town Records, 1708-1985", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 589 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 590 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 568 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 81 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 571 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 588 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 571 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 1007 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:1445; Page: 4B; Enumeration District: 0276; FHL microfilm: 1241445 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:1378; Page: 17A; Enumeration District: 0053; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 8A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 9A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Marple, Delaware, Pennsylvania; Roll: 1405;Page: 3A; Enumeration District: 0173; FHL microfilm: 1241405 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 2B; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 3A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 8B; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1900; Census Place: Exeter, Berks, Pennsylvania; Roll: 1376;Page: 6B; Enumeration District: 0019; FHL microfilm: 1241376 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 5A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1900; Census Place: Worcester, Montgomery, Pennsylvania; Roll:1445; Page: 12A; Enumeration District: 0287; FHL microfilm: 1241445 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1900; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:1445; Page: 2B; Enumeration District: 0274; FHL microfilm: 1241445 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1900; Census Place: Northeast, Cecil, Maryland; Roll: 620; Page:7A; Enumeration District: 0019; FHL microfilm: 1240620 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1900; Census Place: Reading Ward 14, Berks, Pennsylvania; Roll:1379; Enumeration District: 0095; FHL microfilm: 1241379 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Year: 1900; Census Place: Union, Berks, Pennsylvania; Roll: 1380;Page: 9B; Enumeration District: 0115; FHL microfilm: 1241380 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Year: 1900; Census Place: Cumru, Berks, Pennsylvania; Roll: 1376;Page: 18B; Enumeration District: 0014; FHL microfilm: 1241376 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 11A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Number: 170-22-1869; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Number: 169-14-1632; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Number: 175-28-3865; Issue State: Pennsylvania; Issue Date: 1951-1953 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:T624\_1314; Page: 18A; Enumeration District: 0055; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:T624\_1314; Page: 14B; Enumeration District: 0055; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Philadelphia Ward 47, Philadelphia,Pennsylvania; Roll: T624\_1414; Page: 7B; Enumeration District: 1209; FHL microfilm: 1375427 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: Warwick, Chester, Pennsylvania; Roll:T624\_1329; Page: 8B; Enumeration District: 0069; FHL microfilm: 1375342 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1910; Census Place: Marple, Delaware, Pennsylvania; Roll:T624\_1340; Page: 7B; Enumeration District: 0145; FHL microfilm: 1375353 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1910; Census Place: East Nantmeal, Chester, Pennsylvania; Roll:T624\_1328; Page: 7A; Enumeration District: 0022; FHL microfilm: 1375341 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1910; Census Place: Downingtown, Chester, Pennsylvania; Roll:T624\_1327; Page: 13B; Enumeration District: 0014; FHL microfilm: 1375340 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1910; Census Place: Pottstown Ward 6, Montgomery, Pennsylvania;Roll: T624\_1378; Page: 13A; Enumeration District: 0137; FHL microfilm: 1375391 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1910; Census Place: South Coventry, Chester, Pennsylvania; Roll:T624\_1328; Page: 1B; Enumeration District: 0057; FHL microfilm: 1375341 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1910; Census Place: Exeter, Berks, Pennsylvania; Roll:T624\_1313; Page: 18A; Enumeration District: 0020; FHL microfilm: 1375326 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1910; Census Place: Reading Ward 8, Berks, Pennsylvania; Roll:T624\_1314; Page: 11A; Enumeration District: 0071; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1910; Census Place: East Vincent, Chester, Pennsylvania; Roll:T624\_1328; Page: 10A; Enumeration District: 0026; FHL microfilm: 1375341 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1910; Census Place: Parkesburg, Chester, Pennsylvania; Roll:T624\_1328; Page: 4B; Enumeration District: 0045; FHL microfilm: 1375341 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1910; Census Place: Quakertown Ward 3, Bucks, Pennsylvania;Roll: T624\_1320; Page: 9B; Enumeration District: 0043; FHL microfilm: 1375333 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Year: 1910; Census Place: Pottstown Ward 5, Montgomery, Pennsylvania;Roll: T624\_1378; Page: 12A; Enumeration District: 0136; FHL microfilm: 1375391 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Year: 1910; Census Place: Election District 5, Cecil, Maryland; Roll:T624\_563; Page: 7B; Enumeration District: 0022; FHL microfilm: 1374576 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Year: 1910; Census Place: Reading Ward 14, Berks, Pennsylvania; Roll:T624\_1315; Page: 8B; Enumeration District: 0095; FHL microfilm: 1375328 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Year: 1910; Census Place: Warwick, Chester, Pennsylvania; Roll:T624\_1329; Page: 11B; Enumeration District: 0069; FHL microfilm: 1375342 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Year: 1910; Census Place: Cumru, Berks, Pennsylvania; Roll: T624\_1313;Page: 5A; Enumeration District: 0014; FHL microfilm: 1375326 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{t:}%
+\grminpghead{1.9}{0}%
+\grlisthead{t:}%
+Year: 1910; Census Place: Frederick, Frederick, Maryland; Roll:T624\_564; Page: 5B; Enumeration District: 0051; FHL microfilm: 1374577 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T625\_1538; Page: 10A; Enumeration District: 115; Image: 105 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T625\_1537; Page: 8B; Enumeration District: 82; Image: 300 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Reading Ward 12, Berks, Pennsylvania; Roll:T625\_1537; Page: 10A; Enumeration District: 96; Image: 656 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: Wallace, Chester, Pennsylvania; Roll:T625\_1551; Page: 3A; Enumeration District: 84; Image: 62 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1920; Census Place: Marple, Delaware, Pennsylvania; Roll:T625\_1562; Page: 1A; Enumeration District: 176; Image: 502 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1920; Census Place: Upper Merion, Montgomery, Pennsylvania;Roll: T625\_1606; Page: 6B; Enumeration District: 184; Image: 652 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1920; Census Place: Wilmington Ward 7, New Castle, Delaware;Roll: T625\_203; Page: 3B; Enumeration District: 87; Image: 385 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1920; Census Place: Pottstown Ward 6, Montgomery, Pennsylvania;Roll: T625\_1607; Page: 9B; Enumeration District: 162; Image: 306 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1920; Census Place: Wallace, Chester, Pennsylvania; Roll:T625\_1551; Page: 4A; Enumeration District: 84; Image: 64 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1920; Census Place: Reading Ward 8, Berks, Pennsylvania; Roll:T625\_1537; Page: 4A; Enumeration District: 78; Image: 203 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1920; Census Place: East Vincent, Chester, Pennsylvania; Roll:T625\_1550; Page: 11B; Enumeration District: 36; Image: 187 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1920; Census Place: Pottstown Ward 8, Montgomery, Pennsylvania;Roll: T625\_1607; Page: 2B; Enumeration District: 164; Image: 366 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1920; Census Place: Reading Ward 14, Berks, Pennsylvania; Roll:T625\_1537; Page: 8A; Enumeration District: 105; Image: 917 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1920; Census Place: Caernarvon, Berks, Pennsylvania; Roll:T625\_1535; Page: 3B; Enumeration District: 14; Image: 383 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+"Reading Eagle", Location: Reading, Berks, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Laura Hartenstine Rettgers, Reading Eagle Funeral Notice, Page 33,Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Laura T Hartenstine Rettgers Obituary, Reading Eagle, Page 32, Column5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Ithamar and Laura Rettgers Wedding 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Ithamar Rettgers Death Notice, Reading Eagle, Page 20, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Ithamar Rettgers Obituary, Reading Eagle, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Ithamar Rettgers Funeral, Reading Eagle, Page 14, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Forrest Rettgers Obituary, Reading Eagle, Page C5, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Jacob S Hartenstine Obituary, Reading Eagle, Page 3, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Jacob S Hartenstine Funeral, Reading Eagle, Page 2, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Ida Miller Hartenstine Torpey Obituary, Reading Eagle, Page 12, Column1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Ida Miller Hartenstine Torpey Death Notice, Reading Eagle, Page 13,Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Clarence Hartenstine Obituary, Reading Eagle, Page 18, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Clarence Hartenstine Death Notice, Reading Eagle, Page 25, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Herbert Hartenstine Obituary, Reading Eagle, Page 2, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Herbert Hartenstine Accident Announcement, Reading Eagle, Page 1,Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Herbert Hartenstine Arrives for Burial, Reading Eagle, Page 2, Column5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Mary Hartenstine Ringler Funeral Notice, Reading Eagle, Page 30,Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Mary Hartenstine Ringler Obituary, Reading Eagle, Page 29, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Mary Seivard Hartenstine Comstock Obituary, Reading Eagle, Page 26,Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{t:}%
+\grminpghead{1.9}{0}%
+\grlisthead{t:}%
+Mary Seivard Hartenstine Comstock Death Notice, Reading Eagle, Page26, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{u:}%
+\grminpghead{1.9}{0}%
+\grlisthead{u:}%
+Mary Ann Mock Miller Obituary, Reading Eagle, Page 3, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{v:}%
+\grminpghead{1.9}{0}%
+\grlisthead{v:}%
+Theodore Miller Obituary, Reading Eagle, Page 18, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{w:}%
+\grminpghead{1.9}{0}%
+\grlisthead{w:}%
+Sarah Ann Miller Fies, Reading Eagle Death Notice, Page 12, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{x:}%
+\grminpghead{1.9}{0}%
+\grlisthead{x:}%
+Sarah Ann Miller Fies, Reading Eagle Obituary, Page 1, Column 8 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{y:}%
+\grminpghead{1.9}{0}%
+\grlisthead{y:}%
+Morris Miller Obituary, Reading Eagle, Page 20, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{z:}%
+\grminpghead{1.9}{0}%
+\grlisthead{z:}%
+Anna Hartenstine Seivard Obituary, Reading Eagle, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aa:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aa:}%
+Jacob B Hartenstine Obituary, Reading Eagle, Page 4, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ab:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ab:}%
+Elizabeth Hartenstine / Hottenstein, Reading Eagle, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ac:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ac:}%
+Henry Seivard Obituary, Reading Eagle, Page 2, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ad:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ad:}%
+Henry Seivard Death Notice, Reading Eagle, Page 22, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ae:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ae:}%
+Catharine Seivard Williams Obituary, Reading Eagle, Page 22, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{af:}%
+\grminpghead{1.9}{0}%
+\grlisthead{af:}%
+Catharine Seivard Williams Death Notice, Reading Eagle, Page 12,Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ag:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ag:}%
+Abraham Seivard Obituary, Reading Eagle, Page 10, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ah:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ah:}%
+Martha Thomas Miller Obituary, Reading Eagle, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ai:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ai:}%
+Adaline B Miller Bertolet Fry Obituary, Reading Eagle, Page 2, Column2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aj:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aj:}%
+Adaline B Miller Bertolet Fry Death Notice, Reading Eagle, Page 22,Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ak:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ak:}%
+David Mock Obituary, Reading Eagle, Page 4, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{al:}%
+\grminpghead{1.9}{0}%
+\grlisthead{al:}%
+David Mock Death Notice, Reading Eagle, Page 24, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{am:}%
+\grminpghead{1.9}{0}%
+\grlisthead{am:}%
+John Mock, Reading Eagle, Page 4, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{an:}%
+\grminpghead{1.9}{0}%
+\grlisthead{an:}%
+Elizabeth Hartenstine Richards Obituary, Reading Eagle, Page 4, Column2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ao:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ao:}%
+Hannah Seivard Fry Biography, Reading Eagle, Page 6, column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+"Pennsylvania, Berks County, Marriage Certificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ithamar B Rettgers and Laura T Hartenstine Marriage Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+Ancestry.com, "Berks County, Pennsylvania Marriages, 1885-1929", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-10; Folder Number: 405 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1950-2010; Series Number: Series 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-8; Folder Number: 337 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Series Number: Series 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-10; Folder Number: 405 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+Graden, Debra, comp., "U.S. Military Records, 1925: Official National Guard Register", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ida Miller Hartenstine Torpey Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Morris T Miller Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Martha Miller Holland 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+Ancestry.com, "Pennsylvania, WWI Veterans Service and Compensation Files, 1917-1919,1934-1948", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "United States Obituary Collection", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Publication Date: 8 Jun 2014; Publication Place: Marion, Virginia, USA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+Ancestry.com, "U.S. Cemetery and Funeral Home Collection", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+"Farris Funeral Home" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Farris Funeral Service \& Crematory Obituary, 427 East Main Street,Abingdon, VA 24210 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+Ancestry.com, "U.S. School Yearbooks", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+"Pennsylvania, Department of Health, Bureau of Vital Statistics, BirthCertificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Robert Edgar Rettgers Birth Certificate, No 183146, File No 126789,Registered No. 1680 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+Ancestry.com, "Pennsylvania, Veteran Compensation Application Files, WWII, 1950-1966", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+"Cocklin Funeral Home" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Cocklin Funeral Home Obituary 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:1160; Family History Film: 1255160; Page: 521C; Enumeration District: 053; Image: 0008 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 433B; Enumeration District: 097; Image: 0655 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 430D; Enumeration District: 097; Image: 0649 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 439A; Enumeration District: 097; Image: 0666 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 435A; Enumeration District: 097; Image: 0658 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: Baltimore, Baltimore (Independent City),Maryland; Roll: 497; Family History Film: 1254497; Page: 78B; Enumeration District: 004; Image: 0159 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1101;Family History Film: 1255101; Page: 179A; Enumeration District: 047; Image: 0528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1101;Family History Film: 1255101; Page: 177B; Enumeration District: 047; Image: 0525 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 440D; Enumeration District: 097; Image: 0669 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1101;Family History Film: 1255101; Page: 127C; Enumeration District: 044; Image: 0422 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 429A; Enumeration District: 097; Image: 0646 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1880; Census Place: Union, Berks, Pennsylvania; Roll: 1100;Family History Film: 1255100; Page: 354A; Enumeration District: 068; Image: 0717 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1880; Census Place: Birdsboro, Berks, Pennsylvania; Roll: 1100;Family History Film: 1255100; Page: 257C; Enumeration District: 063; Image: 0520 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1880; Census Place: Caernarvon, Berks, Pennsylvania; Roll: 1099;Family History Film: 1255099; Page: 113C; Enumeration District: 007; Image: 0231 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Year: 1880; Census Place: Robeson, Berks, Pennsylvania; Roll: 1100;Family History Film: 1255100; Page: 237C; Enumeration District: 062; Image: 0479 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Year: 1880; Census Place: Robeson, Berks, Pennsylvania; Roll: 1100;Family History Film: 1255100; Page: 231C; Enumeration District: 062; Image: 0467 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Year: 1880; Census Place: Caernarvon, Berks, Pennsylvania; Roll: 1099;Family History Film: 1255099; Page: 118A; Enumeration District: 007; Image: 0241 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Warwick, Chester, Pennsylvania; Roll:M593\_1325; Page: 63B; Image: 131; Family History Library Film: 552824 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1870; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:M593\_1378; Page: 280A; Image: 564; Family History Library Film: 552877 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1870; Census Place: Warwick, Chester, Pennsylvania; Roll:M593\_1325; Page: 64B; Image: 133; Family History Library Film: 552824 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1870; Census Place: Reading Ward 2, Berks, Pennsylvania; Roll:M593\_1307; Page: 791B; Image: 260; Family History Library Film: 552806 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1870; Census Place: Union, Berks, Pennsylvania; Roll: M593\_1308;Page: 429B; Image: 376; Family History Library Film: 552807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1870; Census Place: Warwick, Chester, Pennsylvania; Roll:M593\_1325; Page: 64A; Image: 132; Family History Library Film: 552824 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1870; Census Place: Union, Berks, Pennsylvania; Roll: M593\_1308;Page: 429A; Image: 375; Family History Library Film: 552807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1870; Census Place: Reading Ward 5, Berks, Pennsylvania; Roll:M593\_1307; Page: 25A; Image: 433; Family History Library Film: 552806 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1870; Census Place: Brecknock, Berks, Pennsylvania; Roll:M593\_1305; Page: 123B; Image: 256; Family History Library Film: 552804 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1870; Census Place: Robeson, Berks, Pennsylvania; Roll:M593\_1308; Page: 301B; Image: 118; Family History Library Film: 552807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1870; Census Place: Robeson, Berks, Pennsylvania; Roll:M593\_1308; Page: 307B; Image: 130; Family History Library Film: 552807 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1870; Census Place: Caernarvon, Berks, Pennsylvania; Roll:M593\_1305; Page: 136A; Image: 282; Family History Library Film: 552804 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1870; Census Place: Wallace, Chester, Pennsylvania; Roll:M593\_1325; Page: 59A; Image: 122; Family History Library Film: 552824 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+Heritage Consulting, "Millennium File", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2003; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+"Pennsylvania, Chester, Marriage Certificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Jacob S Hartenstine and Ida Miller Marriage Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Ancestry.com, "Delaware Marriage Records, 1806-1933", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+Ancestry.com, "U.S., Headstone Applications for Military Veterans, 1925-1963", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: Pennsylvania; Registration County: Berks; Roll:1909285; Draft Board: 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Registration State: Pennsylvania; Registration County: Montgomery;Roll: 1907292; Draft Board: 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Registration State: Pennsylvania; Registration County: Chester; Roll:1877836; Draft Board: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Registration State: Pennsylvania; Registration County: Chester; Roll:1877857; Draft Board: 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+"Washington Post", Name: Washington Post; Location: Washington, D.C.; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Herbert Hartenstine Accident Report, Washington Post, Page 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+Ancestry.com, "Massachusetts, Death Index, 1901-1980", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: West Vincent, Chester, Pennsylvania; Roll:M653\_1094; Page: 813; Image: 362; Family History Library Film: 805094 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 938; Image: 415; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 939; Image: 416; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 934; Image: 411; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 942; Image: 419; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1860; Census Place: Reading, South East Ward, Berks,Pennsylvania; Roll: M653\_1077; Page: 1098; Image: 419; Family History Library Film: 805077 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 941; Image: 418; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 940; Image: 417; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1860; Census Place: Reading, South West Ward, Berks,Pennsylvania; Roll: M653\_1077; Page: 1180; Image: 501; Family History Library Film: 805077 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1860; Census Place: Union, Berks, Pennsylvania; Roll: M653\_1076;Page: 933; Image: 511; Family History Library Film: 805076 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1860; Census Place: Robeson, Berks, Pennsylvania; Roll:M653\_1076; Page: 746; Image: 322; Family History Library Film: 805076 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1860; Census Place: Warwick, Chester, Pennsylvania; Roll:M653\_1092; Page: 932; Image: 409; Family History Library Film: 805092 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1860; Census Place: East Brandywine, Chester, Pennsylvania;Roll: M653\_1091; Page: 113; Image: 118; Family History Library Film: 805091 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1860; Census Place: Caernarvon, Berks, Pennsylvania; Roll:M653\_1075; Page: 149; Image: 154; Family History Library Film: 805075 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Year: 1860; Census Place: Union, Berks, Pennsylvania; Roll: M653\_1076;Page: 889; Image: 465; Family History Library Film: 805076 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Year: 1860; Census Place: Robeson, Berks, Pennsylvania; Roll:M653\_1076; Page: 760; Image: 336; Family History Library Film: 805076 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Year: 1860; Census Place: Cranberry, Crawford, Ohio; Roll: M653\_951;Page: 579; Image: 583; Family History Library Film: 803951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Year: 1860; Census Place: East Nantmeal, Chester, Pennsylvania; Roll:M653\_1091; Page: 396; Image: 403; Family History Library Film: 805091 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "Web: Pennsylvania, Find A Grave Index, 1682-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Warwick, Chester, Pennsylvania; Roll:M432\_765; Page: 182A; Image: 369 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: Union, Berks, Pennsylvania; Roll: M432\_754;Page: 301A; Image: 251 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1850; Census Place: Warwick, Chester, Pennsylvania; Roll:M432\_765; Page: 180B; Image: 366 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1850; Census Place: Union, Berks, Pennsylvania; Roll: M432\_754;Page: 299B; Image: 248 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1850; Census Place: Reading South West Ward, Berks,Pennsylvania; Roll: M432\_752; Page: 302B; Image: 608 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1850; Census Place: Maxatawny, Berks, Pennsylvania; Roll:M432\_753; Page: 78A; Image: 373 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1850; Census Place: Brecknock, Berks, Pennsylvania; Roll:M432\_754; Page: 383B; Image: 414 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1850; Census Place: Robeson, Berks, Pennsylvania; Roll:M432\_754; Page: 423B; Image: 494 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1850; Census Place: Robeson, Berks, Pennsylvania; Roll:M432\_754; Page: 414B; Image: 476 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1850; Census Place: Union, Berks, Pennsylvania; Roll: M432\_754;Page: 300B; Image: 250 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1850; Census Place: East Brandywine, Chester, Pennsylvania;Roll: M432\_766; Page: 284A; Image: 139 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1850; Census Place: Caernarvon, Berks, Pennsylvania; Roll:M432\_754; Page: 395A; Image: 436 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1850; Census Place: Union, Berks, Pennsylvania; Roll: M432\_754;Page: 296B; Image: 242 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1850; Census Place: Cranberry, Crawford, Ohio; Roll: M432\_671;Page: 453A; Image: 274 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Year: 1850; Census Place: Uwchlan, Chester, Pennsylvania; Roll:M432\_765; Page: 33B; Image: 71 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Year: 1850; Census Place: Warwick, Chester, Pennsylvania; Roll:M432\_765; Page: 185B; Image: 376 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Year: 1850; Census Place: Warwick, Chester, Pennsylvania; Roll:M432\_765; Page: 180A; Image: 365 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+Ancestry.com, "U.S. Federal Census Mortality Schedules, 1850-1885", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Census Year: 1879 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Census Year: 1850 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+"Reading Times" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Heber Hartenstine Death, Reading Times, Page 4, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Abraham Seivard Obituary, Reading Times, Page 5, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Hannah Seivard Fry Obituary, Reading Times, Page 4, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Mary Seivard Obituary, Reading Eagle, Page 1, column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Samuel Wynn Obituary, Reading Times, page 1, column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+"Village Record, Berks, Pennsylvania (online archive)" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Marriage of Heber Hartenstine and Sarah Ann Nichols 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{0.75}{0}%
+\grlisthead{42.}%
+Ancestry.com, "Delaware Death Records, 1811-1933", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{43.}%
+\grminpghead{0.75}{0}%
+\grlisthead{43.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{44.}%
+\grminpghead{0.75}{0}%
+\grlisthead{44.}%
+Ancestry.com, "Pennsylvania 1910 Miracode Index", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{45.}%
+\grminpghead{0.75}{0}%
+\grlisthead{45.}%
+"Pottstown Mercury", Location: Pottstown, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+David Hartenstine Death Notice, Pottstown Mercury, Page 19, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+David Hartenstine Obituary, Pottstown Mercury, Page 19, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Jonathan C Hartenstine Death Notice, Pottstown Mercury, Page 14,Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Jonathan C Hartenstine Obituary, Page 10, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Harry W Hartenstine Obituary, Pottstown Mercury, page 3, Column 8 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Howard Hartenstine Obituary, Pottstown Mercury, Page 12, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Howard Hartenstine Death Notice, Pottstown Mercury, Page 11, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Frank Comstock Death Notice, Pottstown Mercury, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Frank Comstock Obituary, Pottstown Mercury, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{46.}%
+\grminpghead{0.75}{0}%
+\grlisthead{46.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{47.}%
+\grminpghead{0.75}{0}%
+\grlisthead{47.}%
+Ancestry.com, "U.S., World War II Draft Registration Cards, 1942", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+The National Archives at St. Louis; St. Louis, Missouri; World War IIdraft cards (Fourth Registration) for the State of Pennsylvania; State Headquarters: Pennsylvania; Microfilm Series: M1951; Microfilm Roll: 55 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{48.}%
+\grminpghead{0.75}{0}%
+\grlisthead{48.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{49.}%
+\grminpghead{0.75}{0}%
+\grlisthead{49.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Warwick, Chester, Pennsylvania; Roll: 1115;Family History Film: 1255115; Page: 443B; Enumeration District: 097; Image: 0675 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{50.}%
+\grminpghead{0.75}{0}%
+\grlisthead{50.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Warwick, Chester, Pennsylvania; Roll: 1393;Page: 8A; Enumeration District: 0114; FHL microfilm: 1241393 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{51.}%
+\grminpghead{0.75}{0}%
+\grlisthead{51.}%
+"Philadelphia Record", Location: Philadelphia, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Martha Miller Holland Death Notice, Philadelphia Record, Page 11,Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{52.}%
+\grminpghead{0.75}{0}%
+\grlisthead{52.}%
+"Pottstown News", Location: Pottstown, Montgomery, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ann Hartenstine Seivard 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Jacob Seivard Obituary, Pottstown News, Page 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Jacob Seivard Funeral, Pottstown News, Page 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{53.}%
+\grminpghead{0.75}{0}%
+\grlisthead{53.}%
+Ancestry.com, "Berks County, Pennsylvania Estate Records, 1752-1914", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Abraham Seivard Estate Records 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{54.}%
+\grminpghead{0.75}{0}%
+\grlisthead{54.}%
+Ancestry.com, "Pennsylvania, Wills and Probate Records, 1683-1993", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Estate Files, 1752-1915; Author: Berks County (Pennsylvania). Registerof Wills; Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Orphans Court Proceedings, 1752-1857; Index; Author: Pennsylvania.Orphans' Court (Berks County); Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Wills, 1752-1860 ; Index to Wills, 1752-1915; Author: Berks County(Pennsylvania). Register of Wills; Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Wills, 1752-1860; Index, 1752-1915; Author: Berks County(Pennsylvania). Register of Wills; Probate Place: Berks, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Records of Wills, 1850-1924; Author: Chester County (Pennsylvania).Register of Wills; Probate Place: Chester, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Wills, 1713-1854 ; Index to Wills, 1713-1923; Author: Chester County(Pennsylvania). Register of Wills; Probate Place: Chester, Pennsylvania 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{55.}%
+\grminpghead{0.75}{0}%
+\grlisthead{55.}%
+Ancestry.com, "Philadelphia, Pennsylvania, Death Certificates Index, 1803-1915", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{56.}%
+\grminpghead{0.75}{0}%
+\grlisthead{56.}%
+"Philadelphia Record", Location: Philadelphia, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Sarah Miller Taggart Death Notice, Philadelphia Record, Page 5, Column7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{57.}%
+\grminpghead{0.75}{0}%
+\grlisthead{57.}%
+"Pennsylvania, Berks, Union Township" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Will of Jacob Mock 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{58.}%
+\grminpghead{0.75}{0}%
+\grlisthead{58.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Union, Berks, Pennsylvania; Roll: M432\_754;Page: 300B; Image: 250 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{59.}%
+\grminpghead{0.75}{0}%
+\grlisthead{59.}%
+Ancestry.com, "U.S., Civil War Draft Registrations Records, 1863-1865", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+National Archives and Records Administration (NARA); ConsolidatedLists of Civil War Draft Registration Records (Provost Marshal General's Bureau; Consolidated Enrollment Lists, 1863-1865); Record Group: 110, Records of the Provost Marshal General's Bureau 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{60.}%
+\grminpghead{0.75}{0}%
+\grlisthead{60.}%
+Ancestry.com, "Pennsylvania, Deaths, 1852-1854", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania State Archives; Reel Number: 670 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{61.}%
+\grminpghead{0.75}{0}%
+\grlisthead{61.}%
+"Charles Evans Cemetery Burial Records", Name: Berks County Genealogical Society; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Elizabeth Hartenstine Richards Burial 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{62.}%
+\grminpghead{0.75}{0}%
+\grlisthead{62.}%
+Ancestry.com, "U.S., Federal Census Mortality Schedules Index, 1850-1880", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{63.}%
+\grminpghead{0.75}{0}%
+\grlisthead{63.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64.}%
+\grminpghead{0.75}{0}%
+\grlisthead{64.}%
+Godfrey Memorial Library, comp., "American Genealogical-Biographical Index (AGBI)", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{65.}%
+\grminpghead{0.75}{0}%
+\grlisthead{65.}%
+Yates Publishing, "U.S. and International Marriage Records, 1560-1900", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Source number: 43.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Source number: 3075.063; Source type: Family group sheet, FGSE, listedas parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Source number: 7.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Source number: 6.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Source number: 61.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Source number: 47.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Source number: 44.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Source number: 46.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Source number: 4.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Source number: 48.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Source number: 3075.060; Source type: Family group sheet, FGSE, listedas parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Source number: 17.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Source number: 3338.003; Source type: Pedigree chart; Number of Pages:11 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Source number: 16.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Source number: 3338.002; Source type: Pedigree chart; Number of Pages:11 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Source number: 29.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Source number: 3075.059; Source type: Family group sheet, FGSE, listedas parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Source number: 22.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Source number: 51.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{t:}%
+\grminpghead{1.9}{0}%
+\grlisthead{t:}%
+Source number: 20.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{u:}%
+\grminpghead{1.9}{0}%
+\grlisthead{u:}%
+Source number: 49.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{v:}%
+\grminpghead{1.9}{0}%
+\grlisthead{v:}%
+Source number: 19.000; Source type: Electronic Database; Number ofPages: 1; Submitter Code: KWM 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{66.}%
+\grminpghead{0.75}{0}%
+\grlisthead{66.}%
+T.B. Deem, "The Wynnes:  A Genealogical Summary of the Ancestry of the WelshWynnes, who Emmigrated to Pennsylvania with William Penn", Name: Aetna Printing Company; Location: Knightstown, Indiana; Date:1907; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+James Wynn Birth, page 272 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Jonathan Wynn, page 276 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Johnathan Wynn (the second), page 271, 272 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Ann Unknown Wynn, page 270, 271 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Samuel Wynn, page 272, 275 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Thomas Wynn, page 272, 288, 291 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Mary Wynne birth, page 272 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Esther Wynn birth, page 272 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Jonathan Wynn page 272, 301 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Jane Wynn, page 272, 275 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Isaac Wynn birth, page 272, 279 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Hannah Wynn birth, page 272 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Warner Wynn birth, page 272, 284, 287 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Elizabeth Wynn, page 272, 275 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Jonathan Wynne, page 204 and 234, 271 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Thomas Wynne Birth, page 239, page 260 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Rebecca Wynne Birth, page 204, 260 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Mary Wynne birth, page 203, 243 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{67.}%
+\grminpghead{0.75}{0}%
+\grlisthead{67.}%
+Edmund West, comp., "Family Data Collection - Marriages", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{68.}%
+\grminpghead{0.75}{0}%
+\grlisthead{68.}%
+Edmund West, comp., "Family Data Collection - Births", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{69.}%
+\grminpghead{0.75}{0}%
+\grlisthead{69.}%
+Edmund West, comp., "Family Data Collection - Individual Records", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Birth year: 1768; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Birth year: 1704; Birth city: Blockley Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Birth year: 1750; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Birth year: 1749; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Birth year: 1741; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Birth year: 1747; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Birth year: 1669; Birth city: Philadelphia Co; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Birth year: 1703; Birth city: Blockley Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Birth year: 1669; Birth city: Blockley; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{70.}%
+\grminpghead{0.75}{0}%
+\grlisthead{70.}%
+Ancestry.com, "International, Find A Grave Index for Select Locations, 1300s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{71.}%
+\grminpghead{0.75}{0}%
+\grlisthead{71.}%
+Ancestry.com, "U.S., Sons of the American Revolution Membership Applications,1889-1970", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Volume: 144 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{72.}%
+\grminpghead{0.75}{0}%
+\grlisthead{72.}%
+Yates Publishing, "U.S. and International Marriage Records, 1560-1900", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Source number: 3075.061; Source type: Family group sheet, FGSE, listedas parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{73.}%
+\grminpghead{0.75}{0}%
+\grlisthead{73.}%
+Ancestry.com, "U.S., Sons of the American Revolution Membership Applications,1889-1970", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Volume: 178 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{74.}%
+\grminpghead{0.75}{0}%
+\grlisthead{74.}%
+Edmund West, comp., "Family Data Collection - Deaths", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{75.}%
+\grminpghead{0.75}{0}%
+\grlisthead{75.}%
+Edmund West, comp., "Family Data Collection - Individual Records", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Birth year: 1708; Birth city: Philadelphia Co; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{76.}%
+\grminpghead{0.75}{0}%
+\grlisthead{76.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{77.}%
+\grminpghead{0.75}{0}%
+\grlisthead{77.}%
+Edmund West, comp., "Family Data Collection - Births", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{78.}%
+\grminpghead{0.75}{0}%
+\grlisthead{78.}%
+Edmund West, comp., "Family Data Collection - Births", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{79.}%
+\grminpghead{0.75}{0}%
+\grlisthead{79.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{80.}%
+\grminpghead{0.75}{0}%
+\grlisthead{80.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{81.}%
+\grminpghead{0.75}{0}%
+\grlisthead{81.}%
+Edmund West, comp., "Family Data Collection - Individual Records", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Birth year: 1755; Birth city: E Nantmeal Twp; Birth state: PA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{82.}%
+\grminpghead{0.75}{0}%
+\grlisthead{82.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{83.}%
+\grminpghead{0.75}{0}%
+\grlisthead{83.}%
+Ancestry.com, "U.S., Quaker Meeting Records, 1681-1935", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Swarthmore College; Swarthmore, Pennsylvania; Deaths 1902-1903, 1912;Collection: Philadelphia Yearly Meeting Minutes; Call Number: RG2/PH 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Swarthmore College; Swarthmore, Pennsylvania; Record of Births, Deathsand Burials, 1688-1826; Collection: Quaker Meeting Records; Call Number: MR Ph:363 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Swarthmore College; Swarthmore, Pennsylvania; Women's Minutes,1686-1728; Collection: Quaker Meeting Records; Call Number: MR Ph:390 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Haverford College; Haverford, Pennsylvania; Minutes, 1682-1711;Collection: Philadelphia Yearly Meeting Minutes; Call Number: J1.1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Haverford College; Haverford, Pennsylvania; Births, Deaths andBurials, 1688-1826; Collection: Philadelphia Yearly Meeting Minutes; Call Number: JA1.1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{84.}%
+\grminpghead{0.75}{0}%
+\grlisthead{84.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{85.}%
+\grminpghead{0.75}{0}%
+\grlisthead{85.}%
+Ancestry.com, "U.S., Encyclopedia of American Quaker Genealogy, Vol I–VI, 1607–1943", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{86.}%
+\grminpghead{0.75}{0}%
+\grlisthead{86.}%
+Ancestry.com, "Pennsylvania, Marriage Records, 1700-1821", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{87.}%
+\grminpghead{0.75}{0}%
+\grlisthead{87.}%
+Ancestry.com, "American Marriages Before 1699", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1997; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{88.}%
+\grminpghead{0.75}{0}%
+\grlisthead{88.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{89.}%
+\grminpghead{0.75}{0}%
+\grlisthead{89.}%
+Ancestry.com, "U.S., Quaker Meeting Records, 1681-1935", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Haverford College; Haverford, Pennsylvania; Minutes, 1666-1789;Collection: Philadelphia Yearly Meeting Minutes 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{90.}%
+\grminpghead{0.75}{0}%
+\grlisthead{90.}%
+Ancestry.com, "U.S. and Canada, Passenger and Immigration Lists Index, 1500s-1900s", Name: Ancestry.com Operations, Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Place: Pennsylvania; Year: 1682; Page Number: 64 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Place: Philadelphia, Pennsylvania; Year: 1682; Page Number: 155 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}

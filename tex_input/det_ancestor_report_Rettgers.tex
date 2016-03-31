@@ -1,0 +1,2345 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for Ithamar Benadict Rettgers \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1.}%
+\textbf{Ithamar Benadict Rettgers .  }Son of Frederick H Rettgers and Sarah (Sallie) E Morrisson.    Born 1898-01-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5, 6a, 7a, 8a, 9, 10, 11, 11 }.   Died 1937-02-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{2a, 4a, 9, 10, 12a, 12b }.   Buried 1937-02-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{2a, 10, 12a, 12c }.  Married Laura Tyson Hartenstine 1920-09-29 in Reading, Berks, Pennsylvania, USA \textsuperscript{8b, 8b, 8b, 8b, 13a, 14, 12d }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Spouse: Laura Tyson Hartenstine . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 1897-07-26 in Pottstown, Montgomery, Pennsylvania, USA \textsuperscript{15a, 3a, 8b, 6b, 16a, 7b, 8c, 1b, 10 }.   Baptized 1908-06-07 in Reading, Berks, Pennsylvania, USA \textsuperscript{8b, 8c }.  Died 1977-12-18 in Cornwall, Lebanon, Pennsylvania, USA \textsuperscript{16a, 12e, 12f, 10 }.   Buried 1977-12-21 in Reading, Berks, Pennsylvania, USA \textsuperscript{12e, 12f, 10 }.  Daughter of Jacob S Hartenstine and Ida Miller.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Laura Tyson Hartenstine and Ithamar Benadict Rettgers \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Living Rettgers.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Joyce Ann Rettgers.  Born 1935-05-27 in Reading, Adams, Pennsylvania, USA \textsuperscript{15b, 17, 18a, 19 }.   Died 2014-06-04 in Johnson City, Carter, Tennessee, USA \textsuperscript{20a, 18a, 19 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Robert Edgar Rettgers.  Born 1923-07-28 in Reading, Berks, Pennsylvania, USA \textsuperscript{15b, 8b, 17, 3a, 21, 19, 21, 21, 21, 22a, 10, 23 }.   Died 2014-07-09 in Mechanicsburg, Cumberland, Pennsylvania, USA \textsuperscript{24a, 19, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Forrest Ithamar Rettgers.  Born 1921-11-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{8b, 15b, 16b, 3a, 17, 10, 25, 23 }.   Died 1995-06-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{16b, 10, 12g, 25 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2.}%
+\textbf{Frederick H Rettgers .  }Son of John Roettgers and Henrietta Jansen.    Born 1873-08-11 in Reading, Berks, Pennsylvania, USA \textsuperscript{26a, 1a, 27, 7a, 28a, 2b, 15c, 29a, 3b, 30, 10, 25 }.   Died 1944-11-26 in Reading, Berks, Pennsylvania, USA \textsuperscript{27, 2b, 30, 12h, 12i, 10 }.   Buried 1944-11-29 in Laureldale, Berks, Pennsylvania, USA \textsuperscript{27, 2b, 12h, 12i, 10 }.  Married Sarah (Sallie) E Morrisson 1895 in Reading, Berks, Pennsylvania, USA \textsuperscript{6a, 6a, 30, 30 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{1.0}{0}%
+\grlisthead{3.}%
+\textbf{Sarah (Sallie) E Morrisson .  }Daughter of Ithamar S Morrisson and Clara Jefferies.    Born 1879-01-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 7a, 6a, 30, 3b, 15c, 9, 28b, 10 }.   Died 1942-05-02 in West Reading, Berks, Pennsylvania, USA \textsuperscript{9, 12j, 12k, 10 }.   Buried 1942-05-05 in Tuckerton, Berks County, Pennsylvania, USA \textsuperscript{12j, 12k, 10 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah (Sallie) E Morrisson and Frederick H Rettgers \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Charles Wellington Rettgers.  Born 1907-04-12 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 7a, 30, 15d, 8a, 31, 10 }.   Died 1968 \textsuperscript{30, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Mazie Henrietta Rettgers.  Born 1901-08-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{3b, 1a, 15c, 30, 8a, 16c, 7a, 10 }.   Died 1967-02-11 in Fleetwood, Berks, Pennsylvania, USA \textsuperscript{16c, 12l, 12m, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Ethel May Rettgers.  Born 1899-07-03 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 7a, 6c, 8a, 30, 3b, 9, 10, 15c }.   Died 1963-10-19 in Reading, Berks, Pennsylvania, USA \textsuperscript{12n, 12o, 9, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Ithamar Benadict Rettgers [1].  Born 1898-01-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 2a, 3a, 4a, 5, 6a, 7a, 8a, 9, 10, 11, 11 }.   Died 1937-02-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{2a, 4a, 9, 10, 12a, 12b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Frederick Edgar Rettgers.  Born 1896-04-20 in Reading, Berks, Pennsylvania, USA \textsuperscript{32a, 7a, 6a, 33a, 3c, 16d, 30, 15e, 2c, 29a, 34, 1c, 25, 10, 11, 11 }.   Died 1976-05-12 in St Lucie, Florida, USA \textsuperscript{16d, 30, 2c, 34, 12p, 12q, 25, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4.}%
+\textbf{John Roettgers .  }Son of Catherine Unknown (Roettgers).   Born between 1826 and 1827 in Germany \textsuperscript{27, 28a, 30, 35a }.   Relationship with Henrietta Jansen.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{1.0}{0}%
+\grlisthead{5.}%
+\textbf{Henrietta Jansen .  }Born between 1831 and 1832 in Germany \textsuperscript{35a, 36a }.   Died 1879-07-02 in Reading, Berks, Pennsylvania, USA \textsuperscript{37, 36a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Henrietta Jansen and John Roettgers \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary Roettgers.  Born 1865-02-12 in Reading, Berks, Pennsylvania, USA \textsuperscript{28a, 15f, 38, 7c, 1d, 3d, 10, 6a, 35a, 9 }.   Died 1947-04-13 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 12r, 12s, 9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+John Roettgers.  Born 1866-01-15 in Pennsylvania, USA \textsuperscript{28a, 35a, 10, 9, 8d }.   Died 1917-08-09 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 9, 8d, 39a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Henrietta Roettgers.  Born 1870-04-00 in Reading, Berks, Pennsylvania, USA \textsuperscript{35a }.   Died in Reading, Berks, Pennsylvania, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Frederick H Rettgers [2].  Born 1873-08-11 in Reading, Berks, Pennsylvania, USA \textsuperscript{26a, 1a, 27, 7a, 28a, 2b, 15c, 29a, 3b, 30, 10, 25 }.   Died 1944-11-26 in Reading, Berks, Pennsylvania, USA \textsuperscript{27, 2b, 30, 12h, 12i, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Henry Rettgers.  Born 1858-03-28 in Pennsylvania, USA \textsuperscript{28a, 30, 35a, 9 }.   Died 1932-04-01 in Shillington, Berks, Pennsylvania, USA \textsuperscript{9 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Catharine Roettgers.  Born 1862 in Pennsylvania, USA \textsuperscript{28a, 35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{1.0}{0}%
+\grlisthead{6.}%
+\textbf{Ithamar S Morrisson .  }Son of John Morrisson (Rev) and Elizabeth Smith.    Born 1856-01-13 in Pennsylvania, USA \textsuperscript{6d, 1e, 28b, 10, 12t, 7d, 9, 35b }.   Died 1923-05-05 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 12t, 9, 12u }.   Buried 1923-05-09 in Reading, Berks County, Pennsylvania, USA \textsuperscript{10, 12u }.  Relationship with Clara Jefferies.  Also married Christiana May Young 1893 \textsuperscript{6d, 6d }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Christiana May Young and Ithamar S Morrisson \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Francis B Morrisson.  Born 1907-05-02 in Pennsylvania, USA \textsuperscript{1e, 3e, 7d, 16e, 10, 15g }.   Died 1987-01-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{16e, 10, 12v, 12w }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Sylvester W Morrisson.  Born 1904 in Pennsylvania, USA \textsuperscript{3f, 1e, 15h, 10, 7d }.   Died 1990-07-30 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 12x, 12y }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Elizabeth M Morrisson.  Born 1894-12-09 in Pennsylvania, USA \textsuperscript{1e, 3e, 7d, 15i, 16f, 10 }.   Died 1976-11-22 in Reading, Berks, Pennsylvania, USA \textsuperscript{12z, 12aa, 16f, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Mary Madeline Morrisson.  Born 1900-02-20 in Pennsylvania, USA \textsuperscript{3e, 1e, 7d, 16g, 34 }.   Died 1980-07-16 in Vero Beach, Indian River, Florida, USA \textsuperscript{16g, 34 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{1.0}{0}%
+\grlisthead{7.}%
+\textbf{Clara Jefferies .  }Daughter of Edgar Alexander Jefferies and Catharine Furlington.    Born 1856-12-10 in Pennsylvania, USA \textsuperscript{28b, 35c, 40a, 10 }.   Died 1893-03-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{37, 12ab, 12ac, 10 }.   Buried 1893-03-18 in Reading, Berks, Pennsylvania, USA \textsuperscript{12ac }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Clara Jefferies and Ithamar S Morrisson \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Margaret Morrisson.  Born 1885-06-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{15j, 1f, 3g, 9, 10 }.   Died 1951-11-03 in Shillington, Berks, Pennsylvania, USA \textsuperscript{9, 12ad, 12ae, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Clyde Emerson Morrisson (Rev).  Born 1888-04-18 in Pennsylvania, USA \textsuperscript{10, 1g, 8e, 16h, 33b, 29a, 3h, 7e, 6e, 15k, 41 }.   Died 1969-10-04 in Lebanon, Pennsylvania, USA \textsuperscript{10, 12af, 41 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Edgar S Morrisson.  Born 1876-01-12 in Pennsylvania, USA \textsuperscript{6f, 9, 29b, 7f, 28b, 1h, 8f, 10 }.   Died 1922-03-23 in Reading, Berks, Pennsylvania, USA \textsuperscript{9, 12ag, 12ah, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Sarah (Sallie) E Morrisson [3].  Born 1879-01-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{1a, 7a, 6a, 30, 3b, 15c, 9, 28b, 10 }.   Died 1942-05-02 in West Reading, Berks, Pennsylvania, USA \textsuperscript{9, 12j, 12k, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Charles W Morrisson.  Born 1877-07-28 in Reading, Berks, Pennsylvania, USA \textsuperscript{9, 28b, 7d, 29b, 1e, 3e, 42, 10 }.   Died 1935-02-06 in Reading Homeopathia, Reading, Berks, Pennsylvania, USA \textsuperscript{9, 12ai, 12aj, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{1.0}{0}%
+\grlisthead{9.}%
+\textbf{Catherine Unknown (Roettgers) .  }Born between 1803 and 1804 in Germany \textsuperscript{28a, 35a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catherine Unknown (Roettgers) and Unknown \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Roettgers [4].  Born between 1826 and 1827 in Germany \textsuperscript{27, 28a, 30, 35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{1.0}{0}%
+\grlisthead{12.}%
+\textbf{John Morrisson (Rev) .  }Born 1823-12-05 in Lancaster, Pennsylvania, USA \textsuperscript{6g, 10, 12ak, 2d, 28c, 35b, 43a, 2e }.   Died 1903-08-28 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 12ak, 2d, 12al, 37, 2e }.   Buried 1903-09-01 in Reading, Berks County, Pennsylvania, USA \textsuperscript{10, 2d, 12al }.  Married Elizabeth Smith 1846 \textsuperscript{6g, 6g }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{1.0}{0}%
+\grlisthead{13.}%
+\textbf{Elizabeth Smith .  }Daughter of William Smith and Elizabeth Schaffer.    Born 1821-09-30 in Pennsylvania, USA \textsuperscript{6g, 10, 9, 28c, 43a }.   Died 1906-07-27 in Berks County, Pennsylvania, USA \textsuperscript{10, 9, 12am, 12an }.   Buried 1906-07-31 in Reading, Berks County, Pennsylvania, USA \textsuperscript{10, 12an }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Smith and John Morrisson (Rev) \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Samuel M Morrisson.  Born 1849-04-26 in Lancaster County, Pennsylvania, USA \textsuperscript{43a, 44, 6h, 9, 28d, 10 }.   Died 1908-10-09 in Columbia, Lancaster, Pennsylvania, USA \textsuperscript{9, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Rebecca Rachel Morrisson.  Born 1858-08-13 in Reading, Berks, Pennsylvania, USA \textsuperscript{1i, 7g, 28e, 6i, 9, 3i, 38, 10 }.   Died 1938-10-24 in Reading, Berks, Pennsylvania, USA \textsuperscript{9, 12ao, 12ap, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+William Matthew Morrisson.  Born about 1846-09-28 in Lancaster County, Pennsylvania, USA \textsuperscript{43a, 6j, 10, 28f, 45, 2f }.   Died 1904-10-06 in Philadelphia, Philadelphia, Pennsylvania, USA \textsuperscript{10, 45, 2f, 8g, 46a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+George J Morrisson.  Born 1862-02-28 in Lancaster County, Pennsylvania, USA \textsuperscript{6g, 7h, 9, 28e, 10, 3j, 1j, 41 }.   Died 1938-12-01 in Reading, Berks, Pennsylvania, USA \textsuperscript{9, 10, 12aq, 12ar, 41 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Ithamar S Morrisson [6].  Born 1856-01-13 in Pennsylvania, USA \textsuperscript{6d, 1e, 28b, 10, 12t, 7d, 9, 35b }.   Died 1923-05-05 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 12t, 9, 12u }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Mary C Morrisson.  Born 1853-01-12 in Pennsylvania, USA \textsuperscript{10, 6g, 28e, 9 }.   Died 1906-08-27 in Reading, Berks, Pennsylvania, USA \textsuperscript{10, 9, 12as, 39b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+John F Morrisson.  Born 1851-07-09 in Pennsylvania, USA \textsuperscript{28c, 6k, 10 }.   Died 1904-06-22 in Reading, Berks, Pennsylvania, USA \textsuperscript{37, 39c, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{1.0}{0}%
+\grlisthead{14.}%
+\textbf{Edgar Alexander Jefferies .  }Son of Robert Jefferies and Isabel Edgar.    Born 1825-04-05 in Philadelphia, Pennsylvania, USA \textsuperscript{6e, 40a, 35c, 28g, 9, 43b, 10 }.   Died 1909-08-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{39d, 39e, 9, 10 }.   Buried 1909-08-18 in Reading, Berks, Pennsylvania, USA \textsuperscript{39e, 47a, 10 }.  Relationship with Catharine Furlington.  Also relationship with Elizabeth Unknown (Jefferies).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Unknown (Jefferies) and Edgar Alexander Jefferies \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Robert Ayers Jefferies.  Born 1852-10-17 \textsuperscript{35d, 8h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Isabella Edgar Jefferies.  Born 1848-03-01 in Pennsylvania, USA \textsuperscript{43b, 28h, 35d, 8h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Catharine Jefferies.  Born about 1850 in Pennsylvania, USA \textsuperscript{43b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{1.0}{0}%
+\grlisthead{15.}%
+\textbf{Catharine Furlington .  }Daughter of John Furlington and Rachel Unknown (Furlington).    Born 1828-11-14 in Pennsylvania, USA \textsuperscript{6e, 43b, 40a, 28g, 35c, 10, 8i }.   Died 1904-01-16 in Reading, Berks, Pennsylvania, USA \textsuperscript{39f, 39g, 10, 8i }.   Buried 1904-01-19 in Reading, Berks, Pennsylvania, USA \textsuperscript{39g, 10, 8i, 47b }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Catharine Furlington and Edgar Alexander Jefferies \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary E Jefferies.  Born about 1870 in Pennsylvania, USA \textsuperscript{6e, 1k, 7i, 35c, 28g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Laura A Jefferies.  Born 1866-12-17 in Reading, Berks, Pennsylvania, USA \textsuperscript{7i, 6e, 1k, 28g, 35c, 9 }.   Died 1945-02-17 in Lebanon, Pennsylvania, USA \textsuperscript{9, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Clara Jefferies [7].  Born 1856-12-10 in Pennsylvania, USA \textsuperscript{28b, 35c, 40a, 10 }.   Died 1893-03-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{37, 12ab, 12ac, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{1.0}{0}%
+\grlisthead{26.}%
+\textbf{William Smith .  }Relationship with Elizabeth Schaffer.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{1.0}{0}%
+\grlisthead{27.}%
+\textbf{Elizabeth Schaffer .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Schaffer and William Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+George W Smith.  Born 1833-12-02 in New Holland, Lancaster County, Pennsylvania, USA \textsuperscript{6l, 7j, 28i, 10 }.   Died 1911-02-20 in Sweet Springs, Saline County, Missouri, USA \textsuperscript{10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Elizabeth Smith [13].  Born 1821-09-30 in Pennsylvania, USA \textsuperscript{6g, 10, 9, 28c, 43a }.   Died 1906-07-27 in Berks County, Pennsylvania, USA \textsuperscript{10, 9, 12am, 12an }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{1.0}{0}%
+\grlisthead{28.}%
+\textbf{Robert Jefferies .  }Born in England.   Relationship with Isabel Edgar.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{1.0}{0}%
+\grlisthead{29.}%
+\textbf{Isabel Edgar .  }Born in Ireland.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Isabel Edgar and Robert Jefferies \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Edgar Alexander Jefferies [14].  Born 1825-04-05 in Philadelphia, Pennsylvania, USA \textsuperscript{6e, 40a, 35c, 28g, 9, 43b, 10 }.   Died 1909-08-14 in Reading, Berks, Pennsylvania, USA \textsuperscript{39d, 39e, 9, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{1.0}{0}%
+\grlisthead{30.}%
+\textbf{John Furlington .  }Relationship with Rachel Unknown (Furlington).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{1.0}{0}%
+\grlisthead{31.}%
+\textbf{Rachel Unknown (Furlington) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Rachel Unknown (Furlington) and John Furlington \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Catharine Furlington [15].  Born 1828-11-14 in Pennsylvania, USA \textsuperscript{6e, 43b, 40a, 28g, 35c, 10, 8i }.   Died 1904-01-16 in Reading, Berks, Pennsylvania, USA \textsuperscript{39f, 39g, 10, 8i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T625\_1537; Page: 8B; Enumeration District: 82; Image: 300 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T625\_1538; Page: 10A; Enumeration District: 115; Image: 105 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Reading Ward 16, Berks, Pennsylvania; Roll:T625\_1538; Page: 7A; Enumeration District: 123; Image: 323 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T625\_1537; Page: 5A; Enumeration District: 84; Image: 341 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1920; Census Place: Reading Ward 14, Berks, Pennsylvania; Roll:T625\_1537; Page: 13B; Enumeration District: 105; Image: 928 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1920; Census Place: Reading Ward 8, Berks, Pennsylvania; Roll:T625\_1537; Page: 5B; Enumeration District: 79; Image: 228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1920; Census Place: Reading Ward 16, Berks, Pennsylvania; Roll:T625\_1538; Page: 7A; Enumeration District: 125; Image: 381 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1920; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T625\_1538; Page: 13A; Enumeration District: 112; Image: 33 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1920; Census Place: Reading Ward 6, Berks, Pennsylvania; Roll:T625\_1536; Page: 4B; Enumeration District: 68; Image: 1059 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1920; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:T625\_1537; Page: 4B; Enumeration District: 74; Image: 116 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1920; Census Place: Reading Ward 8, Berks, Pennsylvania; Roll:T625\_1537; Page: 5A; Enumeration District: 79; Image: 227 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-10; Folder Number: 405 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-10; Folder Number: 408 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 2-5; Folder Number: 680 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-8; Folder Number: 343 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1950-2010; Series Number: Series 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Series Number: Series 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2002;Page: 27A; Enumeration District: 0061; Image: 967.0; FHL microfilm: 2341736 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 14B; Enumeration District: 0030; Image: 711.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 11A; Enumeration District: 0044; Image: 1054.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 15B; Enumeration District: 0029; Image: 673.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 8B; Enumeration District: 0048; Image: 442.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 3A; Enumeration District: 0048; Image: 431.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 25A; Enumeration District: 0045; Image: 1122.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1930; Census Place: Steelton, Dauphin, Pennsylvania; Roll: 2028;Page: 27B; Enumeration District: 0097; Image: 446.0; FHL microfilm: 2341762 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2000;Page: 18A; Enumeration District: 0018; Image: 1023.0; FHL microfilm: 2341734 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1930; Census Place: Reading, Berks, Pennsylvania; Roll: 2001;Page: 14A; Enumeration District: 0023; Image: 248.0; FHL microfilm: 2341735 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg,Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 1-10; Folder Number: 405 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+Graden, Debra, comp., "U.S. Military Records, 1925: Official National Guard Register", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:1378; Page: 17A; Enumeration District: 0053; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Pottstown, Montgomery, Pennsylvania; Roll:1445; Page: 4B; Enumeration District: 0276; FHL microfilm: 1241445 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:1378; Page: 17B; Enumeration District: 0053; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:1378; Page: 12A; Enumeration District: 0068; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Reading Ward 12, Berks, Pennsylvania; Roll:1379; Enumeration District: 0087; FHL microfilm: 1241379 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: Birdsboro, Berks, Pennsylvania; Roll: 1376;Page: 1A; Enumeration District: 0020; FHL microfilm: 1241376 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1900; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:1378; Page: 5B; Enumeration District: 0069; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1900; Census Place: Columbia, Lancaster, Pennsylvania; Roll:1422; Page: 5A; Enumeration District: 0009; FHL microfilm: 1241422 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1900; Census Place: Reading Ward 6, Berks, Pennsylvania; Roll:1378; Page: 11B; Enumeration District: 0062; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1900; Census Place: Wrightsville, York, Pennsylvania; Roll:1502; Page: 20B; Enumeration District: 0183; FHL microfilm: 1241502 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1900; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:1378; Page: 6A; Enumeration District: 0069; FHL microfilm: 1241378 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1900; Census Place: Salt Pond, Saline, Missouri; Roll: 902;Page: 10B; Enumeration District: 0141; FHL microfilm: 1240902 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:T624\_1314; Page: 14B; Enumeration District: 0055; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: Reading Ward 3, Berks, Pennsylvania; Roll:T624\_1314; Page: 18A; Enumeration District: 0055; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T624\_1314; Page: 5B; Enumeration District: 0075; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: Reading Ward 12, Berks, Pennsylvania; Roll:T624\_1314; Page: 4A; Enumeration District: 0084; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1910; Census Place: Reading Ward 15, Berks, Pennsylvania; Roll:T624\_1315; Page: 19A; Enumeration District: 0105; FHL microfilm: 1375328 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1910; Census Place: Birdsboro, Berks, Pennsylvania; Roll:T624\_1312; Page: 5A; Enumeration District: 0008; FHL microfilm: 1375325 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1910; Census Place: Reading Ward 6, Berks, Pennsylvania; Roll:T624\_1314; Page: 11A; Enumeration District: 0062; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1910; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:T624\_1314; Page: 4A; Enumeration District: 0068; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1910; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:T624\_1314; Page: 3B; Enumeration District: 0075; FHL microfilm: 1375327 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1910; Census Place: Sweet Springs Ward 2, Saline, Missouri;Roll: T624\_824; Page: 10B; Enumeration District: 0187; FHL microfilm: 1374837 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "Pennsylvania and New Jersey, Church and Town Records, 1708-1985", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 568 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 589 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 590 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 566 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Historical Society of Pennsylvania; Historic Pennsylvania Church andTown Records; Reel: 567 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 570 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 240 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Historical Society of Pennsylvania; Philadelphia, Pennsylvania;Collection Name: Historic Pennsylvania Church and Town Records; Reel: 589 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+Ancestry.com, "Pennsylvania, WWI Veterans Service and Compensation Files, 1917-1919,1934-1948", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+"Reading Eagle", Location: Reading, Berks, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ithamar Rettgers Death Notice, Reading Eagle, Page 20, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Ithamar Rettgers Obituary, Reading Eagle, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Ithamar Rettgers Funeral, Reading Eagle, Page 14, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Ithamar and Laura Rettgers Wedding 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Laura Hartenstine Rettgers, Reading Eagle Funeral Notice, Page 33,Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Laura T Hartenstine Rettgers Obituary, Reading Eagle, Page 32, Column5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Forrest Rettgers Obituary, Reading Eagle, Page C5, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Frederick H Rettgers Obituary, Reading Eagle, Page 16, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Frederick H Rettgers Death Notice, Reading Eagle, Page 16, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Sarah Sallie Morrison Obituary, Reading Eagle, Page 18, column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Sallie Morrison Rettgers Death Notice, Reading Eagle, Page 18, Column7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Maizie Rettgers Death Notice, Reading Eagle, Page 57, Column 8 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Mazie Rettgers Obituary, Reading Eagle, Page 64, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Ethel May Rettgers Obituary, Reading Eagle, Page 13, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Ethel May Rettgers Death Notice, Reading Eagle, Page 24, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Frederick E Rettgers Death Notice, Reading Eagle, Page 28, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+Frederick E Rettgers Obituary, Reading Eagle, Page 13, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Mary Rettgers Schultz Death Notice, Reading Eagle, Page 19, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Mary Rettgers Schultz Obituary, Reading Eagle, Page 17, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{t:}%
+\grminpghead{1.9}{0}%
+\grlisthead{t:}%
+Ithamar S Morrisson Obituary, Reading Eagle, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{u:}%
+\grminpghead{1.9}{0}%
+\grlisthead{u:}%
+Ithamar S Morrisson Death Notice, Reading Eagle, Page 20, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{v:}%
+\grminpghead{1.9}{0}%
+\grlisthead{v:}%
+Francis B Morrisson Death Notice, Reading Eagle, Page 28, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{w:}%
+\grminpghead{1.9}{0}%
+\grlisthead{w:}%
+Francis B. Morrisson Obituary, Reading Eagle, Page D11, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{x:}%
+\grminpghead{1.9}{0}%
+\grlisthead{x:}%
+Sylvester Morrisson Death Notice, Reading Eagle, Page 24, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{y:}%
+\grminpghead{1.9}{0}%
+\grlisthead{y:}%
+Sylvester Morrisson Obituary, Reading Eagle, Page 23, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{z:}%
+\grminpghead{1.9}{0}%
+\grlisthead{z:}%
+Elizabeth M Morrisson Obituary, Reading Eagle, Page 42, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aa:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aa:}%
+Elizabeth M Morrisson Death Notice, Reading Eagle, Page 95, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ab:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ab:}%
+Clara Jefferies Morrison Obituary, Reading Eagle, Page 1, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ac:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ac:}%
+Clara Jefferies Morrison Death Notice, Reading Eagle, Page 4, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ad:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ad:}%
+Margaret Morrisson Stanley Death Notice, Reading Eagle, Page 49,Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ae:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ae:}%
+Margaret Morrisson Stanley Obituary, Reading Eagle, Page 14, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{af:}%
+\grminpghead{1.9}{0}%
+\grlisthead{af:}%
+Clyde Morrison Obituary, Reading Eagle, Page 26, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ag:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ag:}%
+Edgar S Morrison Death Notice, Reading Eagle, Page 32, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ah:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ah:}%
+Edgar Morrison Obituary, Reading Eagle, Page 2, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ai:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ai:}%
+Charles Morrison Obituary, Reading Eagle, Page 26, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aj:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aj:}%
+Charles Morrison Death Notice, Reading Eagle, Page 22, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ak:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ak:}%
+John Morrisson Obituary, Reading Eagle, Page 1, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{al:}%
+\grminpghead{1.9}{0}%
+\grlisthead{al:}%
+John Morrisson Death Notice, Reading Eagle, Page 10, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{am:}%
+\grminpghead{1.9}{0}%
+\grlisthead{am:}%
+Elizabeth Smith Morrisson, Reading Eagle Obituary, Page 1, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{an:}%
+\grminpghead{1.9}{0}%
+\grlisthead{an:}%
+Reading Eagle Death Notice, Page 10, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ao:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ao:}%
+Rebecca Morrisson Stephan Obituary, Reading Eagle, Page 20, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ap:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ap:}%
+Rebecca Morrisson Stephan Death Notice, Reading Eagle, Page 18, Column7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{aq:}%
+\grminpghead{1.9}{0}%
+\grlisthead{aq:}%
+George J. Morrison Death Notice, Reading Eagle, Page 14, Column 6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{ar:}%
+\grminpghead{1.9}{0}%
+\grlisthead{ar:}%
+George J Morrison Obituary, Reading Eagle, Page 31, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{as:}%
+\grminpghead{1.9}{0}%
+\grlisthead{as:}%
+Mary C Morrison Obituary, Reading Eagle, Page 10, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+"Pennsylvania, Berks County, Marriage Certificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ithamar B Rettgers and Laura T Hartenstine Marriage Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+Ancestry.com, "Berks County, Pennsylvania Marriages, 1885-1929", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 6A; Enumeration District: 70-80 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 6B; Enumeration District: 70-80 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3679; Page: 10B; Enumeration District: 70-43 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1940; Census Place: Philadelphia, Philadelphia, Pennsylvania;Roll: T627\_3742; Page: 61A; Enumeration District: 51-1777 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 6B; Enumeration District: 70-65 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3679; Page: 5A; Enumeration District: 70-40 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 2A; Enumeration District: 70-89 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 3B; Enumeration District: 70-76 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1940; Census Place: Jenkintown, Montgomery, Pennsylvania; Roll:T627\_3579; Page: 1B; Enumeration District: 46-65 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1940; Census Place: Reading, Berks, Pennsylvania; Roll:T627\_3680; Page: 3A; Enumeration District: 70-86 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1940; Census Place: Cleona, Lebanon, Pennsylvania; Roll:T627\_3540; Page: 12A; Enumeration District: 38-5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Number: 170-22-1869; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Number: 169-14-1632; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Number: 170-07-0985; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Number: 715-18-1551; Issue State: Railroad Board (Issued Through);Issue Date: 1951-1963 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Number: 196-05-8702; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Number: 164-07-3512; Issue State: Pennsylvania; Issue Date: Before1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Number: 071-01-8848; Issue State: New York; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Number: 198-30-7635; Issue State: Pennsylvania; Issue Date: 1955-1956 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "United States Obituary Collection", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Publication Date: 8 Jun 2014; Publication Place: Marion, Virginia, USA 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+Ancestry.com, "U.S. Cemetery and Funeral Home Collection", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+"Farris Funeral Home" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Farris Funeral Service \& Crematory Obituary, 427 East Main Street,Abingdon, VA 24210 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+Ancestry.com, "U.S. School Yearbooks", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+"Pennsylvania, Department of Health, Bureau of Vital Statistics, BirthCertificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Robert Edgar Rettgers Birth Certificate, No 183146, File No 126789,Registered No. 1680 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+Ancestry.com, "Pennsylvania, Veteran Compensation Application Files, WWII, 1950-1966", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+"Cocklin Funeral Home" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Cocklin Funeral Home Obituary 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+""United States WWI Draft Registration Cards"" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+"United States World War I Draft Registration Cards, 1917-1918," indexand images, FamilySearch (https://familysearch.org/pal:/MM9.3.1/TH-1961-26647-30870-40?cc=1968530 : accessed 29 Jul 2014), Pennsylvania > Reading City no 2; A-Z > image 4443 of 6050; citing NARA microfilm publication M1509 (Washington D.C.: National Archives and Records Administration, n.d). 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 372D; Enumeration District: 056; Image: 0144 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 343C; Enumeration District: 055; Image: 0084 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 376C; Enumeration District: 056; Image: 0151 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Columbia, Lancaster, Pennsylvania; Roll:1141; Family History Film: 1255141; Page: 90C; Enumeration District: 126; Image: 0185 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 376D; Enumeration District: 056; Image: 0152 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: Wrightsville, York, Pennsylvania; Roll:1206; Family History Film: 1255206; Page: 183B; Enumeration District: 019 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: Reading, Berks, Pennsylvania; Roll: 1102;Family History Film: 1255102; Page: 341C; Enumeration District: 055; Image: 0080 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1880; Census Place: Philadelphia, Philadelphia, Pennsylvania;Roll: 1167; Family History Film: 1255167; Page: 20C; Enumeration District: 031; Image: 0418 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1880; Census Place: Polk, Nodaway, Missouri; Roll: 707; FamilyHistory Film: 1254707; Page: 213C; Enumeration District: 262; Image: 0009 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: Pennsylvania; Registration County: Adams; Roll:1909284; Draft Board: 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Registration State: Pennsylvania; Registration County: Berks; Roll:1926596; Draft Board: 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Heritage Consulting, "Millennium File", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2003; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Ancestry.com, "Pennsylvania, Birth Records, 1906-1908", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+""WWI Draft Registration Cards"" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+"United States World War I Draft Registration Cards, 1917-1918," indexand images, FamilySearch (https://familysearch.org/pal:/MM9.3.1/TH-1971-26647-33196-19?cc=1968530 : accessed 29 Jul 2014), Pennsylvania > Reading City no 2; A-Z > image 4444 of 6050; citing NARA microfilm publication M1509 (Washington D.C.: National Archives and Records Administration, n.d). 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+Ancestry.com, "U.S., World War II Draft Registration Cards, 1942", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+The National Archives at St. Louis; St. Louis, Missouri; World War IIdraft cards (Fourth Registration) for the State of Pennsylvania; State Headquarters: Pennsylvania; Microfilm Series: M1951; Microfilm Roll: 260 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+The National Archives at St. Louis; St. Louis, Missouri; World War IIdraft cards (Fourth Registration) for the State of Pennsylvania; State Headquarters: Pennsylvania; Microfilm Series: M1951; Microfilm Roll: 222 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+Ancestry.com, "Florida Death Index, 1877-1998", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:M593\_1307; Page: 178B; Image: 742; Family History Library Film: 552806 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1870; Census Place: Reading Ward 7, Berks, Pennsylvania; Roll:M593\_1307; Page: 114A; Image: 611; Family History Library Film: 552806 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1870; Census Place: Reading Ward 9, Berks, Pennsylvania; Roll:M593\_1307; Page: 234B; Image: 855; Family History Library Film: 552806 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1870; Census Place: Philadelphia Ward 1 Dist 4 (2nd Enum),Philadelphia, Pennsylvania; Roll: M593\_1415; Page: 69B; Image: 142; Family History Library Film: 552914 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+Ancestry.com, "U.S. Federal Census Mortality Schedules, 1850-1885", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+National Archives and Records Administration (NARA); Washington, D.C.;Non-Population Census Schedules for Pennsylvania, 1850-1880: Mortality; Archive Collection: M1838; Archive Roll Number: 8; Census Year: 1879; Census Place: Reading, Berks, Pennsylvania; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "Reading, Pennsylvania Deaths, 1873-1905", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+Ancestry.com, "Pennsylvania, Records of Marriages, 1885-1889", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+"Reading Times" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+John Roettgers Obituary, Reading Times, Page 5, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Mary C Morrison Obituary, Reading Times, Page 5, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+John F. Morrison Obituary, Reading Times, Page 5, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Edgar Jefferies Obituary, Reading Times, Page 8, Column 5 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Edgar Jefferies Death Notice, Reading Times, Page 6, Column 7 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Catharine Furlington Jefferies Obituary, Reading Times, Page 4, Column4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Catharine Furlington Jefferies Death Notice, Reading Times, Page 6,Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: Reading, North East Ward, Berks,Pennsylvania; Roll: M653\_1077; Page: 978; Image: 120; Family History Library Film: 805077 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+Ancestry.com, "Web: Pennsylvania, Find A Grave Index, 1682-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{0.75}{0}%
+\grlisthead{42.}%
+Ancestry.com, "Reading, Pennsylvania Births, 1876-1905", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date:1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{43.}%
+\grminpghead{0.75}{0}%
+\grlisthead{43.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Bart, Lancaster, Pennsylvania; Roll:M432\_787; Page: 59B; Image: 124 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: Spring Garden Ward 5, Philadelphia,Pennsylvania; Roll: M432\_819; Page: 251B; Image: 372 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{44.}%
+\grminpghead{0.75}{0}%
+\grlisthead{44.}%
+Ancestry.com, "Pennsylvania, Civil War Muster Rolls, 1860-1869", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{45.}%
+\grminpghead{0.75}{0}%
+\grlisthead{45.}%
+Ancestry.com, "Philadelphia, Pennsylvania, Death Certificates Index, 1803-1915", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date:2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{46.}%
+\grminpghead{0.75}{0}%
+\grlisthead{46.}%
+"York Daily", Location: York, Pennsylvania, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William Morrisson Death Notice, York Daily, Page 1, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{47.}%
+\grminpghead{0.75}{0}%
+\grlisthead{47.}%
+"Charles Evans Cemetery Burial Records", Name: Berks County Genealogical Society; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Edgar Jefferies Burial Record 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Catherine Jefferies Burial Record 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}
