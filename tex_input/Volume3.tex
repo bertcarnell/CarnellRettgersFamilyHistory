@@ -1,8 +1,11 @@
 \documentclass[11pt,letter]{book}
 
 \usepackage[T1]{fontenc}
+
+% Fonts added for the book
 \usepackage[bitstream-charter]{mathdesign} % use the bitstream-charter True Type font
 
+% ---- Gramps Packages ----
 %\usepackage[latin1]{inputenc}%
 \usepackage[latin1,utf8]{inputenc}%
 \usepackage{graphicx}% Extended graphics support
@@ -11,6 +14,11 @@
 \usepackage{ifthen}% For table width calculations
 \usepackage{ragged2e}% For left aligning with hyphenation
 \usepackage{wrapfig}% wrap pictures in text
+
+% Packages added for the book
+\usepackage[all]{genealogytree} % genealogy-tree package for trees
+
+% --------- Gramps Section ----------
 
 % Depending on your LaTeX installation, the margins may be too
 % narrow.  This can be corrected by uncommenting the following
@@ -301,8 +309,8 @@
   \rule[-\grtempwd]{0pt}{\grtempwd}%
   \setlength{\grtabprepos}{-\grtempwd}%
 }%
-%
-%
+
+% -------------------- End Gramps Section ----------------------
 
 \title{\bf Carnell-Rettgers Family Genealogy \\
        \large Volume III}
@@ -320,9 +328,128 @@ Introduction text.
 
 \chapter{Ancestors of Ithamar Benedict Rettgers}
 
+\section{Introduction}
+
+Introductory Text.
+
+\section{Tree Figure}
+
+\begin{tikzpicture}
+	\genealogytree{
+		parent{
+			c[male]{Forrest Ithamar Rettgers\\YYYY-YYYY}
+			g[male]{Robert Rettgers}
+			c[female]{Miriam Rettgers}
+			c[female]{Joyce Rettgers}
+			parent{
+				g[male]{Ithamar Benedict Rettgers\\1898-1937}
+				parent{
+					g[male]{Frederick H Rettgers\\1873-1944}
+					parent{
+						g[male]{John Roettgers\\1826-}
+					}
+					parent{
+						g[female]{Henrietta Jansen\\1832-1879}
+					}
+				}
+				parent{
+					g[female]{Sarah E Morrisson\\1879-1942}
+					parent{
+						g[male]{Ithamar S Morrisson\\1856-1923}
+						parent{
+							g[male]{John Morrisson\\1823-1903}
+						}
+						parent{
+							g[female]{Elizabeth Smith\\1821-1906}
+						}
+					}
+					parent{
+						g[female]{Clara Jefferies\\1856-1893}
+						parent{
+							g[male]{Edgar A Jefferies\\1825-1909}
+						}
+						parent{
+							g[female]{Catharine Furlington\\1828-1904}
+						}
+					}
+				}
+			}
+			parent{
+				g[female]{Laura Tyson Hartenstine}
+			}
+		}
+	}
+\end{tikzpicture}
+
 \input{det_ancestor_report_Rettgers_mod.tex}
 
 \chapter{Ancestors of Laura Tyson Hartenstine}
+
+\section{Introduction}
+
+Introductory Text.
+
+\section{Tree Figure}
+
+\begin{tikzpicture}
+	\genealogytree{
+		parent{
+			c[male]{Forrest Ithamar Rettgers\\YYYY-YYYY}
+			g[male]{Robert Rettgers}
+			c[female]{Miriam Rettgers}
+			c[female]{Joyce Rettgers}
+			parent{
+				g[male]{Ithamar Benedict Rettgers\\1898-1937}
+			}
+			parent{
+				g[female]{Laura Tyson Hartenstine\\1897-1977}
+				parent{
+					g[male]{Jacob S Hartenstine\\1870-1902}
+					parent{
+						g[male]{Heber Hartenstine\\1838-1879}
+						parent{
+							g[male]{Jacob Hartenstine\\1802-1888}
+						}
+						parent{
+							g[female]{Ann Cook\\1814-}
+						}
+					}
+					parent{
+						g[female]{Mary Ann Seivard\\1842-1932}
+						parent{
+							g[male]{Abraham Seivard\\1806-1878}
+						}
+						parent{
+							g[female]{Catharine Keinard\\1808-1882}
+						}
+					}
+				}
+				parent{
+					g[female]{Ida Miller\\1870-1952}
+					parent{
+						g[male]{James V Miller\\1837-1925}
+						parent{
+							g[male]{John H Miller\\1795-1876}
+						}
+						parent{
+							g[female]{Martha Thomas\\1798-1892}
+						}
+					}
+					parent{
+						g[female]{Mary Ann Mock\\1832-1913}
+						parent{
+							g[male]{Adam Mock\\1802-1835}
+						}
+						parent{
+							g[female]{Rebecca Wynn\\1803-1856}
+						}
+					}
+				}
+
+			}
+		}
+	}
+\end{tikzpicture}
 
 \input{det_ancestor_report_Hartenstine_mod.tex}
 
@@ -333,5 +460,23 @@ Introduction text.
 \chapter{Ancestors of Florence Ethel Bechtel}
 
 \input{det_ancestor_report_Bechtel_mod.tex}
+
+\chapter{Endnotes}
+
+\section{Ancestors of Ithamar Benedict Rettgers}
+
+\input{det_ancestor_report_Rettgers_mod_notes.tex}
+
+\section{Ancestors of Laura Tyson Hartenstine}
+
+\input{det_ancestor_report_Hartenstine_mod_notes.tex}
+
+\section{Ancestors of Floyd William Fett}
+
+\input{det_ancestor_report_Fett_mod_notes.tex}
+
+\section{Ancestors of Florence Ethel Bechtel}
+
+\input{det_ancestor_report_Bechtel_mod_notes.tex}
 
 \end{document}

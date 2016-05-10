@@ -42,11 +42,69 @@ X3 <- lapply(X2, function(x){
   y <- str_replace_all(y, "New[ ]York[,][ ]USA", "NY")
   y <- str_replace_all(y, "Delaware[,][ ]USA", "DE")
   # Unknown (Husband name)
-  y <- str_replace_all(y, "Unknown[ ][(].+[)]", "_____")
+  y <- str_replace_all(y, "Unknown[ ][(][A-Za-z]+[)]", "\\\\underline{\\\\hspace{3em}}")
   return(y)
+})
+
+mod_date <- function(x)
+{
+  # because when a string is replaced, it changes the string, I can't find all the instance and then
+  #  replace them.
+  # find one at a time
+  for (i in 1:length(x))
+  {
+    year_month <- "[0-2][0-9][0-9][0-9]-[0-1][0-9]-00"
+    year_month_day <- "[0-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]"
+    while (str_detect(x[i], year_month))
+    {
+      test <- stringi::stri_extract_first(x[i], regex=year_month)
+      test_loc <- stringi::stri_locate_first(x[i], regex=year_month)
+      test <- str_replace(test, "-00", "-01")
+      test <- strftime(as.Date(test, format="%Y-%m-%d"), format="%b %Y")
+      str_sub(x[i], test_loc[,1], test_loc[,2]) <- test
+    }
+    while (str_detect(x[i], year_month_day))
+    {
+      test <- stringi::stri_extract_first(x[i], regex=year_month_day)
+      test_loc <- stringi::stri_locate_first(x[i], regex=year_month_day)
+      test <- strftime(as.Date(test, format="%Y-%m-%d"), format="%d %b %Y")
+      str_sub(x[i], test_loc[,1], test_loc[,2]) <- test
+    }
+  }
+  return(x)
+}
+
+X3 <- lapply(X3, mod_date)
+
+# \newpage%
+# \grprepnoleader%
+# \grminpghead{0}{0}%
+# 
+# \sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+# 
+# \grminpgtail%
+
+# cut off the end notes and make a separate file
+X4 <- lapply(X3, function(x) {
+  ind <- which(str_detect(x, "[:punct:]sffamily[:punct:]itshape[:punct:]large[:space:]+Endnotes[:space:]+[:punct:]upshape[:punct:]rmfamily[:punct:]normalsize"))
+  ind2 <- max(which(str_detect(x[1:ind], "[:punct:]newpage[:punct:]")))  
+  return(x[1:(ind2-1)])
+})
+
+X5 <- lapply(X3, function(x) {
+  x <- X3[[1]]
+  ind <- which(str_detect(x, "[:punct:]sffamily[:punct:]itshape[:punct:]large[:space:]+Endnotes[:space:]+[:punct:]upshape[:punct:]rmfamily[:punct:]normalsize"))
+  ind2 <- min(which(str_detect(x[(ind+1):length(x)], "[:punct:]grminpgtail[:punct:]")))  
+  return(x[(ind+ind2+1):length(x)])
 })
 
 dummy <- mapply(function(x, f){
   fnew <- str_replace(f, "[.]tex$", "_mod.tex")
   writeLines(x, con=file.path(tex_input_path, fnew))
-}, X3, ancestor_files)
+}, X4, ancestor_files)
+
+dummy <- mapply(function(x, f){
+  fnew <- str_replace(f, "[.]tex$", "_mod_notes.tex")
+  writeLines(x, con=file.path(tex_input_path, fnew))
+}, X5, ancestor_files)
+
