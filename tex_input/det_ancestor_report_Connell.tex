@@ -1,0 +1,1680 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for William Buck Connell \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1000.}%
+\textbf{William Buck Connell .  }Son of William Ellison Lee Connell and Ida Mae Barnes.    Born 20 Aug 1890 in South Carolina, USA \textsuperscript{1a, 2 }.   Died 19 Oct 1953 in Florence, Florence, South Carolina, USA \textsuperscript{2, 3, 4, 5a, 5b }.   Buried in Florence County, South Carolina, USA \textsuperscript{4, 5a, 5b }.  Relationship with Nellie D Langston.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Relationship with: Nellie D Langston . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 14 Sep 1903 in South Carolina, USA \textsuperscript{6a, 1a, 7a, 7b, 8a }.   Died 10 Sep 1948 in Mechanicsburg, Cumberland, Pennsylvania, USA \textsuperscript{9, 8a }.   Buried 12 Sep 1948 in Savannah, Chatham, Georgia, USA \textsuperscript{10 }.  Daughter of Anna James Nunnery and Fleetwood W Langston.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Nellie D Langston and William Buck Connell \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Wilbur Bernard Cornell.  Born 2 Jan 1920 \textsuperscript{11a, 12, 13, 14 }.   Died 16 Feb 2008 in Hinesville, Liberty, Georgia, USA \textsuperscript{14 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Miriam Elizabeth Cornell.  Born 12 May 1924 in Effingham, Florence, South Carolina, USA \textsuperscript{15a, 16a, 11b, 7b, 17 }.   Died 29 Mar 1977 in Chatham County, Georgia, USA \textsuperscript{15a, 11b, 17 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Curtis Thomas Carnell.  Born 15 Mar 1922 in Effingham, Florence, South Carolina, USA \textsuperscript{18, 16a, 19a, 4, 17, 14 }.   Died 18 May 1991 in Carlisle, Cumberland, Pennsylvania, USA \textsuperscript{20a, 21, 4, 17, 14 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2000.}%
+\textbf{William Ellison Lee Connell .  }Son of James E Broach and Harriett Connell.    Born Jul 1865 in South Carolina, USA \textsuperscript{22a, 23a }.   Died 1903 in Effingham, Florence, South Carolina, USA \textsuperscript{24a }.   Relationship with Ida Mae Barnes.  Also married Elsie W Carter 1898 \textsuperscript{23a, 23a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elsie W Carter and William Ellison Lee Connell \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Martin Cleveland Carnell.  Born 18 Apr 1892 in Florence County, South Carolina, USA \textsuperscript{23a, 25a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+John Franklin Carnell.  Born 20 Oct 1896 in South Carolina, USA \textsuperscript{23a, 11c, 16b, 14, 4 }.   Died 3 Jan 1980 in Winnsboro, Fairfield, South Carolina, USA \textsuperscript{11c, 14, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Melvin F Carnell.  Born 27 Jul 1902 in South Carolina, USA \textsuperscript{7c, 11d, 1b, 4 }.   Died 18 May 1991 in Pelion, Lexington, South Carolina, USA \textsuperscript{11d, 26a, 26a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Living Carnell.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{2001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2001.}%
+\textbf{Ida Mae Barnes .  }Born about 1862 in South Carolina, USA \textsuperscript{22b }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ida Mae Barnes and William Ellison Lee Connell \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Letha Connell.  Born 1892 in South Carolina, USA \textsuperscript{23a, 27a, 4 }.   Died 3 Dec 1965 in Charleston, Charleston, South Carolina, USA \textsuperscript{5c, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Robert Edward Cornell.  Born 12 Aug 1884 in Florence County, South Carolina, USA \textsuperscript{28, 2, 23a, 25b, 17 }.   Died 12 Oct 1951 in Darlington County, South Carolina, USA \textsuperscript{28, 2, 5d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+William Buck Connell [1000].  Born 20 Aug 1890 in South Carolina, USA \textsuperscript{1a, 2 }.   Died 19 Oct 1953 in Florence, Florence, South Carolina, USA \textsuperscript{2, 3, 4, 5a, 5b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Laney A Connell.  Born 27 Jun 1884 in South Carolina, USA \textsuperscript{1c, 27b, 7d, 2, 4, 23b }.   Died 14 Nov 1954 in Florence County, South Carolina, USA \textsuperscript{2, 4, 5e, 5f }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4000.}%
+\textbf{James E Broach .  }Son of Abner Broach and Elizabeth "Eliza" Unknown (Broach).    Born 31 Aug 1825 in South Carolina, USA \textsuperscript{22a, 29a, 30a, 31a, 4, 32a }.   Died 17 May 1899 in Florence County, South Carolina, USA \textsuperscript{30a, 4, 32a }.   Buried in Florence County, South Carolina, USA \textsuperscript{30a, 4, 32a }.  Relationship with Martha A Unknown.  Also relationship with Harriett Connell.  Also relationship with Elise Maria Unknown (Broach).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Martha A Unknown and James E Broach \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Henry Broach.  Born 23 Apr 1849 in Florence County, South Carolina, USA \textsuperscript{29b, 31a, 27c, 2, 22c, 30b, 23c, 4 }.   Died 17 Jan 1923 in Florence County, South Carolina, USA \textsuperscript{2, 30b, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Mary Martha A E Broach.  Born between 29 Apr 1844 and 29 Oct 1846 in South Carolina, USA \textsuperscript{29a, 31a, 23d, 30c, 1d, 2, 2, 22d, 4 }.   Died 17 Jul 1926 in Aiken County, South Carolina, USA \textsuperscript{30c, 2, 2, 4, 33a, 33b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elise Maria Unknown (Broach) and James E Broach \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary Broach.  Born 17 Nov 1854 in South Carolina, USA \textsuperscript{29b, 30d, 23e, 27d, 4, 2, 1e, 7e, 22e }.   Died 10 Jan 1935 in Lee County, South Carolina, USA \textsuperscript{30d, 4, 2 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+A Wesley Broach.  Born 31 Aug 1856 in South Carolina, USA \textsuperscript{29b, 22f, 4, 2, 7f, 23f, 1f, 16c, 27e }.   Died 8 Apr 1943 in Darlington County, South Carolina, USA \textsuperscript{4, 2 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Eliza Broach.  Born about 1853 in South Carolina, USA \textsuperscript{29b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{4001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4001.}%
+\textbf{Harriett Connell .  }Daughter of Eliza Connell.   Born about 1840 in South Carolina, USA \textsuperscript{29c, 22a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Harriett Connell and James E Broach \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Archie Connell.  Born about 1876 in South Carolina, USA \textsuperscript{22a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Jessee Connell.  Born between 1872 and 1874 in South Carolina, USA \textsuperscript{22a, 2 }.   Died 5 Jan 1929 in Florence County, South Carolina, USA \textsuperscript{2 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+William Ellison Lee Connell [2000].  Born Jul 1865 in South Carolina, USA \textsuperscript{22a, 23a }.   Died 1903 in Effingham, Florence, South Carolina, USA \textsuperscript{24a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{8000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8000.}%
+\textbf{Abner Broach .  }Son of Abner Broach (Brough) and Sarah Unknown (Perritt Broach).    Born 9 Sep 1789 in Darlington County, South Carolina, USA \textsuperscript{31b, 29d, 34a }.   Died 12 Sep 1879 in Tans Bay, Florence, South Carolina, USA \textsuperscript{34a }.   Relationship with Elizabeth "Eliza" Unknown (Broach).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8001.}%
+\textbf{Elizabeth "Eliza" Unknown (Broach) .  }Born about 1803 in South Carolina, USA \textsuperscript{31b, 35, 36a }.   Died May 1860 in Marion County, South Carolina, USA \textsuperscript{35, 36a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth "Eliza" Unknown (Broach) and Abner Broach \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Eveline Broach.  Born about 1842 in South Carolina, USA \textsuperscript{29d, 31b, 29d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+A P Broach.  Born about 1829 in South Carolina, USA \textsuperscript{31b, 29e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Dilley Broach.  Born about 1838 in South Carolina, USA \textsuperscript{31b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Laney Broach.  Born about 1839 in South Carolina, USA \textsuperscript{31b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Reding Broach.  Born about 1831 in South Carolina, USA \textsuperscript{31b, 29f, 37a }.   Died about 1863 in Memphis, Shelby, Tennessee, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Robert Broach.  Born Jan 1844 in South Carolina, USA \textsuperscript{31b, 29d, 22g, 23g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Caroline Broach.  Born about 1841 in South Carolina, USA \textsuperscript{31b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+James E Broach [4000].  Born 31 Aug 1825 in South Carolina, USA \textsuperscript{22a, 29a, 30a, 31a, 4, 32a }.   Died 17 May 1899 in Florence County, South Carolina, USA \textsuperscript{30a, 4, 32a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Emma Broach.  Born Jun 1842 in South Carolina, USA \textsuperscript{29d, 31b, 23h, 22g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Joel Broach.  Born about 1834 in South Carolina, USA \textsuperscript{31b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xi.}%
+Louisa Broach.  Born Jun 1842 in South Carolina, USA \textsuperscript{31b, 29d, 27f, 23h, 22g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{8003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8003.}%
+\textbf{Eliza Connell .  }Born about 1815 in South Carolina, USA \textsuperscript{22a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Eliza Connell and Unknown \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Harriett Connell [4001].  Born about 1840 in South Carolina, USA \textsuperscript{29c, 22a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Mary Connell.  Born about 1830 in South Carolina, USA \textsuperscript{22a, 29c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{16000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16000.}%
+\textbf{Abner Broach (Brough) .  }Born about 1761 \textsuperscript{38 }.   Died 1810 in Darlington County, South Carolina, USA \textsuperscript{39a }.   Relationship with Sarah Unknown (Perritt Broach).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16001.}%
+\textbf{Sarah Unknown (Perritt Broach) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah Unknown (Perritt Broach) and Abner Broach (Brough) \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Broach.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Robert Broach.  Born about 1810 in Marion County, South Carolina, USA \textsuperscript{31c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Clarissa Broach.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+George W Broach.  Born about 1803 in South Carolina, USA \textsuperscript{31d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Samuel Broach.  Born about 1809 in Marion County, South Carolina, USA \textsuperscript{29g, 31c, 4, 30e }.   Died 12 Dec 1870 in Florence County, South Carolina, USA \textsuperscript{4, 30e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+James Broach.  Born about 1793.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+William P Broach.  Born 15 Jun 1804 in Darlington County, South Carolina, USA \textsuperscript{40, 31e, 22h, 4, 41a, 29h }.   Died 28 Apr 1889 in Meridian, Lauderdale, Mississippi, USA \textsuperscript{40, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Abner Broach [8000].  Born 9 Sep 1789 in Darlington County, South Carolina, USA \textsuperscript{31b, 29d, 34a }.   Died 12 Sep 1879 in Tans Bay, Florence, South Carolina, USA \textsuperscript{34a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Elizabeth Broach.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Mary Broach.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xi.}%
+Charles Broach.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: McMillen, Florence, South Carolina; Roll: T625\_1696; Page: 10B; Enumeration District: 59; Image: 335 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Congaree, Lexington, South Carolina; Roll: T625\_1702; Page: 8B; Enumeration District: 32; Image: 304 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Effingham, Florence, South Carolina; Roll: T625\_1695; Page: 1A; Enumeration District: 41; Image: 754 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: Windsor, Aiken, South Carolina; Roll: T625\_1683; Page: 7B; Enumeration District: 26; Image: 410 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1920; Census Place: Lynchburg, Lee, South Carolina; Roll: T625\_1701; Page: 2A; Enumeration District: 18; Image: 874 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1920; Census Place: Tans Bay, Florence, South Carolina; Roll: T625\_1696; Page: 12B; Enumeration District: 63; Image: 467 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "South Carolina, Death Records, 1821-1960", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2008; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+"Florence Morning News" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William Buck Connell Obituary, Page 14, Thursday 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+William Buck Connell Obituary, Page 10, Wednesday 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Letha Carnell Bowens Deas Obituary, Florence Morning News, Page 2-A, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Robert E Cornell Obituary, Florence Morning News Page 8 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Laney Carnell Reddick Obituary, Florence Morning News, Page 10, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Laney Carnell Reddick Obituary, Florence Morning News, Page 5, column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Cartersville, Florence, South Carolina; Roll: T624\_1457; Page: 11A; Enumeration District: 0018; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Florence, Florence, South Carolina; Roll: 2196; Page: 10B; Enumeration District: 0012; Image: 857.0; FHL microfilm: 2341930 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Militia District 8, Chatham, Georgia; Roll: 345; Page: 6A; Enumeration District: 0058; Image: 546.0; FHL microfilm: 2340080 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1930; Census Place: Congaree, Lexington, South Carolina; Roll: 2204; Page: 4A; Enumeration District: 0013; Image: 831.0; FHL microfilm: 2341938 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1930; Census Place: McMillen, Florence, South Carolina; Roll: 2197; Page: 3A; Enumeration District: 0033; Image: 438.0; FHL microfilm: 2341931 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1930; Census Place: Lynchburg, Lee, South Carolina; Roll: 2203; Page: 4A; Enumeration District: 0012; Image: 947.0; FHL microfilm: 2341937 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1930; Census Place: Tans Bay, Florence, South Carolina; Roll: 2197; Page: 11B; Enumeration District: 0038; Image: 586.0; FHL microfilm: 2341931 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historic and Museum Commission; Pennsylvania, USA; Certificate Number Range: 076651-079200 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+Ancestry.com, "Savannah, Georgia, Cemetery Burial Lot Cards, 1807-1995", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Number: 261-24-0468; Issue State: Florida; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Number: 248-01-4885; Issue State: South Carolina; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Number: 250-09-0339; Issue State: South Carolina; Issue Date: 1952 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+National Archives and Records Administration, "U.S. World War II Army Enlistment Records, 1938-1946", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+Ancestry.com, "U.S., Department of Veterans Affairs BIRLS Death File, 1850-2010", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Ancestry.com, "Georgia Deaths, 1919-98", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Certificate number: 010024 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Jacksonville, Duval, Florida; Roll: T627\_627; Page: 7A; Enumeration District: 68-157 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1940; Census Place: Winnsboro Mills, Fairfield, South Carolina; Roll: T627\_3807; Page: 4B; Enumeration District: 20-21B 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1940; Census Place: Darlington, Darlington, South Carolina; Roll: T627\_3802; Page: 1B; Enumeration District: 16-4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "Pennsylvania, Veteran Compensation Applications, WWII, 1950", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+"Florence County Health Department, Florence County South Carolina, Birth Certificate, Curtis Connell" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Curtis Connell Birth Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg, Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 2-1; Folder Number: 577 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+"Details: Curtis Carnell Obituary, Gettysburg Times" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Taus Bay, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 348A; Enumeration District: 048 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: James Cross Roads, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 175C; Enumeration District: 038 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: Lynchburg, Sumter, South Carolina; Roll: 1241; Family History Film: 1255241; Page: 71C; Enumeration District: 115 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Morven, Anson, North Carolina; Roll: 951; Family History Film: 1254951; Page: 350A; Enumeration District: 002; Image: 0492 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Lynchburg, Sumter, South Carolina; Roll: 1241; Family History Film: 1255241; Page: 71D; Enumeration District: 115 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: Florence, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 123A; Enumeration District: 035 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: Cains, Marion, South Carolina; Roll: 1234; Family History Film: 1255234; Page: 36D; Enumeration District: 087 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1880; Census Place: Meridian, Lauderdale, Mississippi; Roll: 653; Family History Film: 1254653; Page: 4B; Enumeration District: 090; Image: 0011 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Tans Bay, Florence, South Carolina; Roll: 1528; Page: 10A; Enumeration District: 0044; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Lynches, Florence, South Carolina; Roll: 1528; Page: 5B; Enumeration District: 0040; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Shiloh, Sumter, South Carolina; Roll: 1543; Page: 9A; Enumeration District: 0123; FHL microfilm: 1241543 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: Shiloh, Sumter, South Carolina; Roll: 1543; Page: 11B; Enumeration District: 0124; FHL microfilm: 1241543 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Shiloh, Sumter, South Carolina; Roll: 1543; Page: 3 AA; Enumeration District: 0123; FHL microfilm: 1241543 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: Tans Bay, Florence, South Carolina; Roll: 1528; Page: 7A; Enumeration District: 0044; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1900; Census Place: Cains, Florence, South Carolina; Roll: 1527; Page: 10A; Enumeration District: 0032; FHL microfilm: 1241527 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1900; Census Place: Cains, Florence, South Carolina; Roll: 1527; Page: 9B; Enumeration District: 0032; FHL microfilm: 1241527 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+Melvin Carnell, "Letter from Melvin Carnell to Susan Carnell Nell (18 Sep 1979)" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William E L Connell's death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: Virginia; Registration County: Pittsylvania; Roll: 1984945; Draft Board: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Registration State: South Carolina; Registration County: Darlington; Roll: 1877589 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+Ancestry.com, "Web: Richland County, South Carolina, Obituary Index, 1892-2000", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Melvin F Carnell Obituary Index 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Lynch, Florence, South Carolina; Roll: T624\_1457; Page: 15A; Enumeration District: 0027; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: Lamar, Darlington, South Carolina; Roll: T624\_1454; Page: 1B; Enumeration District: 0007; FHL microfilm: 1375467 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Florence Ward 2, Florence, South Carolina; Roll: T624\_1457; Page: 21B; Enumeration District: 0022; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: Lynchburg, Lee, South Carolina; Roll: T624\_1466; Page: 18B; Enumeration District: 0017; FHL microfilm: 1375479 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1910; Census Place: Tans Bay, Florence, South Carolina; Roll: T624\_1457; Page: 12A; Enumeration District: 0031; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1910; Census Place: Militia District 1231, Ware, Georgia; Roll: T624\_214; Page: 9A; Enumeration District: 0169; FHL microfilm: 1374227 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+South Carolina Division of Vital Records, "South Carolina Death Index, 1950-1952", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2003; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: Darlington, South Carolina; Roll: M653\_1218; Page: 395; Image: 303; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1860; Census Place: Darlington, South Carolina; Roll: M653\_1218; Page: 395; Image: 304; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 434; Image: 381; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1860; Census Place: Marion, Marion, South Carolina; Roll: M653\_1223; Page: 65; Image: 134; Family History Library Film: 805223 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1860; Census Place: St James Santee, Charleston, South Carolina; Roll: M653\_1215; Page: 148; Image: 105; Family History Library Film: 805215 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1860; Census Place: Marion, Marion, South Carolina; Roll: M653\_1223; Page: 65; Image: 133; Family History Library Film: 805223 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1860; Census Place: Marion, Marion, South Carolina; Roll: M653\_1223; Page: 37; Image: 77; Family History Library Film: 805223 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1860; Census Place: Eastern Division, Walker, Alabama; Roll: M653\_26; Page: 882; Image: 120; Family History Library Film: 803026 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Ancestry.com, "Web: South Carolina, Find A Grave Index, 1729-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+James E Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+John Henry Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Mary Martha AE Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Mary Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Samuel Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Division 1, Darlington, South Carolina; Roll: M432\_851; Page: 284A; Image: 568 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: Division 4, Darlington, South Carolina; Roll: M432\_851; Page: 341B; Image: 684 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1850; Census Place: Marion, South Carolina; Roll: M432\_856; Page: 120B; Image: 246 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1850; Census Place: Hickman, Kentucky; Roll: M432\_205; Page: 46B; Image: 97 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1850; Census Place: York, York, South Carolina; Roll: M432\_860; Page: 220A; Image: 214 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+Elim Baptist Church, "Elim Baptist Church Cemetery Transcript" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+James Broach Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+"Aiken Standard", Location: Aiken, South Carolina, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Mary Broach Thornal Obituary, Aiken Standard, Page 12, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Mary Broach Thornal Obituary, Aiken Standard, Page 4, Column 4 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+"Marion Star", Location: Marion, South Carolina, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Abner Broach Obituary, Marion Star, Page 3, Column 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+Ancestry.com, "U.S., Federal Census Mortality Schedules Index, 1850-1880", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+Ancestry.com, "U.S. Federal Census Mortality Schedules, 1850-1885", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+South Carolina Department of Archives and History; Columbia, South Carolina; U.S. Census Mortality Schedules, South Carolina, 1850-1880; Archive Roll Number: 3; Census Year: 1860; Census Place: Marion, Marion, South Carolina; Page: 3 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "U.S., Confederate Soldiers Compiled Service Records, 1861-1865", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+National Archives and Records Administration (NARA); Carded Records Showing Military Service of Soldiers Who Fought in Confederate Organizations, compiled 1903 - 1927, documenting the period 1861 - 1865; Catalog ID: 586957; Record Group \#: 109; Roll \#: 240 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+"South Carolina State Archives" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Darlington County Court of Equity, Summons in Partition for the Estate of Abner Broach 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+Ancestry.com, "Web: Mississippi, Find A Grave Index, 1798-2012", Name: Ancestry Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Township 6, Lauderdale, Mississippi; Roll: M593\_735; Page: 21A; Image: 45; Family History Library Film: 552234 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}

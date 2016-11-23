@@ -4,7 +4,9 @@ require(stringr)
 repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
 tex_input_path <- file.path(repository_path,"CarnellRettgersFamilyHistory","tex_input")
 
-ancestor_files <- paste0("det_ancestor_report_", c("Bechtel","Fett","Hartenstine","Rettgers"), ".tex")
+ancestor_files <- paste0("det_ancestor_report_", 
+                         c("Bechtel","Fett","Hartenstine","Rettgers",
+                           "Connell","Langston","Smith","Josey"), ".tex")
 
 dummy <- sapply(file.path(tex_input_path, ancestor_files), function(x) {
   assertthat::assert_that(file.exists(x))
@@ -92,7 +94,7 @@ X4 <- lapply(X3, function(x) {
 })
 
 X5 <- lapply(X3, function(x) {
-  x <- X3[[1]]
+  #x <- X3[[1]]
   ind <- which(str_detect(x, "[:punct:]sffamily[:punct:]itshape[:punct:]large[:space:]+Endnotes[:space:]+[:punct:]upshape[:punct:]rmfamily[:punct:]normalsize"))
   ind2 <- min(which(str_detect(x[(ind+1):length(x)], "[:punct:]grminpgtail[:punct:]")))  
   return(x[(ind+ind2+1):length(x)])

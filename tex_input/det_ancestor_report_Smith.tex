@@ -1,0 +1,3171 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for Kendrick Marvin Smith \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1000.}%
+\textbf{Kendrick Marvin Smith .  }Son of James Allen Smith and Ammie R Winfred McNeely.    Born 18 Oct 1902 in Bartow, Jefferson, Georgia, USA \textsuperscript{1a, 2a, 3a, 4, 5a, 6a }.   Died 15 Jun 1965 \textsuperscript{2a, 4 }.   Buried 17 Jun 1965 in Langley, Aiken County, South Carolina, USA \textsuperscript{4 }.  Married Jewel Norene Josey 1 Nov 1923.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Spouse: Jewel Norene Josey . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 9 Jul 1907 in Bartow, Jefferson, Georgia, USA \textsuperscript{3a, 5b, 6b, 1a, 4, 2b, 7 }.   Died 10 Feb 1992 in Bath, Aiken, South Carolina, USA \textsuperscript{4, 2b, 7 }.   Buried 12 Feb 1992 in Langley, Aiken County, South Carolina, USA \textsuperscript{4 }.  Daughter of Henry Lewis Josey and Martha Elizabeth "Mattie Belle" Smith.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Jewel Norene Josey and Kendrick Marvin Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Gerald Lewis Smith.  Born 26 Nov 1939 in South Carolina, USA \textsuperscript{8, 1a, 4 }.   Died 11 Dec 1945 in Aiken County, South Carolina, USA \textsuperscript{8, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Jimmie Edward Smith.  Born 7 Dec 1942 in Aiken County, South Carolina, USA \textsuperscript{4 }.   Died 30 Mar 2012 in Bath, Aiken, South Carolina, USA \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Living Smith.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Kenneth Clifton Smith.  Born 29 Jun 1936 in South Carolina, USA \textsuperscript{9, 1a, 10, 4, 2c }.   Died 8 Feb 2010 in Bath, Aiken, South Carolina, USA \textsuperscript{10, 11a, 4, 11b, 2c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Living Smith.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Living Smith.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Floyd Kendrick Smith.  Born 8 Mar 1932 in Georgia, USA \textsuperscript{1a, 2d, 12, 4 }.   Died 19 Apr 1986 in Bath, Aiken, South Carolina, USA \textsuperscript{2d, 12, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2000.}%
+\textbf{James Allen Smith .  }Son of William Jordan Smith and Eliza J Allen.    Born 18 Feb 1875 in Jefferson County, Georgia, USA \textsuperscript{13a, 14a, 15a, 1b, 3b, 4, 5a, 6a }.   Died 13 Nov 1968 in Washington County, Georgia, USA \textsuperscript{2e, 4 }.   Buried in Washington County, Georgia, USA \textsuperscript{4 }.  Married Ammie R Winfred McNeely 7 Aug 1898 in Jefferson County, Georgia, USA \textsuperscript{15a, 15a, 16a }.  Also married Leila Price 17 Oct 1920 in Washington County, Georgia, USA \textsuperscript{17a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Leila Price and James Allen Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Willie Cohen Smith.  Born 13 Mar 1926 in Georgia, USA \textsuperscript{2f, 18a, 1b, 14b, 3b, 4 }.   Died 11 Dec 1986 in Augusta, Richmond, Georgia, USA \textsuperscript{2f, 14b, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Henry Jordan Smith.  Born 25 Dec 1921 in Georgia, USA \textsuperscript{19a, 14c, 1b, 3b, 4 }.   Died 26 Nov 1981 in Washington County, Georgia, USA \textsuperscript{19a, 2g, 14c, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{2001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2001.}%
+\textbf{Ammie R Winfred McNeely .  }Daughter of Thomas M McNeely and Dealpha Garrett.    Born Mar 1882 in Georgia, USA \textsuperscript{15a, 5a, 20a }.   Died BET JUN AND SEP 1918 in Washington County, Georgia, USA.   Buried in Riddleville, Washington, Georgia, USA \textsuperscript{20a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ammie R Winfred McNeely and James Allen Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Samuel J Smith.  Born 20 Feb 1907 in Georgia, USA \textsuperscript{19a, 2h, 3b, 6a, 5a, 4 }.   Died 23 Sep 1969 in Davisboro, Washington, Georgia, USA \textsuperscript{2h, 4, 19a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Benjamin Gainer Smith.  Born 27 Aug 1915 in Georgia, USA \textsuperscript{6a, 3b, 18a }.   Died 1979.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Lorenna Smith.  Born 8 Dec 1904 in Georgia, USA \textsuperscript{14d, 6a, 4, 1c, 5a, 3c, 2i }.   Died 18 Jan 1981 in Richmond County, Georgia, USA \textsuperscript{14d, 4, 2i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Lizzie Mae Smith.  Born 12 Oct 1900 in Georgia, USA \textsuperscript{19a, 1d, 3d, 6c, 4, 5a, 14e }.   Died 29 May 1970 in Washington County, Georgia, USA \textsuperscript{19a, 4, 14e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Bertha Louise Smith.  Born 5 Sep 1911 in Georgia, USA \textsuperscript{6a, 3b, 2j }.   Died 23 Feb 2005 in Bath, Aiken, South Carolina, USA \textsuperscript{2j, 21a, 21b, 21c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Kendrick Marvin Smith [1000].  Born 18 Oct 1902 in Bartow, Jefferson, Georgia, USA \textsuperscript{1a, 2a, 3a, 4, 5a, 6a }.   Died 15 Jun 1965 \textsuperscript{2a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Eunice Smith.  Born 1909 in Georgia, USA \textsuperscript{6a, 5a, 4 }.   Died Apr 1926 in Georgia, USA \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+John Russell Smith.  Born 19 Apr 1918 in Georgia, USA \textsuperscript{4, 2k, 22, 23, 23, 12, 6c, 3d, 24a }.   Died 17 Apr 1987 in Bath, Aiken, South Carolina, USA \textsuperscript{2k, 4, 12, 24a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4000.}%
+\textbf{William Jordan Smith .  }Son of Samuel Smith and Elizabeth Ann Turlington.    Born 22 Sep 1836 in Georgia, USA \textsuperscript{15b, 13a, 25, 26a, 27a }.   Died 1 Mar 1922 in Washington County, Georgia, USA \textsuperscript{28, 28 }.   Buried in Washington County, Georgia, USA \textsuperscript{28, 28, 20b }.  Married Georgia Ann Hunt 15 Feb 1857 in Washington County, Georgia, USA \textsuperscript{29, 29 }.  Also married Eliza J Allen 1860 \textsuperscript{15b }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4001.}%
+\textbf{Eliza J Allen .  }Daughter of William Allen and Martha Pierce.    Born 13 Nov 1837 in Georgia, USA \textsuperscript{15b, 13a, 20c, 4 }.   Died 17 Feb 1928 in Washington County, Georgia, USA \textsuperscript{14f, 14g, 24b, 20c, 4 }.   Buried in Washington County, Georgia, USA \textsuperscript{20c, 4 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Eliza J Allen and William Jordan Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+John Bennett Smith.  Born 12 Sep 1872 in Bartow, Jefferson, Georgia, USA \textsuperscript{15c, 5c, 3e, 6d, 14h, 13a, 4, 7, 20d }.   Died 21 May 1962 in Bibb County, Georgia, USA \textsuperscript{30, 14h, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+James Allen Smith [2000].  Born 18 Feb 1875 in Jefferson County, Georgia, USA \textsuperscript{13a, 14a, 15a, 1b, 3b, 4, 5a, 6a }.   Died 13 Nov 1968 in Washington County, Georgia, USA \textsuperscript{2e, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Young J. Smith.  Born 12 Sep 1869 in Georgia, USA \textsuperscript{13a, 4 }.   Died 6 Oct 1889 in Washington County, Georgia, USA \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Hattie E. Smith.  Born 1865 in Georgia, USA \textsuperscript{3f, 13a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Unknown Smith.  Born 24 Jul 1866.   Died 30 Oct 1866.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{4002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4002.}%
+\textbf{Thomas M McNeely .  }Son of Hugh McNeely and Sarah Roberts.    Born 1843 in Georgia, USA \textsuperscript{31, 32a, 26b, 25 }.   Died 1908 in Georgia, USA \textsuperscript{31, 33, 28, 34a }.   Buried in Jefferson County, Georgia, USA \textsuperscript{31, 33, 28 }.  Married Dealpha Garrett 11 Jan 1866 in Jefferson County, Georgia, USA \textsuperscript{35, 29, 29, 29 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4003.}%
+\textbf{Dealpha Garrett .  }Daughter of Henry G Garrett and Mary Ann Leaptrot Liptrot.    Born about 1850 in Georgia, USA \textsuperscript{36a, 37a, 38a, 26c }.   Died about 1908 in Georgia, USA \textsuperscript{34b, 34b }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Dealpha Garrett and Thomas M McNeely \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Thomas A McNeely.  Born 1 Jan 1874 in Georgia, USA \textsuperscript{38b, 5d, 14i, 6e, 3g, 20e }.   Died 3 Dec 1942 in Washington County, Georgia, USA \textsuperscript{14i, 20e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Samuel McNeely.  Born about 1876 in Georgia, USA \textsuperscript{38b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+John Russell McNeely.  Born 31 Jul 1879 in Georgia, USA \textsuperscript{38b, 6f, 39a, 3h, 15d, 4 }.   Died 18 Nov 1934 in Burke County, Georgia, USA \textsuperscript{14j, 24c, 34c, 4, 34d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Ammie R Winfred McNeely [2001].  Born Mar 1882 in Georgia, USA \textsuperscript{15a, 5a, 20a }.   Died BET JUN AND SEP 1918 in Washington County, Georgia, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Abby G McNeely.  Born about 1868 in Georgia, USA \textsuperscript{37a, 38a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Elizabeth McNeely.  Born about 1872 in Georgia, USA \textsuperscript{38b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{8000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8000.}%
+\textbf{Samuel Smith .  }Son of Jordan Smith and Mary Gainer.    Born 14 Jan 1800 in Washington County, Georgia, USA \textsuperscript{40a, 13b, 30, 32b, 41a, 26a, 42a, 4 }.   Died 23 Nov 1888 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4, 40a }.   Buried in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4 }.  Relationship with Elizabeth Ann Turlington.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8001.}%
+\textbf{Elizabeth Ann Turlington .  }Daughter of Thomas Turlington and Mourning Ricks Smith.    Born 30 May 1817 in Washington County, Georgia, USA \textsuperscript{40a, 13c, 26a, 30, 32b, 41a }.   Died 2 Jan 1886 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 40a }.   Buried in Riddleville, Washington, Georgia, USA \textsuperscript{30 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Ann Turlington and Samuel Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary Williams Smith.  Born 4 May 1845 \textsuperscript{40a }.   Died 8 May 1945 in Riddleville, Washington, Georgia, USA \textsuperscript{40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Thomas Henry Smith.  Born 18 Nov 1839 \textsuperscript{40a, 4 }.   Died 28 Aug 1848 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Samuel Gainer Smith.  Born 1 Dec 1852 in Washington County, Georgia, USA \textsuperscript{13b, 5e, 6g, 15e, 3i, 30, 32b, 41a, 4 }.   Died 24 Jun 1932 in Washington County, Georgia, USA \textsuperscript{14k, 30, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+James Benjamin Smith.  Born 27 Jul 1846 in Davisboro, Washington, Georgia, USA \textsuperscript{15f, 5b, 13d, 30, 43a, 32b, 26a, 4, 6b }.   Died 18 Oct 1927 in Davisboro, Washington, Georgia, USA \textsuperscript{30, 14l, 43a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Sarah Ann Gainer Smith.  Born 27 Jan 1835 in Georgia, USA \textsuperscript{26a, 4 }.   Died 1889 \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Bennett B Smith.  Born 1 Nov 1848 in Washington County, Georgia, USA \textsuperscript{44a, 32b, 26a, 4, 41b, 13e }.   Died 29 Sep 1887 in Riddleville, Washington, Georgia, USA \textsuperscript{4, 44a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Mourning Smith.  Born 22 Jun 1838 \textsuperscript{40a, 30 }.   Died 18 Jul 1838 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+William Jordan Smith [4000].  Born 22 Sep 1836 in Georgia, USA \textsuperscript{15b, 13a, 25, 26a, 27a }.   Died 1 Mar 1922 in Washington County, Georgia, USA \textsuperscript{28, 28 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{8002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8002.}%
+\textbf{William Allen .  }Born about 1806 in Georgia, USA \textsuperscript{32c }.   Relationship with Martha Pierce.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8003.}%
+\textbf{Martha Pierce .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Martha Pierce and William Allen \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Eliza J Allen [4001].  Born 13 Nov 1837 in Georgia, USA \textsuperscript{15b, 13a, 20c, 4 }.   Died 17 Feb 1928 in Washington County, Georgia, USA \textsuperscript{14f, 14g, 24b, 20c, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{8004.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8004.}%
+\textbf{Hugh McNeely .  }Born about 1801 in Georgia, USA \textsuperscript{32a }.   Married Sarah Roberts 11 Jan 1844 in Jefferson County, Georgia, USA \textsuperscript{29, 45a, 46a, 29, 46b }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8005.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8005.}%
+\textbf{Sarah Roberts .  }Born about 1822 in Georgia, USA \textsuperscript{13f }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah Roberts and Hugh McNeely \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Joseph P McNeely.  Born 29 Feb 1864 in Georgia, USA \textsuperscript{13f, 3j, 6h, 5f, 4, 15g, 41c }.   Died 13 Aug 1934 in Emanuel County, Georgia, USA \textsuperscript{14m, 47a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Thomas M McNeely [4002].  Born 1843 in Georgia, USA \textsuperscript{31, 32a, 26b, 25 }.   Died 1908 in Georgia, USA \textsuperscript{31, 33, 28, 34a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{8006.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8006.}%
+\textbf{Henry G Garrett .  }Born about 1813 in Georgia, USA \textsuperscript{38a, 32d, 26c, 27b, 41d }.   Married Mary Ann Leaptrot Liptrot 21 Feb 1849 in Jefferson County, Georgia, USA \textsuperscript{29, 29 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8007.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8007.}%
+\textbf{Mary Ann Leaptrot Liptrot .  }Born about 1818 in North Carolina, USA \textsuperscript{38a, 32d, 41d, 26c }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Ann Leaptrot Liptrot and Henry G Garrett \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Sarah Virginia Garrett.  Born about 1852 in Georgia, USA \textsuperscript{5g, 13g, 32d, 6i, 41d }.   Buried in Jefferson County, Georgia, USA \textsuperscript{4 }.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Dealpha Garrett [4003].  Born about 1850 in Georgia, USA \textsuperscript{36a, 37a, 38a, 26c }.   Died about 1908 in Georgia, USA \textsuperscript{34b, 34b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Ann Leaptrot Liptrot and Littleberry Cavenah \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Willie Cavenah.  Born about 1846 in Georgia, USA \textsuperscript{32d, 26c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Nancy Cavenah.  Born about 1843 in Georgia, USA \textsuperscript{26c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{16000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16000.}%
+\textbf{Jordan Smith .  }Son of Benjamin Smith and Mary Thomas.    Born 16 Jan 1777 in Nash County, North Carolina, USA \textsuperscript{40a, 30, 48, 49a, 4, 50a, 51a }.   Died 25 Aug 1835 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 30, 49a, 42b, 4, 50a, 51a }.   Buried in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4 }.  Married Mary Gainer 14 Feb 1799 \textsuperscript{50a, 50a }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16001.}%
+\textbf{Mary Gainer .  }Daughter of William Gainer and Martha (Maritia) Williams.    Born 18 Nov 1779 in South Carolina, USA \textsuperscript{40a, 30, 49a, 52, 4, 53a, 50a }.   Died 14 Nov 1846 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 49a, 52, 42c, 4, 50a, 40a }.   Buried in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Gainer and Jordan Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Benjamin William Gainer Smith.  Born 12 Mar 1816 \textsuperscript{40a, 42d, 4 }.   Died 19 Oct 1819 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 42e, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Jordan Richard Smith.  Born 16 Jul 1814 in Washington County, Georgia, USA \textsuperscript{40a, 30, 26d, 49a, 42f }.   Died 26 Apr 1873 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 30, 34e, 50a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Mourning Smith.  Born 1 Feb 1812 in Georgia, USA \textsuperscript{54a, 32e, 26e, 4, 42g, 41e }.   Died 2 Jun 1870 in Georgia, USA \textsuperscript{54a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Simon Thomas Gainer Smith.  Born 17 Mar 1823 \textsuperscript{40a, 42h }.   Died 24 Sep 1823 in Riddleville, Washington, Georgia, USA \textsuperscript{42i, 4, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Benjamin Simon William Gainer Smith.  Born 11 Nov 1819 in Georgia, USA \textsuperscript{40a, 42j, 4 }.   Died 21 Jun 1891 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+James Gainer Smith.  Born 6 Sep 1817 in Washington County, Georgia, USA \textsuperscript{40a, 42k, 4 }.   Died 12 Sep 1861 in Washington County, Georgia, USA \textsuperscript{40a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Martha W Smith.  Born 30 Jul 1810 \textsuperscript{42l, 4, 55, 40a }.   Died 26 Jul 1835 in Riddleville, Washington, Georgia, USA \textsuperscript{42m, 4, 55, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Bennett B Smith.  Born 6 Dec 1803 in Georgia, USA \textsuperscript{40a, 26f, 4 }.   Died 10 Oct 1851 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+William Smith.  Born 6 Jun 1802 in Georgia, USA \textsuperscript{40a, 30, 4, 42n, 50b, 32f, 26g }.   Died 26 Feb 1867 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4, 40a, 50b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Samuel Smith [8000].  Born 14 Jan 1800 in Washington County, Georgia, USA \textsuperscript{40a, 13b, 30, 32b, 41a, 26a, 42a, 4 }.   Died 23 Nov 1888 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 4, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xi.}%
+Mary Ann Smith.  Born 10 Feb 1808 in Georgia, USA \textsuperscript{4 }.   Died 23 Sep 1885 in Washington County, Georgia, USA \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xii.}%
+Simon Smith.  Born 26 Feb 1807 \textsuperscript{40a, 42o }.   Died 15 Jul 1812 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 42p }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{xiii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{xiii.}%
+James Smith.  Born 22 Sep 1805 \textsuperscript{40a }.   Died 29 Jul 1811 in Riddleville, Washington, Georgia, USA \textsuperscript{42q, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{16002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16002.}%
+\textbf{Thomas Turlington .  }Son of John Turlington and Elizabeth Unknown (Turlington).    Born 18 Oct 1781 in North Carolina, USA \textsuperscript{26h, 48 }.   Died 21 Jan 1857 in Washington County, Georgia, USA \textsuperscript{34f }.   Relationship with Mourning Ricks Smith.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16003.}%
+\textbf{Mourning Ricks Smith .  }Born 17 Nov 1781 in North Carolina, USA \textsuperscript{26h, 32g }.   Died 27 Jun 1866 in Georgia, USA.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mourning Ricks Smith and Thomas Turlington \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mourning Turlington.  Born 25 May 1822 in Georgia, USA \textsuperscript{30, 4, 26i }.   Died 7 Feb 1897 \textsuperscript{30, 4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Henry T Turlington.  Born about 1819 in Georgia, USA \textsuperscript{32h, 26j }.   Died 16 Jul 1864 in Savannah, Chatham, Georgia, USA \textsuperscript{34g, 34g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Elizabeth Ann Turlington [8001].  Born 30 May 1817 in Washington County, Georgia, USA \textsuperscript{40a, 13c, 26a, 30, 32b, 41a }.   Died 2 Jan 1886 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 6 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{32000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32000.}%
+\textbf{Benjamin Smith .  }Son of Richard Smith and Sarah Williams.    Born in England.   Died 20 Jul 1799 in Nash County, North Carolina, USA \textsuperscript{48, 42r, 56a, 57, 56b, 56c, 56d }.   Relationship with Mary Thomas.  Also married Unknown in Nash County, North Carolina, USA \textsuperscript{48 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32001.}%
+\textbf{Mary Thomas .  }Daughter of John Thomas and Julia Unknown (Thomas).    Born in Nash County, North Carolina, USA \textsuperscript{48 }.   Died 20 Dec 1794 in Nash County, North Carolina, USA \textsuperscript{48, 42s }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mary Thomas and Benjamin Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mourning Smith.  Born 1770.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Simon Smith.  Born 1768.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Charity Smith.  Born 1772 in Nash County, North Carolina, USA \textsuperscript{48 }.   Died Summer 1836 in Nash County, North Carolina, USA \textsuperscript{48 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Bennett Smith.  Born 1779.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Samuel Smith.  Born 1774.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Brittain Smith.  Born between 1760 and 1761 in Nash County, North Carolina, USA \textsuperscript{48 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Jordan Smith [16000].  Born 16 Jan 1777 in Nash County, North Carolina, USA \textsuperscript{40a, 30, 48, 49a, 4, 50a, 51a }.   Died 25 Aug 1835 in Riddleville, Washington, Georgia, USA \textsuperscript{40a, 30, 49a, 42b, 4, 50a, 51a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Mary Smith.  Born 1762.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Elizabeth Smith.  Born 1766.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Sion Smith.  Born 1764.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{32002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32002.}%
+\textbf{William Gainer .  }Son of Samuel Gainer (Jr) and Elizabeth Carpenter.    Born 1758 in Petersburg, Fauquier, Virginia, USA \textsuperscript{49a, 58, 53b, 50c }.   Died between 1799 and 1800 in Washington County, Georgia, USA \textsuperscript{30, 4, 49a, 58, 53b }.   Buried in Sandersville, Washington, Georgia, USA \textsuperscript{30, 4 }.  Married Martha (Maritia) Williams 1778 in Petersburg, Fauquier, Virginia, USA \textsuperscript{53b, 50c, 50c }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32003.}%
+\textbf{Martha (Maritia) Williams .  }Born 1762 in Petersburg, Fauquier, Virginia, USA \textsuperscript{49a, 58, 53c, 4, 50c, 50a }.   Died 1820 in Washington County, Georgia, USA \textsuperscript{49a, 58 }.   Buried in Sandersville, Washington, Georgia, USA \textsuperscript{4 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Martha (Maritia) Williams and William Gainer \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Rebecca Gainer.  Born 1794 in Georgia, USA \textsuperscript{26k, 59a, 53d }.   Died 13 Sep 1864 in Terrell County, Georgia, USA \textsuperscript{60a, 58 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Penelope Gainer.  Born 1 May 1789 in Georgia, USA \textsuperscript{61a, 26h, 53e, 4, 20f }.   Died between 2 and 7 Apr 1859 in Washington County, Georgia, USA \textsuperscript{61a, 53e, 4, 20f, 34g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Temperance Gainer.  Born 26 Mar 1791 \textsuperscript{62a, 4 }.   Died 10 Nov 1846 \textsuperscript{4 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Sarah (Sally) Gainer.  Born Jul 1805 in Georgia, USA \textsuperscript{32i, 26l, 4, 30, 50c }.   Died Aug 1863 \textsuperscript{4, 30, 50c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Miriam Gainer.  Born 1798 in Georgia, USA \textsuperscript{32j, 41f, 26m, 53f }.   Died 1874.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+James Gainer.  Born 22 Nov 1783 in North Carolina, USA \textsuperscript{32k, 26j, 4 }.   Died between 16 Jul 1860 and 16 Jul 1869 in Washington County, Georgia, USA \textsuperscript{4, 20g }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Mary Gainer [16001].  Born 18 Nov 1779 in South Carolina, USA \textsuperscript{40a, 30, 49a, 52, 4, 53a, 50a }.   Died 14 Nov 1846 in Riddleville, Washington, Georgia, USA \textsuperscript{30, 49a, 52, 42c, 4, 50a, 40a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Elizabeth Gainer.  Born 1781 \textsuperscript{26n, 53g }.   Died after 1850.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Nancy Gainer.  Born 1787 \textsuperscript{63 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Unknown (possible Martha) Gainer.  Born 1785.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{32004.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32004.}%
+\textbf{John Turlington .  }Born in Nash County, North Carolina, USA \textsuperscript{48 }.   Died about 1784 in Nash County, North Carolina, USA \textsuperscript{48, 57, 56d }.   Relationship with Elizabeth Unknown (Turlington).  Also married Unknown in Nash County, North Carolina, USA \textsuperscript{48 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32005.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32005.}%
+\textbf{Elizabeth Unknown (Turlington) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Unknown (Turlington) and John Turlington \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Timothy Turlington.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Mary Turlington.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Thomas Turlington [16002].  Born 18 Oct 1781 in North Carolina, USA \textsuperscript{26h, 48 }.   Died 21 Jan 1857 in Washington County, Georgia, USA \textsuperscript{34f }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 7 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{64000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64000.}%
+\textbf{Richard Smith .  }Son of George Smith and Elizabeth Blackman.    Born about 1725.   Died about 1749.   Relationship with Sarah Williams.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64001.}%
+\textbf{Sarah Williams .  }Born about 1726.   Died about 1780.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Sarah Williams and Richard Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Benjamin Smith [32000].  Born in England.   Died 20 Jul 1799 in Nash County, North Carolina, USA \textsuperscript{48, 42r, 56a, 57, 56b, 56c, 56d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{64002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64002.}%
+\textbf{John Thomas .  }Born before 1778.   Relationship with Julia Unknown (Thomas).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64003.}%
+\textbf{Julia Unknown (Thomas) .  }Born before 1778.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Julia Unknown (Thomas) and John Thomas \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary Thomas [32001].  Born in Nash County, North Carolina, USA \textsuperscript{48 }.   Died 20 Dec 1794 in Nash County, North Carolina, USA \textsuperscript{48, 42s }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{64004.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64004.}%
+\textbf{Samuel Gainer (Jr) .  }Son of Samuel Gainer (Sr) and Ann Unknown (Gainer).    Born 1742 in Tyrrell County, North Carolina, USA \textsuperscript{53h }.   Died 1763 in Virginia, USA.   Relationship with Elizabeth Carpenter.  Also married Unknown \textsuperscript{53h }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64005.}%
+\grminpghead{1.0}{0}%
+\grlisthead{64005.}%
+\textbf{Elizabeth Carpenter .  }Born 1736 in Halifax County, North Carolina, USA.   Died 1770 in Halifax County, North Carolina, USA.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Carpenter and Samuel Gainer (Jr) \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+William Gainer [32002].  Born 1758 in Petersburg, Fauquier, Virginia, USA \textsuperscript{49a, 58, 53b, 50c }.   Died between 1799 and 1800 in Washington County, Georgia, USA \textsuperscript{30, 4, 49a, 58, 53b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 8 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{128000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{128000.}%
+\textbf{George Smith .  }Relationship with Elizabeth Blackman.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{128001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{128001.}%
+\textbf{Elizabeth Blackman .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Elizabeth Blackman and George Smith \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Richard Smith [64000].  Born about 1725.   Died about 1749.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{128008.}%
+\grminpghead{1.0}{0}%
+\grlisthead{128008.}%
+\textbf{Samuel Gainer (Sr) .  }Died about 1752 in Tyrrell County, North Carolina, USA \textsuperscript{64a }.   Relationship with Ann Unknown (Gainer).  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{128009.}%
+\grminpghead{1.0}{0}%
+\grlisthead{128009.}%
+\textbf{Ann Unknown (Gainer) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ann Unknown (Gainer) and Samuel Gainer (Sr) \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Sary Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Joseph Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Thomas Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+William Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Mary Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Benjamin Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Samuel Gainer (Jr) [64004].  Born 1742 in Tyrrell County, North Carolina, USA \textsuperscript{53h }.   Died 1763 in Virginia, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Elizabeth Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+James Gainer.  
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Langley-Bath, Aiken, South Carolina; Roll: T627\_3783; Page: 8A; Enumeration District: 2-22 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1940; Census Place: Joseys, Washington, Georgia; Roll: T627\_721; Page: 2B; Enumeration District: 150-6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1940; Census Place: Joseys, Washington, Georgia; Roll: T627\_721; Page: 9B; Enumeration District: 150-6 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1940; Census Place: Davisboro, Washington, Georgia; Roll: T627\_721; Page: 11B; Enumeration District: 150-13 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Number: 249-09-1598; Issue State: South Carolina; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Number: 248-17-9550; Issue State: South Carolina; Issue Date: 1973 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Issue State: South Carolina; Issue Date: 1953 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Number: 258-44-6415; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Number: 258-46-5949; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Number: 260-30-3222; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Number: 253-28-8062; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Number: 257-22-0548; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Number: 252-66-3712; Issue State: Georgia; Issue Date: 1959 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Number: 249-09-1599; Issue State: South Carolina; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Langley, Aiken, South Carolina; Roll: 2184; Page: 24A; Enumeration District: 0016; Image: 1021.0; FHL microfilm: 2341918 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Joseys, Washington, Georgia; Roll: 391; Page: 1B; Enumeration District: 0006; Image: 659.0; FHL microfilm: 2340126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1930; Census Place: Price, Johnson, Georgia; Roll: 371; Page: 2B; Enumeration District: 0013; Image: 994.0; FHL microfilm: 2340106 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1930; Census Place: Bartow, Jefferson, Georgia; Roll: 371; Page: 1A; Enumeration District: 0015; Image: 402.0; FHL microfilm: 2340106 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1930; Census Place: Cleveland, Washington, Georgia; Roll: 391; Page: 7A; Enumeration District: 0025; Image: 1016.0; FHL microfilm: 2340126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1930; Census Place: Hebron, Washington, Georgia; Roll: 391; Page: 9A; Enumeration District: 0015; Image: 888.0; FHL microfilm: 2340126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1930; Census Place: Joseys, Washington, Georgia; Roll: 391; Page: 4B; Enumeration District: 0006; Image: 665.0; FHL microfilm: 2340126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1930; Census Place: Militia District 73, Burke, Georgia; Roll: 341; Page: 1A; Enumeration District: 0024; Image: 1116.0; FHL microfilm: 2340076 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1930; Census Place: Riddleville, Washington, Georgia; Roll: 391; Page: 2B; Enumeration District: 0021; Image: 943.0; FHL microfilm: 2340126 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1930; Census Place: Twin City, Emanuel, Georgia; Roll: 355; Page: 7A; Enumeration District: 0022; Image: 437.0; FHL microfilm: 2340090 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Militia District 85, Jefferson, Georgia; Roll: T624\_194; Page: 5A; Enumeration District: 0034; FHL microfilm: 1374207 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: Joseys, Washington, Georgia; Roll: T624\_216; Page: 3A; Enumeration District: 0100; FHL microfilm: 1374229 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Joseys, Washington, Georgia; Roll: T624\_216; Page: 15B; Enumeration District: 0100; FHL microfilm: 1374229 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: Joseys, Washington, Georgia; Roll: T624\_216; Page: 1B; Enumeration District: 0100; FHL microfilm: 1374229 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1910; Census Place: Riddleville, Washington, Georgia; Roll: T624\_216; Page: 8A; Enumeration District: 0111; FHL microfilm: 1374229 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1910; Census Place: Militia District 1208, Emanuel, Georgia; Roll: T624\_186; Page: 10B; Enumeration District: 0101; FHL microfilm: 1374199 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1910; Census Place: Militia District 83, Jefferson, Georgia; Roll: T624\_194; Page: 10B; Enumeration District: 0030; FHL microfilm: 1374207 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: Joseys, Washington, Georgia; Roll: T625\_284; Page: 13A; Enumeration District: 136; Image: 712 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Joseys, Washington, Georgia; Roll: T625\_284; Page: 13B; Enumeration District: 136; Image: 713 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Bartow, Jefferson, Georgia; Roll: T625\_260; Page: 2A; Enumeration District: 52; Image: 1067 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: Cleveland, Washington, Georgia; Roll: T625\_284; Page: 3B; Enumeration District: 148; Image: 1042 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1920; Census Place: Joseys, Washington, Georgia; Roll: T625\_284; Page: 3A; Enumeration District: 136; Image: 692 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1920; Census Place: Midville, Burke, Georgia; Roll: T625\_239; Page: 27B; Enumeration District: 37; Image: 605 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1920; Census Place: Riddleville, Washington, Georgia; Roll: T625\_284; Page: 2A; Enumeration District: 147; Image: 1008 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1920; Census Place: Militia District 1748, Emanuel, Georgia; Roll: T625\_256; Page: 12A; Enumeration District: 38; Image: 538 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1920; Census Place: Wadley, Jefferson, Georgia; Roll: T625\_260; Page: 13A; Enumeration District: 49; Image: 981 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "South Carolina, Death Records, 1821-1960", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2008; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+Ancestry.com, "Web: Obituary Daily Times Index, 1995-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+"Augusta Chronicle, The", Location: Augusta, Georgia, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Kenneth Smith Obituary, The Augusta Chronicle, page C06 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Kenneth Smith Funeral Notice, The Augusta Chronicle, Page C06 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+Ancestry.com, "U.S., Department of Veterans Affairs BIRLS Death File, 1850-2010", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Lambs, Washington, Georgia; Roll: 170; Family History Film: 1254170; Page: 258B; Enumeration District: 125; Image: 0719 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: Riddleville, Washington, Georgia; Roll: 171; Family History Film: 1254171; Page: 383A; Enumeration District: 138; Image: 0147 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: Riddleville, Washington, Georgia; Roll: 171; Family History Film: 1254171; Page: 383B; Enumeration District: 138; Image: 0148 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Lambs, Washington, Georgia; Roll: 170; Family History Film: 1254170; Page: 262A; Enumeration District: 125; Image: 0726 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Lambs, Washington, Georgia; Roll: 170; Family History Film: 1254170; Page: 262B; Enumeration District: 125; Image: 0727 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: District 83, Jefferson, Georgia; Roll: 154; Family History Film: 1254154; Page: 232C; Enumeration District: 065; Image: 0226 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: District 83, Jefferson, Georgia; Roll: 154; Family History Film: 1254154; Page: 241A; Enumeration District: 065; Image: 0244 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+Ancestry.com, "Georgia Deaths, 1919-98", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Certificate number: 037457 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Certificate number: 045752 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Certificate number: 042895 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Certificate number: 004616 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Certificate Number: 017813 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Certificate number: 8739-J 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Certificate Number: 5576-J 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Certificate number: 12643 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Certificate Number: 29033 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Certificate Number: 28744 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Certificate number: 15395 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Certificate number: 25865-I 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Certificate Number: 21073 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Riddleville, Washington, Georgia; Roll: 228; Page: 7B; Enumeration District: 0096; FHL microfilm: 1240228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Riddleville, Washington, Georgia; Roll: 228; Page: 1B; Enumeration District: 0096; FHL microfilm: 1240228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Joseys, Washington, Georgia; Roll: 228; Page: 12A; Enumeration District: 0087; FHL microfilm: 1240228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: Militia District 57, Emanuel, Georgia; Roll: 195; Page: 18B; Enumeration District: 0104; FHL microfilm: 1240195 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Riddleville, Washington, Georgia; Roll: 228; Page: 10A; Enumeration District: 0096; FHL microfilm: 1240228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: Joseys, Washington, Georgia; Roll: 228; Page: 6B; Enumeration District: 0087; FHL microfilm: 1240228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1900; Census Place: Bartow, Jefferson, Georgia; Roll: 207; Page: 4A; Enumeration District: 0032; FHL microfilm: 1240207 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+"Georgia, Jefferson County, Marriage Certificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ammie McNeely and James A Smith Marriage 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+"Georgia, County Marriages, 1785-1950" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+James A Smith and Leila Price Marriage 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "U.S. WWII Draft Cards Young Men, 1940-1947", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+The National Archives Southeast Region; Atlanta, GA; Records of the Selective Service System, 1926-1975; Record Group: RG 147; Class: RG147, North Carolina World War II Draft Registration Cards 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+"Harrington, Susan, Cemetaries of Washington County, Georgia - Josey Baptist Church Cemetary" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+http://www.friendsofcems.org/Washington/default.htm?Selectform.html,2, accessed 8/1/2014, search for "zepho" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+Elizabeth Prtichard Newsom, "Washington County Georgia Tombstone Inscriptions", Location: 110 West First Avenue, Sanderville, Georgia 31082; Date: 1967; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Ammie McNeely Tombstone Inscription 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+William J Smith Burial 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Eliza J Allen Burial 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+John B Smith Grave, page 49 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Thomas A McNeely Grave, page 45 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Penelope Gainer Tombstone Inscription, Page 45 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+James Gainer Tombstone Inscription, Page 45 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+"The Augusta Chronicle", Location: Augusta, Georgia, USA; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Bertha Louise Smith Hillman Obituary, 24 Feb 2005 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Bertha Smith Hillman 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Bertha Smith Hillman Obituary 26 Feb 2005 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+National Archives and Records Administration, "U.S. World War II Army Enlistment Records, 1938-1946", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+Ancestry.com, "U.S. Public Records Index, Volume 2", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+"Georgia Death Certificate" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+John Russell Smith Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Eliza J Smith Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+John Russell McNeely Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+Historical Data Systems, comp, "U.S., Civil War Soldier Records and Profiles, 1861-1865", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 273B; Image: 148 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: District 48, Jefferson, Georgia; Roll: M432\_75; Page: 163B; Image: 63 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1850; Census Place: District 48, Jefferson, Georgia; Roll: M432\_75; Page: 178B; Image: 93 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 214A; Image: 29 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 224B; Image: 50 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1850; Census Place: District 48, Jefferson, Georgia; Roll: M432\_75; Page: 172A; Image: 80 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 210B; Image: 22 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 246A; Image: 93 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 216B; Image: 34 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 255B; Image: 112 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1850; Census Place: District 50, Lee, Georgia; Roll: M432\_75; Page: 289B; Image: 315 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Year: 1850; Census Place: Division 91, Washington, Georgia; Roll: M432\_87; Page: 230B; Image: 62 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Year: 1850; Census Place: District 50, Lee, Georgia; Roll: M432\_75; Page: 286B; Image: 309 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+Year: 1850; Census Place: Neuse (south side), Wayne, North Carolina; Roll: M432\_648; Page: 229B; Image: 462 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+Ancestry.com, "1864 Census for Re-Organizing the Georgia Militia", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William Jordan Smith 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Henry G Garrett 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+Ancestry.com, "U.S., Headstone Applications for Military Veterans, 1925-1963", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+Ancesrty.com, "Georgia, Marriage Records From Select Counties, 1828-1978", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Ancestry.com, "Web: Georgia, Find A Grave Index, 1728-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: District 83, Jefferson, Georgia; Roll: M653\_128; Page: 349; Image: 349; Family History Library Film: 803128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 234; Image: 234; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1860; Census Place: Decatur District, DeKalb, Georgia; Roll: M653\_119; Page: 294; Image: 294; Family History Library Film: 803119 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1860; Census Place: District 83, Jefferson, Georgia; Roll: M653\_128; Page: 343; Image: 343; Family History Library Film: 803128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1860; Census Place: Johnson, Georgia; Roll: M653\_128; Page: 493; Image: 490; Family History Library Film: 803128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 175; Image: 175; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 266; Image: 266; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 308; Image: 308; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 168; Image: 168; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1860; Census Place: Georgia Militia District 811, Terrell, Georgia; Roll: M653\_137; Page: 73; Image: 505; Family History Library Film: 803137 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1860; Census Place: Washington, Georgia; Roll: M653\_140; Page: 219; Image: 219; Family History Library Film: 803140 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+National Cemetery Administration, "U.S. Veterans Gravesites, ca.1775-2006", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+Ancestry.com, "Georgia, Wills and Probate Records, 1742-1992", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Guardian Bonds, 1822-1930 (Jefferson County, Georgia); Author: Georgia. Court of Ordinary (Jefferson County); Probate Place: Jefferson, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Administrator Bonds, 1823-1931; Author: Georgia. Court of Ordinary (Jefferson County); Probate Place: Jefferson, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Temporary Letters of Administrations, 1898-1935 (Burke County, Georgia); Author: Georgia. Court of Ordinary (Burke County); Probate Place: Burke, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Temporary Administrator Bonds, 1898-1936 (Burke County, Georgia); Author: Georgia. Court of Ordinary (Burke County); Probate Place: Burke, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Letters of Testamentary; Author: Georgia. Court of Ordinary (Johnson County); Probate Place: Johnson, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Wills; Author: Georgia. Court of Ordinary (Washington County); Probate Place: Washington, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Probate Records, 1829-1963; Author: Georgia. Court of Ordinary (Washington County); Probate Place: Washington, Georgia 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+Ancesrty.com, "Georgia, Marriage Records From Select Counties, 1828-1978", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: District 83, Jefferson, Georgia; Roll: M653\_128; Page: 343; Image: 343; Family History Library Film: 803128 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: District 83, Jefferson, Georgia; Roll: M593\_160; Page: 109B; Image: 225; Family History Library Film: 545659 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: District 83, Jefferson, Georgia; Roll: 154; Family History Film: 1254154; Page: 231A; Enumeration District: 065; Image: 0224 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: District 83, Jefferson, Georgia; Roll: 154; Family History Film: 1254154; Page: 231B; Enumeration District: 065; Image: 0225 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: Georgia; Registration County: Burke; Roll: 1557001 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+"Harrington, Susan, Cemetaries of Washington County Georgia" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+http://www.friendsofcems.org/Washington/default.htm?Selectform.html,2, accessed 8/1/2014, searched for jordan smith 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Lambs District 92, Washington, Georgia; Roll: M593\_182; Page: 233B; Image: 146; Family History Library Film: 545681 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1870; Census Place: Lambs District 92, Washington, Georgia; Roll: M593\_182; Page: 217A; Image: 113; Family History Library Film: 545681 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1870; Census Place: District 79, Jefferson, Georgia; Roll: M593\_160; Page: 78B; Image: 160; Family History Library Film: 545659 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1870; Census Place: District 83, Jefferson, Georgia; Roll: M593\_160; Page: 109B; Image: 225; Family History Library Film: 545659 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1870; Census Place: District 1202, Johnson, Georgia; Roll: M593\_160; Page: 173B; Image: 353; Family History Library Film: 545659 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1870; Census Place: Terrell, Georgia; Roll: M593\_176; Page: 456B; Image: 376; Family History Library Film: 545675 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{0.75}{0}%
+\grlisthead{42.}%
+Rev Jordan Smith, "Jordan Smith Family Bible" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Samuel Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Death of Jordan Smith 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Mary Smith Death (Spouseof Rev Jordan Smith) 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Benjamin Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Benjamin William Gainer Smith Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Jordan Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Mourning Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Simon Thomas Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Simon Thomas Gainer Smith Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Benjamin Simon Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+James Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{l:}%
+\grminpghead{1.9}{0}%
+\grlisthead{l:}%
+Martha Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{m:}%
+\grminpghead{1.9}{0}%
+\grlisthead{m:}%
+Martha W Fort Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{n:}%
+\grminpghead{1.9}{0}%
+\grlisthead{n:}%
+William Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{o:}%
+\grminpghead{1.9}{0}%
+\grlisthead{o:}%
+Simon Smith Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{p:}%
+\grminpghead{1.9}{0}%
+\grlisthead{p:}%
+Simon Smith Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{q:}%
+\grminpghead{1.9}{0}%
+\grlisthead{q:}%
+James Smith Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{r:}%
+\grminpghead{1.9}{0}%
+\grlisthead{r:}%
+Benjamin Smith Death (Father of Rev Jordan Smith) 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{s:}%
+\grminpghead{1.9}{0}%
+\grlisthead{s:}%
+Mary Smith Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{43.}%
+\grminpghead{0.75}{0}%
+\grlisthead{43.}%
+Ancestry.com, "Georgia, Deaths Index, 1914-1927", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+James Benjamin Smith 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{44.}%
+\grminpghead{0.75}{0}%
+\grlisthead{44.}%
+"Harrington, Susan, Cemetaries of Washington County, Georgia" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+http://www.friendsofcems.org/Washington/default.htm, accessed 8/1/2014, sear for josiah king 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{45.}%
+\grminpghead{0.75}{0}%
+\grlisthead{45.}%
+Hunting For Bears, comp., "Georgia Marriages, 1699-1944", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Hugh McNeely 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{46.}%
+\grminpghead{0.75}{0}%
+\grlisthead{46.}%
+Dodd, Jordan, "Georgia Marriages to 1850", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 1997; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Hugh McNeely 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Sarah Roberts 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{47.}%
+\grminpghead{0.75}{0}%
+\grlisthead{47.}%
+"Georgia Death Certificate" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Joseph McNeely Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{48.}%
+\grminpghead{0.75}{0}%
+\grlisthead{48.}%
+Herrin, Cynthia, "Nash County, North Carolina Vital Records Abstracts", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2000; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{49.}%
+\grminpghead{0.75}{0}%
+\grlisthead{49.}%
+Ancestry.com, "U.S., Sons of the American Revolution Membership Applications, 1889-1970", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+SAR Membership Number: 77684 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{50.}%
+\grminpghead{0.75}{0}%
+\grlisthead{50.}%
+Ancestry.com, "North America, Family Histories, 1500-2000", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2016; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Book Title: Lineage Book : NSDAR : Volume 110 : 1914 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Book Title: Lineage Book : NSDAR : Volume 105 : 1913 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Book Title: Lineage Book : NSDAR : Volume 164 : 1921 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{51.}%
+\grminpghead{0.75}{0}%
+\grlisthead{51.}%
+Johnson County Historical Society, "History of Johnson County Churches", Name: Magnolia Press; Location: Swainsboro, Georgia; Date: 1986; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Jordan Smith Biography, page 52 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{52.}%
+\grminpghead{0.75}{0}%
+\grlisthead{52.}%
+Ancestry.com, "U.S., Federal Census Mortality Schedules Index, 1850-1880", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{53.}%
+\grminpghead{0.75}{0}%
+\grlisthead{53.}%
+Mrs. Lillie Martin Grubbs, "Martin and Allied Families" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Mary Gainer Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+William Gainer Vitals 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Martha Williams Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Rebecca Gainer Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Penelope Gainer Vitals 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Miriam Gainer Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Elizabeth Gainer Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Samuel Gainer Vitals 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{54.}%
+\grminpghead{0.75}{0}%
+\grlisthead{54.}%
+Ancestry.com, "U.S. Federal Census Mortality Schedules, 1850-1885", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Census Year: 1869 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{55.}%
+\grminpghead{0.75}{0}%
+\grlisthead{55.}%
+Ancestry.com, "Web: Georgia, Find A Grave Index, 1728-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{56.}%
+\grminpghead{0.75}{0}%
+\grlisthead{56.}%
+Ancestry.com, "North Carolina, Wills and Probate Records, 1665-1998", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Wills; Author: North Carolina. County Court of Pleas and Quarter Sessions (Nash County); Probate Place: Nash, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Wills, 1663-1978; Estate Papers, 1770-1909 (Nash County); Author: North Carolina. Division of Archives and History; Probate Place: Nash, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Will Records and Index, Devisor and Devisee, 1778-1964; Author: North Carolina. Superior Court (Nash County); Probate Place: Nash, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Wills, 1663-1978; Estate Papers, 1770-1909 (Nash County); Author: North Carolina. Division of Archives and History (Raleigh, North Carolina); Probate Place: Nash, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{57.}%
+\grminpghead{0.75}{0}%
+\grlisthead{57.}%
+Ancestry.com, "North Carolina, Will Abstracts, 1760-1800", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 1999; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{58.}%
+\grminpghead{0.75}{0}%
+\grlisthead{58.}%
+Ancestry.com, "International, Find A Grave Index for Select Locations, 1300s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{59.}%
+\grminpghead{0.75}{0}%
+\grlisthead{59.}%
+Howard H McCall, "Roster of Revolutionary Soldiers in Georgia", Location: Atlanta, Georgia; Date: 1941; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Rebecca Gainer Birth 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{60.}%
+\grminpghead{0.75}{0}%
+\grlisthead{60.}%
+Edmund West, comp., "Family Data Collection - Deaths", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Rebecca Gainer Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{61.}%
+\grminpghead{0.75}{0}%
+\grlisthead{61.}%
+"Cemetaries of Washington Country Georgia, Cemetaries of Washington Country Georgia" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Penelope Gainer Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{62.}%
+\grminpghead{0.75}{0}%
+\grlisthead{62.}%
+Ancestry.com, "1840 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1840; Census Place: Lee, Georgia; Roll: 45; Page: 177; Image: 364; Family History Library Film: 0007045 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{63.}%
+\grminpghead{0.75}{0}%
+\grlisthead{63.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64.}%
+\grminpghead{0.75}{0}%
+\grlisthead{64.}%
+"Abstracts of Tyrrell County Wills 1732 to 1774  filed with the Secretary of State" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Samuel Gainer (Sr) abstracted will 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}

@@ -62,6 +62,8 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
         + Laura Hartenstine
         + Floyd Fett
         + Florence Bechtel
-5. Create Descendant Reports
-    + Settings
-5. Run scripts for find/replace and to change formatting
+5. Run R scripts for find/replace and to change formatting
+6. Open up Volume3.tex in TexWorks.  Tex it.
+7. Open up Volume2.tex in TexWorks.  Tex it.
+
+

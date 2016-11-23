@@ -1,0 +1,2275 @@
+\documentclass[12pt,letterpaper]{article}
+%
+%
+\usepackage[T1]{fontenc}%
+%
+% We use latin1 encoding at a minimum by default.
+% GRAMPS uses unicode UTF-8 encoding for its
+% international support. LaTeX can deal gracefully
+% with unicode encoding by using the ucs style invoked
+% when utf8 is specified as an option to the inputenc
+% package. This package is included by default in some
+% installations, but not in others, so we do not make it
+% the default.  Uncomment the first line if you wish to use it
+% (If you do not have ucs.sty, you may obtain it from
+%  http://www.tug.org/tex-archive/macros/latex/contrib/supported/unicode/)
+%
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+%
+% Depending on your LaTeX installation, the margins may be too
+% narrow.  This can be corrected by uncommenting the following
+% two lines and adjusting the width appropriately. The example
+% removes 0.5in from each margin. (Adds 1 inch to the text)
+%\addtolength{\oddsidemargin}{-0.5in}%
+%\addtolength{\textwidth}{1.0in}%
+%
+% Vertical spacing between paragraphs:
+% take one of three possibilities or modify to your taste:
+%\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}%
+\setlength{\parskip}{1.5ex plus0.3ex minus0.3ex}%
+%\setlength{\parskip}{2.0ex plus0.4ex minus0.4ex}%
+%
+% Vertical spacing between lines:
+% take one of three possibilities or modify to your taste:
+\renewcommand{\baselinestretch}{1.0}%
+%\renewcommand{\baselinestretch}{1.1}%
+%\renewcommand{\baselinestretch}{1.2}%
+%
+% Indentation; substitute for '1cm' of gramps, 2.5em is right for 12pt
+% take one of three possibilities or modify to your taste:
+\newlength{\grbaseindent}%
+%\setlength{\grbaseindent}{3.0em}%
+\setlength{\grbaseindent}{2.5em}%
+%\setlength{\grbaseindent}{2.0em}%
+%
+%
+% -------------------------------------------------------------
+% New lengths, counters and commands for calculations in tables
+% -------------------------------------------------------------
+%
+\newlength{\grtabwidth}%
+\newlength{\grtabprepos}%
+\newlength{\grreqwidth}%
+\newlength{\grtempwd}%
+\newlength{\grmaxwidth}%
+\newlength{\grprorated}%
+\newlength{\grxwd}%
+\newlength{\grwidthused}%
+\newlength{\grreduce}%
+\newlength{\grcurcolend}%
+\newlength{\grspanwidth}%
+\newlength{\grleadlabelwidth}%
+\newlength{\grminpgindent}%
+\newlength{\grlistbacksp}%
+\newlength{\grpictsize}%
+\newlength{\grmaxpictsize}%
+\newlength{\grtextsize}%
+\newlength{\grmaxtextsize}%
+\newcounter{grtofixcnt}%
+\newcounter{grxwdcolcnt}%
+%
+%
+\newcommand{\grinitlength}[2]{%
+  \ifthenelse{\isundefined{#1}}%
+    {\newlength{#1}}{}%
+  \setlength{#1}{#2}%
+}%
+%
+\newcommand{\grinittab}[2]{%    #1: tabwidth, #2 = 1.0/anz-cols
+  \setlength{\grtabwidth}{#1}%
+  \setlength{\grprorated}{#2\grtabwidth}%
+  \setlength{\grwidthused}{0em}%
+  \setlength{\grreqwidth}{0em}%
+  \setlength{\grmaxwidth }{0em}%
+  \setlength{\grxwd}{0em}%
+  \setlength{\grtempwd}{0em}%
+  \setlength{\grpictsize}{0em}%
+  \setlength{\grmaxpictsize}{0em}%
+  \setlength{\grtextsize}{0em}%
+  \setlength{\grmaxtextsize}{0em}%
+  \setlength{\grcurcolend}{0em}%
+  \setcounter{grxwdcolcnt}{0}%
+  \setcounter{grtofixcnt}{0}%  number of wide cols%
+  \grinitlength{\grcolbega}{0em}% beg of first col
+}%
+%
+\newcommand{\grmaxvaltofirst}[2]{%
+  \ifthenelse{\lengthtest{#1 < #2}}%
+    {\setlength{#1}{#2}}{}%
+}%
+%
+\newcommand{\grsetreqfull}{%
+  \grmaxvaltofirst{\grmaxpictsize}{\grpictsize}%
+  \grmaxvaltofirst{\grmaxtextsize}{\grtextsize}%
+}%
+%
+\newcommand{\grsetreqpart}[1]{%
+  \addtolength{\grtextsize}{#1 - \grcurcolend}%
+  \addtolength{\grpictsize}{#1 - \grcurcolend}%
+  \grsetreqfull%
+}%
+%
+\newcommand{\grdividelength}{%
+ \setlength{\grtempwd}{\grtabwidth - \grwidthused}%
+%    rough division of lengths:
+%    if 0 < #1 <= 10: \grxwd = ~\grtempwd / grtofixcnt
+%    otherwise: \grxwd =  \grprorated
+ \ifthenelse{\value{grtofixcnt} > 0}%
+  {\ifthenelse{\value{grtofixcnt}=1}%
+                    {\setlength{\grxwd}{\grtempwd}}{%
+    \ifthenelse{\value{grtofixcnt}=2}
+                    {\setlength{\grxwd}{0.5\grtempwd}}{%
+     \ifthenelse{\value{grtofixcnt}=3}
+                    {\setlength{\grxwd}{0.333\grtempwd}}{%
+      \ifthenelse{\value{grtofixcnt}=4}
+                    {\setlength{\grxwd}{0.25\grtempwd}}{%
+       \ifthenelse{\value{grtofixcnt}=5}
+                    {\setlength{\grxwd}{0.2\grtempwd}}{%
+        \ifthenelse{\value{grtofixcnt}=6}
+                    {\setlength{\grxwd}{0.166\grtempwd}}{%
+         \ifthenelse{\value{grtofixcnt}=7}
+                    {\setlength{\grxwd}{0.143\grtempwd}}{%
+          \ifthenelse{\value{grtofixcnt}=8}
+                    {\setlength{\grxwd}{0.125\grtempwd}}{%
+           \ifthenelse{\value{grtofixcnt}=9}
+                    {\setlength{\grxwd}{0.111\grtempwd}}{%
+            \ifthenelse{\value{grtofixcnt}=10}
+                    {\setlength{\grxwd}{0.1\grtempwd}}{%
+             \setlength{\grxwd}{\grprorated}% give up, take \grprorated%
+    }}}}}}}}}}%
+  \setlength{\grreduce}{0em}%
+  }{\setlength{\grxwd}{0em}}%
+}%
+%
+\newcommand{\grtextneedwidth}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \grmaxvaltofirst{\grtextsize}{\grtempwd}%
+}%
+%
+\newcommand{\grcolsfirstfix}[5]{%
+  \grinitlength{#1}{\grcurcolend}%
+  \grinitlength{#3}{0em}%
+  \grinitlength{#4}{\grmaxpictsize}%
+  \grinitlength{#5}{\grmaxtextsize}%
+  \grinitlength{#2}{#5}%
+  \grmaxvaltofirst{#2}{#4}%
+  \addtolength{#2}{2\tabcolsep}%
+  \grmaxvaltofirst{\grmaxwidth}{#2}%
+  \ifthenelse{\lengthtest{#2 < #4} \or \lengthtest{#2 < \grprorated}}%
+    { \setlength{#3}{#2}%
+      \addtolength{\grwidthused}{#2} }%
+    { \stepcounter{grtofixcnt} }%
+  \addtolength{\grcurcolend}{#2}%
+}%
+%
+\newcommand{\grcolssecondfix}[4]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    { \setlength{#3}{#2} }%
+    { \addtolength{#1}{-\grreduce}%
+      \ifthenelse{\lengthtest{#2 = \grmaxwidth}}%
+        { \stepcounter{grxwdcolcnt}}%
+        { \ifthenelse{\lengthtest{#3 = 0em} \and %
+                       \lengthtest{#4 > 0em}}%
+            { \setlength{\grtempwd}{#4}%
+              \grmaxvaltofirst{\grtempwd}{\grxwd}%
+              \addtolength{\grreduce}{#2 - \grtempwd}%
+              \setlength{#2}{\grtempwd}%
+              \addtolength{\grwidthused}{#2}%
+              \addtocounter{grtofixcnt}{-1}%
+              \setlength{#3}{#2}%
+            }{}%
+        }%
+    }%
+}%
+%
+\newcommand{\grcolsthirdfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em} \and %
+                     \lengthtest{#2 < \grmaxwidth}}%
+          { \ifthenelse{\lengthtest{#2 < 0.5\grmaxwidth}}%
+              { \setlength{\grtempwd}{0.5\grxwd}%
+                \grmaxvaltofirst{\grtempwd}{0.7\grprorated}}%
+              { \setlength{\grtempwd}{\grxwd}}%
+            \addtolength{\grreduce}{#2 - \grtempwd}%
+            \setlength{#2}{\grtempwd}%
+            \addtolength{\grwidthused}{#2}%
+            \addtocounter{grtofixcnt}{-1}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grcolsfourthfix}[3]{%
+  \ifthenelse{\lengthtest{\grcurcolend < \grtabwidth}}%
+    {}{ \addtolength{#1}{-\grreduce}%
+        \ifthenelse{\lengthtest{#3 = 0em}}%
+          { \addtolength{\grreduce}{#2 - \grxwd}%
+            \setlength{#2}{\grxwd}%
+            \setlength{#3}{#2}%
+          }{}%
+      }%
+}%
+%
+\newcommand{\grgetspanwidth}[4]{%
+  \grinitlength{#1}{#3 - #2 + #4}%
+}%
+%
+\newcommand{\tabheadstrutceil}{%
+  \rule[0.0ex]{0.00em}{3.5ex}}%
+\newcommand{\tabheadstrutfloor}{%
+  \rule[-2.0ex]{0.00em}{2.5ex}}%
+\newcommand{\tabrowstrutceil}{%
+  \rule[0.0ex]{0.00em}{2.9ex}}%
+\newcommand{\tabrowstrutfloor}{%
+  \rule[-0.1ex]{0.00em}{2.0ex}}%
+%
+\newcommand{\grempty}[1]{}%
+%
+\newcommand{\graddvdots}[1]{%
+  \hspace*{\fill}\hspace*{\fill}\raisebox{#1}{\vdots}%
+}%
+%
+\newcommand{\grtabpgbreak}[4]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}{\tabheadstrutceil\hspace*{\fill}%
+  \raisebox{#4}{\vdots} #3{#4} \hspace*{\fill}\tabheadstrutfloor}}%
+}%
+%
+\newcommand{\grcolpart}[3]{%
+  #1 { \parbox[t]{ #2 - 2\tabcolsep}%
+  {\tabrowstrutceil #3~\\[-1.6ex]\tabrowstrutfloor}}%
+}%
+%
+\newcommand{\grminpghead}[2]{%
+  \setlength{\grminpgindent}{#1\grbaseindent-\grlistbacksp}%
+  \hspace*{\grminpgindent}%
+  \ifthenelse{\not \lengthtest{#2em > 0em}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent}}%
+    {\begin{minipage}[t]{\textwidth -\grminpgindent%
+        -#2\grbaseindent -4\tabcolsep}}%
+}%
+%
+\newcommand{\grminpgtail}{%
+  \end{minipage}\parindent0em%
+}%
+%
+\newcommand{\grlisthead}[1]{%
+  \begin{list}{#1}%
+    { \setlength{\labelsep}{0.5em}%
+      \setlength{\labelwidth}{\grleadlabelwidth}%
+      \setlength{\leftmargin}{\grlistbacksp}%
+    }\item%
+}%
+%
+\newcommand{\grlisttail}{%
+  \end{list}%
+}%
+%
+\newcommand{\grprepleader}[1]{%
+  \settowidth{\grtempwd}{#1}%
+  \ifthenelse{\lengthtest{\grtempwd > \grleadlabelwidth}}%
+    { \setlength{\grleadlabelwidth}{\grtempwd}}{}%
+  \setlength{\grlistbacksp}{\grleadlabelwidth + 1.0em}%
+}%
+%
+\newcommand{\grprepnoleader}{%
+  \setlength{\grleadlabelwidth}{0em}%
+  \setlength{\grlistbacksp}{0em}%
+}%
+%
+\newcommand{\grmkpicture}[4]{%
+    \begin{wrapfigure}{r}{#2\grbaseindent}%
+      \vspace{-6ex}%
+      \begin{center}%
+      \includegraphics[%
+        width= #2\grbaseindent,%
+        height= #3\grbaseindent,%
+          keepaspectratio]%
+        {#1}\\%
+      {\RaggedRight\footnotesize#4}%
+      \end{center}%
+    \end{wrapfigure}%
+    \settowidth{\grtempwd}{\footnotesize#4}%
+    \setlength{\grxwd}{#2\grbaseindent}%
+    \ifthenelse{\lengthtest{\grtempwd < 0.7\grxwd}}%
+                    {\setlength{\grxwd}{1ex}}{%
+      \ifthenelse{\lengthtest{\grtempwd < 1.2\grxwd}}%
+                    {\setlength{\grxwd}{2ex}}{%
+        \ifthenelse{\lengthtest{\grtempwd < 1.8\grxwd}}%
+                    {\setlength{\grxwd}{6ex}}{%
+          \ifthenelse{\lengthtest{\grtempwd < 2.0\grxwd}}%
+                    {\setlength{\grxwd}{10ex}}{%
+                     \setlength{\grxwd}{12ex}}%
+                    }}}%
+  \setlength{\grtempwd}{#3\grbaseindent + \grxwd}%
+  \rule[-\grtempwd]{0pt}{\grtempwd}%
+  \setlength{\grtabprepos}{-\grtempwd}%
+}%
+%
+%
+\begin{document}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+{\centering\sffamily\bfseries\Large  Ancestral Report for Nellie D Langston \mdseries\rmfamily
+
+}\normalsize %
+
+\grminpgtail%
+
+\vspace{5ex}%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 1 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{1000.}%
+\textbf{Nellie D Langston .  }Daughter of Anna James Nunnery and Fleetwood W Langston.    Born 14 Sep 1903 in South Carolina, USA \textsuperscript{1a, 2a, 3a, 3b, 4a }.   Died 10 Sep 1948 in Mechanicsburg, Cumberland, Pennsylvania, USA \textsuperscript{5, 4a }.   Buried 12 Sep 1948 in Savannah, Chatham, Georgia, USA \textsuperscript{6 }.  Relationship with William Buck Connell.  Also relationship with William A Heckard.  Also married Harold Wood 1940 in Alachua County, Florida, USA \textsuperscript{7a, 7a }.  Also relationship with Eli Sealey.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Relationship with: William Buck Connell . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 20 Aug 1890 in South Carolina, USA \textsuperscript{2a, 8 }.   Died 19 Oct 1953 in Florence, Florence, South Carolina, USA \textsuperscript{8, 9, 10, 11a, 11b }.   Buried in Florence County, South Carolina, USA \textsuperscript{10, 11a, 11b }.  Son of William Ellison Lee Connell and Ida Mae Barnes.     %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Relationship with: William A Heckard . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 25 Mar 1912 in Snyder County, Pennsylvania, USA \textsuperscript{12a, 2b, 13, 14, 15, 16, 17 }.   Died 19 Jun 1983 \textsuperscript{12a, 15, 17 }.    %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Spouse: Harold Wood . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+   %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Relationship with: Eli Sealey . \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+  Born 1896 in Florida, USA \textsuperscript{3b, 10 }.   Died Jun 1960 in Duval County, Florida, USA \textsuperscript{18a, 19, 10 }.   Buried in Jacksonville, Duval, Florida, USA \textsuperscript{19, 10 }.   %
+
+\grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Nellie D Langston and William Buck Connell \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Wilbur Bernard Cornell.  Born 2 Jan 1920 \textsuperscript{12b, 14, 13, 15 }.   Died 16 Feb 2008 in Hinesville, Liberty, Georgia, USA \textsuperscript{15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Miriam Elizabeth Cornell.  Born 12 May 1924 in Effingham, Florence, South Carolina, USA \textsuperscript{20a, 21a, 12c, 3b, 17 }.   Died 29 Mar 1977 in Chatham County, Georgia, USA \textsuperscript{20a, 12c, 17 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Curtis Thomas Carnell.  Born 15 Mar 1922 in Effingham, Florence, South Carolina, USA \textsuperscript{22, 21a, 23a, 10, 17, 15 }.   Died 18 May 1991 in Carlisle, Cumberland, Pennsylvania, USA \textsuperscript{24a, 25, 10, 17, 15 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 2 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{2000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2000.}%
+\textbf{Anna James Nunnery .  }Daughter of Richard M Nunnery and Rebecca Freeman.    Born Nov 1873 in South Carolina, USA \textsuperscript{1a, 8, 26a, 10 }.   Died 11 Apr 1919 in Florence County, South Carolina, USA \textsuperscript{8, 10, 27a }.   Buried in Sardis, Florence, South Carolina, USA \textsuperscript{10 }.  Relationship with Fleetwood W Langston.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Fleetwood W Langston and Anna James Nunnery \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Fitzhugh Lee Langston.  Born 25 Mar 1900 in South Carolina, USA \textsuperscript{1a, 20b, 3c, 6, 28a, 12d }.   Died 26 Apr 1969 in Rincon, Effingham, Georgia, USA \textsuperscript{6, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Joseph Sanford Langston.  Born 12 Aug 1911 in South Carolina, USA \textsuperscript{29a, 10, 12e, 8 }.   Died 12 Oct 1958 in Florence County, South Carolina, USA \textsuperscript{10, 11c, 12e, 11d, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+William Burke Langston.  Born 13 May 1900 in South Carolina, USA \textsuperscript{1a, 2c, 3d, 21b, 8, 30a, 10 }.   Died 22 Nov 1959 in Marion County, South Carolina, USA \textsuperscript{8, 11e, 30a, 10, 11f, 11g, 11h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Lula Langston.  Born 3 May 1914 in Timmonsville, Florence, South Carolina, USA \textsuperscript{29a, 21c, 12f, 10, 17 }.   Died 20 Jul 1996 in Florence, Florence, South Carolina, USA \textsuperscript{12f, 10, 17 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Nellie D Langston [1000].  Born 14 Sep 1903 in South Carolina, USA \textsuperscript{1a, 2a, 3a, 3b, 4a }.   Died 10 Sep 1948 in Mechanicsburg, Cumberland, Pennsylvania, USA \textsuperscript{5, 4a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Lena Langston.  Born 12 Jul 1906 in South Carolina, USA \textsuperscript{1a, 29a, 6, 12g, 20c }.   Died 14 Sep 1980 in Chatham County, Georgia, USA \textsuperscript{6, 12g, 20c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Susan Langston.  Born 18 Apr 1910 in South Carolina, USA \textsuperscript{1a, 20d, 21d, 3e, 6, 10 }.   Died 23 Feb 1983 in Chatham County, Georgia, USA \textsuperscript{20d, 6, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{2001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{2001.}%
+\textbf{Fleetwood W Langston .  }Son of Elias Langston and Agnes Roberts.    Born 7 Jan 1855 in South Carolina, USA \textsuperscript{26b, 10, 31a, 29a, 32a, 33, 1a }.   Died 8 Jan 1928 in Florence County, South Carolina, USA \textsuperscript{10, 33 }.   Buried 9 Jan 1928 in Florence County, South Carolina, USA \textsuperscript{10 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Fannie Unknown and Fleetwood W Langston \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Letha A. Langston.  Born about 1879 in South Carolina, USA \textsuperscript{26b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 3 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{4000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4000.}%
+\textbf{Richard M Nunnery .  }Son of Peter Nunnery and Mother Nunnery Unknown.    Born about 1844 in South Carolina, USA \textsuperscript{34a, 35a, 26a }.   Died 3 Jun 1897 in Sumter County, South Carolina, USA.   Relationship with Rebecca Freeman.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4001.}%
+\textbf{Rebecca Freeman .  }Born about 1844 in South Carolina, USA \textsuperscript{34b, 26a, 35b, 34a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Rebecca Freeman and Richard M Nunnery \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Mary Nunery.  Born 1863 in South Carolina, USA \textsuperscript{26a, 36a, 3f, 37a, 38a, 8 }.   Died 9 Mar 1933 in Darlington County, South Carolina, USA \textsuperscript{8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Richard Nunery.  Born about 1876 in South Carolina, USA \textsuperscript{26a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Henrietta Nunery.  Born about 1868 in South Carolina, USA \textsuperscript{26a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Anna James Nunnery [2000].  Born Nov 1873 in South Carolina, USA \textsuperscript{1a, 8, 26a, 10 }.   Died 11 Apr 1919 in Florence County, South Carolina, USA \textsuperscript{8, 10, 27a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Peter Nunery.  Born about 1866 in South Carolina, USA \textsuperscript{26a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Serena Nunery.  Born about 1864 in South Carolina, USA \textsuperscript{26a, 36b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{4002.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4002.}%
+\textbf{Elias Langston .  }Son of Wade Hampton Langston and Levitha (Vicey) Abbott or James.    Born 1820 in Darlington County, South Carolina, USA \textsuperscript{39a, 32a, 40 }.   Died 8 Sep 1863 in Sullivan's Island, Charleston, South Carolina, USA.   Relationship with Agnes Roberts.  Also married Unknown 1842 \textsuperscript{40 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4003.}%
+\grminpghead{1.0}{0}%
+\grlisthead{4003.}%
+\textbf{Agnes Roberts .  }Born about 1819 in South Carolina, USA \textsuperscript{32a, 26c }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Agnes Roberts and Elias Langston \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+C Langston.  Born about 1847 in South Carolina, USA \textsuperscript{32a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Wade A Langston.  Born 4 Dec 1844 in South Carolina, USA \textsuperscript{30b, 26d }.   Died 30 Apr 1898 in Timmonsville, Florence, South Carolina, USA \textsuperscript{41a, 30b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Latta P Langston.  Born about 1847 in South Carolina, USA \textsuperscript{39a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Mahaley Langston.  Born about 1843 in South Carolina, USA \textsuperscript{39a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Mary Langston.  Born about 1861 in South Carolina, USA \textsuperscript{31a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Eugenia Victoria Langston.  Born 5 Apr 1849 in South Carolina, USA \textsuperscript{31a, 26e, 36c, 30c }.   Died 6 Sep 1905 \textsuperscript{30c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Fleetwood W Langston [2001].  Born 7 Jan 1855 in South Carolina, USA \textsuperscript{26b, 10, 31a, 29a, 32a, 33, 1a }.   Died 8 Jan 1928 in Florence County, South Carolina, USA \textsuperscript{10, 33 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Jenna Langston.  Born about 1857 in South Carolina, USA \textsuperscript{31a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Jule W Langston.  Born 11 Jun 1854 in South Carolina, USA \textsuperscript{31a, 26c, 36d, 2d, 10, 8, 38b, 3g }.   Died 30 Apr 1934 in Florence County, South Carolina, USA \textsuperscript{10, 8 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 4 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{8000.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8000.}%
+\textbf{Peter Nunnery .  }Born about 1803 in South Carolina, USA \textsuperscript{35a, 34b }.   Relationship with Unknown.  Also relationship with Mother Nunnery Unknown.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8001.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8001.}%
+\textbf{Mother Nunnery Unknown .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Mother Nunnery Unknown and Peter Nunnery \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Epsey Nunnery.  Born about 1840 in South Carolina, USA \textsuperscript{37b, 34b, 35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Peter Nunnery.  Born about 1833 in South Carolina, USA \textsuperscript{34c, 35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Anderson Nunnery.  Born May 1835 in South Carolina, USA \textsuperscript{38c, 37c, 35a, 36e, 26f, 10 }.   Died 1912 in Rembert, Sumter, South Carolina, USA \textsuperscript{10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Alice Susan Nunnery.  Born about 1845 in South Carolina, USA \textsuperscript{37b, 34b, 35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Roxanna Nunnery.  Born about 1831 in South Carolina, USA \textsuperscript{37b, 35a, 34a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Mary Nunnery.  Born about 1827 in South Carolina, USA \textsuperscript{34b, 35c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Richard M Nunnery [4000].  Born about 1844 in South Carolina, USA \textsuperscript{34a, 35a, 26a }.   Died 3 Jun 1897 in Sumter County, South Carolina, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Francis Nunnery.  Born about 1842 in South Carolina, USA \textsuperscript{35a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+William Nunnery.  Born about 1829 in South Carolina, USA \textsuperscript{35c }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{8004.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8004.}%
+\textbf{Wade Hampton Langston .  }Son of Reddick Langston and Priscilla Thornton.    Born 1800 in South Carolina, USA \textsuperscript{42a, 37d, 34d, 35d, 43 }.   Relationship with Levitha (Vicey) Abbott or James.  Also married Unknown about 1819 \textsuperscript{44 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8005.}%
+\grminpghead{1.0}{0}%
+\grlisthead{8005.}%
+\textbf{Levitha (Vicey) Abbott or James .  }Born 1797 in South Carolina, USA \textsuperscript{45, 35d, 37d, 34d }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Levitha (Vicey) Abbott or James and Wade Hampton Langston \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Henry Abbott Langston.  Born 1844 in South Carolina, USA \textsuperscript{35e, 46, 34d, 37d, 10 }.   Died 1896 \textsuperscript{10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Wilson P Langston.  Born Oct 1830 in South Carolina, USA \textsuperscript{35e, 47, 34e, 10 }.   Died 15 Jun 1863 in South Carolina, USA \textsuperscript{10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Mariah Langston.  Born 1827 in South Carolina, USA \textsuperscript{35d, 48 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+George Washington Langston.  Born 1833 in South Carolina, USA \textsuperscript{49, 35e }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Calvin Langston.  Born 29 Dec 1820 in South Carolina, USA \textsuperscript{26g, 10, 37d, 34f, 30d, 35d, 50 }.   Died 27 Dec 1895 \textsuperscript{10, 30d }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Pinkey Langston.  Born 1840 in South Carolina, USA \textsuperscript{35e, 51 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Elias Langston [4002].  Born 1820 in Darlington County, South Carolina, USA \textsuperscript{39a, 32a, 40 }.   Died 8 Sep 1863 in Sullivan's Island, Charleston, South Carolina, USA.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+Rosannah Langston.  Born 31 Oct 1836 in South Carolina, USA \textsuperscript{34d, 35e, 36f, 26h, 38d, 30e, 52, 10 }.   Died 5 Dec 1919 \textsuperscript{41b, 30e, 10 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ix.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ix.}%
+Vicey Langston.  Born 1843 in South Carolina, USA \textsuperscript{35e, 53 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{x.}%
+\grminpghead{1.75}{0}%
+\grlisthead{x.}%
+Mahala Langston.  Born 1828 in South Carolina, USA \textsuperscript{35e, 54 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 5 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{16008.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16008.}%
+\textbf{Reddick Langston .  }Son of John Langston and Ann Unknown (Langston).    Born 1776 in Wayne County, North Carolina, USA \textsuperscript{55a, 56 }.   Died 1849 in South Carolina, USA \textsuperscript{57, 58a }.   Relationship with Priscilla Thornton.  Also married Unknown before 1798 \textsuperscript{59 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16009.}%
+\grminpghead{1.0}{0}%
+\grlisthead{16009.}%
+\textbf{Priscilla Thornton .  }Born 1775 \textsuperscript{55a }.   
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Priscilla Thornton and Reddick Langston \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Howard Langston.  Born 1798 in Darlington County, South Carolina, USA \textsuperscript{34g, 60, 35f, 26i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Allie Langston.  Born between 1800 and 1810 \textsuperscript{61 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Ervin Langston.  Born 21 Jul 1812 in Darlington County, South Carolina, USA \textsuperscript{26j, 35f, 34h, 62 }.   Died 24 Oct 1898 \textsuperscript{63 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+John (s of Reddick) Langston.  Born 1810 in South Carolina, USA \textsuperscript{64, 35g, 26k, 37e, 34i }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Daniel Langston.  Born between 1800 and 1810 \textsuperscript{65 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Priscilla Langston.  Born between 1800 and 1810 \textsuperscript{66 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+Wade Hampton Langston [8004].  Born 1800 in South Carolina, USA \textsuperscript{42a, 37d, 34d, 35d, 43 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Generation 6 \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{32016.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32016.}%
+\textbf{John Langston .  }Born 1738 in Bertie County, North Carolina, USA \textsuperscript{67, 55b }.   Died 1783 \textsuperscript{68 }.   Relationship with Ann Unknown (Langston).  Also married Unknown before 1761 \textsuperscript{69 }.  
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32017.}%
+\grminpghead{1.0}{0}%
+\grlisthead{32017.}%
+\textbf{Ann Unknown (Langston) .  }
+\grlisttail%
+ \grminpgtail%
+
+\grprepnoleader%
+\grminpghead{1.0}{0}%
+
+\sffamily\bfseries\small  Children of Ann Unknown (Langston) and John Langston \mdseries\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{i.}%
+\grminpghead{1.75}{0}%
+\grlisthead{i.}%
+Uriah Langston.  Born between 1760 and 1769 \textsuperscript{70 }.   Died about 1838 in Wayne County, North Carolina, USA \textsuperscript{71a, 71b }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{ii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{ii.}%
+Reddick Langston [16008].  Born 1776 in Wayne County, North Carolina, USA \textsuperscript{55a, 56 }.   Died 1849 in South Carolina, USA \textsuperscript{57, 58a }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iii.}%
+Ann Langston.  Born between 1760 and 1769 \textsuperscript{72 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{iv.}%
+\grminpghead{1.75}{0}%
+\grlisthead{iv.}%
+Isaac Langston.  Born 1770 in Wayne County, North Carolina, USA \textsuperscript{73, 35h }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{v.}%
+\grminpghead{1.75}{0}%
+\grlisthead{v.}%
+Martha Langston.  Born between 1760 and 1769 \textsuperscript{74 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vi.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vi.}%
+Sarah Langston.  Born 1779 \textsuperscript{75 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{vii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{vii.}%
+John Langston (Jr).  Born 1781 \textsuperscript{76 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\grprepleader{viii.}%
+\grminpghead{1.75}{0}%
+\grlisthead{viii.}%
+William Langston.  Born 1761 in Wayne County, North Carolina, USA \textsuperscript{77 }.   
+\grlisttail%
+\normalsize \grminpgtail%
+
+\newpage%
+\grprepnoleader%
+\grminpghead{0}{0}%
+
+\sffamily\itshape\large  Endnotes \upshape\rmfamily\normalsize %
+
+\grminpgtail%
+
+\grprepleader{1.}%
+\grminpghead{0.75}{0}%
+\grlisthead{1.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Cartersville, Florence, South Carolina; Roll: T624\_1457; Page: 11A; Enumeration District: 0018; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{2.}%
+\grminpghead{0.75}{0}%
+\grlisthead{2.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: McMillen, Florence, South Carolina; Roll: T625\_1696; Page: 10B; Enumeration District: 59; Image: 335 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1920; Census Place: Chapman, Snyder, Pennsylvania; Roll: T625\_1653; Page: 5A; Enumeration District: 158; Image: 66 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1920; Census Place: Florence, Florence, South Carolina; Roll: T625\_1695; Page: 1B; Enumeration District: 46; Image: 993 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1920; Census Place: James Cross Roads, Florence, South Carolina; Roll: T625\_1696; Page: 8B; Enumeration District: 49; Image: 21 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{3.}%
+\grminpghead{0.75}{0}%
+\grlisthead{3.}%
+Ancestry.com, "1930 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2002; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1930; Census Place: Florence, Florence, South Carolina; Roll: 2196; Page: 10B; Enumeration District: 0012; Image: 857.0; FHL microfilm: 2341930 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1930; Census Place: Militia District 8, Chatham, Georgia; Roll: 345; Page: 6A; Enumeration District: 0058; Image: 546.0; FHL microfilm: 2340080 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1930; Census Place: Effingham, Florence, South Carolina; Roll: 2196; Page: 5A; Enumeration District: 0009; Image: 708.0; FHL microfilm: 2341930 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1930; Census Place: Florence, Florence, South Carolina; Roll: 2196; Page: 15A; Enumeration District: 0015; Image: 1050.0; FHL microfilm: 2341930 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1930; Census Place: Florence, Florence, South Carolina; Roll: 2196; Page: 12B; Enumeration District: 0012; Image: 861.0; FHL microfilm: 2341930 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1930; Census Place: Anderson, Darlington, South Carolina; Roll: 2194; Page: 5B; Enumeration District: 0014; Image: 901.0; FHL microfilm: 2341928 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1930; Census Place: James Cross Roads, Florence, South Carolina; Roll: 2197; Page: 1B; Enumeration District: 0019; Image: 50.0; FHL microfilm: 2341931 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{4.}%
+\grminpghead{0.75}{0}%
+\grlisthead{4.}%
+Ancestry.com, "Pennsylvania, Death Certificates, 1906-1944", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historic and Museum Commission; Pennsylvania, USA; Certificate Number Range: 076651-079200 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{5.}%
+\grminpghead{0.75}{0}%
+\grlisthead{5.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{6.}%
+\grminpghead{0.75}{0}%
+\grlisthead{6.}%
+Ancestry.com, "Savannah, Georgia, Cemetery Burial Lot Cards, 1807-1995", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2014; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{7.}%
+\grminpghead{0.75}{0}%
+\grlisthead{7.}%
+Ancestry.com, "Florida Marriage Collection, 1822-1875 and 1927-2001", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Marriage of Nellie Langston Sealy and Harold Wood 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{8.}%
+\grminpghead{0.75}{0}%
+\grlisthead{8.}%
+Ancestry.com, "South Carolina, Death Records, 1821-1960", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2008; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{9.}%
+\grminpghead{0.75}{0}%
+\grlisthead{9.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{10.}%
+\grminpghead{0.75}{0}%
+\grlisthead{10.}%
+Ancestry.com, "U.S., Find A Grave Index, 1600s-Current", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{11.}%
+\grminpghead{0.75}{0}%
+\grlisthead{11.}%
+"Florence Morning News" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William Buck Connell Obituary, Page 14, Thursday 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+William Buck Connell Obituary, Page 10, Wednesday 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Joseph Langston Obituary 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Joseph Sanford Langston Obituary, Florence Morning News, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+William Burke Langston Death, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+William Burke Langston Death, Page 2, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+William Burke Langston Obituary, Florence Morning News, Page 2, Column 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+William Burke Langston Obituary and Death Notice, Florence Morning News, Page 2, Column 2 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{12.}%
+\grminpghead{0.75}{0}%
+\grlisthead{12.}%
+Ancestry.com, "U.S., Social Security Death Index, 1935-2014", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Number: 205-09-0593; Issue State: Pennsylvania; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Number: 261-24-0468; Issue State: Florida; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Number: 255-05-4063; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Number: 253-16-2053; Issue State: Georgia; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Number: 247-76-3495; Issue State: South Carolina; Issue Date: 1961 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Number: 262-18-5011; Issue State: Florida; Issue Date: Before 1951 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{13.}%
+\grminpghead{0.75}{0}%
+\grlisthead{13.}%
+Ancestry.com, "U.S. Public Records Index, Volume 1", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{14.}%
+\grminpghead{0.75}{0}%
+\grlisthead{14.}%
+National Archives and Records Administration, "U.S. World War II Army Enlistment Records, 1938-1946", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{15.}%
+\grminpghead{0.75}{0}%
+\grlisthead{15.}%
+Ancestry.com, "U.S., Department of Veterans Affairs BIRLS Death File, 1850-2010", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2011; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{16.}%
+\grminpghead{0.75}{0}%
+\grlisthead{16.}%
+Ancestry.com, "Pennsylvania, Veteran Compensation Application Files, WWII, 1950-1966", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{17.}%
+\grminpghead{0.75}{0}%
+\grlisthead{17.}%
+Ancestry.com, "U.S., Social Security Applications and Claims Index, 1936-2007", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{18.}%
+\grminpghead{0.75}{0}%
+\grlisthead{18.}%
+Ancestry.com, "Florida Death Index, 1877-1998", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Eli Sealey Death 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{19.}%
+\grminpghead{0.75}{0}%
+\grlisthead{19.}%
+Ancestry.com, "Web: Florida, Find A Grave Index, 1800-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{20.}%
+\grminpghead{0.75}{0}%
+\grlisthead{20.}%
+Ancestry.com, "Georgia Deaths, 1919-98", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2001; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Certificate number: 010024 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Certificate number: 015938 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Certificate number: 029772 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Certificate number: 010040 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{21.}%
+\grminpghead{0.75}{0}%
+\grlisthead{21.}%
+Ancestry.com, "1940 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1940; Census Place: Jacksonville, Duval, Florida; Roll: T627\_627; Page: 7A; Enumeration District: 68-157 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1940; Census Place: Florence, Florence, South Carolina; Roll: T627\_3808; Page: 3B; Enumeration District: 21-22 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1940; Census Place: Lake, Florence, South Carolina; Roll: T627\_3809; Page: 2B; Enumeration District: 21-31 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1940; Census Place: Savannah, Chatham, Georgia; Roll: T627\_651; Page: 6A; Enumeration District: 25-64A 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{22.}%
+\grminpghead{0.75}{0}%
+\grlisthead{22.}%
+Ancestry.com, "Pennsylvania, Veteran Compensation Applications, WWII, 1950", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2013; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{23.}%
+\grminpghead{0.75}{0}%
+\grlisthead{23.}%
+"Florence County Health Department, Florence County South Carolina, Birth Certificate, Curtis Connell" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Curtis Connell Birth Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{24.}%
+\grminpghead{0.75}{0}%
+\grlisthead{24.}%
+Ancestry.com, "Pennsylvania, Veterans Burial Cards, 1777-1999", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Pennsylvania Historical and Museum Commission; Harrisburg, Pennsylvania; Pennsylvania Veterans Burial Cards, 1929-1990; Archive Collection Number: Series 2-1; Folder Number: 577 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{25.}%
+\grminpghead{0.75}{0}%
+\grlisthead{25.}%
+"Details: Curtis Carnell Obituary, Gettysburg Times" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{26.}%
+\grminpghead{0.75}{0}%
+\grlisthead{26.}%
+Ancestry.com and The Church of Jesus Christ of Latter-day Saints, "1880 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1880; Census Place: Rafting Creek, Sumter, South Carolina; Roll: 1241; Family History Film: 1255241; Page: 216C; Enumeration District: 122 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1880; Census Place: Motts, Clarendon, South Carolina; Roll: 1225; Family History Film: 1255225; Page: 116C; Enumeration District: 019 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1880; Census Place: James Cross Roads, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 172B; Enumeration District: 038 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1880; Census Place: Effingham, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 96C; Enumeration District: 034 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1880; Census Place: Effingham, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 96D; Enumeration District: 034 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1880; Census Place: Rafting Creek, Sumter, South Carolina; Roll: 1241; Family History Film: 1255241; Page: 216D; Enumeration District: 122 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1880; Census Place: James Cross Roads, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 177D; Enumeration District: 038 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1880; Census Place: James Cross Roads, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 174B; Enumeration District: 038 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1880; Census Place: James Cross Roads, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 171D; Enumeration District: 038 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{j:}%
+\grminpghead{1.9}{0}%
+\grlisthead{j:}%
+Year: 1880; Census Place: Effingham, Darlington, South Carolina; Roll: 1227; Family History Film: 1255227; Page: 98D; Enumeration District: 034 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{k:}%
+\grminpghead{1.9}{0}%
+\grlisthead{k:}%
+Year: 1880; Census Place: Langston, Liberty, Florida; Roll: 130; Family History Film: 1254130; Page: 478B; Enumeration District: 095; Image: 0160 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{27.}%
+\grminpghead{0.75}{0}%
+\grlisthead{27.}%
+"South Carolina Death Certificates" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Anna James Nunnery Langston Death Certificate 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{28.}%
+\grminpghead{0.75}{0}%
+\grlisthead{28.}%
+Ancestry.com, "U.S., World War I Draft Registration Cards, 1917-1918", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2005; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Registration State: South Carolina; Registration County: Florence; Roll: 1877594 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{29.}%
+\grminpghead{0.75}{0}%
+\grlisthead{29.}%
+Ancestry.com, "1920 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1920; Census Place: McMillen, Florence, South Carolina; Roll: T625\_1696; Page: 10B; Enumeration District: 59; Image: 335 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{30.}%
+\grminpghead{0.75}{0}%
+\grlisthead{30.}%
+Ancestry.com, "Web: South Carolina, Find A Grave Index, 1729-2012", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+William Burke Langston Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Wade A Langston Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Eugenia Victoria Langston Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Calvin Langston Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Rosannah Langston Grave 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{31.}%
+\grminpghead{0.75}{0}%
+\grlisthead{31.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Humphrey, Darlington, South Carolina; Roll: M593\_1493; Page: 483B; Image: 322; Family History Library Film: 552992 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{32.}%
+\grminpghead{0.75}{0}%
+\grlisthead{32.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 456; Image: 425; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{33.}%
+\grminpghead{0.75}{0}%
+\grlisthead{33.}%
+Ancestry.com, "South Carolina, Death Records, 1821-1960", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2008; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{34.}%
+\grminpghead{0.75}{0}%
+\grlisthead{34.}%
+Ancestry.com, "1860 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1860; Census Place: Sumter, Sumter, South Carolina; Roll: M653\_1227; Page: 126; Image: 264; Family History Library Film: 805227 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1860; Census Place: Sumter, Sumter, South Carolina; Roll: M653\_1227; Page: 149; Image: 311; Family History Library Film: 805227 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1860; Census Place: Sumter, Sumter, South Carolina; Roll: M653\_1227; Page: 125; Image: 262; Family History Library Film: 805227 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 442; Image: 398; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 435; Image: 383; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 456; Image: 425; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1860; Census Place: Williamsburg, Williamsburg, South Carolina; Roll: M653\_1228; Page: 343; Image: 95; Family History Library Film: 805228 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1860; Census Place: Darlington, Darlington, South Carolina; Roll: M653\_1218; Page: 443; Image: 400; Family History Library Film: 805218 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{i:}%
+\grminpghead{1.9}{0}%
+\grlisthead{i:}%
+Year: 1860; Census Place: Liberty, Florida; Roll: M653\_108; Page: 146; Image: 146; Family History Library Film: 803108 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{35.}%
+\grminpghead{0.75}{0}%
+\grlisthead{35.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Sumter, Sumter, South Carolina; Roll: M432\_859; Page: 387A; Image: 162 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1850; Census Place: Chester, South Carolina; Roll: M432\_851; Page: 73A; Image: 151 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1850; Census Place: Sumter, Sumter, South Carolina; Roll: M432\_859; Page: 387A; Image: . 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1850; Census Place: Division 2, Darlington, South Carolina; Roll: M432\_851; Page: 310B; Image: 622 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1850; Census Place: Division 3, Darlington, South Carolina; Roll: M432\_851; Page: 311A; Image: 623 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1850; Census Place: Division 1, Darlington, South Carolina; Roll: M432\_851; Page: 285B; Image: 571 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{g:}%
+\grminpghead{1.9}{0}%
+\grlisthead{g:}%
+Year: 1850; Census Place: Division 1, Darlington, South Carolina; Roll: M432\_851; Page: 286A; Image: 572 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{h:}%
+\grminpghead{1.9}{0}%
+\grlisthead{h:}%
+Year: 1850; Census Place: Northern District, Hertford, North Carolina; Roll: M432\_634; Page: 305B; Image: 191 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{36.}%
+\grminpghead{0.75}{0}%
+\grlisthead{36.}%
+Ancestry.com, "1900 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1900; Census Place: Philadelphia, Darlington, South Carolina; Roll: 1525; Page: 19A; Enumeration District: 0027; FHL microfilm: 1241525 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1900; Census Place: Statesburg, Sumter, South Carolina; Roll: 1543; Page: 18B; Enumeration District: 0128; FHL microfilm: 1241543 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1900; Census Place: Effingham, Florence, South Carolina; Roll: 1528; Page: 14B; Enumeration District: 0035; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1900; Census Place: James Roads, Florence, South Carolina; Roll: 1528; Page: 21A; Enumeration District: 0038; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1900; Census Place: Raften Creek, Sumter, South Carolina; Roll: 1543; Page: 3A; Enumeration District: 0122; FHL microfilm: 1241543 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{f:}%
+\grminpghead{1.9}{0}%
+\grlisthead{f:}%
+Year: 1900; Census Place: James Roads, Florence, South Carolina; Roll: 1528; Page: 24B; Enumeration District: 0038; FHL microfilm: 1241528 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{37.}%
+\grminpghead{0.75}{0}%
+\grlisthead{37.}%
+Ancestry.com, "1870 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1870; Census Place: Division 1, York, South Carolina; Roll: M593\_1512; Page: 264A; Image: 123; Family History Library Film: 553011 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1870; Census Place: Rafting Creek, Sumter, South Carolina; Roll: M593\_1509; Page: 210B; Image: 427; Family History Library Film: 553008 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1870; Census Place: Rafting Creek, Sumter, South Carolina; Roll: M593\_1509; Page: 206B; Image: 419; Family History Library Film: 553008 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1870; Census Place: Humphrey, Darlington, South Carolina; Roll: M593\_1493; Page: 483A; Image: 321; Family History Library Film: 552992 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{e:}%
+\grminpghead{1.9}{0}%
+\grlisthead{e:}%
+Year: 1870; Census Place: Liberty, Florida; Roll: M593\_131; Page: 726A; Image: 853; Family History Library Film: 545630 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{38.}%
+\grminpghead{0.75}{0}%
+\grlisthead{38.}%
+Ancestry.com, "1910 United States Federal Census", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2006; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1910; Census Place: Philadelphia, Darlington, South Carolina; Roll: T624\_1454; Page: 22A; Enumeration District: 0013; FHL microfilm: 1375467 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Year: 1910; Census Place: James Cross Roads, Florence, South Carolina; Roll: T624\_1457; Page: 6B; Enumeration District: 0025; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{c:}%
+\grminpghead{1.9}{0}%
+\grlisthead{c:}%
+Year: 1910; Census Place: Rafting Creek, Sumter, South Carolina; Roll: T624\_1465; Page: 19B; Enumeration District: 0114; FHL microfilm: 1375478 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{d:}%
+\grminpghead{1.9}{0}%
+\grlisthead{d:}%
+Year: 1910; Census Place: James Cross Roads, Florence, South Carolina; Roll: T624\_1457; Page: 9A; Enumeration District: 0025; FHL microfilm: 1375470 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{39.}%
+\grminpghead{0.75}{0}%
+\grlisthead{39.}%
+Ancestry.com, "1850 United States Federal Census", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2009; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Year: 1850; Census Place: Division 2, Darlington, South Carolina; Roll: M432\_851; Page: 310B; Image: 622 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{40.}%
+\grminpghead{0.75}{0}%
+\grlisthead{40.}%
+"Details: Elias Langston Birth" 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{41.}%
+\grminpghead{0.75}{0}%
+\grlisthead{41.}%
+Ancestry.com, "Web: Richland County, South Carolina, Obituary Index, 1892-2000", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2012; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Wade A Langston Obituary Index 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Rosannah Langston Obituary Index 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{42.}%
+\grminpghead{0.75}{0}%
+\grlisthead{42.}%
+Ancestry.com, "1860 U.S. Federal Census - Slave Schedules", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2010; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Wade Hampton Langston 1860 Slave Schedules. 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{43.}%
+\grminpghead{0.75}{0}%
+\grlisthead{43.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{44.}%
+\grminpghead{0.75}{0}%
+\grlisthead{44.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{45.}%
+\grminpghead{0.75}{0}%
+\grlisthead{45.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{46.}%
+\grminpghead{0.75}{0}%
+\grlisthead{46.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{47.}%
+\grminpghead{0.75}{0}%
+\grlisthead{47.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{48.}%
+\grminpghead{0.75}{0}%
+\grlisthead{48.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{49.}%
+\grminpghead{0.75}{0}%
+\grlisthead{49.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{50.}%
+\grminpghead{0.75}{0}%
+\grlisthead{50.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{51.}%
+\grminpghead{0.75}{0}%
+\grlisthead{51.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{52.}%
+\grminpghead{0.75}{0}%
+\grlisthead{52.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{53.}%
+\grminpghead{0.75}{0}%
+\grlisthead{53.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{54.}%
+\grminpghead{0.75}{0}%
+\grlisthead{54.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{55.}%
+\grminpghead{0.75}{0}%
+\grlisthead{55.}%
+Yates Publishing, "U.S. and International Marriage Records, 1560-1900", Name: Ancestry.com Operations Inc; Location: Provo, UT, USA; Date: 2004; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Source number: 2467.017; Source type: Family group sheet, FGSE, listed as parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Source number: 2467.021; Source type: Family group sheet, FGSE, listed as parents; Number of Pages: 1 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{56.}%
+\grminpghead{0.75}{0}%
+\grlisthead{56.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{57.}%
+\grminpghead{0.75}{0}%
+\grlisthead{57.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{58.}%
+\grminpghead{0.75}{0}%
+\grlisthead{58.}%
+Ancestry.com, "South Carolina, Wills and Probate Records, 1670-1980", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Estates, Wills \& Letters of Administration, 1791-1895; Index, 1791-1905; Author: Darlington County (South Carolina). Judge of Probate; Probate Place: Darlington, South Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{59.}%
+\grminpghead{0.75}{0}%
+\grlisthead{59.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{60.}%
+\grminpghead{0.75}{0}%
+\grlisthead{60.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{61.}%
+\grminpghead{0.75}{0}%
+\grlisthead{61.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{62.}%
+\grminpghead{0.75}{0}%
+\grlisthead{62.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{63.}%
+\grminpghead{0.75}{0}%
+\grlisthead{63.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{64.}%
+\grminpghead{0.75}{0}%
+\grlisthead{64.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{65.}%
+\grminpghead{0.75}{0}%
+\grlisthead{65.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{66.}%
+\grminpghead{0.75}{0}%
+\grlisthead{66.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{67.}%
+\grminpghead{0.75}{0}%
+\grlisthead{67.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{68.}%
+\grminpghead{0.75}{0}%
+\grlisthead{68.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{69.}%
+\grminpghead{0.75}{0}%
+\grlisthead{69.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{70.}%
+\grminpghead{0.75}{0}%
+\grlisthead{70.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{71.}%
+\grminpghead{0.75}{0}%
+\grlisthead{71.}%
+Ancestry.com, "North Carolina, Wills and Probate Records, 1665-1998", Name: Ancestry.com Operations, Inc.; Location: Provo, UT, USA; Date: 2015; 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{a:}%
+\grminpghead{1.9}{0}%
+\grlisthead{a:}%
+Wayne County, North Carolina, Estate Records, 1782-1937; Indexes 1782-1937; Author: North Carolina. Superior Court (Wayne County); Probate Place: Wayne, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{b:}%
+\grminpghead{1.9}{0}%
+\grlisthead{b:}%
+Wills and Estate Papers (Wayne County), 1663-1978; Author: North Carolina. Division of Archives and History; Probate Place: Wayne, North Carolina 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{72.}%
+\grminpghead{0.75}{0}%
+\grlisthead{72.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{73.}%
+\grminpghead{0.75}{0}%
+\grlisthead{73.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{74.}%
+\grminpghead{0.75}{0}%
+\grlisthead{74.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{75.}%
+\grminpghead{0.75}{0}%
+\grlisthead{75.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{76.}%
+\grminpghead{0.75}{0}%
+\grlisthead{76.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\grprepleader{77.}%
+\grminpghead{0.75}{0}%
+\grlisthead{77.}%
+ 
+\grlisttail%
+ \grminpgtail%
+
+\end{document}
