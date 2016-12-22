@@ -3,6 +3,7 @@ require(stringr)
 
 repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
 tex_input_path <- file.path(repository_path,"CarnellRettgersFamilyHistory","tex_input")
+tex_output_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","tex_output")
 
 ancestor_files <- paste0("det_ancestor_report_", 
                          c("Bechtel","Fett","Hartenstine","Rettgers",
@@ -102,11 +103,11 @@ X5 <- lapply(X3, function(x) {
 
 dummy <- mapply(function(x, f){
   fnew <- str_replace(f, "[.]tex$", "_mod.tex")
-  writeLines(x, con=file.path(tex_input_path, fnew))
+  writeLines(x, con=file.path(tex_output_path, fnew))
 }, X4, ancestor_files)
 
 dummy <- mapply(function(x, f){
   fnew <- str_replace(f, "[.]tex$", "_mod_notes.tex")
-  writeLines(x, con=file.path(tex_input_path, fnew))
+  writeLines(x, con=file.path(tex_output_path, fnew))
 }, X5, ancestor_files)
 

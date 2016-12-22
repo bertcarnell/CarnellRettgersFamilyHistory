@@ -17,9 +17,18 @@
 
 % Packages added for the book
 \usepackage[all]{genealogytree} % genealogy-tree package for trees
+\usepackage{endnotes} % create endnotes
+\usepackage{etoolbox} % modify endnotes
+% endnote modifications
+\renewcommand{\notesname}{Endnotes}
+\patchcmd{\theendnotes}
+  {\makeatletter}
+  {\makeatletter\renewcommand\makeenmark{\theenmark.\space}}
+  {}{}
 
+% Begin document
 \title{\bf Carnell-Rettgers Family Genealogy \\
-       \large Volume I}
+       \large Volume I - Military Service}
 \author{Robert Carnell}
 \date{\today}
 
@@ -28,15 +37,19 @@
 \maketitle
 \chapter{Preface}
 
-This is the preface
+I started the journey to document our family history in 2014 after both my grandfathers had passed away, Curtis T Carnell (1922-1991) and Robert E Rettgers (1923-2014).  They were both part of the Greatest Generation, both volunteered before Pearl Harbor, and both served their country to the utmost of their ability in the Pacific.  Neither one talked much about their military service.  Grandpa Curtis said that the Japanese were coming, but never got to him.  Grandpa Bob talked about the interesting mechanical and electronic aspects of destroyer gunnery, some about ship board life, and about one kamikaze attack on his ship.  Neither one talked about the terrible aspects of war that they experienced.  I will always regret not having asked more questions and not having said thank-you for what they did.  I only hope that I am honoring them with this effort.  I never would have expected to find the incredible people in my family.  Immigrants, pioneers, farmers, and heroes fill these pages.  
+
+I have been helped along the way by many of family members.  My mother and father have been a tremendous help in collecting the family's knowledge, visiting relatives, and documenting graves from Georgia to Pennsylvania.  I also made use of other's work in the beginning of the project.  My Aunt, Sharon Rettgers Idema, had done quite a bit of research at the Family History Center on the Rettgers / Fett family and graciously provided it all.  Cousin, Shirley Quackebush Frye (1950-2002) had done extensive research on the Smith / Josey branch all before the internet made this much easier.  Finally, Janice McMillan has been my window into learning about the Sons and Daughters of the American Revolution and about how to be a careful amateur genealogist.
+
+If you come across any errors or omissions in these pages, please contact me.  I will ask that you provide references or documents if possible.  As you can see from the extensive footnotes in these pages, I make every effort to include original sources when possible.
 
 \tableofcontents
 \mainmatter
 \chapter{Introduction}
 
-Introduction text.  This family is awesome and it will be remembered as a great American
-group from the Greatest Generation to the Millennials.
+The descendants of the people contained in these volumes are related to a long line of military heroes.  Documented here the direct ancestors with military of William Connell, Nellie Langston, Kendrick Smith, Jewel Josey, Ithamar Rettgers, Laura Hartenstine, Floyd Fett, and Florence Becthel.  Their children with service are also documented.  For additional information on great aunts and uncles and other more recent military service, please see https://militaryancestry.wordpress.com/.
 
+%%------------------------------------------------------------------------------
 \chapter{Revolutionary War}
 
 \section{Patriots With Military Service}
@@ -45,155 +58,62 @@ group from the Greatest Generation to the Millennials.
 \item Christian Bechtel
 \begin{itemize}
 \item 1752-1814
-\item Lieutenant in Capt Joseph Sands Company, 5th Battalion Berks County Militia (Pennsylvania) [PA Archives, Series 3, Volume VI, pg 288, Berks County Accounts of Lieutenants]
-\item Lieutenant in Capt Weidner's Company in Col Lutz's 1st Battalion of Berk's County in Apr and May 1785 [PA Archives, Series 6, Volume III, pg 55, Militia Rolls of Berk's County 1783-1790]
-\item Captain of the 6th Company of the 6th Regiment [PA Archives, Series 6, Volume 5, pg 129, Pennsylvania Militia 1790-1800, Berks County, Muster and Pay Rolls]
+\item Lieutenant in Capt Joseph Sands Company, 5th Battalion Berks County Militia (Pennsylvania) \endnote{PA Archives, Series 3, Volume VI, pg 288, Berks County Accounts of Lieutenants}
+\item Lieutenant in Capt Weidner's Company in Col Lutz's 1st Battalion of Berk's County in Apr and May 1785 \endnote{PA Archives, Series 6, Volume III, pg 55, Militia Rolls of Berk’s County 1783-1790}
+\item Captain of the 6th Company of the 6th Regiment \endnote{PA Archives, Series 6, Volume 5, pg 129, Pennsylvania Militia 1790-1800, Berks County, Muster and Pay Rolls}
 \end{itemize}
 
-\item Jacob Bechtel (DAR) (SAR P-111889)
-\begin{itemize}
-\item 1720-1803
-\item Private in Capt George Growel's Company [DAR]
-\item Member of Committee to look after soldier's families [DAR]
-\item Could be spelled Bechtle or Becht. in the PA archives
-\end{itemize}
-
-\item John Bechtel (DAR) (SAR P-333031 not confirmed)
-\begin{itemize}
-\item 1729-1814
-\item Evidence of Oath of Alliegance in DAR records and other military service in the Bechtel Families of America
-\item Could be spelled Bechtle or Becht. in the PA archives
-\end{itemize}
-\item Conrad Minnich (Fold3) (DAR - No Entry) (SAR P-250218 with different birth)
-\begin{itemize}
-\item 1732-1796
-\item Captain in 2nd Company, 3rd Battalion, Berks County Militia
-\end{itemize}
-
-\item Nicholas Schaeffer (DAR) (SAR - No Entry)
-\begin{itemize}
-\item 1736-1796
-\item Private in Capt Abraham Huy,Berks County Militia, 2nd Battalion
-\end{itemize}
-\item Peter Zerbe (Fold3) (DAR - No Entry) (SAR - No Entry)
-\begin{itemize}
-\item 1738-
-\item Service recorded under Peter Servey / Servy
-\item Pvt
-\item Capt John Huling's Company, 2nd Battalion, 3rd Pennsylvania Regiment, Col Arthur St. Clair and Col Joseph Wood [PA Archives, 5th Series, Volume 2, page 109 and Service record]
-\item Servey - Zerbe name resolution
-\end{itemize}
-\item Leonard Rieth (Fold3) (DAR) (SAR P-279166 Death 1803)
-\begin{itemize}
-\item 1739-1805
-\item Wagonmaster [PA Archives, 2nd Series, Volume 14, page 776 and PA Archives, 3rd Series, Volume 18, page 287]
-\end{itemize}
-\item Daniel Deturk (fold3) (DAR) (SAR P-147316)
+\item Daniel Deturk
 \begin{itemize}
 \item 1742-1791
-\item Company commander, Capt, 1st Battalion Berks County Militia, Lt Col Haller [PA Archives, 5th Series, Volume 5, page 138]
-\item 3rd Company Commander, Capt, 4th Battalion Berk County Militia, Col Nicholas Lutz [PA Archives, 5th Series, Volume 5, page 203]
-\item Captain, 6th Battalion, Berks County Militia, Col Spycker [PA Archives, 5th Series, Volume 5, page 251]
+\item Company commander, Capt, 1st Battalion Berks County Militia, Lt Col Haller \endnote{PA Archives, 5th Series, Volume 5, page 138}
+\item 3rd Company Commander, Capt, 4th Battalion Berk County Militia, Col Nicholas Lutz \endnote{PA Archives, 5th Series, Volume 5, page 203}
+\item Captain, 6th Battalion, Berks County Militia, Col Spycker \endnote{PA Archives, 5th Series, Volume 5, page 251}
 \end{itemize}
-\item Joseph Millard (DAR)
-\begin{itemize}
-\item 1743-1817
-\item Pvt
-\item Capt George Ax, 6th Company, 3rd Battalion, Berks County Militia [DAR]
-\end{itemize}
-\item Michael Zerbe (fold3) (DAR)
+
+\item Michael Zerbe
 \begin{itemize}
 \item 1744-1806
 \item Sergeant
-\item Capt George Miller's Company, Berks County Militia [PA Archives, 2nd Series, Volume 14, page 250]
+\item Capt George Miller's Company, Berks County Militia \endnote{PA Archives, 2nd Series, Volume 14, page 250}
 \end{itemize}
-\item Frederick Becthel (DAR)
-\begin{itemize}
-\item 1746-1812
-\item Private
-\item Capt DeTurk's Company [PA Archives, Series 5, Volume V, page 139]
-\end{itemize}
-\item Adam Householder (DAR)
-\begin{itemize}
-\item 1746-1804
-\end{itemize}
-\item Warner Wynn (DAR)
-\begin{itemize}
-\item 1747-1827
-\end{itemize}
-\item John Van Reed (DAR)
+
+\item John Van Reed
 \begin{itemize}
 \item 1747-1820
 \end{itemize}
-\item David Weiser, Jr (no DAR found)
-\begin{itemize}
-\item 1749-1820
-\end{itemize}
-\item Isaac High (DAR)
+
+\item Isaac High
 \begin{itemize}
 \item 1750-1795
 \end{itemize}
-\item Samuel Deturk (DAR)
-\begin{itemize}
-\item 1750-1815
-\end{itemize}
-\item Thomas Wynn (no DAR found, confusion exists)
-\begin{itemize}
-\item 1750-1819
-\end{itemize}
-\item Jacob Weaver (DAR)
-\begin{itemize}
-\item 1751-1835
-\end{itemize}
-\item Abraham Deturk (DAR)
-\begin{itemize}
-\item 1752-1829
-\end{itemize}
-\item John George Zerbe (no DAR found)
-\begin{itemize}
-\item 1752-1814
-\end{itemize}
-\item John Reese (DAR) (fold3)
+
+\item John Reese
 \begin{itemize}
 \item 1754-1813
 \end{itemize}
-\item John Adam Strohecker (DAR)
-\begin{itemize}
-\item 1755-1835
-\end{itemize}
-\item Phillip DeTurk (DAR) (fold3)
-\begin{itemize}
-\item 1757-1815
-\item PA Archives, Series 3, Volume VI, page 276 (Capt Reiff's Company, 1st Batt)
-\end{itemize}
-\item William Gainer (DAR)
+
+\item William Gainer
 \begin{itemize}
 \item 1758-1800
 \end{itemize}
-\item Jacob Van Reed (DAR)
+
+\item Lewis Jenkins
 \begin{itemize}
-\item 1758-1839
-\item Lewis Jenkins (DAR on file, but confusion exists)
 \item abt 1760-
 \end{itemize}
-\item Abner Broach (DAR)
+
+\item Abner Broach
 \begin{itemize}
 \item abt 1761-1810
 \end{itemize}
-\item Johann Peter Knabb (no DAR found)
-\begin{itemize}
-\item 1761-1840
-\end{itemize}
-\item Jacob Maurer (No DAR Found)
-\begin{itemize}
-\item - 1822
-\end{itemize}
-\item Nicholas Dornmeier (No DAR found)
-\item Benjamin Smith (DAR)
+
+\item Benjamin Smith
 \begin{itemize}
 \item - 1799
 \end{itemize}
-\item William Hottenstein (DAR)
+
+\item William Hottenstein
 \begin{itemize}
 \item 1730-1784
 \item Court Martial Man
@@ -202,21 +122,60 @@ group from the Greatest Generation to the Millennials.
 
 \section{Designated Patriots Without Verified Military Service}
 
-\item Johannes Zerbe (DAR)
-\begin{itemize}
-\item 1745-
-\item Paid supply tax in Tulpehocken Township, Berks County, PA, 1779 [PA Archives, 3rd Series, Volume 18, page 290]
-\end{itemize}
-\item John Deturk (DAR)
+\item John Deturk
 \begin{itemize}
 \item 1713-
 \item Took Oath of Allegiance, 1778
 \end{itemize}
-\item Henry Van Reed (DAR)
+
+\item Henry Van Reed
 \begin{itemize}
 \item 1722-1790
 \item Signed Oath of Allegiance, 1777
 \end{itemize}
 \end{enumerate}
+
+%%------------------------------------------------------------------------------
+\chapter{War of 1812}
+
+\begin{enumerate}
+\item William High
+\begin{itemize}
+\item 1786 - 1851
+\item 1809, Reading Pennsylvania Calvary \endnote{Historical and Biographical annals of Berks County, Pennsylvania, pg 785}
+\item 1816, Captain, Reading Calvary \endnote{Historical and Biographical annals of Berks County, Pennsylvania, pg 785}
+\item 1841, Brigadier General, 2nd Brigade, 6th Division, Pennsylvania Militia \endnote{Description of the Borough of Reading, pg 61}
+\end{itemize}
+
+\item Christian Bechtel
+\begin{itemize}
+\item 1786-1839
+\item Findlay's Battalion, Pennsylvania Volunteers \endnote{War of 1812 Service Records, National Archives}
+\item Pvt
+\end{itemize}
+\end{enumerate}
+
+%%------------------------------------------------------------------------------
+
+\chapter{Civil War}
+
+\section{Union}
+
+
+
+\section{Confederate}
+
+
+
+
+%%------------------------------------------------------------------------------
+
+\newpage
+\begingroup
+\parindent 0pt
+\parskip 2ex
+\def\enotesize{\normalsize}
+\theendnotes
+\endgroup
 
 \end{document}
