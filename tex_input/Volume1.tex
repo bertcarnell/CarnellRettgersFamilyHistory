@@ -17,6 +17,7 @@
 
 % Packages added for the book
 \usepackage[all]{genealogytree} % genealogy-tree package for trees
+\usepackage{hyperref} % to break long URL lines
 \usepackage{endnotes} % create endnotes
 \usepackage{etoolbox} % modify endnotes
 % endnote modifications
@@ -25,6 +26,11 @@
   {\makeatletter}
   {\makeatletter\renewcommand\makeenmark{\theenmark.\space}}
   {}{}
+\usepackage{draftwatermark} % create draft watermark
+% watermark modifications
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{1}
+\SetWatermarkColor[rgb]{0.9,0.9,0.9}
 
 % Begin document
 \title{\bf Carnell-Rettgers Family Genealogy \\
@@ -49,7 +55,7 @@ If you come across any errors or omissions in these pages, please contact me.  I
 \mainmatter
 \chapter{Introduction}
 
-The descendants of the people contained in these volumes are related to a long line of military heroes.  Documented here the direct ancestors with military of William Connell, Nellie Langston, Kendrick Smith, Jewel Josey, Ithamar Rettgers, Laura Hartenstine, Floyd Fett, and Florence Becthel.  Their children with service are also documented.  For additional information on great aunts and uncles and other more recent military service, please see https://militaryancestry.wordpress.com/.
+The descendants of the people contained in these volumes are related to a long line of military heroes.  Documented here are the direct ancestors of William Connell, Nellie Langston, Kendrick Smith, Jewel Josey, Ithamar Rettgers, Laura Hartenstine, Floyd Fett, and Florence Becthel with military service.  Their children with military service are also documented.  For additional information on great aunts and uncles and other more recent military service, please see \url{https://militaryancestry.wordpress.com/}.
 
 %%------------------------------------------------------------------------------
 \chapter{Revolutionary War}
@@ -83,21 +89,33 @@ The descendants of the people contained in these volumes are related to a long l
 \item John Van Reed
 \begin{itemize}
 \item 1747-1820
+\item Capt Sebastian Miller's Company, Col Joseph Hiester, Berks County Militia \endnote{PA Archives, 5th series, Volume 5, pg 211}
+\item Pvt
 \end{itemize}
 
 \item Isaac High
 \begin{itemize}
-\item 1750-1795
+\item 1753-1795
+\item Capt Heinrich Nach's Company, Berks County Militia \endnote{PA Archives, 5th series, Volume 5, pg 188}
 \end{itemize}
 
 \item John Reese
 \begin{itemize}
 \item 1754-1813
+\item Capt Geist and Capt Whetstone's Companies, Col Hunter, Berks County Militia \endnote{Pension R17339V}
 \end{itemize}
 
 \item William Gainer
 \begin{itemize}
 \item 1758-1800
+\item Capt Benjamin Spiller and Augustine Tabb, 2nd Virginia State Regiment \endnote{National Archives, M881, Compiled Military Service Records, Roll 947}
+\begin{itemize}
+\item Note: these are filed under William Ganer and William Garner
+\end{itemize}
+\item Valley Forge in Spring of 1778 \endnote{Valley Forge Muster Roll Project, ID VA10248}
+\begin{itemize}
+\item Note: Here he is listed as William Gainer 
+\end{itemize}
 \end{itemize}
 
 \item Lewis Jenkins
@@ -108,11 +126,13 @@ The descendants of the people contained in these volumes are related to a long l
 \item Abner Broach
 \begin{itemize}
 \item abt 1761-1810
+\item Continental Line, Enlisted at Chesterfield, Virginia \endnote{Virginia Society Quartertly, volume 2, pg 50}\endnote{Size Roll of the Troops Joined at Chesterfield County House since 1st Sep 1780}
 \end{itemize}
 
 \item Benjamin Smith
 \begin{itemize}
 \item - 1799
+\item Paid for services \endnote{North Carolina Revolutionary War Pay Vouchers 2914, 2867, 2437, 14, ROLL S.115.125}
 \end{itemize}
 
 \item William Hottenstein
@@ -271,13 +291,26 @@ The descendants of the people contained in these volumes are related to a long l
 \item Pvt
 \end{itemize}
 
-\item Floyd William Fett (fold3)
+\item Floyd William Fett
 \begin{itemize}
 \item 1891 - 1956
 \item Service
+\begin{itemize}
+\item Enlisted 20 Dec 1917
+\item 20 Dec 1917 - 6 Jul 1919, Company A, 315th Infantry
+\item 9 Jul 1918 - 30 May 1919, Europe
+\item 30 Aug 1918 - 11 Nov 1918, 1st Army Defensive Sector
+\item Meuse-Argonne Campaign
+\item Honorably Discharged:  6 Jul 1919
+\end{itemize}
+\item Ranks:
+\begin{itemize}
+\item Pvt
+\item Corporal, 17 Jun 1918
+\end{itemize}
 \end{itemize}
 
-\item Ithamar Benedict Rettgers (fold3)
+\item Ithamar Benedict Rettgers
 \begin{itemize}
 \item 1898 - 1937
 \item Service
@@ -305,7 +338,7 @@ The descendants of the people contained in these volumes are related to a long l
 \item Cpl
 \item Sgt 24 Apr 1918
 \end{itemize}
-\item Note, he was not wounded, but was gased
+\item Note: He was not wounded, but was gased
 \end{itemize}
 
 \end{enumerate}
@@ -316,7 +349,7 @@ The descendants of the people contained in these volumes are related to a long l
 
 \begin{enumerate}
 
-\item Robert Rettgers (Navy) (Fold3)
+\item Robert Rettgers
 \begin{itemize}
 \item 1923 - 2014
 \item Service:
@@ -351,7 +384,7 @@ The descendants of the people contained in these volumes are related to a long l
 \end{itemize}
 \end{itemize}
 
-\item Curtis Carnell (Army) (Fold3)
+\item Curtis Carnell
 \begin{itemize}
 \item 1922-1991
 \item Service:
@@ -367,7 +400,7 @@ The descendants of the people contained in these volumes are related to a long l
 \end{itemize}
 \end{itemize}
 
-\item Wilbur Cornell (Army)
+\item Wilbur Cornell
 \begin{itemize}
 \item 1920-2008
 \item Service:
@@ -379,7 +412,7 @@ The descendants of the people contained in these volumes are related to a long l
 \item Ranks:
 \end{itemize}
 
-\item Forrest Rettgers (Army)
+\item Forrest Rettgers
 \begin{itemize}
 \item 1921 - 1995
 \item Service:
@@ -402,7 +435,7 @@ The descendants of the people contained in these volumes are related to a long l
 \item Mar 1953, Lt Col
 \item Col
 \end{itemize}
-\item Buried in Arlington National Cemetery, FindAGrave
+\item Buried in Arlington National Cemetery
 \end{itemize}
 
 \end{enumerate}
