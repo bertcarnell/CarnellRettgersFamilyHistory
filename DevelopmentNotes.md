@@ -1,5 +1,6 @@
 Directions to setup Gramps on Ubuntu for Development
 
+```
 # update the system
 sudo apt-get update
 sudo apt-get upgrade
@@ -41,4 +42,4 @@ File -> Settings
 Project:Gramps -> Project Interpreter
 change to /usr/bin/python3.4
 right click on Gramps.py and run or debug
-
+```
