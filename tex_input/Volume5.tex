@@ -1,0 +1,56 @@
+\documentclass[11pt,letter]{book}
+
+\usepackage[T1]{fontenc}
+
+% Fonts added for the book
+\usepackage[bitstream-charter]{mathdesign} % use the bitstream-charter True Type font
+
+% ---- Gramps Packages ----
+%\usepackage[latin1]{inputenc}%
+\usepackage[latin1,utf8]{inputenc}%
+\usepackage{graphicx}% Extended graphics support
+\usepackage{longtable}% For multi-page tables
+\usepackage{calc}% For some calculations
+\usepackage{ifthen}% For table width calculations
+\usepackage{ragged2e}% For left aligning with hyphenation
+\usepackage{wrapfig}% wrap pictures in text
+
+% Packages added for the book
+\usepackage[all]{genealogytree} % genealogy-tree package for trees
+\usepackage{endnotes} % create endnotes
+\usepackage{etoolbox} % modify endnotes
+% endnote modifications
+\renewcommand{\notesname}{Endnotes}
+\patchcmd{\theendnotes}
+  {\makeatletter}
+  {\makeatletter\renewcommand\makeenmark{\theenmark.\space}}
+  {}{}
+
+% Begin document
+\title{\bf Carnell-Rettgers Family Genealogy \\
+       \large Volume V - Obituaries}
+\author{Robert Carnell}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+
+%%------------------------------------------------------------------------------
+
+\chapter{Introduction}
+
+Explain what we found in the obituaries and why they are important
+
+Explain why we had to separate them (copyright)
+
+Explain copyright
+
+\chapter{Obituaries}
+\renewcommand{\thesection}{\arabic{section}}
+
+\input{../tex_output/obituaries.tex}
+
+\end{document}

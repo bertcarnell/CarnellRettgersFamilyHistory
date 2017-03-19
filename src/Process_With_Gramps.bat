@@ -1,7 +1,7 @@
 :: process a gedcom file from FamilyTreeMaker with Gramps
 
 :: Path to GEDCOM
-set gedcomFile=Carnell_2016-12-21.ged
+set gedcomFile=Carnell_2017-03-18.ged
 set gedcomPath="s:\Family Tree Maker"
 
 :: output path
