@@ -1,21 +1,37 @@
+# Ubuntu requires jre and jdk to install rJava
+# sudo apt-get install jre-default jdk-default
+# sudo R
+# install.packages(c("assertthat","stringr","xlsx"), repos="http://cran.stat.ucla.edu")
+
 require(assertthat)
 require(stringr)
 require(xlsx)
 
-repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
+if (grepl("Ubuntu",Sys.info()["version"]))
+{
+  repository_path <- file.path("~","Documents","repositories")
+  obituary_input_path <- NULL
+} else
+{
+  repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
+  obituary_input_path <- file.path("C:","Users","Rob","Dropbox","SharedGenealogy")
+
+  obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.xlsx")
+
+  assertthat::assert_that(file.exists(obituary_input_file))
+}
 tex_input_path <- file.path(repository_path,"CarnellRettgersFamilyHistory","tex_input")
 tex_output_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","tex_output")
-obituary_input_path <- file.path("C:","Users","Rob","Dropbox","SharedGenealogy")
+
+if (!dir.exists(tex_output_path)) dir.create(tex_output_path)
 
 ancestor_files <- paste0("det_ancestor_report_", 
                          c("Bechtel","Fett","Hartenstine","Rettgers",
                            "Connell","Langston","Smith","Josey"), ".tex")
-obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.xlsx")
 
 dummy <- sapply(file.path(tex_input_path, ancestor_files), function(x) {
   assertthat::assert_that(file.exists(x))
 })
-assertthat::assert_that(file.exists(obituary_input_file))
 
 ################################################################################
 
@@ -103,7 +119,8 @@ X3 <- lapply(X3, mod_date)
 # cut off the end notes and make a separate file
 X4 <- lapply(X3, function(x) {
   ind <- which(str_detect(x, "[:punct:]sffamily[:punct:]itshape[:punct:]large[:space:]+Endnotes[:space:]+[:punct:]upshape[:punct:]rmfamily[:punct:]normalsize"))
-  ind2 <- max(which(str_detect(x[1:ind], "[:punct:]newpage[:punct:]")))  
+  ind2 <- max(which(str_detect(x[1:ind], "[:punct:]newpage[:punct:]")))
+  if (is.na(ind2)) stop("Check that pagebreaks are enabled before the Endnotes")
   return(x[1:(ind2-1)])
 })
 
@@ -126,6 +143,8 @@ dummy <- mapply(function(x, f){
 
 ################################################################################
 
+if (!grepl("Ubuntu",Sys.info()["version"]))
+{
 obits <- read.xlsx(obituary_input_file, 1, stringsAsFactors=FALSE)
 
 normDate <- function(s)
@@ -192,3 +211,4 @@ for (i in 1:nrow(obits))
 }
 
 writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"))
+}
