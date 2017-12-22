@@ -1,27 +1,31 @@
-# Ubuntu requires jre and jdk to install rJava
-# sudo apt-get install jre-default jdk-default
-# sudo R
-# install.packages(c("assertthat","stringr","xlsx"), repos="http://cran.stat.ucla.edu")
+# R must also be installed on Ubuntu
+#   sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list
+#   gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+#   gpg -a --export E084DAB9 | sudo apt-key add -
+#   sudo apt-get update
+#   sudo apt-get install r-base r-base-dev
+# RStudio is nice - download the Ubuntu / Debian version from Rstudio
+#   sudo apt-get install gdebi-core
+#   sudo gdebi <downloaded .deb file>
+# install required packages
+#   sudo R
+#   install.packages(c("assertthat","stringr"), repos="http://cran.stat.ucla.edu")
 
 require(assertthat)
 require(stringr)
-require(xlsx)
 
 if (grepl("Ubuntu",Sys.info()["version"]))
 {
   repository_path <- file.path("~","Documents","repositories")
-  obituary_input_path <- NULL
 } else
 {
   repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
-  obituary_input_path <- file.path("C:","Users","Rob","Dropbox","SharedGenealogy")
-
-  obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.xlsx")
-
-  assertthat::assert_that(file.exists(obituary_input_file))
 }
 tex_input_path <- file.path(repository_path,"CarnellRettgersFamilyHistory","tex_input")
 tex_output_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","tex_output")
+obituary_input_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","other_input")
+
+obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.csv")
 
 if (!dir.exists(tex_output_path)) dir.create(tex_output_path)
 
@@ -32,6 +36,7 @@ ancestor_files <- paste0("det_ancestor_report_",
 dummy <- sapply(file.path(tex_input_path, ancestor_files), function(x) {
   assertthat::assert_that(file.exists(x))
 })
+assertthat::assert_that(file.exists(obituary_input_file))
 
 ################################################################################
 
@@ -108,6 +113,13 @@ mod_date <- function(x)
 
 X3 <- lapply(X3, mod_date)
 
+# Find all instances of "had a relationship with" for output
+harw <- lapply(X3, function(x) {
+  ind <- which(str_detect(x, "had a relationship with"))
+  return(x[ind])  
+})
+writeLines(unlist(harw), con=file.path(tex_output_path, "RelationshipError.txt"))
+
 # \newpage%
 # \grprepnoleader%
 # \grminpghead{0}{0}%
@@ -143,18 +155,24 @@ dummy <- mapply(function(x, f){
 
 ################################################################################
 
-if (!grepl("Ubuntu",Sys.info()["version"]))
-{
-obits <- read.xlsx(obituary_input_file, 1, stringsAsFactors=FALSE)
+obits <- read.csv(obituary_input_file, 1, stringsAsFactors=FALSE)
 
 normDate <- function(s)
 {
+  if (is.na(s) || s == "" || s == " ") return("")
   s <- gsub("[ -]Sept[ -]", "Sep", s)
-  if (nchar(s) < 5) return("")
+  if (nchar(s) < 5) 
+  {
+    stop(paste("short date detected: ", s))
+    return("")
+  }
   # 29-Mar-1976 or 29-March-1976
   if (!is.na(strptime(s, "%d-%b-%Y")))
   {
-    ret <- strftime(strptime(s, "%d-%b-%Y"), "%d %b %Y")
+    temp_time <- strptime(s, "%d-%b-%Y")
+    # check for two digit years like 29-Mar-76 instead of 29-Mar-1976
+    if (temp_time$year + 1900 < 100) stop(paste("Two digit year used: ", s))
+    ret <- strftime(temp_time, "%d %b %Y")
     if (!is.na(ret))
     {
       return(ret)
@@ -162,23 +180,25 @@ normDate <- function(s)
   # 29 Mar 1976 or 29 March 1976
   } else if (!is.na(strptime(s, "%d %b %Y")))
   {
-    ret <- strftime(strptime(s, "%d %b %Y"), "%d %b %Y")
+    temp_time <- strptime(s, "%d %b %Y")
+    # check for two digit years like 29-Mar-76 instead of 29-Mar-1976
+    if (temp_time$year + 1900 < 100) stop(paste("Two digit year used: ", s))
+    ret <- strftime(temp_time, "%d %b %Y")
     if (!is.na(ret))
     {
       return(ret)
     } 
   }
-  warning(paste("Unrecognized Date Format: ", s))
+  stop(paste("Unrecognized Date Format: ", s))
 }
 assertthat::assert_that(normDate("29-Mar-1976") == "29 Mar 1976")
 assertthat::assert_that(normDate("29 Mar 1976") == "29 Mar 1976")
 assertthat::assert_that(normDate("29-March-1976") == "29 Mar 1976")
 assertthat::assert_that(normDate("29 March 1976") == "29 Mar 1976")
-#normDate("March 29, 1976") # expected error
-#normDate("29 Mar 76") # problem
 
 obit_lines <- character(10000)
 count <- 1
+berror <- FALSE
 for (i in 1:nrow(obits))
 {
   first_name <- paste(obits$FirstName[i], " ")
@@ -189,17 +209,21 @@ for (i in 1:nrow(obits))
   count <- count + 1
   obit_lines[count] <- "\\begin{itemize}"
   count <- count + 1
-  dayOfWeek <- ifelse(obits$DayOfTheWeek[i] == "",
-                      strftime(strptime(normDate(obits$DateOfDeath[i]), "%d %b %Y"), "%A"),
-                      obits$DayOfTheWeek[i])
-  obit_lines[count] <- paste0("\\item \\textbf{Died}: ", dayOfWeek, 
-                              ", ", normDate(obits$DateOfDeath[i]))
-  count <- count + 1
-  obit_lines[count] <- paste0("\\item \\textbf{Newspaper}: ", 
-                              gsub("[&]","\\\\&", obits$NewspaperName[i]), ", ", 
-                              obits$NewspaperDay[i], ", ", 
-                              normDate(obits$NewspaperDate[i]),
-                              ", pg ", obits$Page[i], ", Column ", obits$Column[i])
+  # catch errors that might be thrown by normDate and indicate problems
+  tryCatch({
+    dayOfWeek <- ifelse(obits$DayOfTheWeek[i] == "",
+                        strftime(strptime(normDate(obits$DateOfDeath[i]), "%d %b %Y"), "%A"),
+                        obits$DayOfTheWeek[i])
+    obit_lines[count] <- paste0("\\item \\textbf{Died}: ", dayOfWeek, 
+                               ", ", normDate(obits$DateOfDeath[i]))
+    count <- count + 1
+    obit_lines[count] <- paste0("\\item \\textbf{Newspaper}: ", 
+                                gsub("[&]","\\\\&", obits$NewspaperName[i]), ", ", 
+                                obits$NewspaperDay[i], ", ", 
+                                normDate(obits$NewspaperDate[i]),
+                                ", pg ", obits$Page[i], 
+                                ifelse(obits$Column[i] > 0, paste0(", Column ", obits$Column[i]), ""))
+  }, error=function(e) {print(e); print(obits[i,1:12]); berror <- TRUE})
   count <- count + 1
   obit_lines[count] <- "\\end{itemize}"
   count <- count + 1
@@ -210,5 +234,9 @@ for (i in 1:nrow(obits))
   count <- count + 1
 }
 
+if (berror) stop("errors with Obituary parsing")
+
+# ensure the output is utf-8 for latex
+obit_lines <- enc2utf8(obit_lines)
+
 writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"))
-}
