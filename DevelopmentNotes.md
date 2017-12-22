@@ -19,7 +19,7 @@ ssh -T git@github.com
 # checkout the repository
 git clone git@github.com:gramps-project/gramps.git Gramps
 cd Gramps
-git checkout maintenance/gramps42
+git checkout maintenance/gramps50
 git pull
 
 # install pycharm if not already done
@@ -35,9 +35,16 @@ sudo apt-get install libdb5.3
 sudo apt-get install libdb5.3-dev 
 pip3 install bsddb3
 
-# run Gramps
-python3 Gramps.py 
-# or from pycharm
+# follow directions in Gramps README file to install latest dependencies
+
+# Methods to run Gramps:
+## run installed version
+python3 setup.py build
+sudo python3 setup.py install
+gramps
+## run Gramps with python
+python3 Gramps.py
+## run from pycharm
 File -> Settings
 Project:Gramps -> Project Interpreter
 change to /usr/bin/python3.4
