@@ -15,16 +15,18 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
     + Ancestors of Laura Tyson Hartenstine
     + Ancestors of Floyd William Fett
     + Ancestors of Florence Ethel Bechtel
-4. Volume IV - Connell-Langston and Smith-Josey Descendants For Living Family
+4. Volume IV - Carnell-Rettgers Genetic Ancestry
+5. Volume V - Obituaries and News Articles
+6. Volume VI - Connell-Langston and Smith-Josey Descendants For Living Family
     + Descendants of Connell-Langston
     + Descendants of Smith-Josey
-5. Volume V - Rettgers-Hartenstine and Fett-Bechtel Descendants for Living Family
+7. Volume VII - Rettgers-Hartenstine and Fett-Bechtel Descendants for Living Family
     + Descendants of Rettgers-Hartenstine
     + Descendants of Fett-Bechtel
 
 ## Latex export process
 
-1. Sync Family Tree Maker 2014 with Ancestry
+1. Sync Family Tree Maker 2017 with Ancestry
 2. Export GEDCOM from Family Tree Maker
     + File -> Export...
     + Entire File
@@ -36,34 +38,8 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
     + OK
     + Destination: Other
     + Character Set: UTF-8
-3. Open GRAMPS
-    + Delete the old tree and create a new one
-    + Family Trees -> Import... (Choose the latest GEDCOM file)
-4. Create Ancestral Reports
-    + Reports -> Text Reports -> Detailed Ancestral Report
-    + Report Options
-        + Select a Different Person -> show all
-            + Ithamar Rettgers
-        + Number: 1000
-        + Given Surname Suffix
-        + Include Data Marked Private: No
-        + Generations: 20
-        + Page Break between generations: No
-        + Page Break before end notes: yes
-        + Translation: Default
-    + Content
-        + All no except:  "Use Full dates instead of only the year", "List children", "Add descendant reference in child list"
-    + Include
-        + All no except:  "Include Sources"
-    + Missing Information:
-        + All no
-    + Choose the Filename
-    + Repeat Reports
-        + Laura Hartenstine
-        + Floyd Fett
-        + Florence Bechtel
-5. Run R scripts for find/replace and to change formatting
-6. Open up Volume3.tex in TexWorks.  Tex it.
-7. Open up Volume2.tex in TexWorks.  Tex it.
-
-
+3. Modify `src/Makefile` to point to the correct GEDCOM output from #2
+4. `sudo make mount` to mount the directory location on the Ubuntu VM
+5. `make gramps` to export detailed ancestor reports
+6. `make r` to find/replace and change formatting
+7. `make tex` to build the pdf output files
