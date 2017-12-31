@@ -19,6 +19,7 @@
 \usepackage[all]{genealogytree} % genealogy-tree package for trees
 \usepackage{endnotes} % create endnotes
 \usepackage{etoolbox} % modify endnotes
+\usepackage{outlines} % outline genetic origins
 % endnote modifications
 \renewcommand{\notesname}{Endnotes}
 \patchcmd{\theendnotes}
@@ -42,41 +43,226 @@
 
 \chapter{Introduction}
 
-Quick explanation of autosomal, Y-DNA, and mtDNA.
+The insights in this volume have been gained from Ancestry.com \endnote{www.ancestry.com}, Family Tree DNA \endnote{www.familytreedna.com}, and 23andMe \endnote{www.23andme.com} tests taken over a period of time.  Each of the three main types of DNA were tested for Robert Carnell and autosomal SNP tests were performed for other family members as well.  SNPs, or Single Nucleotide Polymorphisms, are changes in the A, C, T, and G nucleotides from a reference genome that make people unique.
+
+\subsection{Autosomal DNA Test}
+
+This test form Ancestry.com and 23andMe was used to find SNPs in the 22 autosomes or non-sex chromosomes, the X (labeled 23), and the Y chromosome (labeled 24 for the non-pseudoautosomal and 25 for the pseudoautosomal regions).  These locations are inherited from both parents and their ancestors.  For Ancestry.com, in the V1.0 array, 701,478 SNP locations were tested.  The data has 5 parts, an identifier (rsID), the chromosome, the position, and the two alleles at this location (on the forward strand).
+
+\begin{center}
+\begin{tabular}{c | c | c | c | c}
+	rsID & Chromosome & Position & Allele1 & Allele2 \\
+	\hline
+	rs4477212 & 1 & 82154 & T & T \\
+	rs3131972	& 1 & 752721 & G & G \\
+	rs11240777 & 1 & 798959 & A & G \\
+\end{tabular}
+\end{center}
+
+For 23andMe, the samples analyzed in 2013 had 960,213 SNPs on the 22 autosomal chromosomes, the X, Y, and mitochondrial DNA.  Their data was similar, but they chose to give the genotype (two allele's together) instead of separate alleles.  The data does not always agree, as shown.
+
+\begin{center}
+\begin{tabular}{c | c | c | c | c}
+	rsID & Chromosome & Position & Genotype \\
+	\hline
+	rs4477212 & 1 & 82154 & AA \\
+	rs3131972	& 1 & 752721 & GG \\
+	rs11240777 & 1 & 798959 & AG \\
+\end{tabular}
+\end{center}
+
+\subsection{Y-DNA Test}
+
+Instead of measuring SNPs on the Y-DNA, Family Tree DNA measures the number of repeats in 37 areas of the Y chromosome called Short Tandem Repeat (STR) areas.  One such area is called DYS393 which is made up a repeating pattern of AGAT between 9 and 17 times.  The number of repeats is indicative of the ancestry of an individual.  For example, among easter Croatians, 14.5\% of people have 12 repeats, 77.27\% have 13, 7.73\% have 14, and 0.45\% have 15.  Since the Carnell-Broach Y-DNA has 13 repeats at this location, it does not mean that it has a 77\% chance of being Croatian, but it does mean that the sequence would match 77\% of Croatians.
+Y-DNA is only transmitted from father to son, and it has a relatively mutation rate meaning that this pattern is maintained though many generations.  The Broach-Carnell line has the following pattern:
+
+\begin{center}
+\begin{tabular}{c | c | c}
+	Y-STR Marker & Pattern & Repeats \\
+	\hline
+	DYS393 or DYS395 & AGAT & 13 \\
+	DYS390 & TCTA and TCTG & 22 \\
+	DYS19 or DYS394 & TAGA & 14 \\
+	DYS391 & TCTA & 10 \\
+	DYS385 (two parts) & GAAA & 13-14 \\
+	DYS426 & GTT & 11 \\
+	DYS388 & ATT & 14 \\
+	DYS439 & AGAT & 12 \\
+	DYS389I & TCTG and TCTA & 12 \\
+	DYS392 & TAT & 11 \\
+	DYS389II (includes DYS389I) & TCTG and TCTA & 28 \\
+	DYS458 & GAAA & 14 \\
+	DYS459 & TAAA & 8-9 \\
+	DYS455 & AAAT & 8 \\
+	DYS454 & AAAT & 11 \\
+	DYS447 & TAAATA and TAAAAA & 22 \\
+	DYS437 & TCTA & 16 \\
+	DYS448 & AGAGAT & 20 \\
+	DYS449 & TTTC & 28 \\
+	DYS464 (four parts) & CCTT & 13-14-15-16 \\
+	DYS460 & ATAG & 10 \\
+	Y-GATA-H4 & TAGA & 10 \\
+	YCAII (two parts) & & 19-21 \\
+	DYS456 & AGAT & 14 \\
+	DYS607 & AAGG & 14 \\
+	DYS576 & AAAG & 17 \\
+	DYS570 & TTTC & 20 \\
+	CDY or DYS724 & & 34-37 \\
+	DYS442 & TATC & 12 \\
+	DYS438 & TTTTC & 10 \\
+\end{tabular}
+\end{center}
+
+As of the end of 2017, there are five men who match these 37 genetic markers exactly, three of which have traced their ancestry to Abner Broach, born about 1761 and died about 1810:  David Lowington Broach, Jr., Dr Vance Carter Broach, Jr., John Pierce Broach, Steve Broach, and William F Broach.
+
+\subsection{mtDNA Test}
+
+The mitochondrial DNA or mtDNA is passed from our mothers to each person.  FamilyTreeDNA sequences the entire genome of the mtDNA to look for deviations from the reference genome (revised Cambridge Reference Sequence) in three regions: Highly Variable Region 1, Highly Variable Region 2, and the Coding Region.  The results of these tests produce a set of changes from the reference which is indicative of the maternal ancestral line.
+
+\begin{center}
+\begin{tabular}{l | c | c | c}
+	mtDNA region & mtDNA Position & rCRS & Actual Value \\
+	\hline
+	 HVR1 & 16304 & T & C \\
+	 HVR2 & 207 & G & A \\
+	 & 263 & A & G \\
+	 & 310 & T & (deletion) \\
+	 & 456 & C & T \\
+	 & 522 & C & (deletion) \\
+	 & 523 & A & (deletion) \\
+	 CR & 750 & A & G \\
+	 & 961 & T & C \\
+	 & 965.1 & & C (insertion) \\
+	 & 1438 & A & G \\
+	 & 4336 & T & C \\
+	 & 4736 & T & C \\
+	 & 4769 & A & G \\
+	 & 8860 & A & G \\
+	 & 15326 & A & G \\
+	 & 15833 & C & T \\
+\end{tabular}
+\end{center}
 
 \chapter{Profile}
 
+Define haplogroup
+
 \section{Paternal Haplogroup}
 
-Text \endnote{first endnote}
+\subsection{FamilyTreeDNA - I-M253}
 
-\section{Y-STR Lineage}
+\begin{quote}
+Haplogroup I dates to 23,000 years ago, or older. The I-M253 lineage likely has its roots in northern France. Today it is found most frequently within Viking/Scandinavian populations in northwest Europe and has since spread down into Central and Eastern Europe, where it is found at low frequencies. Haplogroup I represents one of the first peoples in Europe.\endnote{www.familytreedna.com}\end{quote}
 
-Text
+\subsection{23andMe - I-M253}
+
+\begin{quote}
+\textbf{Haplogroup A, 275,000 years ago}: The stories of all of our paternal lines can be traced back over 275,000 years to just one man: the common ancestor of haplogroup A. Current evidence suggests he was one of thousands of men who lived in eastern Africa at the time. However, while his male-line descendants passed down their Y chromosomes generation after generation, the lineages from the other men died out. Over time his lineage alone gave rise to all other haplogroups that exist today.
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup F-M89, 76,000 years ago}:  For more than 100,000 years, your paternal-line ancestors gradually moved north, following available prey and resources as a shifting climate made new routes hospitable and sealed off others. Then, around 60,000 years ago, a small group ventured across the Red Sea and deeper into southwest Asia. Your ancestors were among these men, and the next step in their story is marked by the rise of haplogroup F-M89 in the Arabian Peninsula.\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup I-M170, 48,000 years ago}:  While some men turned east, your paternal ancestors turned west. Men bearing haplogroup I-M170, which diverged from its brother lineages over 40,000 years ago, were among the first inhabitants of Ice Age Europe. Around 20,000 years ago, most humans living in Europe were pushed back out of the north by massive glaciers. When the Ice Age ended, however, humans expanded out of their southern refuges to recolonize the continent.\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup I-M253, 30,000 years ago}:  Men carrying haplogroup I are found almost exclusively in Europe, where they make up about 20\% of the total population. In some parts of the continent, including Scandinavia, the Balkans, Eastern Europe and Sardinia, up to 45\% of men descend from the paternal lineage. In fact, men bearing haplogroup I were among some of the very first Homo sapiens to inhabit Europe between 30,000 and 45,000 years ago.
+
+Your ancestral lineage split off from its sibling branch about 30,000 years ago. Archaeological evidence indicates it was a time of rapid change in Europe, as a new culture known as the Gravettian moved westward across the continent. The Gravettian people introduced new stone tool technology, as well as novel art forms typified by the distinctive fertility symbols known as "Venus" figurines. 
+
+Not long after these men arrived in Europe (at least on the scale of human history), the advancing Ice Age pushed most of the continent's inhabitants back out of the interior and into its southern fringes. Only Iberia, the Italian peninsula and the Balkans were mild enough to support substantial numbers of humans. As a result, the distribution of the haplogroup today reflects the migrations that took place as the glaciers began retreating about 12,000 to 15,000 years ago. Haplogroup I-M253 can be found at levels of 10\% and higher in many parts of Europe, due to its expansion with men who migrated northward from these refuges, and is most common in Denmark and the southern parts of Sweden and Norway.
+\endnote{www.23andme.com}\end{quote}
 
 \section{Maternal Haplogroup}
 
-Text
+\subsection{FamilyTreeDNA - H5a1f}
 
-\section{mtDNA Lineage}
+\begin{quote}
+H5a is found at its highest frequency in Central Europe and is 13-17,000 thousand years old. It is found at low frequency in Europe, where it likely originated, and is found at a very low frequency in the Caucasus and Near East.
+\endnote{www.familytreedna.com}\end{quote}
 
-Text
+\subsection{23andMe - H5a1}
+
+\begin{quote}
+\textbf{Haplogroup L, 180,000 years ago}:  If every person living today could trace his or her maternal line back over thousands of generations, all of our lines would meet at a single woman who lived in eastern Africa between 150,000 and 200,000 years ago. Though she was one of perhaps thousands of women alive at the time, only the diverse branches of her haplogroup have survived to today. The story of your maternal line begins with her. 
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup L3, 65,000 years ago}:  Your branch of L is haplogroup L3, which arose from a woman who likely lived in eastern Africa between 60,000 and 70,000 years ago. While many of her descendants remained in Africa, one small group ventured east across the Red Sea, likely across the narrow Bab-el-Mandeb into the tip of the Arabian Peninsula. 
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup N, 59,000 years ago}:  Your story continues with haplogroup N, one of two branches that arose from L3 in southwestern Asia. Researchers have long debated whether they arrived there via the Sinai Peninsula, or made the hop across the Red Sea at the Bab-el-Mandeb. Though their exact routes are disputed, there is no doubt that the women of haplogroup N migrated across all of Eurasia, giving rise to new branches from Portugal to Polynesia.
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup R, 57,000 years ago}: One of those branches is haplogroup R, which traces back to a woman who lived soon after the migration out of Africa. She likely lived in southwest Asia, perhaps in the Arabian peninsula, and her descendants lived and migrated alongside members of haplogroup N. Along the way, R gave rise to a number of branches that are major haplogroups in their own right.
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup H, 18,000 years ago}:  While some members of R traveled far and wide, some remained in the Middle East for tens of thousands of years. Haplogroup H arose among the latter group, from a woman who likely lived less than 18,000 years ago. Her descendants expanded dramatically to the north after the Ice Age, and eventually reached from Arabia to the western fringes of Siberia.
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup H5a, 9,000 years ago}:  Your maternal line stems from a branch of haplogroup H called H5a. Haplogroup H5a is the main sub-branch of haplogroup H5, and traces back to a woman who lived nearly 9,000 years ago, likely in southeastern Europe. During the end of the Ice Age, most of the European continent had been covered either by barren tundra or thick glaciers, and the southeastern corner provided a warmer shelter for human populations. By the time the H5a lineage arose, however, the cold had receded and a new climatic and technological era was underway — the Neolithic Revolution. Farming practices that had been developed in the Fertile Crescent spread to the Northwest through a combination of migration and cultural exchange, and populations were booming. As this growth continued, women carrying H5a migrated to the north and west into eastern Europe.
+
+Today, H5a is most commonly found in the central European plains, though it also exists at low levels across Europe. It reaches its highest frequency of 13\% in Poland, and is also found at around 6\% of people in Latvia and Romania.
+\endnote{www.23andme.com}\end{quote}
+
+\begin{quote}
+\textbf{Haplogroup H5a1, 6,500 years ago}
+\endnote{www.23andme.com}\end{quote}
 
 \section{Autosomal Ethnicity}
 
-Text
+\subsection{Family Tree DNA}
 
-\subsection{Ancestry.com}
-
-Text
-
-\subsection{FamilyTreeDNA}
-
-Text
+\begin{outline}
+  \1 European: 98\%
+    \2 [\textbullet] West and Central Europe: 71\%
+    \2 [\textbullet] British Isles: 23\%
+    \2 [\textbullet] Iberia: 4\%
+  \1 Trace Results: 2\%
+    \2 [$\circ$] Oceania: <1\%
+    \2 [$\circ$] North and Central America: <1\%
+    \2 [$\circ$] Southeast Europe: <1\%
+\end{outline}
 
 \subsection{23andMe}
 
-Text
+\begin{outline}
+  \1 European: 99.7\%
+    \2 [\textbullet] Northwestern European: 97.8\%
+      \3 [\textbullet] British \& Irish: 44.8\%
+      \3 [\textbullet] French \& German: 20.0\%
+      \3 [\textbullet] Scandinavian: 3.4\%
+      \3 [$\circ$] General: 29.6\%
+    \2 [\textbullet] Southern European: 1.1\%
+    \2 [$\circ$] General: 0.8\%
+  \1 Middle Eastern \& North African: 0.2\%
+  \1 East Asian \& Native American: <0.1\%
+  \1 Sub-Saharan African: <0.1\%
+\end{outline}
+
+\subsection{Ancestry.com}
+
+\begin{outline}
+  \1 Europe West: 64\%
+  \1 Great Britain: 20\%
+  \1 Ireland/Scotland/Wales: 15\%
+  \1 Iberian Peninsula: 1\%
+\end{outline}
+
+\textbf{Migration Patterns - Europe West, Great Britain, Ireland/Scotland/Wales}
+
+\begin{outline}
+  \1 Georgia and Florida Settlers
+  \1 Eastern North Carolina Settlers
+  \1 Pennsylvania Settlers
+  \1 South Carolina Settlers
+\end{outline}
+
 
 %%------------------------------------------------------------------------------
 
