@@ -318,7 +318,7 @@
 % -------------------- End Gramps Section ----------------------
 
 \title{\bf Carnell-Rettgers Family Genealogy \\
-       \large Volume VII - Descendants of Rettgers / Hartenstine and Bechtel / Fett}
+       \large Volume VII - Descendants of Rettgers-Hartenstine and Bechtel-Fett}
 \author{Robert Carnell}
 \date{\today}
 
@@ -331,41 +331,49 @@
 
 TBD
 
-\chapter{Descendants of Ithamar Benedict Rettgers and Laura Tyson Hartenstine}
+\chapter{Descendants of Ithamar Rettgers and Laura Hartenstine}
 
 \section{Tree}
 
 \begin{tikzpicture}
 	\genealogytree[
 		template=signpost, 
+		timeflow=left,
 		node size=1.4cm, 
 		level size=1.4cm,
 		tcbset={male/.style={colframe=blue!20, colback=blue!5},
 			female/.style={colframe=red!20, colback=red!5}},
 		box={fit basedim=8pt, boxsep=2pt, no shadow}
 	]{
-		parent{
-			c[male]{Forrest Ithamar Rettgers}
-			g[male]{Robert Edgar Rettgers}
-			c[female]{Miriam Jane Rettgers}
-			c[female]{Joyce Ann Rettgers}
-			parent{
-				g[male]{Ithamar Benedict Rettgers\\1898-1937}
-				parent{
-					g[male]{Frederick H Rettgers\\1873-1944}
-				}
-				parent{
-					g[female]{Sarah E Morrisson\\1879-1942}
-				}
+		child{
+			g[male]{Ithamar Benedict Rettgers\\1898-1937}
+			p[female]{Laura Tyson Hartenstine}
+			child{
+				g[male]{Forrest Ithamar Rettgers}
+				p[female]{Ginny}
+				c[female]{Robin}
 			}
-			parent{
-				g[female]{Laura Tyson Hartenstine}
-				parent{
-					g[male]{Jacob S Hartenstine\\1870-1902}
-				}
-				parent{
-					g[female]{Ida Miller\\1870-1952}
-				}
+			child{
+				g[male]{Robert Edgar Rettgers}
+				p[female]{Marjorie Ethel Fett}
+				c[female]{Sharon}
+				c[female]{Jane}
+				c[female]{Barb}
+			}
+			child{
+				g[female]{Miriam Jane Rettgers}
+				p[male]{Bud}
+				c[female]{Jack}
+				c[female]{Jill}
+				c[female]{Lori}
+			}
+			child{
+				g[female]{Joyce Ann Rettgers}
+				p[male]{Lee}
+				c[male]{Mark}
+				c[male]{Steve}
+				c[male]{Randy}
+				c[male]{Phillip}
 			}
 		}
 	}
@@ -375,41 +383,40 @@ TBD
 
 \input{../tex_output/det_descendant_report_Rettgers_mod.tex}
 
-\chapter{Descendants of Floyd William Fett and Florence Ethel Bechtel}
+\chapter{Descendants of Floyd Fett and Florence Bechtel}
 
 \section{Tree}
 
 \begin{tikzpicture}
 	\genealogytree[
 		template=signpost, 
+		timeflow=left,
 		node size=1.4cm, 
 		level size=1.4cm,
 		tcbset={male/.style={colframe=blue!20, colback=blue!5},
 			female/.style={colframe=red!20, colback=red!5}},
 		box={fit basedim=8pt, boxsep=2pt, no shadow}
 	]{
-		parent{
-			c[female]{Clementine F Fett}
-			c[female]{Gene Catherine Fett}
-			g[female]{Marjorie Ethel Fett}
-			parent{
-				g[female]{Florence E Bechtel\\1891-1969}
-				parent{
-					g[male]{John High Bechtel\\1866-1944}
-				}
-				parent{
-					g[female]{Clara E Savage\\1869-1957}
-				}
+		child{
+			g[male]{Floyd William Fett\\1891-1956}
+			p[female]{Florence E Bechtel\\1891-1969}
+			child{
+				g[female]{Clementine F Fett}
+				p[male]{Black}
+				c[male]{Michael}
 			}
-			parent{
-				g[male]{Floyd William Fett\\1891-1956}
-				parent{
-					g[male]{John L Fett\\1867-1932}
-				}
-				parent{
-					g[female]{Catharine B Lebo\\1867-1936}
-				}
+			child{
+				g[female]{Gene Catherine Fett}
+				p[male]{husband}
+				c[male]{child}
 			}
+			child{
+				g[female]{Marjorie Ethel Fett}
+				p[male]{Robert Edgar Rettgers}
+				c[female]{Sharon}
+				c[female]{Jane}
+				c[female]{Barb}
+			}			
 		}
 	}
 \end{tikzpicture}
