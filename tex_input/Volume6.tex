@@ -331,40 +331,49 @@
 
 To Write...
 
-\chapter{Descendants of William Buck Connell and Nellie Langston}
+\chapter{Descendants of W Connell and N Langston}
 
 \section{Tree}
 
 \begin{tikzpicture}
 	\genealogytree[
-		template=signpost, 
-		node size=1.4cm, 
-		level size=1.4cm,
+		template=signpost,
+		timeflow=left,
+		node size=0.6cm, 
+		level size=4.0cm,
 		tcbset={male/.style={colframe=blue!20, colback=blue!5},
 			female/.style={colframe=red!20, colback=red!5}},
-		box={fit basedim=8pt, boxsep=2pt, no shadow}
+		box={fit basedim=8pt, boxsep=1pt, no shadow}
 	]{
-		parent{
-			c[male]{Wilbur B Cornell}
-			g[male]{Curtis T Carnell}
-			c[female]{Miriam E Cornell}
-			parent{
-				g[male]{William Buck Connell\\1890-1953}
-				parent{
-					g[male]{William E L Connell\\1865-1903}
-				}
-				parent{
-					g[female]{Ida Mae Barnes\\1862-}
-				}
+		child{
+			p[male]{William Buck Connell\\1890-1953}
+			g[female]{Nellie D Langston\\1903-1948}
+			child{
+				g[male]{Curtis T Carnell}
+				p[female]{Lora E Smith}
+				c[male]{Donald Curtis}
+				c[female]{Linda M}
+				c[male]{Richard Loyd}
+				c[female]{Vivian Louise}
+				c[female]{Susan E}
+				c[female]{Elizabeth Ann}
 			}
-			parent{
-				g[female]{Nellie D Langston\\1903-1948}
-				parent{
-					g[male]{Fleetwood W Langston\\1855-1928}
-				}
-				parent{
-					g[female]{Anna James Nunnery\\1873-1919}
-				}
+			child{
+				g[male]{Wilbur B Cornell}
+				p[female]{Marie E Leece}
+				c[female]{Sonia}
+				c[female]{Gwendolyn M}
+				c[female]{Marie E}
+				c[male]{Gregory C}
+			}
+			child{
+				g[female]{Miriam E Cornell}
+				p[male]{Raymond H White, Sr}
+				c[male]{Roland T}
+				c[male]{Ronald}
+				c[female]{Barbara Jo}
+				c[female]{Brenda Lee}
+				c[female]{Beverly Nell}
 			}
 		}
 	}
@@ -374,7 +383,7 @@ To Write...
 
 \input{../tex_output/det_descendant_report_Connell_mod.tex}
 
-\chapter{Descendants of Kendrick Marvin Smith and Jewel Norene Josey}
+\chapter{Descendants of K Smith and J Josey}
 
 \section{Tree}
 
@@ -425,10 +434,10 @@ To Write...
 
 \section{Connell-Langston Endnotes}
 
-\input{../tex_output/det_ancestor_report_Connell_mod_notes.tex}
+\input{../tex_output/det_descendant_report_Connell_mod_notes.tex}
 
 \section{Smith-Josey Endnotes}
 
-\input{../tex_output/det_ancestor_report_Smith_mod_notes.tex}
+\input{../tex_output/det_descendant_report_Smith_mod_notes.tex}
 
 \end{document}

@@ -1,5 +1,6 @@
 # output path
-#   Note:  OUTPUT_PATH cannot use ~/, it must use /home/carnellr to work with python3 open()
+#   Note:  OUTPUT_PATH cannot use ~/, it must use /home/carnellr to work with 
+#          python3 open()
 OUTPUT_PATH=/home/carnellr/Documents/repositories/CarnellRettgersFamilyHistory
 
 # Path to GEDCOM
@@ -25,11 +26,15 @@ GRAMPS_COMMAND=gramps
 # -q Suppress progress indication output
 # -i import
 # -a action
+GRAMPSOPTIONSSTART=-y -q -i $(GEDCOM_PATH)/$(GEDCOM_FILE) -a report -p
+
+# Report Options
 # -p options for the action
 #    use this to get the action options
 #    $GrampsCommand $GrampsOptionsStart "name=det_ancestor_report,show=all"
 #    pageben = page break before endnotes
-#    date_format = 0 (YYY-MM-DD), 1 (MM-DD-YY), 2 (Month Day, Year), 3 (MON DAY, YEAR), 4 (Day Month Year", 5 (DAY MON YEAR)
+#    date_format = 0 (YYY-MM-DD), 1 (MM-DD-YY), 2 (Month Day, Year), 
+#                  3 (MON DAY, YEAR), 4 (Day Month Year), 5 (DAY MON YEAR)
 #    listc = list children
 #    listc_spouses = list spouses of children
 #    fulldates = use full dates
@@ -39,10 +44,26 @@ GRAMPS_COMMAND=gramps
 #    incphotos = include photos
 #    off=output format
 #    of = output file
-GRAMPSOPTIONSSTART=-y -q -i $(GEDCOM_PATH)/$(GEDCOM_FILE) -a report -p
-GRAMPSOPTIONSREPORTPART1=name=det_ancestor_report,pageben=True,date_format=5,listc=True,listc_spouses=True,fulldates=True,desref=True,
-GRAMPSOPTIONSREPORTPART2=incnotes=False,incattrs=False,incphotos=False,off=tex,of=$(OUTPUT_PATH)/tex_input/det_ancestor_report_
-GRAMPSOPTIONSREPORT=$(GRAMPSOPTIONSREPORTPART1)$(GRAMPSOPTIONSREPORTPART2)
+#    gen = number of generations
+#    living_people = how to handle living people = 0 (included) 
+#                    1 (Full names, no data), 2 (given name omitted, no data),
+#                    3 (no name, no data), 4 (not included)
+#    name_format = 0 (Default), 1 (surname, given), 2 (given surname),
+#                  3 (Given), 4 (main surname, given patronymic)
+
+GRAMPSOPTIONSREPORT1=name=det_ancestor_report,pageben=True,date_format=5,
+GRAMPSOPTIONSREPORT2=listc=True,listc_spouses=True,fulldates=True,desref=True,
+GRAMPSOPTIONSREPORT3=gen=12,incnotes=False,incattrs=False,incphotos=False,
+GRAMPSOPTIONSREPORT4=off=tex,living_people=2,name_format=2,incsources=True,
+GRAMPSOPTIONSREPORT5=of=$(OUTPUT_PATH)/tex_input/det_ancestor_report_
+GRAMPSOPTIONSREPORT=$(GRAMPSOPTIONSREPORT1)$(GRAMPSOPTIONSREPORT2)$(GRAMPSOPTIONSREPORT3)$(GRAMPSOPTIONSREPORT4)$(GRAMPSOPTIONSREPORT5)
+
+GRAMPSOPTIONSREPORTDEC1=name=det_descendant_report,pageben=True,date_format=5,
+GRAMPSOPTIONSREPORTDEC2=listc=True,listc_spouses=True,fulldates=True,desref=True,
+GRAMPSOPTIONSREPORTDEC3=gen=12,incnotes=False,incattrs=False,incphotos=False,
+GRAMPSOPTIONSREPORTDEC4=off=tex,living_people=0,name_format=2,incsources=True,
+GRAMPSOPTIONSREPORTDEC5=of=$(OUTPUT_PATH)/tex_input_private/det_descendant_report_
+GRAMPSOPTIONSREPORTDEC=$(GRAMPSOPTIONSREPORTDEC1)$(GRAMPSOPTIONSREPORTDEC2)$(GRAMPSOPTIONSREPORTDEC3)$(GRAMPSOPTIONSREPORTDEC4)$(GRAMPSOPTIONSREPORTDEC5)
 
 # R file
 R_MODIFY_FILE=src/Modify_Gramps_Output.R
@@ -71,6 +92,14 @@ gramps :
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORT)Langston.tex,pid=$(LANGSTON)"
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORT)Rettgers.tex,pid=$(RETTGERS)"
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORT)Smith.tex,pid=$(SMITH)"
+	# Process private data
+	if [ ! -d "$(OUTPUT_PATH)/tex_input_private" ]; then \
+		mkdir $(OUTPUT_PATH)/tex_input_private; \
+	fi
+	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Connell.tex,pid=$(CONNELL)"
+	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Fett.tex,pid=$(FETT)"
+	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Rettgers.tex,pid=$(RETTGERS)"
+	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Smith.tex,pid=$(SMITH)"
 
 .PHONY: r # 	Modifies the Gramps output for the desired tex format
 r :
@@ -88,6 +117,8 @@ tex :
 	$(LATEX_COMMAND) $(OUTPUT_PATH)/tex_input/Volume3.tex
 	$(LATEX_COMMAND) $(OUTPUT_PATH)/tex_input/Volume4.tex
 	$(LATEX_COMMAND) $(OUTPUT_PATH)/tex_input/Volume5.tex
+	$(LATEX_COMMAND) $(OUTPUT_PATH)/tex_input/Volume6.tex
+	$(LATEX_COMMAND) $(OUTPUT_PATH)/tex_input/Volume7.tex
 
 .PHONY: clean-tex # 	cleans-up after tex-ing
 clean-tex :

@@ -21,29 +21,38 @@ if (grepl("Ubuntu",Sys.info()["version"]))
 {
   repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
 }
-tex_input_path <- file.path(repository_path,"CarnellRettgersFamilyHistory","tex_input")
-tex_output_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","tex_output")
-obituary_input_path <- file.path(repository_path, "CarnellRettgersFamilyHistory","other_input")
+repository_path_ext <- file.path(repository_path, "CarnellRettgersFamilyHistory")
+tex_input_path <- file.path(repository_path_ext, "tex_input")
+tex_input_private_path <- file.path(repository_path_ext, "tex_input_private")
+tex_output_path <- file.path(repository_path_ext, "tex_output")
+obituary_input_path <- file.path(repository_path_ext, "other_input")
 
 obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.csv")
 
 if (!dir.exists(tex_output_path)) dir.create(tex_output_path)
 
-ancestor_files <- paste0("det_ancestor_report_", 
+ancestor_files <- c(paste0("det_ancestor_report_", 
                          c("Bechtel","Fett","Hartenstine","Rettgers",
-                           "Connell","Langston","Smith","Josey"), ".tex")
+                           "Connell","Langston","Smith","Josey"), ".tex"),
+                    paste0("det_descendant_report_", 
+                         c("Fett","Rettgers",
+                           "Connell","Smith"), ".tex"))
+ancestor_files_path <- file.path(c(rep(tex_input_path, 8), rep(tex_input_private_path, 4)), ancestor_files)
 
-dummy <- sapply(file.path(tex_input_path, ancestor_files), function(x) {
+dummy <- sapply(ancestor_files_path, function(x) {
   assertthat::assert_that(file.exists(x))
 })
-assertthat::assert_that(file.exists(obituary_input_file))
+dummy <- assertthat::assert_that(file.exists(obituary_input_file))
 
 ################################################################################
 
 # read the latex files as text
-X1 <- lapply(file.path(tex_input_path, ancestor_files), function(x) {
+cat("Reading Latex Files\n")
+X1 <- lapply(ancestor_files_path, function(x) {
   readLines(x)
 })
+
+cat("Processing Latex\n")
 
 # remove the commands before \begin{document} and after \end{document}
 X2 <- lapply(X1, function(x){
@@ -85,7 +94,7 @@ X3 <- lapply(X2, function(x){
 
 mod_date <- function(x)
 {
-  # because when a string is replaced, it changes the string, I can't find all the instance and then
+  # because when a string is replaced, it changes the string, I can't find all the instances and then
   #  replace them.
   # find one at a time
   for (i in 1:length(x))
@@ -108,14 +117,28 @@ mod_date <- function(x)
       str_sub(x[i], test_loc[,1], test_loc[,2]) <- test
     }
   }
+  x <- str_replace_all(x, "[Jj]anuary", "Jan")
+  x <- str_replace_all(x, "[Ff]ebruary", "Feb")
+  x <- str_replace_all(x, "[Mm]arch", "Mar")
+  x <- str_replace_all(x, "[Aa]pril", "Apr")
+  x <- str_replace_all(x, "[Jj]une", "Jun")
+  x <- str_replace_all(x, "[Jj]uly", "Jul")
+  x <- str_replace_all(x, "[Aa]ugust", "Aug")
+  x <- str_replace_all(x, "[Ss]eptember", "Sep")
+  x <- str_replace_all(x, "[Oo]ctober", "Oct")
+  x <- str_replace_all(x, "[Nn]ovember", "Nov")
+  x <- str_replace_all(x, "[Dd]ecember", "Dec")
+
   return(x)
 }
 
 X3 <- lapply(X3, mod_date)
 
 # Find all instances of "had a relationship with" for output
+cat("Finding instances of 'had a relationship with'\n")
 harw <- lapply(X3, function(x) {
   ind <- which(str_detect(x, "had a relationship with"))
+  if (length(ind) == 0) return(NA)
   return(x[ind])  
 })
 writeLines(unlist(harw), con=file.path(tex_output_path, "RelationshipError.txt"))
@@ -131,6 +154,7 @@ writeLines(unlist(harw), con=file.path(tex_output_path, "RelationshipError.txt")
 # cut off the end notes and make a separate file
 X4 <- lapply(X3, function(x) {
   ind <- which(str_detect(x, "[:punct:]sffamily[:punct:]itshape[:punct:]large[:space:]+Endnotes[:space:]+[:punct:]upshape[:punct:]rmfamily[:punct:]normalsize"))
+  if (length(ind) == 0) stop("Check that endnotes are enabled")
   ind2 <- max(which(str_detect(x[1:ind], "[:punct:]newpage[:punct:]")))
   if (is.na(ind2)) stop("Check that pagebreaks are enabled before the Endnotes")
   return(x[1:(ind2-1)])
@@ -143,6 +167,7 @@ X5 <- lapply(X3, function(x) {
   return(x[(ind+ind2+1):length(x)])
 })
 
+cat("Writing Tex\n")
 dummy <- mapply(function(x, f){
   fnew <- str_replace(f, "[.]tex$", "_mod.tex")
   writeLines(x, con=file.path(tex_output_path, fnew))
@@ -155,6 +180,7 @@ dummy <- mapply(function(x, f){
 
 ################################################################################
 
+cat("Reading Obits\n")
 obits <- read.csv(obituary_input_file, 1, stringsAsFactors=FALSE)
 
 normDate <- function(s)
@@ -191,11 +217,12 @@ normDate <- function(s)
   }
   stop(paste("Unrecognized Date Format: ", s))
 }
-assertthat::assert_that(normDate("29-Mar-1976") == "29 Mar 1976")
-assertthat::assert_that(normDate("29 Mar 1976") == "29 Mar 1976")
-assertthat::assert_that(normDate("29-March-1976") == "29 Mar 1976")
-assertthat::assert_that(normDate("29 March 1976") == "29 Mar 1976")
+dummy <- assertthat::assert_that(normDate("29-Mar-1976") == "29 Mar 1976")
+dummy <- assertthat::assert_that(normDate("29 Mar 1976") == "29 Mar 1976")
+dummy <- assertthat::assert_that(normDate("29-March-1976") == "29 Mar 1976")
+dummy <- assertthat::assert_that(normDate("29 March 1976") == "29 Mar 1976")
 
+cat("Processing Obits\n")
 obit_lines <- character(10000)
 count <- 1
 berror <- FALSE
@@ -239,4 +266,6 @@ if (berror) stop("errors with Obituary parsing")
 # ensure the output is utf-8 for latex
 obit_lines <- enc2utf8(obit_lines)
 
+cat("Writing Obits\n")
 writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"))
+
