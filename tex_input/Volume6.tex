@@ -338,7 +338,7 @@ To Write...
 \begin{tikzpicture}
 	\genealogytree[
 		template=signpost,
-		timeflow=left,
+		timeflow=right,
 		node size=0.6cm, 
 		level size=4.0cm,
 		tcbset={male/.style={colframe=blue!20, colback=blue!5},
@@ -349,31 +349,32 @@ To Write...
 			p[male]{William Buck Connell\\1890-1953}
 			g[female]{Nellie D Langston\\1903-1948}
 			child{
-				g[male]{Curtis T Carnell}
-				p[female]{Lora E Smith}
-				c[male]{Donald Curtis}
-				c[female]{Linda M}
-				c[male]{Richard Loyd}
-				c[female]{Vivian Louise}
-				c[female]{Susan E}
-				c[female]{Elizabeth Ann}
+				g[male]{Curtis T Carnell\\1922-1991}
+				p[female]{Lora E Smith\\1924-}
+				c[male]{Donald Curtis\\1946-}
+				c[female]{Linda M\\1948-}
+				c[male]{Richard Loyd\\1951-}
+				c[female]{Vivian Louise\\1953-}
+				c[female]{Susan E\\1957-}
+				c[female]{Elizabeth Ann\\1960-}
 			}
 			child{
-				g[male]{Wilbur B Cornell}
-				p[female]{Marie E Leece}
-				c[female]{Sonia}
-				c[female]{Gwendolyn M}
-				c[female]{Marie E}
-				c[male]{Gregory C}
+				g[male]{Wilbur B Cornell\\1920-2008}
+				p[female]{Marie E Leece\\1915-1993}
+				c[female]{Sonia\\1934-}
+				c[female]{Gwendolyn M\\1935-2005}
+				c[female]{Marie E\\1948-}
+				c[male]{Gregory C\\1952-}
 			}
 			child{
-				g[female]{Miriam E Cornell}
-				p[male]{Raymond H White, Sr}
-				c[male]{Roland T}
-				c[male]{Ronald}
-				c[female]{Barbara Jo}
-				c[female]{Brenda Lee}
-				c[female]{Beverly Nell}
+				g[female]{Miriam E Cornell\\1924-1977}
+				p[male]{Raymond H White, Sr\\1915-1981}
+				c[male]{Roland T\\?-}
+				c[male]{Ronald\\?-}
+				c[male]{Raymond H\\1942-}
+				c[female]{Barbara Jo\\1944-2011}
+				c[female]{Brenda Lee\\1950-1979}
+				c[female]{Beverly Nell\\1952-2007}
 			}
 		}
 	}
@@ -389,52 +390,54 @@ To Write...
 
 \begin{tikzpicture}
 	\genealogytree[
-		template=signpost, 
-		node size=1.4cm, 
-		level size=1.4cm,
+		template=signpost,
+		timeflow=right, 
+		node size=0.6cm, 
+		level size=4.0cm,
 		tcbset={male/.style={colframe=blue!20, colback=blue!5},
 			female/.style={colframe=red!20, colback=red!5}},
 		box={fit basedim=8pt, boxsep=2pt, no shadow}
 	]{
 		child{
 			g[male]{Kendrick Marvin Smith\\1902-1965}
-			p[female]{Jewel Norene Josey\\XXXX-YYYY}
+			p[female]{Jewel Norene Josey\\1907-1992}
 			child{
-				g[female]{Lora Elizabeth Smith}
-				p[male]{Curtis Thomas Carnell}
-				c[male]{Donald Curtis}
-				c[female]{Linda M}
-				c[male]{Richard Loyd}
-				c[female]{Vivian Louise}
-				c[female]{Susan E}
-				c[female]{Elizabeth Ann}
+				g[female]{Lora Elizabeth Smith\\1924-}
+				p[male]{Curtis Thomas Carnell\\1922-1991}
+				c[male]{Donald Curtis\\1946-}
+				c[female]{Linda M\\1948-}
+				c[male]{Richard Loyd\\1951-}
+				c[female]{Vivian Louise\\1953-}
+				c[female]{Susan E\\1957-}
+				c[female]{Elizabeth Ann\\1960-}
 			}
 			child{				
-				g[female]{Eunice Loise Smith}
-				p[male]{Stanley}
-				c[male]{child}
+				g[female]{Eunice Loise Smith\\1926-2017}
+				p[male]{Stanley S Quackenbush\\1914-1986}
+				c[female]{Shirley Louise\\1950-2002}
+				c[female]{Janet May\\1951-}
+				c[male]{Adelbert M\\1953-}
+				c[male]{Randy Martin\\1955-}
+				c[male]{Mark A\\1957-}
+				c[female]{Rhetta D\\1960-}
+				c[male]{Stanley S\\1962-}
 			}
 			child{
-				g[male]{Floyd Kendrick Smith}
-				p[female]{wife}
-				c[male]{child}
+				g[male]{Floyd Kendrick Smith\\1932-1986}
+				p[female]{Norma Jean Duprey\\1927-1965}
 			}
 			child{
-				g[male]{Kenneth C Smith}
-				p[female]{wife}
-				c[male]{child}
+				g[male]{Kenneth C Smith\\1936-2010}
+				p[female]{Betty Sue Britt\\1930-2009}
+				c[female]{Pam\\1950-}
 			}
+			c[male]{Gerald Lewis Smith\\1939-1945}
 			child{
-				g[male]{Gerald Lewis Smith}
-				p[female]{wife}
-				c[male]{child}
+				g[male]{Jimmie E Smith\\1942-2012}
+				p[female]{Deloris M Cherry\\1943-2012}
+				c[male]{Jimmie K\\1972-}
 			}
-			child{
-				g[male]{Jimmie E Smith}
-				p[female]{wife}
-				c[male]{child}
-			}
-			c[male]{Barry Wayne Smith}
+			c[male]{Barry Wayne Smith\\1947-}
 		}
 	}
 \end{tikzpicture}
@@ -447,10 +450,19 @@ To Write...
 
 \section{Connell-Langston Endnotes}
 
+\footnotesize
+
 \input{../tex_output/det_descendant_report_Connell_mod_notes.tex}
+
+\normalsize
 
 \section{Smith-Josey Endnotes}
 
+\footnotesize
+
 \input{../tex_output/det_descendant_report_Smith_mod_notes.tex}
 
+\normalsize
+
 \end{document}
+
