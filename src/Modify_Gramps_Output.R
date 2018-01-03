@@ -134,7 +134,17 @@ mod_date <- function(x)
 
 X3 <- lapply(X3, mod_date)
 
-# Find all instances of "had a relationship with" for output
+# Eliminate strange "relationship with Unknown" instances
+X3 <- lapply(X3, function(x){
+  x <- str_replace_all(x, "[.][ ][ ]He also had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ][ ]She also had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ][ ]He had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ][ ]She had a relationship with Unknown[.]", ".")
+  return(x)
+})
+
+#####################################################################################
+# Find all remaining instances of "had a relationship with" for output and correction
 cat("Finding instances of 'had a relationship with'\n")
 harw <- lapply(X3, function(x) {
   ind <- which(str_detect(x, "had a relationship with"))
