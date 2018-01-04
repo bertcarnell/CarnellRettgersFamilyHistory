@@ -136,10 +136,14 @@ X3 <- lapply(X3, mod_date)
 
 # Eliminate strange "relationship with Unknown" instances
 X3 <- lapply(X3, function(x){
-  x <- str_replace_all(x, "[.][ ][ ]He also had a relationship with Unknown[.]", ".")
-  x <- str_replace_all(x, "[.][ ][ ]She also had a relationship with Unknown[.]", ".")
-  x <- str_replace_all(x, "[.][ ][ ]He had a relationship with Unknown[.]", ".")
-  x <- str_replace_all(x, "[.][ ][ ]She had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ]+He also had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ]+She also had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ]+He had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[.][ ]+She had a relationship with Unknown[.]", ".")
+  x <- str_replace_all(x, "[}][ ]*He also had a relationship with Unknown[.]", "}")
+  x <- str_replace_all(x, "[}][ ]*She also had a relationship with Unknown[.]", "}")
+  x <- str_replace_all(x, "[}][ ]*He had a relationship with Unknown[.]", "}")
+  x <- str_replace_all(x, "[}][ ]*She had a relationship with Unknown[.]", "}")
   return(x)
 })
 
@@ -151,7 +155,10 @@ harw <- lapply(X3, function(x) {
   if (length(ind) == 0) return(NA)
   return(x[ind])  
 })
-writeLines(unlist(harw), con=file.path(tex_output_path, "RelationshipError.txt"))
+outputLines <- unlist(harw)
+outputLines2 <- character(2*length(outputLines))
+outputLines2[seq(1, 2*length(outputLines), by=2)] <- outputLines
+writeLines(outputLines2, con=file.path(tex_output_path, "RelationshipError.txt"))
 
 # \newpage%
 # \grprepnoleader%

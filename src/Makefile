@@ -4,7 +4,7 @@
 OUTPUT_PATH=/home/carnellr/Documents/repositories/CarnellRettgersFamilyHistory
 
 # Path to GEDCOM
-GEDCOM_FILE=Carnell_2017-12-20.ged
+GEDCOM_FILE=Carnell_2018-01-01.ged
 GEDCOM_PATH=~/share
 VBOXSF_NAME=Family_Tree_Maker
 
@@ -51,14 +51,14 @@ GRAMPSOPTIONSSTART=-y -q -i $(GEDCOM_PATH)/$(GEDCOM_FILE) -a report -p
 #    name_format = 0 (Default), 1 (surname, given), 2 (given surname),
 #                  3 (Given), 4 (main surname, given patronymic)
 
-GRAMPSOPTIONSREPORT1=name=det_ancestor_report,pageben=True,date_format=5,
+GRAMPSOPTIONSREPORT1=name=det_ancestor_report,pageben=True,date_format=0,
 GRAMPSOPTIONSREPORT2=listc=True,listc_spouses=True,fulldates=True,desref=True,
 GRAMPSOPTIONSREPORT3=gen=12,incnotes=False,incattrs=False,incphotos=False,
 GRAMPSOPTIONSREPORT4=off=tex,living_people=2,name_format=2,incsources=True,
 GRAMPSOPTIONSREPORT5=of=$(OUTPUT_PATH)/tex_input/det_ancestor_report_
 GRAMPSOPTIONSREPORT=$(GRAMPSOPTIONSREPORT1)$(GRAMPSOPTIONSREPORT2)$(GRAMPSOPTIONSREPORT3)$(GRAMPSOPTIONSREPORT4)$(GRAMPSOPTIONSREPORT5)
 
-GRAMPSOPTIONSREPORTDEC1=name=det_descendant_report,pageben=True,date_format=5,
+GRAMPSOPTIONSREPORTDEC1=name=det_descendant_report,pageben=True,date_format=0,
 GRAMPSOPTIONSREPORTDEC2=listc=True,listc_spouses=True,fulldates=True,desref=True,
 GRAMPSOPTIONSREPORTDEC3=gen=12,incnotes=False,incattrs=False,incphotos=False,
 GRAMPSOPTIONSREPORTDEC4=off=tex,living_people=0,name_format=2,incsources=True,

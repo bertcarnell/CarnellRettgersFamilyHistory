@@ -1,4 +1,6 @@
-# License for code contained in .R, .sh, .bat, .md,  and .py files - MIT License
+##################################################################################
+# License for code contained in .R, .sh, .bat, .md,  and .py files - MIT License #
+##################################################################################
 
 MIT License
 
@@ -22,6 +24,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-# No License is granted for any content contained in .tex or .csv files
+#########################################################################
+# No License is granted for any content contained in .tex or .csv files #
+#########################################################################
 
-Works in .tex and .csv files are creative works covered by copyright.  They may not be used in any application without permission
+Works in .tex and .csv files are creative works covered by copyright.  They may not be used in any application without permission.
+
