@@ -1,3 +1,5 @@
+# Copyright (c) 2018 Robert Carnell
+
 # R must also be installed on Ubuntu
 #   sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list
 #   gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
