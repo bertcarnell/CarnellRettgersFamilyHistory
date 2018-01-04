@@ -1,3 +1,5 @@
+<!-- Copyright (c) 2018 Robert Carnell -->
+
 # CarnellRettgersFamilyHistory
 
 The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, and Fett-Bechtel families
@@ -31,7 +33,7 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
     + File -> Export...
     + Entire File
     + Output format: GEDCOM 5.5
-    + Privatize Living People: Yes
+    + Privatize Living People: No
     + Include Private Facts: No
     + Include Private Notes: No
     + Include Media Files: No
@@ -40,6 +42,9 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
     + Character Set: UTF-8
 3. Modify `src/Makefile` to point to the correct GEDCOM output from #2
 4. `sudo make mount` to mount the directory location on the Ubuntu VM
-5. `make gramps` to export detailed ancestor reports
-6. `make r` to find/replace and change formatting
-7. `make tex` to build the pdf output files
+5. `make all` to run the process
+    + `make help` to print the Makefile options
+    + `make gramps` to export detailed ancestor reports
+    + `make r` to find/replace and change formatting
+    + `make tex` to build the pdf output files
+    + `make clean-tex` to clean-up after the pdf process
