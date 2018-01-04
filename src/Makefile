@@ -1,3 +1,5 @@
+# Copyright (c) 2018 Robert Carnell
+
 # output path
 #   Note:  OUTPUT_PATH cannot use ~/, it must use /home/carnellr to work with 
 #          python3 open()
