@@ -1,4 +1,6 @@
-Directions to setup Gramps on Ubuntu for Development
+<!-- Copyright (c) 2018 Robert Carnell -->
+
+# Directions to setup Gramps on Ubuntu for Development
 
 ```
 # update the system
