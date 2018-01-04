@@ -1,6 +1,6 @@
-##################################################################################
-# License for code contained in .R, .sh, .bat, .md,  and .py files - MIT License #
-##################################################################################
+####################################################################
+# License for code contained in the /src subdirector - MIT License #
+####################################################################
 
 MIT License
 
@@ -28,5 +28,5 @@ SOFTWARE.
 # No License is granted for any content contained in .tex or .csv files #
 #########################################################################
 
-Works in .tex and .csv files are creative works covered by copyright.  They may not be used in any application without permission.
+Works in .tex and .csv files are creative works covered by copyright.  They may not be used in any application without permission.  Note that information contained in the newspaper articles may be covered by the original copyright holders at each newspaper.  They are transcribed as part this effort under fair use doctrine.
 
