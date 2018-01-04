@@ -1,3 +1,5 @@
+# Copyright (c) 2018 Robert Carnell
+
 # Modify Gedcom for input into Gramps
 #   Call with Rscript --vanilla Modify_GEDCOM.R GEDCOM_filename
 
@@ -50,5 +52,3 @@ if (length(ind) > 0)
 ################################################
 # write results
 writeLines(X, con=args[1])
-
-
