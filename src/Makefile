@@ -6,7 +6,7 @@
 OUTPUT_PATH=/home/carnellr/Documents/repositories/CarnellRettgersFamilyHistory
 
 # Path to GEDCOM
-GEDCOM_FILE=Carnell_2018-01-01.ged
+GEDCOM_FILE=Carnell_2018-01-06.ged
 GEDCOM_PATH=~/share
 VBOXSF_NAME=Family_Tree_Maker
 
