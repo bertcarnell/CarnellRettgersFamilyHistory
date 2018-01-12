@@ -6,30 +6,30 @@ The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, a
 
 ## Book Outline
 
-1. Volume I - Military History
-2. Volumne II - Connell, Langston, Smith, Josey
+1. **Volume I** - Military History
+2. **Volumne II** - Connell, Langston, Smith, Josey
     + Ancestors of William Connell
     + Ancestors of Nellie D Langston
     + Ancestors of Kendrick Smith
     + Ancestors of Jewel Norene Josey
-3. Volume III - Rettgers, Hartenstine, Fett, Bechtel
+3. **Volume III** - Rettgers, Hartenstine, Fett, Bechtel
     + Ancestors of Ithamar Benedict Rettgers
     + Ancestors of Laura Tyson Hartenstine
     + Ancestors of Floyd William Fett
     + Ancestors of Florence Ethel Bechtel
-4. Volume IV - Carnell-Rettgers Genetic Ancestry
-5. Volume V - Obituaries and News Articles
-6. Volume VI - Connell-Langston and Smith-Josey Descendants For Living Family
+4. **Volume IV** - Carnell-Rettgers Genetic Ancestry
+5. **Volume V** - Obituaries and News Articles
+6. **Volume VI** - Connell-Langston and Smith-Josey Descendants For Living Family
     + Descendants of Connell-Langston
     + Descendants of Smith-Josey
-7. Volume VII - Rettgers-Hartenstine and Fett-Bechtel Descendants for Living Family
+7. **Volume VII** - Rettgers-Hartenstine and Fett-Bechtel Descendants for Living Family
     + Descendants of Rettgers-Hartenstine
     + Descendants of Fett-Bechtel
 
-## Latex export process
+## Latex export process from [Gramps](https://gramps-project.org)
 
-1. Sync Family Tree Maker 2017 with Ancestry
-2. Export GEDCOM from Family Tree Maker
+1. Sync [Family Tree Maker 2017](http://www.mackiev.com/ftm/index.html) with [Ancestry](https://www.ancestry.com/)
+2. Export [GEDCOM](https://en.wikipedia.org/wiki/GEDCOM) from Family Tree Maker
     + File -> Export...
     + Entire File
     + Output format: GEDCOM 5.5
