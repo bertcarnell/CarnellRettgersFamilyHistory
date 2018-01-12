@@ -9,7 +9,7 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-### set up git if not previously set up
+### Set up git if not previously set up
 
 ```
 git config --get user.name
@@ -23,7 +23,7 @@ head ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 ```
 
-### checkout the repository
+### Checkout the repository
 
 ```
 git clone git@github.com:gramps-project/gramps.git Gramps
@@ -32,7 +32,7 @@ git checkout maintenance/gramps50
 git pull
 ```
 
-### install pycharm if not already done
+### Install [pycharm](https://www.jetbrains.com/pycharm/)
 
 #### Before Ubuntu 16.04
 
@@ -53,7 +53,7 @@ sudo snap install pycharm-community --classic
 pycharm-community 
 ```
 
-### install python dependencies
+### Install python dependencies
 
 ```
 sudo apt-get install python3
@@ -63,11 +63,11 @@ sudo apt-get install libdb5.3-dev
 pip3 install bsddb3
 ```
 
-Follow directions in Gramps README file to install latest dependencies
+Follow directions in Gramps README file to install latest dependencies.
 
 ### Methods to run Gramps:
 
-#### run installed version
+#### Run installed version
 
 ```
 python3 setup.py build
@@ -75,13 +75,13 @@ sudo python3 setup.py install
 gramps
 ```
 
-#### run Gramps with python
+#### Run Gramps with python
 
 ```
 python3 Gramps.py
 ```
 
-#### run from pycharm
+#### Run from pycharm
 
 - File -> Settings
 - Project:Gramps -> Project Interpreter
@@ -90,7 +90,7 @@ python3 Gramps.py
 
 # Git Reminders
 
-## Working with a forked repository:
+### Working with a forked repository:
 
 1. create the fork on Github
 2. clone the repository on your system
@@ -101,11 +101,15 @@ cd ~/repositories/grampsfork
 git pull
 ```
 
-## list the current configured remote repository
+### List the current configured remote repository
 
 ```
 git remote -v
+```
 
+output
+
+```
 origin	git@github.com:bertcarnell/gramps.git (fetch)
 origin	git@github.com:bertcarnell/gramps.git (push)
 upstream	git://github.com/gramps-project/gramps.git (fetch)
@@ -144,13 +148,15 @@ git push
 
 Check github.  You should see "This branch is even with gramps-project:master
 
-## Check out a new branch from the upstream remote
+### Check out a new branch from the upstream remote
 
 Modify the config file to see all branches
 
-``
+```
 gedit .git/config &
 ```
+
+This text in the file:
 
 ```
 [remote "upstream"]
@@ -171,5 +177,3 @@ git fetch upstream
 git checkout -b maintenance/gramps50 upstream/maintenance/gramps50
 git push -u origin maintenance/gramps50
 ```
-
-
