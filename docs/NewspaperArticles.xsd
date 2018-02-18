@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="dataroot">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="SortedNewspaperLinks" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="SortedNewspaperLinks">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="ID" minOccurs="1" maxOccurs="1" type="xsd:int"/>
+                
+                <xsd:element name="FirstName" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+                <xsd:element name="Middle" minOccurs="0" type="xsd:string"/>
+                <xsd:element name="LastName" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+                <xsd:element name="MaidenName" minOccurs="0" type="xsd:string"/>
+
+                <xsd:element name="DateOfDeath" minOccurs="0" maxOccurs="1" type="_GenealogyDate"/>
+                <xsd:element name="DayOfTheWeek" minOccurs="0" maxOccurs="1" type="_Day"/>
+
+                <xsd:element name="NewspaperName" minOccurs="1" maxOccurs="1" type="_Newspaper"/>
+                <xsd:element name="NewspaperDate" minOccurs="1" maxOccurs="1" type="_GenealogyDate"/>
+                <xsd:element name="NewspaperDay" minOccurs="1" maxOccurs="1" type="_Day"/>
+                <xsd:element name="NewspaperHeading" minOccurs="0" type="xsd:string"/>
+                <xsd:element name="Page" minOccurs="0" type="xsd:string"/> <!-- the Page can be 5 or 7B -->
+                <xsd:element name="Column" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+
+                <xsd:element name="Link" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+
+                <xsd:element name="BurialDate" minOccurs="0" maxOccurs="1" type="_GenealogyDate"/>
+                <xsd:element name="BurialDay" minOccurs="0" maxOccurs="1" type="_Day"/>
+
+                <xsd:element name="Transcription" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+
+                <xsd:element name="Notes" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+                <xsd:element name="EnteredOnAncestry" minOccurs="1" maxOccurs="1" type="xsd:boolean"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="_Day">
+        <xsd:restriction base="xsd:string"> 
+            <xsd:enumeration value="Sunday"/>
+            <xsd:enumeration value="Monday"/>
+            <xsd:enumeration value="Tuesday"/>
+            <xsd:enumeration value="Wednesday"/>
+            <xsd:enumeration value="Thursday"/>
+            <xsd:enumeration value="Friday"/>
+            <xsd:enumeration value="Saturday"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="_GenealogyDate">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]*[ ][A-Z][a-z][a-z][ ][1-9][0-9][0-9][0-9]"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="_Newspaper">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Reading Eagle"/>
+            <xsd:enumeration value="Reading Adler"/>
+            <xsd:enumeration value="Schenectady Gazette"/>
+            <xsd:enumeration value="Pottstown Mercury"/>
+            <xsd:enumeration value="Philadelphia Record"/>
+            <xsd:enumeration value="Wyandot County Republican"/>
+            <xsd:enumeration value="Florence Morning News"/>
+            <xsd:enumeration value="Philadelphia Record"/>
+            <xsd:enumeration value="Augusta Chronicle"/>
+            <xsd:enumeration value="Reading Times"/>
+            <xsd:enumeration value="Lebanon Daily News"/>
+            <xsd:enumeration value="Marion Star"/>
+            <xsd:enumeration value="Pottstown News"/>
+            <xsd:enumeration value="Coatesville Record"/>
+            <xsd:enumeration value="Aiken Standard"/>
+            <xsd:enumeration value="York Daily"/>
+            <xsd:enumeration value="Watchman and Southron"/>
+            <xsd:enumeration value="Columbia Independent"/>
+            <xsd:enumeration value="Macon Telegragh"/>
+            <xsd:enumeration value="Savannah Morning News"/>
+            <xsd:enumeration value="The Daily News"/>
+            <xsd:enumeration value="News Comet"/>
+            <xsd:enumeration value="Gettysburg Times"/>
+            <xsd:enumeration value="Philadelphia Inquirer"/>
+            <xsd:enumeration value="Tribune &amp; Georgian"/>
+            <xsd:enumeration value="The State"/>
+            <xsd:enumeration value="Charleston News and Courier"/>
+            <xsd:enumeration value="The Patriot"/>
+            <xsd:enumeration value="Sunday Patriot -- News"/>
+            <xsd:enumeration value="The Evening News"/>
+            <xsd:enumeration value="Post and Courier"/>
+            <xsd:enumeration value="Altoona Tribune"/>
+            <xsd:enumeration value="Newark Evening News"/>
+            <xsd:enumeration value="Upper Darby News"/>
+            <xsd:enumeration value="The Daily Republican"/>
+            <xsd:enumeration value="West Chester Daily Local News"/>
+            <xsd:enumeration value="Columbus Daily Enquirer"/>
+            <xsd:enumeration value="Hood County News"/>
+            <xsd:enumeration value="The News Journal"/>
+            <xsd:enumeration value="Washington County Georgia Newspaper Clippings"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
