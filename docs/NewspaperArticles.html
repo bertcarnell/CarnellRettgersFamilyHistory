@@ -20,13 +20,13 @@
 
       function displayResult()
       {
-        xml = loadXMLDoc("SortedNewspaperLinks.xml");
-        xsl = loadXMLDoc("test2.xsl");
+        xml = loadXMLDoc("NewspaperArticles.xml");
+        xsl = loadXMLDoc("NewspaperArticles.xsl");
         // code for IE
         if (window.ActiveXObject || xhttp.responseType == "msxml-document")
         {
           ex = xml.transformNode(xsl);
-          document.getElementById("example").innerHTML = ex;
+          document.getElementById("article_zone").innerHTML = ex;
         }
         // code for Chrome, Firefox, Opera, etc.
         else if (document.implementation && document.implementation.createDocument)
@@ -34,7 +34,7 @@
           xsltProcessor = new XSLTProcessor();
           xsltProcessor.importStylesheet(xsl);
           resultDocument = xsltProcessor.transformToFragment(xml, document);
-          document.getElementById("example").appendChild(resultDocument);
+          document.getElementById("article_zone").appendChild(resultDocument);
         }
       }
     </script>
@@ -42,6 +42,15 @@
   </head>
   <body onload="displayResult()">
     <h1>Carnell-Rettgers Family Newspaper Articles</h1>
-    <div id="example" ></div>
+    <h5>Notes</h5>
+    <ul>
+      <li>The articles on this web page are for my personal genealogical research.  Please follow all applicable copyright laws in your use of these articles.</li>
+      <li><a href="https://www.legalgenealogist.com/2012/09/12/copyright-and-the-obit/">Copyright and the obit</a></li>
+      <li><a href="https://www.legalgenealogist.com/2012/09/13/copyright-and-the-post-1963-obit/">Copyright and the Post 1963 obit</a></li>
+      <li><a href="http://blog.frontrunnerpro.com/obituary-pirates-what-you-should-know-about-your-obituaries-and-online-revenues/">Obituary Pirates</a></li>
+      <li><a href="https://www.archives.com/experts/macentee-thomas/copyright-and-genealogy.html">Copyright and Genealogy</a></li>
+      <li><a href="https://www.nolo.com/legal-encyclopedia/fair-use-rule-copyright-material-30100.html">Fair Use</a></li>
+    </ul>
+    <div id="article_zone" ></div>
   </body>
 </html>
