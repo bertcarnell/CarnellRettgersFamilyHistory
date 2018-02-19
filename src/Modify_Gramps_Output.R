@@ -27,9 +27,10 @@ repository_path_ext <- file.path(repository_path, "CarnellRettgersFamilyHistory"
 tex_input_path <- file.path(repository_path_ext, "tex_input")
 tex_input_private_path <- file.path(repository_path_ext, "tex_input_private")
 tex_output_path <- file.path(repository_path_ext, "tex_output")
-obituary_input_path <- file.path(repository_path_ext, "other_input")
 
-obituary_input_file <- file.path(obituary_input_path, "NewspaperLinksExport.csv")
+obituary_input_path <- file.path(repository_path_ext, "docs")
+obituary_input_file <- file.path(obituary_input_path, "NewspaperArticles.xml")
+obituary_schema_file <- file.path(obituary_input_path, "NewspaperArticles.xsd")
 
 if (!dir.exists(tex_output_path)) dir.create(tex_output_path)
 
@@ -45,6 +46,7 @@ dummy <- sapply(ancestor_files_path, function(x) {
   assertthat::assert_that(file.exists(x))
 })
 dummy <- assertthat::assert_that(file.exists(obituary_input_file))
+dummy <- assertthat::assert_that(file.exists(obituary_schema_file))
 
 ################################################################################
 
@@ -200,7 +202,12 @@ dummy <- mapply(function(x, f){
 ################################################################################
 
 cat("Reading Obits\n")
-obits <- read.csv(obituary_input_file, 1, stringsAsFactors=FALSE)
+require(xml2)
+obits <- read_xml(obituary_input_file)
+schema <- read_xml(obituary_schema_file)
+
+# check that the xml is valid
+assertthat::assert_that(xml_validate(obits, schema))
 
 normDate <- function(s)
 {
@@ -245,37 +252,55 @@ cat("Processing Obits\n")
 obit_lines <- character(10000)
 count <- 1
 berror <- FALSE
-for (i in 1:nrow(obits))
+temp <- xml_children(xml_root(obits))
+xget <- function(node, element_name)
 {
-  first_name <- paste(obits$FirstName[i], " ")
-  middle_name <- ifelse(nchar(obits$Middle[i]) > 0, paste(obits$Middle[i], " "), "")
-  maiden_name <- ifelse(nchar(obits$Maiden[i]) > 0, paste(obits$MaidenName[i], " "), "")
-  last_name <- obits$LastName[i]
+  xml_text(xml_child(node, element_name))
+}
+for (i in 1:length(temp))
+{
+  first_name <- paste(xget(temp[[i]], "FirstName"), " ")
+  middle_name_temp <- xget(temp[[i]], "Middle")
+  middle_name <- ifelse(!is.na(middle_name_temp) & nchar(middle_name_temp) > 0, paste(middle_name_temp, " "), "")
+  maiden_name_temp <- xget(temp[[i]], "MaidenName")
+  maiden_name <- ifelse(!is.na(maiden_name_temp) & nchar(maiden_name_temp) > 0, paste(maiden_name_temp, " "), "")
+  last_name <- xget(temp[[i]], "LastName")
   obit_lines[count] <- paste0("\\section{", first_name,middle_name, maiden_name, last_name, "}")
   count <- count + 1
   obit_lines[count] <- "\\begin{itemize}"
   count <- count + 1
   # catch errors that might be thrown by normDate and indicate problems
   tryCatch({
-    dayOfWeek <- ifelse(obits$DayOfTheWeek[i] == "",
-                        strftime(strptime(normDate(obits$DateOfDeath[i]), "%d %b %Y"), "%A"),
-                        obits$DayOfTheWeek[i])
+    day_of_week_temp <- xget(temp[[i]], "DayOfTheWeek")
+    date_of_death_temp <- xget(temp[[i]], "DateOfDeath")
+    dayOfWeek <- ifelse(day_of_week_temp == "",
+                        strftime(strptime(normDate(date_of_death_temp), "%d %b %Y"), "%A"),
+                        day_of_week_temp)
     obit_lines[count] <- paste0("\\item \\textbf{Died}: ", dayOfWeek, 
-                               ", ", normDate(obits$DateOfDeath[i]))
+                               ", ", normDate(date_of_death_temp))
     count <- count + 1
+    newspaper_name_temp <- xget(temp[[i]], "NewspaperName")
+    newspaper_day_temp <- xget(temp[[i]], "NewspaperDay")
+    newspaper_date_temp <- xget(temp[[i]], "NewspaperDate")
+    newspaper_page_temp <- xget(temp[[i]], "Page")
+    newspaper_col_temp <- xget(temp[[i]], "Column")
     obit_lines[count] <- paste0("\\item \\textbf{Newspaper}: ", 
-                                gsub("[&]","\\\\&", obits$NewspaperName[i]), ", ", 
-                                obits$NewspaperDay[i], ", ", 
-                                normDate(obits$NewspaperDate[i]),
-                                ", pg ", obits$Page[i], 
-                                ifelse(obits$Column[i] > 0, paste0(", Column ", obits$Column[i]), ""))
-  }, error=function(e) {print(e); print(obits[i,1:12]); berror <- TRUE})
+                                gsub("[&]","\\\\&", newspaper_name_temp), ", ", 
+                                newspaper_day_temp, ", ", 
+                                normDate(newspaper_date_temp),
+                                ", pg ", newspaper_page_temp, 
+                                ifelse(newspaper_col_temp > 0, paste0(", Column ", newspaper_col_temp), ""))
+  }, error=function(e) {print(e); print(temp[[i]]); berror <- TRUE})
   count <- count + 1
   obit_lines[count] <- "\\end{itemize}"
   count <- count + 1
-  trans <- gsub("[&]", "\\\\&", obits$Transcription[i])
+  trans <- gsub("[&]", "\\\\&", xget(temp[[i]], "Transcription"))
   trans <- gsub("[#]", "\\\\#", trans)
   trans <- gsub("[$]", "\\\\$", trans)
+  # drop the htmp <div>
+  trans <- gsub("[<]div[>]", "", trans)
+  trans <- gsub("[<][/]div[>]", "", trans)
+  trans <- gsub("[\\][&]nbsp[;]", "", trans)
   obit_lines[count] <- trans
   count <- count + 1
 }
