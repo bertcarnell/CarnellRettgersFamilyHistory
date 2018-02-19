@@ -2,7 +2,7 @@
 
 # CarnellRettgersFamilyHistory
 
-The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, and Fett-Bechtel families
+The family history of the Connell-Langston, Smith-Josey, Rettgers-Hartenstine, and Fett-Bechtel families.  See our progress [here](https://bertcarnell.github.io/CarnellRettgersFamilyHistory/).
 
 ## Book Outline
 
