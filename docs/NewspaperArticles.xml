@@ -2,6 +2,7 @@
 <dataroot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="NewspaperArticles.xsd">
     <SortedNewspaperLinks>
         <ID>171</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Jun 1942</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Henrietta</FirstName>
@@ -26,6 +27,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>98</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Jun 1942</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Henrietta</FirstName>
@@ -54,6 +56,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>11</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Sep 1888</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Howard</FirstName>
@@ -76,6 +79,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>10</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Sep 1888</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Howard</FirstName>
@@ -93,6 +97,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>4</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Nov 1814</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -130,6 +135,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>78</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Sep 1932</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Charles</FirstName>
@@ -152,6 +158,7 @@
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>2</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Nov 1814</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Christian</FirstName>
@@ -192,6 +199,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>116</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Jan 1957</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -215,6 +223,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>115</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Jan 1957</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -244,6 +253,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>206</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Jun 1874</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -265,6 +275,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>309</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 May 1950</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Emma</FirstName>
@@ -293,6 +304,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>48</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Apr 1914</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Ester</FirstName>
@@ -316,6 +328,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>315</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Apr 1914</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Esther</FirstName>
@@ -339,6 +352,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>43</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Dec 1910</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -364,6 +378,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>44</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Dec 1910</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -386,6 +401,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>467</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Jan 1847</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -408,6 +424,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>192</ID>
+        <Type>Other</Type>
         <DateOfDeath>27 Feb 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -431,6 +448,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>167</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Feb 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -455,6 +473,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>104</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Feb 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -484,6 +503,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>8</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Oct 1881</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Julia</FirstName>
@@ -501,6 +521,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>9</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Oct 1881</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Julia</FirstName>
@@ -522,6 +543,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>100</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Dec 1941</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -550,6 +572,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>466</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Apr 1839</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Christian</FirstName>
@@ -571,6 +594,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>298</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Jun 1865</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Horace</FirstName>
@@ -594,6 +618,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>257</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Jun 1925</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Adaline</FirstName>
@@ -632,6 +657,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>157</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Feb 2000</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clementine</FirstName>
@@ -654,6 +680,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>132</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Feb 2000</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clementine</FirstName>
@@ -698,6 +725,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>327</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Apr 2007</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Michael</FirstName>
@@ -739,6 +767,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>158</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1976</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Paul</FirstName>
@@ -763,6 +792,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>127</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1976</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Paul</FirstName>
@@ -796,6 +826,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>314</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 May 1939</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Frank</FirstName>
@@ -815,6 +846,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>228</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Dec 1965</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Letha</FirstName>
@@ -847,6 +879,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>347</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Sep 1879</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Abner</FirstName>
@@ -867,6 +900,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>475</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Apr 1943</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Abner</FirstName>
@@ -897,6 +931,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>520</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Tressey</FirstName>
@@ -921,6 +956,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>525</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Tressey</FirstName>
@@ -943,6 +979,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>474</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Dec 1983</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Beatrice</FirstName>
@@ -968,6 +1005,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>441</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 May 1991</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Curtis</FirstName>
@@ -1006,6 +1044,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>485</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 May 1991</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Curtis</FirstName>
@@ -1036,6 +1075,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>471</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Jan 1979</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Duma</FirstName>
@@ -1066,6 +1106,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>469</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jan 1980</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -1094,6 +1135,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>472</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 May 1991</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Melvin</FirstName>
@@ -1125,6 +1167,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>384</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Feb 1878</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -1149,6 +1192,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>360</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Feb 1878</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -1174,6 +1218,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>319</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 May 1970</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Frank</FirstName>
@@ -1217,6 +1262,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>318</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 May 1970</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Frank</FirstName>
@@ -1240,6 +1286,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>438</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1953</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -1279,6 +1326,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>440</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1953</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -1302,6 +1350,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>439</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1953</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -1344,6 +1393,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>468</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Jul 2005</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Gwendolyn</FirstName>
@@ -1391,6 +1441,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>393</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Feb 1993</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Gregory</FirstName>
@@ -1426,6 +1477,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>353</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Dec 1965</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Margaret</FirstName>
@@ -1461,6 +1513,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>442</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Oct 1951</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Robert</FirstName>
@@ -1487,6 +1540,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>392</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 May 1902</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Esther</FirstName>
@@ -1512,6 +1566,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>550</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Apr 1829</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Abraham</FirstName>
@@ -1531,6 +1586,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>415</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Nov 1815</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Phillip</FirstName>
@@ -1556,6 +1612,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>495</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Feb 1979</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Florence</FirstName>
@@ -1583,6 +1640,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>124</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jun 1969</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Florence</FirstName>
@@ -1608,6 +1666,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>123</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jun 1969</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Florence</FirstName>
@@ -1645,6 +1704,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>375</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1677,6 +1737,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>570</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <FirstName>Floyd</FirstName>
         <Middle>W</Middle>
@@ -1706,6 +1767,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>527</ID>
+        <Type>Other</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1744,6 +1806,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>114</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1768,6 +1831,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>113</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1788,6 +1852,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>111</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1853,6 +1918,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>112</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Oct 1956</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -1870,6 +1936,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>559</ID>
+        <Type>Other</Type>
         <DateOfDeath>30 Jun 1942</DateOfDeath>
         <FirstName>Harold</FirstName>
         <LastName>Fett</LastName>
@@ -1885,6 +1952,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>172</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jun 1942</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Harold</FirstName>
@@ -1912,6 +1980,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>496</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jun 1942</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Harold</FirstName>
@@ -1932,6 +2001,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>494</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jun 1942</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Harold</FirstName>
@@ -1968,6 +2038,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>79</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Oct 1932</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -1988,6 +2059,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>155</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Oct 1932</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -2013,6 +2085,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>569</ID>
+        <Type>Other</Type>
         <DateOfDeath>15 Oct 1932</DateOfDeath>
         <FirstName>John</FirstName>
         <Middle>L</Middle>
@@ -2032,6 +2105,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>86</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Sep 1936</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Kathryn</FirstName>
@@ -2057,6 +2131,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>87</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Sep 1936</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Kathryn</FirstName>
@@ -2078,6 +2153,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>93</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -2110,6 +2186,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>94</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -2134,6 +2211,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>45</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1912</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -2157,6 +2235,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>46</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1912</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -2180,6 +2259,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>194</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Edward</FirstName>
@@ -2212,6 +2292,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>193</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Edward</FirstName>
@@ -2236,6 +2317,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>258</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Jun 1925</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Adaline</FirstName>
@@ -2260,6 +2342,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>359</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Jan 1955</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Joe</FirstName>
@@ -2292,6 +2375,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>255</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Aug 1889</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Franklin</FirstName>
@@ -2311,6 +2395,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>256</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Aug 1889</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Franklin</FirstName>
@@ -2333,6 +2418,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>358</ID>
+        <Type>Other</Type>
         <DateOfDeath>13 Feb 1898</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Hanna</FirstName>
@@ -2349,7 +2435,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
 
 &lt;div&gt;&amp;nbsp;&lt;/div&gt;
 
-&lt;div&gt;Mrs. Hannah Fry, who will celebrate her 91st Birthday to-morrow -- the Mother of 9 children -- Sheared Sheep and Spun Wool in Her Younger Days&lt;/div&gt;
+&lt;div&gt;Mrs. Hannah Fry, who will celebrate her 91st Birthday tomorrow -- the Mother of 9 children -- Sheared Sheep and Spun Wool in Her Younger Days&lt;/div&gt;
 
 &lt;div&gt;&amp;nbsp;&amp;nbsp;Birdsboro: &amp;nbsp;In these days of hurry and scurry, disregard for the rules of hygiene and other regulations that conduces to longevity, one scarcely hears of the survival of a resident beyond the three score and ten limit. &amp;nbsp;Should there perchance be one who reached the age of &amp;quot;four score years,&amp;quot; such person is regarded as one specially favored by Providence, and the dwellers in the neighborhood flock to see him or her and listen to the recital of long ago happening and endeavoring to learn the secret of their drawn out lease of life.&lt;/div&gt;
 
@@ -2396,6 +2482,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>402</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Feb 1898</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Hannah</FirstName>
@@ -2419,6 +2506,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>403</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Feb 1898</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Hannah</FirstName>
@@ -2440,6 +2528,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>357</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Feb 1898</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Hannah</FirstName>
@@ -2459,6 +2548,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>368</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Aug 1903</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -2483,6 +2573,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>369</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Aug 1903</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -2505,6 +2596,7 @@ size=3 color=red&gt;ohngesahr]&lt;/font&gt;&lt;font size=3 color=black&gt; 62 Ja
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>526</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 2017</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Douglas</FirstName>
@@ -2534,6 +2626,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>533</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Jul 1994</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Eddie</FirstName>
@@ -2571,6 +2664,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>534</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Jul 1994</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Edgar</FirstName>
@@ -2606,6 +2700,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>518</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jul 1869</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -2622,6 +2717,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>517</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jul 1869</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -2638,6 +2734,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>489</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jun 1993</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -2665,6 +2762,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>524</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Jul 1996</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Lula</FirstName>
@@ -2695,6 +2793,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>74</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Apr 1928</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -2718,6 +2817,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>260</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Apr 1928</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -2740,6 +2840,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>259</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Apr 1928</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -2764,6 +2865,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>361</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Sep 1946</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -2792,6 +2894,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>362</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Sep 1946</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -2816,6 +2919,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>463</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Dec 1974</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Corinne</FirstName>
@@ -2851,6 +2955,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>497</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Oct 1954</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Abraham</FirstName>
@@ -2881,6 +2986,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>514</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Aug 1947</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -2905,6 +3011,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>512</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Aug 1947</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -2927,6 +3034,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>513</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Aug 1947</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -2959,6 +3067,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>110</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Mar 1953</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Clarence</FirstName>
@@ -2981,6 +3090,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>109</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Mar 1953</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Clarence</FirstName>
@@ -3009,6 +3119,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>279</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1954</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Daisy</FirstName>
@@ -3032,6 +3143,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>278</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1954</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Daisy</FirstName>
@@ -3062,6 +3174,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>277</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1954</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Daisy</FirstName>
@@ -3085,6 +3198,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>117</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jun 1960</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -3119,6 +3233,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>185</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jun 1960</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -3141,6 +3256,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>339</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Nov 1902</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -3167,6 +3283,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>97</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Apr 1941</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Harry</FirstName>
@@ -3195,6 +3312,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>7</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jul 1879</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Heber</FirstName>
@@ -3223,6 +3341,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>51</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 May 1919</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Herbert</FirstName>
@@ -3268,6 +3387,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>52</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 May 1919</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Herbert</FirstName>
@@ -3290,6 +3410,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>50</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 May 1919</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Herbert</FirstName>
@@ -3314,6 +3435,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>99</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Oct 1941</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Howard</FirstName>
@@ -3335,6 +3457,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>184</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Oct 1941</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Howard</FirstName>
@@ -3364,6 +3487,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>265</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Sep 1919</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -3389,6 +3513,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>404</ID>
+        <Type>Other</Type>
         <DateOfDeath>7 Sep 1919</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -3408,6 +3533,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>32</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 May 1902</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -3431,6 +3557,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>289</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 May 1902</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -3457,6 +3584,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>267</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Apr 1948</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Jonathan</FirstName>
@@ -3489,6 +3617,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>268</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Apr 1948</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Jonathan</FirstName>
@@ -3511,6 +3640,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>266</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Dec 1937</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Katherine</FirstName>
@@ -3541,6 +3671,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>125</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Feb 1975</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -3576,6 +3707,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>506</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Nov 1973</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>M</FirstName>
@@ -3596,6 +3728,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>505</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Nov 1973</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>M</FirstName>
@@ -3640,6 +3773,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>138</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jan 1932</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -3665,6 +3799,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>137</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jan 1932</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -3691,6 +3826,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>77</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jan 1932</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -3720,6 +3856,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>288</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Sep 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -3741,6 +3878,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>283</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Feb 1975</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -3776,6 +3914,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>270</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Jan 1951</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Ida</FirstName>
@@ -3800,6 +3939,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>108</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Jan 1951</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Ida</FirstName>
@@ -3830,6 +3970,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>563</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Nov 1938</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -3859,6 +4000,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>221</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Mar 1908</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Amanda</FirstName>
@@ -3884,6 +4026,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>220</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Mar 1908</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Amanda</FirstName>
@@ -3911,6 +4054,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>380</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Feb 1916</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -3933,6 +4077,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>222</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Feb 1916</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -3957,6 +4102,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>223</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Feb 1916</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -3983,6 +4129,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>437</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Sep 1948</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Nellie</FirstName>
@@ -4030,6 +4177,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>436</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Sep 1948</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Nellie</FirstName>
@@ -4057,6 +4205,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>435</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Sep 1948</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Nellie</FirstName>
@@ -4086,6 +4235,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>488</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Jun 1983</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -4119,6 +4269,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>545</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>10 Jun 1828</DateOfDeath>
         <FirstName>Peter</FirstName>
         <LastName>Herbein</LastName>
@@ -4138,6 +4289,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>381</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 May 1874</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Esther</FirstName>
@@ -4162,6 +4314,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>216</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Apr 1897</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Ezra</FirstName>
@@ -4190,6 +4343,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>217</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Apr 1897</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Ezra</FirstName>
@@ -4212,6 +4366,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>215</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Apr 1897</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Ezra</FirstName>
@@ -4233,6 +4388,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>218</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Apr 1905</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Hannah</FirstName>
@@ -4256,6 +4412,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>219</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Apr 1905</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Hannah</FirstName>
@@ -4279,6 +4436,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>370</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jul 1920</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lydia</FirstName>
@@ -4308,6 +4466,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>371</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jul 1920</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lydia</FirstName>
@@ -4330,6 +4489,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>365</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Aug 1913</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -4355,6 +4515,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>364</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Aug 1913</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -4379,6 +4540,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>547</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>29 Mar 1851</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -4400,6 +4562,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>225</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1908</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -4424,6 +4587,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>224</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1908</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -4457,6 +4621,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>244</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Feb 2005</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -4506,6 +4671,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>243</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Feb 2005</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -4529,6 +4695,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>245</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Feb 2005</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -4552,6 +4719,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>433</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Aug 1978</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Ozzie</FirstName>
@@ -4584,6 +4752,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>476</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Jan 1935</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -4612,6 +4781,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>477</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Feb 1933</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -4641,6 +4811,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>516</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Aug 1912</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -4664,6 +4835,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>515</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Aug 1912</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -4689,6 +4861,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>197</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Sep 1908</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Martha</FirstName>
@@ -4709,6 +4882,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>522</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Apr 1926</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Ezra</FirstName>
@@ -4744,6 +4918,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>523</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Dec 1919</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Rosannah</FirstName>
@@ -4770,6 +4945,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>329</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jan 1904</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -4791,6 +4967,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>328</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jan 1904</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -4814,6 +4991,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>330</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1909</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Edgar</FirstName>
@@ -4839,6 +5017,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>331</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1909</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Edgar</FirstName>
@@ -4862,6 +5041,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>412</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1945</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -4890,6 +5070,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>411</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1945</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -4914,6 +5095,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>410</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Feb 1945</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -4937,6 +5119,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>445</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 May 1970</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lizzie</FirstName>
@@ -4966,6 +5149,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>456</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Jan 2001</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Blanche</FirstName>
@@ -4988,6 +5172,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>453</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Jan 2006</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Harris</FirstName>
@@ -5009,6 +5194,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>478</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Nov 1939</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -5037,6 +5223,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>498</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 May 1955</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lillie</FirstName>
@@ -5069,6 +5256,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>558</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 May 1955</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lillie Belle</FirstName>
@@ -5087,6 +5275,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>557</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 May 1955</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lillie Belle</FirstName>
@@ -5109,6 +5298,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>444</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>31 Aug 1957</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Louis</FirstName>
@@ -5141,6 +5331,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>483</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Feb 1996</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Marie</FirstName>
@@ -5179,6 +5370,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>552</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Feb 1952</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Martha Elizabeth (Mattie Belle)</FirstName>
@@ -5199,6 +5391,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>553</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Feb 1952</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Martha Elizabeth (Mattie Belle)</FirstName>
@@ -5227,6 +5420,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>455</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Dec 1997</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Ollis</FirstName>
@@ -5263,6 +5457,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>554</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Jul 1966</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Windom</FirstName>
@@ -5295,6 +5490,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>541</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Apr 1995</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Zepho</FirstName>
@@ -5329,6 +5525,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>176</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1938</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Emma</FirstName>
@@ -5353,6 +5550,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>177</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1938</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Emma</FirstName>
@@ -5380,6 +5578,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>321</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 May 1927</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -5403,6 +5602,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>320</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 May 1927</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -5427,6 +5627,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>5</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Oct 1821</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Enoch</FirstName>
@@ -5451,6 +5652,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>6</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Dec 1824</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Maria</FirstName>
@@ -5478,6 +5680,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>492</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Jan 1928</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Fleetwood</FirstName>
@@ -5508,6 +5711,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>473</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Sep 1953</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Gillespie</FirstName>
@@ -5539,6 +5743,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>502</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Mar 1929</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -5564,6 +5769,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>202</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Oct 1958</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Joseph</FirstName>
@@ -5597,6 +5803,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>490</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Apr 1934</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Jule</FirstName>
@@ -5622,6 +5829,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>491</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Mar 1958</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Mozelle</FirstName>
@@ -5653,6 +5861,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>199</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Mar 1945</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Pearl</FirstName>
@@ -5695,6 +5904,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>200</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1959</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -5720,6 +5930,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>201</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1959</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -5751,6 +5962,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>261</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1900</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -5774,6 +5986,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>28</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1900</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Bertha</FirstName>
@@ -5796,6 +6009,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>13</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1890</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -5814,6 +6028,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>12</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1890</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -5834,6 +6049,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>163</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Jan 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ella</FirstName>
@@ -5858,6 +6074,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>61</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Jan 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -5887,6 +6104,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>164</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -5911,6 +6129,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>68</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -5934,6 +6153,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>84</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Jan 1935</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Lillian</FirstName>
@@ -5959,6 +6179,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>83</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Jan 1935</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Lillian</FirstName>
@@ -5988,6 +6209,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>38</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jan 1905</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Miranda</FirstName>
@@ -6009,6 +6231,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>37</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jan 1905</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Miranda</FirstName>
@@ -6028,6 +6251,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>36</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jan 1905</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Miranda</FirstName>
@@ -6048,6 +6272,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>35</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jan 1905</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Miranda</FirstName>
@@ -6067,6 +6292,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>493</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Jun 1902</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -6091,6 +6317,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>33</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Jun 1902</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -6113,6 +6340,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>21</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Apr 1895</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -6133,6 +6361,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>22</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Apr 1895</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -6153,6 +6382,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>23</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Apr 1895</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -6173,6 +6403,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>20</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Apr 1895</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -6193,13 +6424,13 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>19</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Apr 1895</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
         <LastName>Lebo</LastName>
         <NewspaperDate>4 Apr 1895</NewspaperDate>
         <NewspaperDay>Thursday</NewspaperDay>
-        <NewspaperHeading>NA</NewspaperHeading>
         <NewspaperName>Reading Eagle</NewspaperName>
         <Page>1</Page>
         <Link>http://news.google.com/newspapers?id=gKAhAAAAIBAJ&amp;sjid=G5oFAAAAIBAJ&amp;pg=6711%2C2580876</Link>
@@ -6209,6 +6440,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>73</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Willis</FirstName>
@@ -6233,6 +6465,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>72</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Willis</FirstName>
@@ -6257,6 +6490,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>71</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Willis</FirstName>
@@ -6283,6 +6517,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>546</ID>
+        <Type>Marriage</Type>
         <FirstName>Henry</FirstName>
         <LastName>Leiss</LastName>
         <NewspaperDate>2 Jan 1810</NewspaperDate>
@@ -6300,6 +6535,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>399</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Dec 1953</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Fridolin</FirstName>
@@ -6322,6 +6558,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>400</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Dec 1953</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Fridolin</FirstName>
@@ -6344,6 +6581,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>401</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Dec 1953</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Fridolin</FirstName>
@@ -6372,6 +6610,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>408</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Jul 1956</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Joseph</FirstName>
@@ -6393,6 +6632,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>409</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Jul 1956</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Jospeh</FirstName>
@@ -6422,6 +6662,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>548</ID>
+        <Type>Marriage</Type>
         <FirstName>John</FirstName>
         <LastName>Ludwig</LastName>
         <NewspaperDate>5 Feb 1811</NewspaperDate>
@@ -6439,6 +6680,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>82</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Jun 1934</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -6464,6 +6706,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>85</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Sep 1936</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -6492,6 +6735,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>262</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Sep 1936</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -6517,6 +6761,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>486</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Jul 2004</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Robert</FirstName>
@@ -6555,6 +6800,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>156</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Mar 2004</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Gene</FirstName>
@@ -6580,6 +6826,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>133</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Mar 2004</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Gene</FirstName>
@@ -6620,6 +6867,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>130</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Dec 1988</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -6678,6 +6926,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>464</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Jul 1970</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Alex</FirstName>
@@ -6715,6 +6964,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>447</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Jun 1966</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Clyde</FirstName>
@@ -6745,6 +6995,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>462</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Sep 1931</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Hugh</FirstName>
@@ -6776,6 +7027,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>457</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Nov 1934</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -6808,6 +7060,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>460</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1934</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Joseph</FirstName>
@@ -6836,6 +7089,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>461</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1934</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Joseph</FirstName>
@@ -6860,6 +7114,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>458</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Aug 1934</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -6888,6 +7143,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>448</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Feb 1975</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Louise</FirstName>
@@ -6921,6 +7177,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>459</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1971</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Mollie</FirstName>
@@ -6955,6 +7212,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>465</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Sep 1948</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Roger</FirstName>
@@ -6985,6 +7243,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>263</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Feb 1890</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -7002,6 +7261,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>510</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Feb 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -7026,6 +7286,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>509</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Feb 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -7051,6 +7312,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>374</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Jan 1911</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -7088,6 +7350,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>207</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Sep 1892</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Martha</FirstName>
@@ -7107,6 +7370,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>47</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 May 1913</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7131,6 +7395,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>313</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jun 1951</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Morris</FirstName>
@@ -7160,6 +7425,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>571</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>4 Mar 1940</DateOfDeath>
         <FirstName>Peter</FirstName>
         <LastName>Miller</LastName>
@@ -7180,6 +7446,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>187</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Mar 1940</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Peter</FirstName>
@@ -7207,6 +7474,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>407</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Feb 1912</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Phillip</FirstName>
@@ -7231,6 +7499,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>186</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Oct 1957</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -7256,6 +7525,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>317</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Oct 1957</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -7287,6 +7557,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>397</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -7315,6 +7586,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>398</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -7339,6 +7611,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>363</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Oct 1936</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Theodore</FirstName>
@@ -7365,6 +7638,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>405</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Sep 1904</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -7389,6 +7663,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>406</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Sep 1904</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -7413,6 +7688,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>210</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Jun 1956</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>M</FirstName>
@@ -7438,6 +7714,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>209</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Jun 1956</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>M</FirstName>
@@ -7477,6 +7754,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>414</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Jul 1944</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7505,6 +7783,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>481</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Dec 1942</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Hattie</FirstName>
@@ -7535,6 +7814,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>180</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Jan 1947</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Edith</FirstName>
@@ -7560,6 +7840,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>181</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Jan 1947</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Edith</FirstName>
@@ -7586,6 +7867,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>572</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>9 Feb 1906</DateOfDeath>
         <FirstName>Thomas</FirstName>
         <LastName>Milmore</LastName>
@@ -7607,6 +7889,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>182</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Feb 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Thomas</FirstName>
@@ -7631,6 +7914,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>183</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Feb 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Thomas</FirstName>
@@ -7659,6 +7943,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>316</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Feb 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Thomas</FirstName>
@@ -7682,6 +7967,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>272</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Jun 1919</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -7705,6 +7991,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>271</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Jun 1919</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -7730,6 +8017,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>511</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Aug 1885</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -7748,6 +8036,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>276</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Aug 1885</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -7771,6 +8060,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>274</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1897</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7796,6 +8086,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>275</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1897</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7819,6 +8110,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>273</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1897</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7842,6 +8134,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>507</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1897</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -7862,6 +8155,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>16</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Mar 1893</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -7884,6 +8178,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>15</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Mar 1893</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -7901,6 +8196,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>356</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Oct 1969</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Clyde</FirstName>
@@ -7930,6 +8226,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>54</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Mar 1922</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Edgar</FirstName>
@@ -7956,6 +8253,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>55</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Mar 1922</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Edgar</FirstName>
@@ -7977,6 +8275,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>165</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jul 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -7998,6 +8297,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>166</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jul 1906</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -8022,6 +8322,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>312</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Sep 1937</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Florence</FirstName>
@@ -8054,6 +8355,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>95</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Dec 1938</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -8083,6 +8385,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>96</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Dec 1938</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -8107,6 +8410,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>310</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Mar 1947</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Henrietta</FirstName>
@@ -8137,6 +8441,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>311</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Mar 1947</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Henrietta</FirstName>
@@ -8161,6 +8466,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>56</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 May 1923</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -8186,6 +8492,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>57</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 May 1923</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -8208,6 +8515,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>170</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Aug 1903</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -8228,6 +8536,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>169</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Aug 1903</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -8251,6 +8560,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>333</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Jun 1904</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -8275,6 +8585,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>332</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Jun 1904</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -8298,6 +8609,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>39</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Aug 1906</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -8320,6 +8632,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>336</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Aug 1906</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -8343,6 +8656,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>337</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Feb 1969</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -8371,6 +8685,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>338</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Feb 1969</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -8396,6 +8711,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>139</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Jul 1930</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Minnie</FirstName>
@@ -8420,6 +8736,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>140</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Jul 1930</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Minnie</FirstName>
@@ -8444,6 +8761,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>335</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jan 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -8469,6 +8787,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>334</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Jan 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -8489,6 +8808,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>293</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Jun 1987</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Cecelia</FirstName>
@@ -8523,6 +8843,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>294</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Jun 1987</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Cecelia</FirstName>
@@ -8548,6 +8869,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>154</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Feb 1935</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Charles</FirstName>
@@ -8567,6 +8889,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>153</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Feb 1935</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Charles</FirstName>
@@ -8587,6 +8910,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>396</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Sep 1884</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clarence</FirstName>
@@ -8609,6 +8933,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>395</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Sep 1884</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clarence</FirstName>
@@ -8631,6 +8956,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>292</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Oct 1969</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Clyde</FirstName>
@@ -8665,6 +8991,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>211</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1976</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -8701,6 +9028,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>212</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1976</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -8722,6 +9050,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>296</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Dec 1983</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Emma</FirstName>
@@ -8748,6 +9077,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>295</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Dec 1983</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Emma</FirstName>
@@ -8787,6 +9117,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>214</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Jan 1987</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Francis</FirstName>
@@ -8811,6 +9142,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>213</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Jan 1987</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Francis</FirstName>
@@ -8848,6 +9180,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>394</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>09 Oct 1908</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -8868,6 +9201,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>297</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jul 1990</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sylvester</FirstName>
@@ -8908,6 +9242,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>306</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jul 1990</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sylvester</FirstName>
@@ -8933,6 +9268,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>385</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Oct 1904</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -8950,6 +9286,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>175</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1895</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -8969,6 +9306,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>386</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Jun 1897</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Richard</FirstName>
@@ -8990,6 +9328,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>237</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Nov 1910</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -9015,6 +9354,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>236</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Nov 1910</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -9037,6 +9377,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>241</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Feb 1907</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -9059,6 +9400,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>242</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Feb 1907</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -9082,6 +9424,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>555</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Oct 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -9108,6 +9451,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>556</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Oct 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -9138,6 +9482,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>282</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Oct 1975</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -9174,6 +9519,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>280</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Oct 1975</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -9200,6 +9546,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>281</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Oct 1975</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -9222,6 +9569,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>487</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Mar 1939</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -9253,6 +9601,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>413</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Jul 2016</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Debra</FirstName>
@@ -9288,6 +9637,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>499</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Dec 1986</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Stanley</FirstName>
@@ -9308,6 +9658,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>500</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Dec 1986</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Stanley</FirstName>
@@ -9340,6 +9691,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>549</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>12 Sep 1828</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Valentine</FirstName>
@@ -9359,6 +9711,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>355</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Oct 1946</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Benjamin</FirstName>
@@ -9390,6 +9743,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>354</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Oct 1946</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Benjamin</FirstName>
@@ -9412,6 +9766,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>229</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Nov 1954</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laney</FirstName>
@@ -9441,6 +9796,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>230</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Nov 1954</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laney</FirstName>
@@ -9481,6 +9837,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>119</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1963</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ethel</FirstName>
@@ -9511,6 +9868,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>120</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Oct 1963</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ethel</FirstName>
@@ -9535,6 +9893,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>131</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jun 1995</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Forrest</FirstName>
@@ -9591,6 +9950,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>147</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 May 1976</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -9613,6 +9973,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>126</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 May 1976</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -9645,6 +10006,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>168</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Nov 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -9669,6 +10031,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>105</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Nov 1944</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Frederick</FirstName>
@@ -9699,6 +10062,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>376</ID>
+        <Type>Marriage</Type>
         <DateOfDeath>24 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -9733,6 +10097,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>89</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -9783,6 +10148,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>88</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -9832,6 +10198,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>90</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -9855,6 +10222,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>91</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Ithamar</FirstName>
@@ -9919,6 +10287,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>49</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Aug 1917</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -9944,6 +10313,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>387</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Aug 1917</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -9966,6 +10336,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>128</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Dec 1977</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -10007,6 +10378,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>160</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Dec 1977</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Laura</FirstName>
@@ -10032,6 +10404,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>122</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Feb 1967</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Maizie</FirstName>
@@ -10055,6 +10428,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>121</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Feb 1967</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mazie</FirstName>
@@ -10083,6 +10457,7 @@ href=www.bathfbc.org&gt;www.bathfbc.org&lt;/a&gt;)&lt;/div&gt;
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>484</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Jul 2014</DateOfDeath>
         <FirstName>Robert</FirstName>
         <Middle>Edgar</Middle>
@@ -10117,6 +10492,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>238</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 May 1942</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -10140,6 +10516,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>161</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1970</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -10162,6 +10539,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>162</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>22 Nov 1970</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -10194,6 +10572,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>101</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 May 1942</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -10224,6 +10603,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>300</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Mar 1876</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -10248,6 +10628,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>299</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 Jul 1887</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Martin</FirstName>
@@ -10266,6 +10647,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>470</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Aug 1875</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -10288,6 +10670,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>159</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Apr 1984</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -10312,6 +10695,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>129</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Apr 1984</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -10342,6 +10726,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>286</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Feb 1951</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Walter</FirstName>
@@ -10386,6 +10771,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>284</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Feb 1951</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Walter</FirstName>
@@ -10496,6 +10882,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>287</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Feb 1951</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Walter</FirstName>
@@ -10520,6 +10907,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>249</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Dec 1931</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Amelia</FirstName>
@@ -10543,6 +10931,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>248</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Dec 1931</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Amelia</FirstName>
@@ -10567,6 +10956,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>196</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Apr 1900</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -10591,6 +10981,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>195</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Apr 1900</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -10614,6 +11005,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>204</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Mar 1925</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -10637,6 +11029,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>203</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Mar 1925</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>George</FirstName>
@@ -10664,6 +11057,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>234</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -10687,6 +11081,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>235</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Feb 1937</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -10711,6 +11106,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>233</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Apr 1931</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -10735,6 +11131,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>232</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Apr 1931</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -10758,6 +11155,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>379</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Obadiah</FirstName>
@@ -10782,6 +11180,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>205</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Obediah</FirstName>
@@ -10805,6 +11204,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>240</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Mar 1931</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -10829,6 +11229,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>239</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Mar 1931</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -10852,6 +11253,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>251</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Apr 1899</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -10876,6 +11278,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>250</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Apr 1899</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -10899,6 +11302,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>247</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Feb 1935</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -10922,6 +11326,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>246</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Feb 1935</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -10957,6 +11362,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>519</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Sep 1823</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Peter</FirstName>
@@ -10977,6 +11383,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>30</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Nov 1900</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -11000,6 +11407,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>29</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Nov 1900</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -11023,6 +11431,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>148</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1893</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -11046,6 +11455,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>136</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1893</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -11072,6 +11482,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>17</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Aug 1893</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Ellen</FirstName>
@@ -11097,6 +11508,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>62</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Enoch</FirstName>
@@ -11120,6 +11532,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>63</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Enoch</FirstName>
@@ -11144,6 +11557,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>64</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Enoch</FirstName>
@@ -11165,6 +11579,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>65</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jan 1927</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Enoch</FirstName>
@@ -11191,6 +11606,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>191</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1906</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Esther</FirstName>
@@ -11217,6 +11633,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>190</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1906</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Esther</FirstName>
@@ -11239,6 +11656,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>325</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1906</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Esther Hattie</FirstName>
@@ -11262,6 +11680,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>149</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Sep 1931</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Helen</FirstName>
@@ -11285,6 +11704,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>150</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Sep 1931</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Helen</FirstName>
@@ -11309,6 +11729,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>151</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Sep 1931</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Helen</FirstName>
@@ -11339,6 +11760,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>142</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Jul 1932</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Isaac</FirstName>
@@ -11362,6 +11784,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>141</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Jul 1932</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Isaac</FirstName>
@@ -11386,6 +11809,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>26</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jul 1899</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -11406,6 +11830,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>27</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jul 1899</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -11427,6 +11852,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>254</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jul 1899</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -11448,6 +11874,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>144</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1929</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Kathryn</FirstName>
@@ -11475,6 +11902,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>143</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1929</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Kathryn</FirstName>
@@ -11500,6 +11928,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>326</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -11526,6 +11955,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>189</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -11553,6 +11983,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>188</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -11576,6 +12007,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>69</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Susan</FirstName>
@@ -11604,6 +12036,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>70</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Aug 1927</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Susan</FirstName>
@@ -11628,6 +12061,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>76</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 May 1930</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -11651,6 +12085,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>75</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>28 May 1930</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -11675,6 +12110,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>66</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Apr 1927</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Benadict</FirstName>
@@ -11697,6 +12133,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>106</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Apr 1947</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -11723,6 +12160,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>107</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Apr 1947</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -11747,6 +12185,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>67</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Apr 1927</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Benadict</FirstName>
@@ -11768,6 +12207,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>352</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Apr 1909</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Abraham</FirstName>
@@ -11788,6 +12228,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>508</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Apr 1909</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Abraham</FirstName>
@@ -11812,6 +12253,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>340</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 Apr 1909</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Abraham</FirstName>
@@ -11835,6 +12277,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>350</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Ann</FirstName>
@@ -11862,6 +12305,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>264</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>2 Sep 1922</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Anna</FirstName>
@@ -11890,6 +12334,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>341</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -11914,6 +12359,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>342</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -11937,6 +12383,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>345</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -11963,6 +12410,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>346</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -11986,6 +12434,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>344</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Feb 1925</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -12009,6 +12458,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>343</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>4 Feb 1925</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -12037,6 +12487,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>349</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Aug 1918</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -12063,6 +12514,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>348</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Aug 1918</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jacob</FirstName>
@@ -12102,6 +12554,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>351</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jul 1895</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -12121,6 +12574,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>366</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Nov 1943</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Elwood</FirstName>
@@ -12150,6 +12604,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>227</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Oct 1895</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -12166,6 +12621,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>231</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Oct 1895</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -12189,6 +12645,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>226</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Jul 1903</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -12214,6 +12671,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>152</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Jul 1903</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -12239,6 +12697,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>425</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>8 Nov 2007</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Beverly</FirstName>
@@ -12259,6 +12718,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>426</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>29 Feb 2008</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Michael</FirstName>
@@ -12278,6 +12738,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>542</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 May 1946</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Bascom</FirstName>
@@ -12304,6 +12765,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>544</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 May 1946</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Bascom</FirstName>
@@ -12319,6 +12781,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>543</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>12 May 1946</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Bascom</FirstName>
@@ -12342,6 +12805,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>503</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jul 1976</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -12370,6 +12834,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>504</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jul 1976</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -12404,6 +12869,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>566</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>20 Dec 1967</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Anne</FirstName>
@@ -12435,6 +12901,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>421</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Apr 2009</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Betty</FirstName>
@@ -12454,6 +12921,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>568</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Mar 1962</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Charles</FirstName>
@@ -12483,6 +12951,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>420</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Feb 2012</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Deloris</FirstName>
@@ -12503,6 +12972,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>423</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Jun 2003</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Dorothy</FirstName>
@@ -12522,6 +12992,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>424</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Jun 2003</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Dorothy</FirstName>
@@ -12546,6 +13017,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>539</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Apr 1969</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Eugene</FirstName>
@@ -12581,6 +13053,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>530</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1926</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Eunice</FirstName>
@@ -12617,6 +13090,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>532</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1926</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Eunice</FirstName>
@@ -12663,6 +13137,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>531</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1926</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Eunice</FirstName>
@@ -12701,6 +13176,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>529</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Aug 1926</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Eunice</FirstName>
@@ -12743,6 +13219,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>567</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Oct 1982</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Eunice</FirstName>
@@ -12776,6 +13253,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>535</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Jun 1980</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Evie</FirstName>
@@ -12810,6 +13288,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>430</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Apr 1986</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -12838,6 +13317,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>429</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Apr 1986</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Floyd</FirstName>
@@ -12874,6 +13354,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>422</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Dec 1945</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Gerald</FirstName>
@@ -12912,6 +13393,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>565</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Oct 1965</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -12936,6 +13418,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>432</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Nov 1981</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -12972,6 +13455,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>452</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Dec 2004</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Herschel</FirstName>
@@ -12992,6 +13476,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>446</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Nov 1968</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -13020,6 +13505,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>528</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 Nov 1968</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>James</FirstName>
@@ -13049,6 +13535,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>417</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Feb 1992</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Jewell</FirstName>
@@ -13081,6 +13568,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>418</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Feb 1992</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Jewell</FirstName>
@@ -13115,6 +13603,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>419</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Mar 2012</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Jimmie</FirstName>
@@ -13134,6 +13623,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>450</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 May 1962</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -13163,6 +13653,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>431</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1987</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -13203,6 +13694,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>416</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Jun 1965</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Kendrick</FirstName>
@@ -13233,6 +13725,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>449</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Dec 1961</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Leila</FirstName>
@@ -13265,6 +13758,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>562</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Nov 1941</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lessie</FirstName>
@@ -13294,6 +13788,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>480</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Jun 1965</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Norma</FirstName>
@@ -13314,6 +13809,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>479</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Jun 1965</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Norma</FirstName>
@@ -13344,6 +13840,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>451</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jan 2003</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Okella</FirstName>
@@ -13364,6 +13861,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>536</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Apr 1939</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Oscar</FirstName>
@@ -13391,6 +13889,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>540</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>21 Dec 1969</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Ruth</FirstName>
@@ -13427,6 +13926,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>434</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Sep 1969</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -13460,6 +13960,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>538</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>02 Dec 1964</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Turner</FirstName>
@@ -13478,6 +13979,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>537</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>02 Dec 1964</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Turner</FirstName>
@@ -13506,6 +14008,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>564</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>26 Feb 1954</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Virginia</FirstName>
@@ -13536,6 +14039,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>551</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Dec 1964</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Washington</FirstName>
@@ -13557,6 +14061,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>454</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>7 Dec 1964</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Washington</FirstName>
@@ -13583,6 +14088,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>427</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Dec 1986</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Willie</FirstName>
@@ -13617,6 +14123,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>428</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Dec 1986</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Willie</FirstName>
@@ -13647,6 +14154,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>252</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Aug 1908</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Daniel</FirstName>
@@ -13669,6 +14177,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>253</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Aug 1908</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Daniel</FirstName>
@@ -13692,6 +14201,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>323</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Sep 1908</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -13716,6 +14226,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>322</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>1 Sep 1908</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Elizabeth</FirstName>
@@ -13740,6 +14251,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>290</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Nov 1951</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Margaret</FirstName>
@@ -13768,6 +14280,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>291</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Nov 1951</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Margaret</FirstName>
@@ -13793,6 +14306,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>103</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Apr 1943</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -13817,6 +14331,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>102</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Apr 1943</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -13843,6 +14358,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>179</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Mar 1968</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -13874,6 +14390,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>178</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>10 Mar 1968</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -13900,6 +14417,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>59</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Aug 1925</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -13922,6 +14440,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>60</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>30 Aug 1925</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>Sallie</FirstName>
@@ -13945,6 +14464,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>307</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Augustus</FirstName>
@@ -13966,6 +14486,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>308</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Mar 1926</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Augustus</FirstName>
@@ -13990,6 +14511,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>146</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Oct 1938</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -14017,6 +14539,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>145</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>24 Oct 1938</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Rebecca</FirstName>
@@ -14048,6 +14571,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>208</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>9 Sep 1899</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -14073,6 +14597,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>560</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>19 Jan 1994</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <FirstName>Kathleen</FirstName>
@@ -14098,6 +14623,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>561</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 Dec 1990</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Lonnie</FirstName>
@@ -14133,6 +14659,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>383</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Jul 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -14162,6 +14689,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>382</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>17 Jul 1926</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Mary</FirstName>
@@ -14186,6 +14714,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>92</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jun 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Thomas</FirstName>
@@ -14216,6 +14745,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>269</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>25 Jun 1937</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Thomas</FirstName>
@@ -14240,6 +14770,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>443</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>15 Feb 1877</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>David</FirstName>
@@ -14260,6 +14791,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>198</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>13 May 1872</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Lydia</FirstName>
@@ -14279,6 +14811,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>378</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jan 1921</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -14301,6 +14834,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>377</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jan 1921</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Catharine</FirstName>
@@ -14324,6 +14858,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>372</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 May 1927</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Helen</FirstName>
@@ -14348,6 +14883,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>373</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>14 May 1927</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Helen</FirstName>
@@ -14368,6 +14904,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>324</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Aug 1920</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Minerva</FirstName>
@@ -14394,6 +14931,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>134</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Aug 1920</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Minerva</FirstName>
@@ -14419,6 +14957,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>135</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Aug 1920</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <FirstName>Minerva</FirstName>
@@ -14446,6 +14985,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>174</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jun 1977</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Raymond</FirstName>
@@ -14470,6 +15010,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>173</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>27 Jun 1977</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Raymond</FirstName>
@@ -14506,6 +15047,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>41</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Dec 1908</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -14513,7 +15055,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
         <MaidenName>Lebo</MaidenName>
         <NewspaperDate>12 Dec 1908</NewspaperDate>
         <NewspaperDay>Saturday</NewspaperDay>
-        <NewspaperHeading>Former resident dies in france</NewspaperHeading>
+        <NewspaperHeading>Former resident dies in France</NewspaperHeading>
         <NewspaperName>Reading Eagle</NewspaperName>
         <Page>1</Page>
         <Link>http://news.google.com/newspapers?id=3o0uAAAAIBAJ&amp;sjid=fZoFAAAAIBAJ&amp;pg=4374%2C1220062</Link>
@@ -14527,6 +15069,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>42</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Dec 1908</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Clara</FirstName>
@@ -14549,6 +15092,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>34</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>16 Oct 1903</DateOfDeath>
         <DayOfTheWeek>Friday</DayOfTheWeek>
         <FirstName>Henry</FirstName>
@@ -14572,6 +15116,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>521</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>23 Jul 1929</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>John</FirstName>
@@ -14597,6 +15142,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>367</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>5 Jun 1880</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Samuel</FirstName>
@@ -14619,6 +15165,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>304</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>31 Mar 1896</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Caroline</FirstName>
@@ -14636,6 +15183,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>305</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>31 Mar 1896</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Caroline</FirstName>
@@ -14658,6 +15206,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>391</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>3 Apr 1877</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <FirstName>Jonathan</FirstName>
@@ -14684,6 +15233,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>53</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Nov 1920</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Percival</FirstName>
@@ -14707,6 +15257,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>388</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>6 Nov 1920</DateOfDeath>
         <DayOfTheWeek>Saturday</DayOfTheWeek>
         <FirstName>Percival</FirstName>
@@ -14731,6 +15282,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>389</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Dec 1933</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -14757,6 +15309,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>390</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>18 Dec 1933</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
         <FirstName>Sarah</FirstName>
@@ -14779,10 +15332,10 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
 
 &lt;div&gt;&amp;nbsp;&lt;/div&gt;</Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
-
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>303</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Feb 1894</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -14808,6 +15361,7 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>302</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Feb 1894</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -14828,10 +15382,10 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
 
 &lt;div&gt;&amp;nbsp;&lt;/div&gt;</Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
-
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>301</ID>
+        <Type>Obituary</Type>
         <DateOfDeath>11 Feb 1894</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
         <FirstName>William</FirstName>
@@ -14847,4 +15401,44 @@ href=www.cocklinfuneralhome.com&gt;www.cocklinfuneralhome.com&lt;/a&gt;&lt;/div&
         <Transcription>&lt;div&gt;Wm. H. Zerbe died of heart disease Sunday night, at his residence, 1160 Perkiomen Ave. &amp;nbsp;He was in good spirits and apparently in the best of health all of Sunday, but shortly after retiring &amp;nbsp;he was seized with a coughing spell. &amp;nbsp;His wife went to his assistance and asked him what she could do for him, when he remarked, &amp;quot;It&apos;s all over, &amp;quot; and he requested that his son, Oliver W., be sent for. &amp;nbsp;Mr. Zerbe died shortly after. &amp;nbsp;He was born in &amp;nbsp;the vicinity of Millersburg and led a venturesome life in his early days having joined the 49ers in California, made the trip overland and rounded Cap Horn. &amp;nbsp;He visited South American countries, and during the late war was an attachee of the provost marshal&apos;s office in this city. &amp;nbsp;Before the war he was clerk at Mishler&apos;s hotel where the Central house now stands, and later held the same position at the Lititz Springs hotel. &amp;nbsp;For the past 13 years he was in the employ of Isaac W Keim, liquor dealor. &amp;nbsp;He was 69 years of age, had an extensive acquaintance, and was well liked. &amp;nbsp;His wife and 4 children; Mrs. Benj Focht, Miss Emma L., George L. and Oliver W., besides 13 grandchildren, survive. &amp;nbsp;Mrs. Wm. Lebo and Percival Zerbe, both of this city, are sister and brother.&lt;/div&gt;</Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>573</ID>
+        <Type>Marriage</Type>
+        <FirstName>Samuel</FirstName>
+        <LastName>Stanley</LastName>
+        <NewspaperName>Reading Eagle</NewspaperName>
+        <NewspaperDate>27 Feb 1907</NewspaperDate>
+        <NewspaperDay>Wednesday</NewspaperDay>
+        <NewspaperHeading>WEDDINGS</NewspaperHeading>
+        <Page>4</Page>
+        <Column>4</Column>
+        <Link>https://news.google.com/newspapers?id=G4UtAAAAIBAJ&amp;sjid=uZkFAAAAIBAJ&amp;pg=4710%2C2398346</Link>
+        <Transcription>&lt;h4&gt;Stanley-Morrison&lt;/h4&gt;&lt;p&gt;Samuel Carroll Stanley, son of William J. and Matilda Stanley, 209 Franklin street, and Margaret B. Morrison, 747 North Eight street, will be married this evening.&lt;/p&gt;</Transcription>
+        <EnteredOnAncestry>0</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+	
+	<!--
+    <SortedNewspaperLinks>
+        <ID></ID>
+        <Type></Type>
+        <FirstName></FirstName>
+        <Middle></Middle>
+        <LastName></LastName>
+		<MaidenName></MaidenName>
+        <DateOfDeath></DateOfDeath>
+        <DayOfTheWeek></DayOfTheWeek>
+        <NewspaperName></NewspaperName>
+        <NewspaperDate></NewspaperDate>
+        <NewspaperDay></NewspaperDay>
+        <NewspaperHeading></NewspaperHeading>
+        <Page></Page>
+        <Column></Column>
+        <BurialDate></BurialDate>
+        <BurialDay></BurialDay>
+        <Link></Link>
+		<Notes></Notes>
+        <Transcription></Transcription>
+        <EnteredOnAncestry></EnteredOnAncestry>
+    </SortedNewspaperLinks>
+	-->
 </dataroot>

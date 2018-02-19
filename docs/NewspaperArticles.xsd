@@ -11,6 +11,7 @@
         <xsd:complexType>
             <xsd:all>
                 <xsd:element name="ID" minOccurs="1" maxOccurs="1" type="xsd:int"/>
+                <xsd:element name="Type" minOccurs="1" maxOccurs="1" type="_Types"/>
                 
                 <xsd:element name="FirstName" minOccurs="1" maxOccurs="1" type="xsd:string"/>
                 <xsd:element name="Middle" minOccurs="0" type="xsd:string"/>
@@ -97,6 +98,13 @@
             <xsd:enumeration value="Hood County News"/>
             <xsd:enumeration value="The News Journal"/>
             <xsd:enumeration value="Washington County Georgia Newspaper Clippings"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="_Types">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Obituary"/>
+            <xsd:enumeration value="Marriage"/>
+            <xsd:enumeration value="Other"/>
         </xsd:restriction>
     </xsd:simpleType>
 </xsd:schema>
