@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name="description" content="Carnell-Rettgers Genealogy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Github Style Sheet -->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    
+    <!-- Bootstrap 3.3.2 for development (local copy) -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    
+    <!-- Boostrap 3.3.2 CDN for faster deployment -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+    <title>Carnell-Rettgers Genealogy</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="outer">
+          <a id="forkme_banner" href="https://github.com/bertcarnell/genealogy-pages">View on GitHub</a>
+
+          <h1 id="project_title">Carnell-Rettgers Genealogy</h1>
+          <h2 id="project_tagline">Connell-Langston, Smith-Josey, Rettgers-Hartenstine, Fett-Bechtel</h2>
+        </header>
+    </div>
+
+    <!--<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="military.html"><span class="glyphicon glyphicon-star"></span> Military <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="military.html">Military Units</a></li>
+                <li><a href="serviceMembers.html">Service Members</a></li>
+              </ul>
+            </li>
+            <li><a href="research.html"><span class="glyphicon glyphicon-search"></span> Research</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/bertcarnell/genealogy-pages/zipball/master"><span class="glyphicon glyphicon-download"> .zip</span></a></li>
+            <li><a href="https://github.com/bertcarnell/genealogy-pages/tarball/master"><span class="glyphicon glyphicon-download"> .tar.gz</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>-->
+ 
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header" id="navbarElement1"></div><script>$('#navbarElement1').load("navbar1.html");</script>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li class="dropdown" id="dropdownElement"></li>
+            <li><a href="research.html"><span class="glyphicon glyphicon-search"></span> Research</a></li>
+          </ul>
+          <script>$('#dropdownElement').load("dropdownmilitary.html");</script>
+          <div id="navbarElement2"></div><script>$('#navbarElement2').load("navbar2.html");</script>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-1" style="background-color:white;"></div>
+        <div class="col-sm-3" style="background-color:white;">
+          <h2>Family Trees</h2>
+          <ul>
+            <li><a href="www.ancestry.com">Ancestry.com</a></li>
+            <li><a href="www.familysearch.com">Family Search</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3" style="background-color:white;">
+          <h2>Societies</h2>
+          <ul>
+            <li><a href="https://www.sar.org/">National Society Sons of the American Revolution</a></li>
+            <li><a href="http://www.dar.org/">National Society Daughters of the American Revolution</a></li>
+            <li><a href="http://www.scv.org/">Sons of Confederate Veterans</a></li>
+            <li><a href="http://www.suvcw.org/">Sons of Union Veterans of the Civil War</a></li>
+            <li><a href="http://valleyforgesociety.com/">Society of the Descendants of Washington's Army at Valley Forge</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3" style="background-color:white;">
+          <h2>Newspapers</h2>
+          <ul>
+            <li><a href="http://www.newspapers.com">Newspapers.com</a></li>
+            <li><a href="http://news.google.com/newspapers">Google Newspapers</a></li>  
+          </ul>
+        </div>
+        <div class="col-sm-2" style="background-color:white;"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1" style="background-color:white;"></div>
+        <div class="col-sm-3" style="background-color:white;">
+          <h2>Research</h2>
+          <ul>
+            <li><a href="http://www.fold3.com">Fold3</a></li>
+            <li><a href="http://georgiapioneers.com/">Georgia Pioneers</a></li>
+            <li><a href="http://www.usgwarchives.net/">USGenWeb Archives</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3" style="background-color:white;">
+          <h2>Graves</h2>
+            <ul>
+              <li><a href="http://www.findagrave.com/index.html">FindAGrave</a></li>
+              <li><a href="http://billiongraves.com/">Billion Graves Project</a></li>
+              <li><a href="http://www.arlingtoncemetery.mil/">Arlington National Cemetery</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-3" style="background-color:white;">
+        </div>
+        <div class="col-sm-2" style="background-color:white;"></div>
+      </div>
+    </div>
+    
+    <!-- FOOTER  -->
+    <div id="footerElement"></div>
+    <script>$('#footerElement').load("footer.html");</script>
+
+  </body>
+</html>
