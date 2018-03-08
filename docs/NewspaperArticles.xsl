@@ -36,6 +36,9 @@
             </ul>
             <code style="background-color:#eee;border:1px solid #999;display:block;padding:20px;">
                 <xsl:value-of disable-output-escaping="yes" select="Transcription"/>
+                <xsl:if test="Translation">
+                    <xsl:value-of disable-output-escaping="yes" select="Translation"/>
+                </xsl:if>
             </code>
         </xsl:for-each>
     </xsl:template>

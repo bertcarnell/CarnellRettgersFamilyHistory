@@ -14,7 +14,6 @@
           xhttp = new XMLHttpRequest();
         }
         xhttp.open("GET", filename, false);
-        try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
         xhttp.send("");
         return xhttp.responseXML;
       }
@@ -24,7 +23,7 @@
         xml = loadXMLDoc("NewspaperArticles.xml");
         xsl = loadXMLDoc("NewspaperArticles.xsl");
         // code for IE
-        if (window.ActiveXObject || xhttp.responseType == "msxml-document")
+        if (window.ActiveXObject)
         {
           ex = xml.transformNode(xsl);
           document.getElementById("article_zone").innerHTML = ex;
@@ -43,6 +42,7 @@
     <style>
       p {text-indent: 10pt;}
     </style>
+    <link rel="shortcut icon" href="#" />
     <title>Newspaper Articles</title>
   </head>
   <body onload="displayResult()">

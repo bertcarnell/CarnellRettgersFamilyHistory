@@ -34,6 +34,7 @@
                 <xsd:element name="BurialDay" minOccurs="0" maxOccurs="1" type="_Day"/>
 
                 <xsd:element name="Transcription" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+                <xsd:element name="Translation" minOccurs="0" maxOccurs="1" type="xsd:string"/>
 
                 <xsd:element name="Notes" minOccurs="0" maxOccurs="1" type="xsd:string"/>
                 <xsd:element name="EnteredOnAncestry" minOccurs="1" maxOccurs="1" type="xsd:boolean"/>
@@ -86,7 +87,7 @@
             <xsd:enumeration value="The State"/>
             <xsd:enumeration value="Charleston News and Courier"/>
             <xsd:enumeration value="The Patriot"/>
-            <xsd:enumeration value="Sunday Patriot -- News"/>
+            <xsd:enumeration value="Sunday Patriot &#8212; News"/>
             <xsd:enumeration value="The Evening News"/>
             <xsd:enumeration value="Post and Courier"/>
             <xsd:enumeration value="Altoona Tribune"/>
