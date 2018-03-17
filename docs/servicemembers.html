@@ -6,10 +6,6 @@
     <meta name="description" content="Carnell-Rettgers Genealogy: Service Members">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Github Style Sheet -->
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    
-    <!-- Bootstrap 3.3.2 for development (local copy) -->
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="javascripts/bootstrap.min.js"></script>
@@ -24,6 +20,8 @@
 
   <body>
 
+    <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
+
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="outer">
@@ -32,21 +30,6 @@
         </header>
     </div>
 
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header" id="navbarElement1"></div><script>$('#navbarElement1').load("navbar1.html");</script>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-            <li class="dropdown active" id="dropdownElement"></li>
-            <li><a href="research.html"><span class="glyphicon glyphicon-search"></span> Research</a></li>
-          </ul>
-          <script>$('#dropdownElement').load("dropdownmilitary.html");</script>
-          <div id="navbarElement2"></div><script>$('#navbarElement2').load("navbar2.html");</script>
-        </div>
-      </div>
-    </nav>
-    
     <div class="container-fluid">
       <ul>
         <li><span class="glyphicon glyphicon-arrow-down"></span> Direct Descendant</li>
@@ -390,8 +373,7 @@
 
     </div>
 
-    <div id="footerElement"></div>
-    <script>$('#footerElement').load("footer.html");</script>
+    <div id="includeFooter"></div><script>$("#includeFooter").load("footer.html");</script>
 
   </body>
 </html>

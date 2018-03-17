@@ -2,56 +2,94 @@
 <html lang="en">
 
   <head>
-    <meta charset='utf-8'>
-    <meta name="description" content="Carnell-Rettgers Genealogy">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset='utf-8'/>
+    <meta name="description" content="Carnell-Rettgers Genealogy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Robert Carnell"/>
 
-    <!-- Github Style Sheet -->
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    
-    <!-- Bootstrap 3.3.2 for development (local copy) -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Bicentennial Logo:  https://en.wikipedia.org/wiki/United_States_Bicentennial -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="javascripts/bootstrap.min.js"></script>
     
-    <!-- Boostrap 3.3.2 CDN for faster deployment -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    
+    <style>
+      .carousel-inner img {min-width:100%}
+      .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+    </style>
     <title>Carnell-Rettgers Family History</title>
   </head>
 
   <body>
 
-    <div id="header_wrap" class="outer">
-        <header class="outer">
-          <h1 id="project_title">Carnell-Rettgers Family History</h1>
-          <h2 id="project_tagline">Connell-Langston, Smith-Josey, Rettgers-Hartenstine, Fett-Bechtel</h2>
-        </header>
-    </div>
+    <!-- Header -->
+    <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
 
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header" id="navbarElement1"></div><script>$('#navbarElement1').load("navbar1.html");</script>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-            <li class="dropdown" id="dropdownElement"></li>
-            <li><a href="research.html"><span class="glyphicon glyphicon-search"></span> Research</a></li>
-          </ul>
-          <script>$('#dropdownElement').load("dropdownmilitary.html");</script>
-          <div id="navbarElement2"></div>
-          <script>$('#navbarElement2').load("navbar2.html");</script>
+    <div id="NormanRockwellCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="images/Norman Rockwell To Make Men Free - 1776.png" alt="1776">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1812.png" alt="1812">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1846.png" alt="1846">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1861.png" alt="1861">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1898.png" alt="1898">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1918.png" alt="1918">
+        </div>
+        <div class="item">
+          <img src="images/Norman Rockwell To Make Men Free - 1941.png" alt="1941">
         </div>
       </div>
-    </nav>
+      <a class="left carousel-control" href="#NormanRockwellCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#NormanRockwellCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>          
+    </div>
+    
+    <div class="jumbotron-fluid" style="padding-left:15px">
+      <h1>Carnell-Rettgers Family History</h1>
+      <h3>Connell-Langston, Smith-Josey, Rettgers-Hartenstine, Fett-Bechtel</h3>
+    </div>
+    
+    <hr>
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-1" style="background-color:white;"></div>
+        <div class="col-sm-9" style="background-color:white;">
+          <h2>Family Information</h2>
+          <ul>
+            <li><a href="NewspaperArticles.html" target="_blank">Newspaper Articles 1800-2018</a></li>
+            <li><a href="GermanArticles.html" target="_blank">German News Articles</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-2" style="background-color:white;"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1" style="background-color:white;"></div>
         <div class="col-sm-3" style="background-color:white;">
-          <h2>Family Trees</h2>
+          <h2>Online Genealogy</h2>
           <ul>
             <li><a href="www.ancestry.com" target="_blank">Ancestry.com</a></li>
             <li><a href="www.familysearch.com" target="_blank">Family Search</a></li>
@@ -70,8 +108,6 @@
         <div class="col-sm-3" style="background-color:white;">
           <h2>Newspapers</h2>
           <ul>
-            <li><a href="NewspaperArticles.html" target="_blank">Carnell-Rettgers News Articles</a></li>
-            <li><a href="GermanArticles.html" target="_blank">Carnell-Rettgers German News Articles</a></li>
             <li><a href="http://www.newspapers.com" target="_blank">Newspapers.com</a></li>
             <li><a href="http://news.google.com/newspapers" target="_blank">Google Newspapers</a></li>  
           </ul>
@@ -89,7 +125,7 @@
           </ul>
         </div>
         <div class="col-sm-3" style="background-color:white;">
-          <h2>Graves</h2>
+          <h2>Cemeteries</h2>
             <ul>
               <li><a href="http://www.findagrave.com/index.html" target="_blank">FindAGrave</a></li>
               <li><a href="http://billiongraves.com/" target="_blank">Billion Graves Project</a></li>
@@ -97,14 +133,18 @@
             </ul>
         </div>
         <div class="col-sm-3" style="background-color:white;">
+          <h2>Software</h2>
+          <ul>
+            <li><a href="https://gramps-project.org/introduction-WP/" target="_blank">Gramps</a></li>
+            <li><a href="https://www.mackiev.com/ftm/" target="_blank">Family Tree Maker</a></li>
+          </ul>
         </div>
         <div class="col-sm-2" style="background-color:white;"></div>
       </div>
     </div>
     
-    <!-- FOOTER  -->
-    <div id="footerElement"></div>
-    <script>$('#footerElement').load("footer.html");</script>
+    <!-- Footer -->
+    <div id="includeFooter"></div><script>$("#includeFooter").load("footer.html");</script>
 
   </body>
 </html>
