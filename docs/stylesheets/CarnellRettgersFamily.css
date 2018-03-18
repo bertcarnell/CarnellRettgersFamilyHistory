@@ -11,3 +11,21 @@
     color: #999999;
     font-weight: bold;
 }
+
+.newspaper {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 90%;
+}
+
+.fraktur {
+    font-family: UniFrakturMaguntia; 
+    font-size: x-large;
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+}

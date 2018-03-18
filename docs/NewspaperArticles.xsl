@@ -34,12 +34,12 @@
                     </li>
                 </xsl:if>
             </ul>
-            <code style="background-color:#eee;border:1px solid #999;display:block;padding:20px;">
+            <div class="newspaper">
                 <xsl:value-of disable-output-escaping="yes" select="Transcription"/>
                 <xsl:if test="Translation">
                     <xsl:value-of disable-output-escaping="yes" select="Translation"/>
                 </xsl:if>
-            </code>
+            </div>
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

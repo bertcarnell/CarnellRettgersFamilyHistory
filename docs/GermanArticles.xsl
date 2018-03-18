@@ -23,13 +23,13 @@
                     <li><xsl:value-of select="concat($varNewspaperName, ', ', $varNewspaperDay, ', ', $varNewspaperDate, ', pg: ', $varNewspaperPage, ', column: ', $varNewspaperColumn)"/></li>
                 </ul>
 
-                <div class="fraktur" style="background-color:#eee;border:1px solid #999;display:block;padding:20px;">
+                <div class="fraktur">
                     <xsl:value-of disable-output-escaping="yes" select="Transcription"/>
                 </div>
-                <div style="background-color:#eee;border:1px solid #999;display:block;padding:20px;">
+                <div class="newspaper">
                     <xsl:value-of disable-output-escaping="yes" select="Transcription"/>
                 </div>
-                <div style="background-color:#eee;border:1px solid #999;display:block;padding:20px;">
+                <div class="newspaper">
                     <xsl:value-of disable-output-escaping="yes" select="Translation"/>
                 </div>
             </xsl:if>
