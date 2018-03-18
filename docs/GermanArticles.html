@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Carnell-Rettgers Genealogy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex"> <!-- Prevent page from being indexed -->
     <script>
       function loadXMLDoc(filename)
@@ -38,28 +41,49 @@
         }
       }
     </script>
+
+    <!-- Bicentennial Logo:  https://en.wikipedia.org/wiki/United_States_Bicentennial -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/CarnellRettgersFamily.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+
     <script src="//use.edgefonts.net/unifrakturmaguntia:n4:all.js"></script>
+
     <!-- all paragraphs in indented similarly -->
     <style>
       p {text-indent: 10pt;}
       .fraktur {font-family: UniFrakturMaguntia; font-size: x-large}
     </style>
-    <link rel="shortcut icon" href="#" />
+
     <title>German Newspaper Articles</title>
   </head>
+  
   <body onload="displayResult()">
-    <h1>Carnell-Rettgers Family</h1>
-    <h2>German Translation Newspaper Articles</h2>
-    <hr>
-    <h4>Notes</h4>
-    <ul>
-      <li>These articles primarily come from the <a href="https://chroniclingamerica.loc.gov/lccn/sn83025908/">Reading Adler</a> newspaper from Reading, Pennsylvania.  The articles were originally written in the Fraktur german type</li>
-      <li>Translations were performed primarily using <a href="https://translate.google.com/">Google Translate</a>.</li>
-      <li>Because these articles are all printed prior to 1920, they are in the public domain.</li>
-      <li>The Fraktur script is the <a href="http://unifraktur.sourceforge.net/maguntia.html">UniFrakturMaguntia</a> typeface from the <a href="https://edgewebfonts.adobe.com/index">Adobe Edge Web Fonts</a> Project</li>
-      <li>For more information, see this <a href="https://www.familysearch.org/wiki/en/German_Genealogical_Word_List">German word list</a> and this <a href="http://web.library.yale.edu/cataloging/music/fraktur">Fraktur translation page</a>.  
-    </ul>
+      <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
+
+    <div class="container-fluid" style="padding:0">
+      <img class="img-responsive" src="images/ReadingAdler17961129.PNG" alt="ReadingAdler" style="width:100%"/> 
+    </div>
+
+    <div class="jumbotron-fluid" style="padding-left:15px">
+      <h1>Carnell-Rettgers Family History</h1>
+      <h3>German Translation Newspaper Articles</h3>
+    </div>
+
+    <div class="container-fluid">
+      <h4>Notes</h4>
+      <ul>
+        <li>These articles primarily come from the <a href="https://chroniclingamerica.loc.gov/lccn/sn83025908/" target="_blank" rel="noopener noreferrer">Reading Adler</a> newspaper from Reading, Pennsylvania.  The articles were originally written in the Fraktur german type</li>
+        <li>Translations were performed primarily using <a href="https://translate.google.com/" target="_blank" rel="noopener noreferrer">Google Translate</a>.</li>
+        <li>Because these articles are all printed prior to 1920, they are in the public domain.</li>
+        <li>The Fraktur script is the <a href="http://unifraktur.sourceforge.net/maguntia.html" target="_blank" rel="noopener noreferrer">UniFrakturMaguntia</a> typeface from the <a href="https://edgewebfonts.adobe.com/index">Adobe Edge Web Fonts</a> Project</li>
+        <li>For more information, see this <a href="https://www.familysearch.org/wiki/en/German_Genealogical_Word_List" target="_blank" rel="noopener noreferrer">German word list</a> and this <a href="http://web.library.yale.edu/cataloging/music/fraktur">Fraktur translation page</a>.  
+      </ul>
+    </div>
     <hr>
     <div id="article_zone" ></div>
+    <div id="includeFooter"></div><script>$("#includeFooter").load("footer.html");</script>
   </body>
 </html>

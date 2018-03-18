@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Carnell-Rettgers Genealogy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex"> <!-- Prevent page from being indexed -->
     <script>
       function loadXMLDoc(filename)
@@ -38,37 +41,57 @@
         }
       }
     </script>
+
+    <!-- Bicentennial Logo:  https://en.wikipedia.org/wiki/United_States_Bicentennial -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/CarnellRettgersFamily.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+
     <!-- all paragraphs in indented similarly -->
     <style>
       p {text-indent: 10pt;}
     </style>
-    <link rel="shortcut icon" href="#" />
     <title>Newspaper Articles</title>
   </head>
+  
   <body onload="displayResult()">
-    <h1>Carnell-Rettgers Family Newspaper Articles</h1>
-    <hr>
-    <h4>Notes</h4>
-    <ul>
-      <li>Links to the <a href="https://news.google.com/newspapers">Google Newspaper Archive</a> sometimes take you to the wrong article. Please search the page near the highlighted article to find the correct one.  Not every article on a Google newspaper page can be linked.</li>
-      <li>The articles on this web page are for my personal genealogical research.  Please follow all applicable copyright laws in your use of these articles.
-        <ul>
-          <li><a href="https://www.legalgenealogist.com/2012/09/12/copyright-and-the-obit/">Copyright and the obit</a></li>
-          <li><a href="https://www.legalgenealogist.com/2012/09/13/copyright-and-the-post-1963-obit/">Copyright and the Post 1963 obit</a></li>
-          <li><a href="http://blog.frontrunnerpro.com/obituary-pirates-what-you-should-know-about-your-obituaries-and-online-revenues/">Obituary Pirates</a></li>
-          <li><a href="https://www.archives.com/experts/macentee-thomas/copyright-and-genealogy.html">Copyright and Genealogy</a></li>
-          <li><a href="https://www.nolo.com/legal-encyclopedia/fair-use-rule-copyright-material-30100.html">Fair Use</a></li>
-        </ul>
-      </li>
-    </ul>
-    <hr>
-    <h4>Search</h4>
-    <p>In order to search this page...</p>
-    <ul>
-      <li>On a desktop browser:  Use <code>[CTRL]-F</code> to open a text search on the page.</li>
-      <li>Android Chrome browser:  Press the three vertical dots in the upper right, use <code>Find on page</code></li>
-    </ul>
+    <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
+
+    <div class="container-fluid" style="padding:0">
+      <img class="img-responsive" src="images/ReadingEagle19760329.PNG" alt="ReadingEagle" style="width:100%"/> 
+    </div>
+
+    <div class="jumbotron-fluid" style="padding-left:15px">
+      <h1>Carnell-Rettgers Family History</h1>
+      <h3>Newspaper Articles</h3>
+    </div>
+
+    <div class="container-fluid">
+      <h4>Notes</h4>
+      <ul>
+        <li>Links to the <a href="https://news.google.com/newspapers" target="_blank" rel="noopener noreferrer">Google Newspaper Archive</a> sometimes take you to the wrong article. Please search the page near the highlighted article to find the correct one.  Not every article on a Google newspaper page can be linked.</li>
+        <li>The articles on this web page are for my personal genealogical research.  Please follow all applicable copyright laws in your use of these articles.
+          <ul>
+            <li><a href="https://www.legalgenealogist.com/2012/09/12/copyright-and-the-obit/" target="_blank" rel="noopener noreferrer">Copyright and the obit</a></li>
+            <li><a href="https://www.legalgenealogist.com/2012/09/13/copyright-and-the-post-1963-obit/" target="_blank" rel="noopener noreferrer">Copyright and the Post 1963 obit</a></li>
+            <li><a href="http://blog.frontrunnerpro.com/obituary-pirates-what-you-should-know-about-your-obituaries-and-online-revenues/" target="_blank" rel="noopener noreferrer">Obituary Pirates</a></li>
+            <li><a href="https://www.archives.com/experts/macentee-thomas/copyright-and-genealogy.html" target="_blank" rel="noopener noreferrer">Copyright and Genealogy</a></li>
+            <li><a href="https://www.nolo.com/legal-encyclopedia/fair-use-rule-copyright-material-30100.html" target="_blank" rel="noopener noreferrer">Fair Use</a></li>
+          </ul>
+        </li>
+      </ul>
+      <hr>
+      <h4>Search</h4>
+      <p>In order to search this page...</p>
+      <ul>
+        <li>On a desktop browser:  Use <code>[CTRL]-F</code> to open a text search on the page.</li>
+        <li>Android Chrome browser:  Press the three vertical dots in the upper right, use <code>Find on page</code></li>
+      </ul>
+    </div>
     <hr>
     <div id="article_zone" ></div>
+    <div id="includeFooter"></div><script>$("#includeFooter").load("footer.html");</script>
   </body>
 </html>
