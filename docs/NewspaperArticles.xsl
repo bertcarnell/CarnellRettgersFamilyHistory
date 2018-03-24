@@ -38,10 +38,12 @@
             </ul>
             <div class="newspaper">
                 <xsl:value-of disable-output-escaping="yes" select="Transcription"/>
-                <xsl:if test="Translation">
-                    <xsl:value-of disable-output-escaping="yes" select="Translation"/>
-                </xsl:if>
             </div>
+            <xsl:if test="Translation">
+                <div class="newspaper">
+                    <xsl:value-of disable-output-escaping="yes" select="Translation"/>
+                </div>
+            </xsl:if>
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

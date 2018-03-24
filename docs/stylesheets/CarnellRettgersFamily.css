@@ -29,3 +29,11 @@
     display: block;
     padding: 20px;
 }
+
+.battle-map {
+    height:100%;
+    width:100%;
+    object-fit:cover;
+    -o-object-fit:cover;
+    cursor: pointer;
+}
