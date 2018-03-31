@@ -12846,6 +12846,72 @@
 </Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>582</ID>
+        <Type>Marriage</Type>
+        <FirstName>Edward</FirstName>
+        <Middle>L</Middle>
+        <LastName>Frees</LastName>
+        <NewspaperName>Reading Eagle</NewspaperName>
+        <NewspaperDate>18 Jun 1895</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <NewspaperHeading>Marriage Licenses</NewspaperHeading>
+        <Page>1</Page>
+        <Column>2</Column>
+        <Link>https://news.google.com/newspapers?id=yKAhAAAAIBAJ&amp;sjid=G5oFAAAAIBAJ&amp;pg=6103%2C6144833</Link>
+        <Transcription>&lt;p&gt;Edward L. Frees, saddler, 332 Washington, and Miss Minnie Savage, 1554 North 9th;&lt;/p&gt;</Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>583</ID>
+        <Type>Marriage</Type>
+        <FirstName>Edward</FirstName>
+        <Middle>L</Middle>
+        <LastName>Frees</LastName>
+        <NewspaperName>Reading Eagle</NewspaperName>
+        <NewspaperDate>19 Jun 1895</NewspaperDate>
+        <NewspaperDay>Wednesday</NewspaperDay>
+        <NewspaperHeading>Other Weddings</NewspaperHeading>
+        <Page>3</Page>
+        <Column>5</Column>
+        <Link>https://news.google.com/newspapers?id=yaAhAAAAIBAJ&amp;sjid=G5oFAAAAIBAJ&amp;pg=3602%2C6207673</Link>
+        <Transcription>&lt;p&gt;In the parlors of St. Thomas&apos; Reformed parsonage, Edward, a son of Luther Frees, and Minnie, daughter of Enoch Savage, were married by Rev. J. P. Stein.  After the ceremony a reception was held at the residence of Peter Miller, 1015 Buttonwood.  Mr. and Mrs. Frees will reside at 1554 N. 9th.&lt;/p&gt;</Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>584</ID>
+        <Type>Obituary</Type>
+        <FirstName>Peter</FirstName>
+        <LastName>Rothermel</LastName>
+        <DateOfDeath>28 Mar 1856</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>01 Apr 1856</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>2</Page>
+        <Column>7</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111522460840</Link>
+        <Transcription>&lt;div&gt;Starb - am letzten Freitag, in Muhlenberg, am Schlagfluss, Peter Rothermel, im Alter ren 53 Jahren&lt;/div&gt;</Transcription>
+		<Translation>&lt;div&gt;Died - on last Friday, in Muhlenberg, of a stroke, Peter Rothermel, in an age of 53 years&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>585</ID>
+        <Type>Obituary</Type>
+        <FirstName>Leonard</FirstName>
+        <LastName>Rothermel</LastName>
+        <DateOfDeath>8 Nov 1836</DateOfDeath>
+        <DayOfTheWeek>Tuesday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>15 Nov 1836</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>2</Page>
+        <Column>5</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111522465125</Link>
+        <Transcription>&lt;div&gt;Starb - am letzten Dienstag, in Maidencreik Taunschip, dieser Caunty, Leonhard Rothermel, im 64ften Jahre seines Alters&lt;/div&gt;</Transcription>
+		<Translation>&lt;div&gt;Died - last Tuesday, in Maidencreek Township, this County, Leonhard Rothermel, in the 64th year of his age.&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
 	
 	<!--
     <SortedNewspaperLinks>
@@ -12868,6 +12934,7 @@
         <Link></Link>
 		<Notes></Notes>
         <Transcription></Transcription>
+		<Translation></Translation>
         <EnteredOnAncestry></EnteredOnAncestry>
     </SortedNewspaperLinks>
 	-->
