@@ -13203,6 +13203,24 @@
 		<Translation>&lt;div&gt;Deceased, on Tuesday night, John Vanried, in his 75th year, an old and venerable man from Cumru Township, this County&lt;/div&gt;</Translation>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>602</ID>
+        <Type>Obituary</Type>
+        <FirstName>Regina</FirstName>
+        <LastName>Lebo</LastName>
+		<MaidenName>Theiss</MaidenName>
+        <DateOfDeath>20 Dec 1822</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>21 Jan 1823</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>2</Page>
+        <Column>3</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111523813929</Link>
+        <Transcription>&lt;div&gt;Verstarb, am 20ten leztern December, am Fieber, Regina Lebo, Gattin des Hrn. Heinrich Lebo, in Bethel Taunschip, Berks Caunty, im 50sten Jahre ihres Alters&lt;/div&gt;</Transcription>
+		<Translation>&lt;div&gt;Died, on 20th of December, from fever, Regina Lebo, wife of the Honorable Heinrich Lebo, in Bethel Township, Berks County, in the 50th year of her age&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
 	
 	<!--
     <SortedNewspaperLinks>
