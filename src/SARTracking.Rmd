@@ -1,0 +1,177 @@
+---
+title: "SAR Application Tracking"
+author: "R. Carnell"
+date: "April 15, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+require(plyr)
+require(reshape2)
+require(pdftools)
+require(ggplot2)
+
+repository_path <- file.path("C:","Users","Rob","Documents","Repositories","CarnellRettgersFamilyHistory")
+
+pdf_path <- file.path(repository_path, "tracking_pdf")
+
+dir.exists(pdf_path)
+
+filenames <- list.files(pdf_path, full.names = TRUE)
+
+f <- function(lin)
+{
+  #lin <- text[1]
+  y <- unlist(strsplit(lin, "\r\n"))
+  ind <- grep("ACN No", y)
+  y <- y[-(1:ind)]
+  z <- strsplit(y, "[ ][ ][ ]*")
+  lens <- lapply(z, length)
+  ret <- vector("list", length(lens))
+  for (i in seq_along(lens))
+  {
+    if (lens[i] %in% c(8,9))
+    {
+      ret[[i]] <- list(start=z[[i]][3],
+                  type=z[[i]][4],
+                  status=z[[i]][5],
+                  statusDate=z[[i]][6],
+                  approv=NA,
+                  reg=NA,
+                  state=z[[i]][7])
+    } else if (lens[i] %in% c(10,11) & nchar(z[[i]][9]) == 2)
+    {
+      ret[[i]] <- list(start=z[[i]][3],
+                  type=z[[i]][4],
+                  status=z[[i]][5],
+                  statusDate=z[[i]][6],
+                  approv=z[[i]][7],
+                  reg=z[[i]][8],
+                  state=z[[i]][9])
+    } else if (lens[i] %in% c(10,11))
+    {
+      ret[[i]] <- list(start=z[[i]][3],
+                       type=z[[i]][4],
+                       status=z[[i]][5],
+                       statusDate=z[[i]][6],
+                       approv=z[[i]][7],
+                       reg=NA,
+                       state=z[[i]][8])
+    } else
+    {
+      ret[[i]] <- NA
+    }
+  }
+  return(ret)
+}
+
+filename <- filenames[length(filenames)]
+info <- pdf_info(filename)
+text <- pdf_text(filename)
+
+h <- lapply(text, f)
+g <- data.frame(start=NA,
+                type=NA,
+                status=NA,
+                statusDate=NA,
+                approv=NA,
+                reg=NA,
+                state=NA)
+for (i in 1:length(h))
+{
+  for (j in 1:length(h[[i]]))
+  {
+    g <- rbind(g, data.frame(h[[i]][[j]]))    
+  }
+}
+
+ind <- which(nchar(g$state) != 2)
+g <- g[-ind,]
+g <- g[-1,]
+
+g$start <- as.Date(strptime(g$start, "%d-%b-%Y"))
+g$statusDate <- as.Date(strptime(g$statusDate, "%m/%d/%Y"))
+g$approv <- as.Date(strptime(g$approv, "%m/%d/%Y"))
+g$reg <- as.Date(strptime(g$reg, "%m/%d/%Y"))
+
+# throw out obviously wrong stuff
+g$approv <- as.Date(ifelse(g$approv-g$start < 0, NA, g$approv),
+                origin="1970-01-01")
+g$approv <- as.Date(ifelse(g$approv > Sys.Date(), NA, g$approv),
+                    origin="1970-01-01")
+
+```
+
+## Status
+
+```{r echo=FALSE}
+dcast(ddply(g, .(type, status), summarize, cnt=length(start)), 
+      type ~ status, value.var="cnt", fill=0)
+```
+
+## Approved Applications
+
+```{r echo=FALSE}
+ddply(subset(g, status == "Approved"), .(type, status), summarize,
+      meanDays=as.numeric(mean(approv-start, na.rm=TRUE)),
+      meanMonths=as.numeric(mean(approv-start, na.rm=TRUE))/30,
+      minDays=as.numeric(min(approv-start, na.rm=TRUE)),
+      maxDays=as.numeric(max(approv-start, na.rm=TRUE)),
+      numApps=length(approv))
+```
+
+## New Members by State
+
+```{r echo=FALSE}
+ddply(subset(g, status == "Approved" & type == "New"), .(state), summarize,
+      meanDays=as.numeric(mean(approv-start, na.rm=TRUE)),
+      meanMonths=as.numeric(mean(approv-start, na.rm=TRUE))/30,
+      minDays=as.numeric(min(approv-start, na.rm=TRUE)),
+      maxDays=as.numeric(max(approv-start, na.rm=TRUE)),
+      numApps=length(approv))
+```
+
+## Supplemental by State 
+
+```{r echo=FALSE}
+ddply(subset(g, status == "Approved" & type == "Supplemental"), .(state), summarize,
+      meanDays=as.numeric(mean(approv-start, na.rm=TRUE)),
+      meanMonths=as.numeric(mean(approv-start, na.rm=TRUE))/30,
+      minDays=as.numeric(min(approv-start, na.rm=TRUE)),
+      maxDays=as.numeric(max(approv-start, na.rm=TRUE)),
+      numApps=length(approv))
+```
+
+## Average time for recent supplemental
+
+```{r echo=FALSE}
+ind <- with(subset(g, type=="Supplemental"), which(approv == max(approv, na.rm=TRUE)))
+with(subset(g, type=="Supplemental")[ind,], mean(approv-start, na.rm=TRUE))
+```
+
+## Average Time for recent new members
+
+```{r echo=FALSE}
+ind <- with(subset(g, type=="New"), which(approv == max(approv, na.rm=TRUE)))
+with(subset(g, type=="New")[ind,], mean(approv-start, na.rm=TRUE))
+```
+
+## Plots
+
+```{r echo=FALSE}
+ggplot(subset(g, status=="Approved" & type=="New"), aes(x=approv-start)) + 
+  geom_histogram(bins=60, fill="blue") +
+  theme_bw() +
+  ylab("Count") +
+  xlab("Days from Receipt to Approval Given Approval Occurs") +
+  ggtitle("New Member Applications") +
+  scale_x_continuous(limits=c(0,200))
+
+ggplot(subset(g, status=="Approved" & type=="Supplemental"), aes(x=approv-start)) + 
+  geom_histogram(bins=60, fill="blue") +
+  theme_bw() +
+  ylab("Count") +
+  xlab("Days from Receipt to Approval Given Approval Occurs") + 
+  ggtitle("Supplemental Applications") +
+  scale_x_continuous(limits=c(0,200))
+```
