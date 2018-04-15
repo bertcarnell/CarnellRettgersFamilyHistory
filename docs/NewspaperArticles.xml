@@ -13238,6 +13238,23 @@
 		<Translation>&lt;div&gt;Died - on the 11th of this month, Jacob Van Reed, a citizen of Amity Taunschip, this Caunty, at the age of 82 years, 9 months, and 26 days&lt;/div&gt;</Translation>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>604</ID>
+        <Type>Obituary</Type>
+        <FirstName>Nicholas</FirstName>
+        <LastName>Hunter</LastName>
+        <DateOfDeath>26 Aug 1828</DateOfDeath>
+        <DayOfTheWeek>Tuesday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>2 Sep 1828</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>2</Page>
+        <Column>3</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111523822099</Link>
+        <Transcription>&lt;div&gt;Starb - am letztern Dienstag, in Oley Taunschip, Nicolaus Jager, ein alter und angeschener Burger unserer Caunty&lt;/div&gt;</Transcription>
+		<Translation>&lt;div&gt;Died - last Tuesday, in Oley Township, Nicholas Hunter, an old and interesting citizen of our County&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
 	
 	<!--
     <SortedNewspaperLinks>
