@@ -6,8 +6,9 @@ if (!dir.exists(output_dir))
   dir.create(output_dir)
 }
 
-library(rvest)
-library(lubridate)
+require(rvest)
+require(lubridate)
+require(rstudioapi)
 
 findTuesdays <- function(dateToSearchMin, dateToSearchMax, html_format = TRUE)
 {
@@ -134,15 +135,17 @@ url <- "https://www.genealogybank.com/"
 pgsession <- html_session(url)
 pgform <- html_form(pgsession)[[1]] 
 
+passwd_str <- rstudioapi::askForPassword("Enter GenealogyBank pw")
+
 filled_form <- set_values(pgform,
                           `username` = "bertcarnell@gmail.com", 
-                          `password` = "Navy1998")
+                          `password` = passwd_str)
 
 submit_form(pgsession,filled_form)
 
-# reading Adler covers 11/29/1796 – 12/26/1876
+# reading Adler covers 11/29/1796 - 12/26/1876
 
-queryAdler("Obit", "1823-10-15", "1823-12-31", output_file, pgsession)
+queryAdler("Obit", "1854-07-09", "1854-9-09", output_file, pgsession)
 
 queryAdler("Marriage", "1840-01-01", "1840-01-31", output_file, pgsession)
 
