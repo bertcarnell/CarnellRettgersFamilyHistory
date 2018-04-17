@@ -13308,6 +13308,24 @@
 		<Translation>&lt;div&gt;Died - on the last Sunday in Heidelberg, Mary, widow of ?? Heinrich Van Ried, in the 76th year of her age&lt;/div&gt;</Translation>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>608</ID>
+        <Type>Obituary</Type>
+        <FirstName>Eva</FirstName>
+        <MaidenName>Van Reed</MaidenName>
+        <LastName>Addams</LastName>
+        <DateOfDeath>28 Aug 1826</DateOfDeath>
+        <DayOfTheWeek>Monday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>29 Aug 1826</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>2</Page>
+        <Column>4</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111523933399</Link>
+        <Transcription>&lt;div&gt; Starb -- gestern Morgen, in Heidelberg Taunschip, Eva Addams, Gattin des Hrn. William Addams, Esq. unseres Reprisentantauten im Congress, im 49sten Jahre ihres Alters. &lt;/div&gt;</Transcription>
+		<Translation>&lt;div&gt; Died -- yesterday morning in Heidelberg Township, Eva Addams, wife of Mr. William Addams, Esq. our Representative in Congress, in the 49th year of her age. &lt;/div&gt;</Translation>
+        <EnteredOnAncestry><1/EnteredOnAncestry>
+    </SortedNewspaperLinks>
 	
 	<!--
     <SortedNewspaperLinks>
