@@ -145,7 +145,7 @@ submit_form(pgsession,filled_form)
 
 # reading Adler covers 11/29/1796 - 12/26/1876
 
-queryAdler("Obit", "1854-07-09", "1854-9-09", output_file, pgsession)
+queryAdler("Obit", "1825-10-15", "1825-12-31", output_file, pgsession)
 
 queryAdler("Marriage", "1840-01-01", "1840-01-31", output_file, pgsession)
 
