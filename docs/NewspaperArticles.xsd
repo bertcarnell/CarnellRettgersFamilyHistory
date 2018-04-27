@@ -99,6 +99,7 @@
             <xsd:enumeration value="Hood County News"/>
             <xsd:enumeration value="The News Journal"/>
             <xsd:enumeration value="Washington County Georgia Newspaper Clippings"/>
+            <xsd:enumeration value="Pennsylvania Gazette"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">
