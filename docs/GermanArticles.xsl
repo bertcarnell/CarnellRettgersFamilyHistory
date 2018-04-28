@@ -23,6 +23,19 @@
                     <xsl:variable name="varNewspaperDate" select="substring(concat('N/A', NewspaperDate), (3+1) * number(boolean(NewspaperDate)))"/>
                     <xsl:variable name="varNewspaperDay" select="substring(concat('N/A', NewspaperDay), (3+1) * number(boolean(NewspaperDay)))"/>
                     <li><xsl:value-of select="concat($varNewspaperName, ', ', $varNewspaperDay, ', ', $varNewspaperDate, ', pg: ', $varNewspaperPage, ', column: ', $varNewspaperColumn)"/></li>
+                    <xsl:if test="Link">
+                        <li>
+                            <xsl:element name="a"> <!-- <a href="http://Link" target="_blank">Link</a> -->
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="Link"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="target"> <!-- target="_blank" will open a new tab when the link is clicked -->
+                                    <xsl:text>_blank</xsl:text>
+                                </xsl:attribute>
+                                <xsl:text>Link</xsl:text>
+                            </xsl:element>
+                        </li>
+                    </xsl:if>
                 </ul>
 
                 <div class="fraktur">

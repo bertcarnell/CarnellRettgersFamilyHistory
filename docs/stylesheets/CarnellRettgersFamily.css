@@ -30,6 +30,11 @@
     padding: 20px;
 }
 
+.fraktur-small {
+    font-family: UniFrakturMaguntia; 
+    font-size: x-large;
+}
+
 .battle-map {
     height:100%;
     width:100%;
