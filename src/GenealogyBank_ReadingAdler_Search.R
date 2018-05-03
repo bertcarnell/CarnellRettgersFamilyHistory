@@ -141,12 +141,50 @@ filled_form <- set_values(pgform,
                           `username` = "bertcarnell@gmail.com", 
                           `password` = passwd_str)
 
-submit_form(pgsession,filled_form)
+pg_session_logged_in <- submit_form(pgsession, filled_form)
 
 # reading Adler covers 11/29/1796 - 12/26/1876
 
-queryAdler("Obit", "1808-02-04", "1808-04-04", output_file, pgsession)
+queryAdler("Obit", "1810-03-27", "1810-03-27", output_file, pg_session_logged_in)
 
-queryAdler("Marriage", "1820-01-01", "1820-12-31", output_file, pgsession)
+queryAdler("Marriage", "1842-07-10", "1842-07-31", output_file, pg_session_logged_in)
 
-  
+###############################################################################
+
+# Plan:
+# 1. get all links using rvest
+# 2. Iterate through links, downloading each image with RSelenium
+
+###############################################################################
+
+require(RSelenium)
+rD <- rsDriver()
+remDr <- rD[["client"]]
+url <- "https://www.genealogybank.com/"
+remDr$navigate(url)
+elem <- remDr$findElement(using="id", value="dropdowntoggle-login")
+elem$clickElement()
+elem <- remDr$findElement(using="id", value="username")
+elem$sendKeysToElement(list('bertcarnell@gmail.com'))
+
+passwd_str <- rstudioapi::askForPassword("Enter GenealogyBank pw")
+
+elem <- remDr$findElement(using="id", value="password")
+elem$sendKeysToElement(list(passwd_str))
+elem <- remDr$findElement(using="id", value="btnLogin")
+elem$clickElement()
+
+remDr$navigate(query1)
+elem <- remDr$findElement(using="link text", value="Historical Obituary")
+elem$clickElement()
+elem <- remDr$findElement(using="id", value="clip-download-click-target")
+elem$clickElement()
+elem <- remDr$findElement(using="xpath", value="//input[@id = 'edit-download-type-pdf']")
+elem$getElementAttribute("checked") # true
+elem <- remDr$findElement(using="xpath", value="//label[@for = 'edit-download-type-img']")
+elem$clickElement()
+elem <- remDr$findElement(using="xpath", value="//button[@id = 'download_page_form_submit_button']")
+elem$clickElement()
+
+rD[["server"]]$stop()
+
