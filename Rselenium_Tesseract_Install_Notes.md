@@ -166,7 +166,7 @@ sudo docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-firefox
 #### ubuntu
 
 ```
-sudo docker run -d -p 4444:4444 -v /dev/shm:/dev/shm -v /home/pi/Download:/home/seluser/Download \
+sudo docker run -d -p 4444:4444 -v /dev/shm:/dev/shm -v /home/pi/Downloads:/home/seluser/Downloads \
 --name chrome_docker selenium/standalone-chrome:3.11.0-dysprosium
 sudo docker ps -a
 ```
