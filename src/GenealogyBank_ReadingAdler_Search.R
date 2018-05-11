@@ -1,7 +1,10 @@
-require(assertthat)
-require(rvest)
-require(lubridate)
-require(RSelenium)
+#!/usr/bin/env Rscript
+# run this as a script with command line arguments
+stopifnot(require(assertthat))
+assertthat::assert_that(require(optparse))
+assertthat::assert_that(require(rvest))
+assertthat::assert_that(require(lubridate))
+assertthat::assert_that(require(RSelenium))
 
 currSys <- tolower(Sys.info()["sysname"])
 
@@ -20,14 +23,62 @@ if (currSys == "linux")
 }
 assertthat::assert_that(dir.exists(repository_path))
 
-output_dir <- file.path(repository_path,"search_output")
-img_output_dir <- file.path(repository_path,"search_output","img")
+option_list <- list(
+  make_option(c("-d", "--output_dir"), type="character", 
+              default=file.path(repository_path,"search_output"), 
+              help="html output directory and Rdata output directory [default= %default]", metavar="character"),
+  make_option(c("-i", "--image_dir"), type="character", 
+              default=file.path(repository_path,"search_output","img"), 
+              help="output image directory [default = %default]", metavar="character"),
+  make_option(c("-b", "--start_date"), type="character",
+              default="11/29/1796",
+              help="start date [default = %default]", metavar="character"),
+  make_option(c("-e", "--end_date"), type="character",
+              default="12/26/1876",
+              help="end date [default = %default]", metavar="character"),
+  make_option(c("-p", "--passwd"), type="character",
+              default=NULL,
+              help="password", metavar="character"),
+  make_option(c("-t", "--article_type"), type="character",
+              default="obit",
+              help="Type of article (obit or marriage)", metavar="character"),
+  make_option(c("-g", "--get_image"), type="logical",
+              default=FALSE,
+              help="Get images?", metavar="logical")
+)
+
+opt_parser <- OptionParser(option_list=option_list)
+opt <- parse_args(opt_parser)
+
+if (FALSE)
+{
+  # Testing
+  opt <- list(output_dir = file.path(repository_path,"search_output"),
+              image_dir = file.path(repository_path,"search_output","img"),
+              start_date = "1876-10-01",
+              end_date = "1876-12-26",
+              passwd = "test",
+              article_type = "obit",
+              get_image = FALSE)
+}
+
+output_dir <- opt$output_dir
+output_file <- file.path(output_dir, paste0("search_result", opt$end_date, ".html"))
+img_output_dir <- opt$image_dir
 if (!dir.exists(output_dir))
 {
   dir.create(output_dir)
   dir.create(img_output_dir)
 }
 url <- "https://www.genealogybank.com/"
+
+if (currSys != "linux" && is.null(opt$passwd))
+{
+  passwd_str <- rstudioapi::askForPassword("Enter GenealogyBank pw")
+} else 
+{
+  passwd_str <- opt$passwd
+}
 
 ###############################################################################
 
@@ -160,80 +211,6 @@ queryAdler <- function(article_type, sDateStart, sDateEnd, query_output_file, lo
   return(links)
 }
 
-###############################################################################
-
-pgsession <- html_session(url)
-pgform <- html_form(pgsession)[[1]] 
-
-if (currSys != "linux")
-{
-  passwd_str <- rstudioapi::askForPassword("Enter GenealogyBank pw")
-}
-# else enter the password string directly
-
-filled_form <- set_values(pgform,
-                          `username` = "bertcarnell@gmail.com", 
-                          `password` = passwd_str)
-
-pg_session_logged_in <- submit_form(pgsession, filled_form)
-
-# reading Adler covers 11/29/1796 - 12/26/1876
-output_file <- file.path(output_dir, "search_result.html")
-#links <- queryAdler("Obit", "1796-11-29", "1798-01-01", output_file, pg_session_logged_in)
-links <- queryAdler("Obit", "1798-01-01", "1810-01-01", output_file, pg_session_logged_in)
-
-output_file_marriage <- file.path(output_dir, "search_result_marriage.html")
-#marriage_links <- queryAdler("Marriage", "1796-11-29", "1798-01-01", output_file_marriage, 
-#                             pg_session_logged_in)
-marriage_links <- queryAdler("Marriage", "1798-01-01", "1810-01-01", output_file_marriage, 
-                             pg_session_logged_in)
-
-#save(links, marriage_links, file = file.path(output_dir, "links1798.Rdata"))
-save(links, marriage_links, file = file.path(output_dir, "links1810.Rdata"))
-
-rm(filled_form)
-rm(pg_session_logged_in)
-rm(pgform)
-rm(pgsession)
-
-###############################################################################
-
-# Plan:
-# 1. get all links using rvest
-# 2. Iterate through links, downloading each image with RSelenium
-
-###############################################################################
-
-#load(file = file.path(output_dir, "links1798.Rdata"))
-load(file = file.path(output_dir, "links1810.Rdata"))
-
-remDr <- RSelenium::remoteDriver(remoteServerAddr = "localhost",
-                                 port = 4444L,
-                                 browserName = "chrome")
-driver_stats <- remDr$open()
-assertthat::assert_that(tolower(driver_stats$browserName) == "chrome")
-
-#######
-# login
-remDr$navigate(url)
-elem <- remDr$findElement(using="id", value="dropdowntoggle-login")
-elem$clickElement()
-elem <- remDr$findElement(using="id", value="username")
-elem$sendKeysToElement(list('bertcarnell@gmail.com'))
-
-if (currSys != "linux")
-{
-  passwd_str <- rstudioapi::askForPassword("Enter GenealogyBank pw")
-}
-
-elem <- remDr$findElement(using="id", value="password")
-elem$sendKeysToElement(list(passwd_str))
-elem <- remDr$findElement(using="id", value="btnLogin")
-elem$clickElement()
-
-#########################
-# navigate to image links
-
 getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
 {
   #html_link <- links[1]
@@ -254,7 +231,7 @@ getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
   # click to save an image instead of a pdf
   elem <- remDr$findElement(using="xpath", value="//label[@for = 'edit-download-type-img']")
   elem$clickElement()
-
+  
   download_filename <- remDr$findElement(using = "xpath", value="//input[@name = 'file_name']")
   download_filename <- download_filename$getElementAttribute("value")[[1]]
   
@@ -279,18 +256,79 @@ getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
   return(remDr)
 }
 
-for (i in seq_along(links))
+###############################################################################
+
+pgsession <- html_session(url)
+pgform <- html_form(pgsession)[[1]] 
+
+filled_form <- set_values(pgform,
+                          `username` = "bertcarnell@gmail.com", 
+                          `password` = passwd_str)
+
+pg_session_logged_in <- submit_form(pgsession, filled_form)
+
+#links <- queryAdler("Obit", "1796-11-29", "1798-01-01", output_file, pg_session_logged_in)
+#links <- queryAdler("Obit", "1798-01-01", "1810-01-01", output_file, pg_session_logged_in)
+
+#marriage_links <- queryAdler("Marriage", "1796-11-29", "1798-01-01", output_file_marriage, 
+#                             pg_session_logged_in)
+#marriage_links <- queryAdler("Marriage", "1798-01-01", "1810-01-01", output_file_marriage, 
+#                             pg_session_logged_in)
+
+#save(links, marriage_links, file = file.path(output_dir, "links1798.Rdata"))
+#save(links, marriage_links, file = file.path(output_dir, "links1810.Rdata"))
+#load(file = file.path(output_dir, "links1798.Rdata"))
+#load(file = file.path(output_dir, "links1810.Rdata"))
+
+if (opt$article_type == "obit")
 {
-  print(paste0(i, ": ", links[i]))
-  print("Downloading...")
-  remDr <- getArticleImage(remDr, links[i], "Obituary")
+  links <- queryAdler("Obit", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
+} else if (opt$article_type == "marriage")
+{
+  links <- queryAdler("Marriage", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
+} else
+{
+  stop("Article Type Not Recognized")
+}
+save(links, file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
+
+if (opt$get_image)
+{
+  remDr <- RSelenium::remoteDriver(remoteServerAddr = "localhost",
+                                   port = 4444L,
+                                   browserName = "chrome")
+  driver_stats <- remDr$open()
+  assertthat::assert_that(tolower(driver_stats$browserName) == "chrome")
+  
+  #######
+  # login
+  remDr$navigate(url)
+  elem <- remDr$findElement(using="id", value="dropdowntoggle-login")
+  elem$clickElement()
+  elem <- remDr$findElement(using="id", value="username")
+  elem$sendKeysToElement(list('bertcarnell@gmail.com'))
+  
+  elem <- remDr$findElement(using="id", value="password")
+  elem$sendKeysToElement(list(passwd_str))
+  elem <- remDr$findElement(using="id", value="btnLogin")
+  elem$clickElement()
+  
+  for (i in seq_along(links))
+  {
+    print(paste0(i, ": ", links[i]))
+    print("Downloading...")
+    if (opt$article_type == "obit")
+    {
+      remDr <- getArticleImage(remDr, links[i], "Obituary")
+    } else if (opt$article_type == "marriage")
+    {
+      remDr <- getArticleImage(remDr, links[i], "Marriage")
+    } else
+    {
+      stop("Article Type Not Recognized")
+    }
+  }
+  
+  remDr$close()
 }
 
-for (i in seq_along(marriage_links))
-{
-  print(paste0(i, ": ", marriage_links[i]))
-  print("Downloading...")
-  remDr <- getArticleImage(remDr, marriage_links[i], "Marriage")
-}
-
-remDr$close()
