@@ -44,7 +44,10 @@ option_list <- list(
               help="Type of article (obit or marriage)", metavar="character"),
   make_option(c("-g", "--get_image"), type="logical",
               default=FALSE,
-              help="Get images?", metavar="logical")
+              help="Get images?", metavar="logical"),
+  make_option(c("-q","--query"), type="logical",
+              default=TRUE,
+              help="run link query", metavar="logical")
 )
 
 opt_parser <- OptionParser(option_list=option_list)
@@ -257,43 +260,46 @@ getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
 }
 
 ###############################################################################
-
-pgsession <- html_session(url)
-pgform <- html_form(pgsession)[[1]] 
-
-filled_form <- set_values(pgform,
-                          `username` = "bertcarnell@gmail.com", 
-                          `password` = passwd_str)
-
-pg_session_logged_in <- submit_form(pgsession, filled_form)
-
-#links <- queryAdler("Obit", "1796-11-29", "1798-01-01", output_file, pg_session_logged_in)
-#links <- queryAdler("Obit", "1798-01-01", "1810-01-01", output_file, pg_session_logged_in)
-
-#marriage_links <- queryAdler("Marriage", "1796-11-29", "1798-01-01", output_file_marriage, 
-#                             pg_session_logged_in)
-#marriage_links <- queryAdler("Marriage", "1798-01-01", "1810-01-01", output_file_marriage, 
-#                             pg_session_logged_in)
-
-#save(links, marriage_links, file = file.path(output_dir, "links1798.Rdata"))
-#save(links, marriage_links, file = file.path(output_dir, "links1810.Rdata"))
-#load(file = file.path(output_dir, "links1798.Rdata"))
-#load(file = file.path(output_dir, "links1810.Rdata"))
-
-if (opt$article_type == "obit")
+if (opt$query)
 {
-  links <- queryAdler("Obit", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
-} else if (opt$article_type == "marriage")
-{
-  links <- queryAdler("Marriage", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
-} else
-{
-  stop("Article Type Not Recognized")
+  pgsession <- html_session(url)
+  pgform <- html_form(pgsession)[[1]] 
+  
+  filled_form <- set_values(pgform,
+                            `username` = "bertcarnell@gmail.com", 
+                            `password` = passwd_str)
+  
+  pg_session_logged_in <- submit_form(pgsession, filled_form)
+  
+  #links <- queryAdler("Obit", "1796-11-29", "1798-01-01", output_file, pg_session_logged_in)
+  #links <- queryAdler("Obit", "1798-01-01", "1810-01-01", output_file, pg_session_logged_in)
+  
+  #marriage_links <- queryAdler("Marriage", "1796-11-29", "1798-01-01", output_file_marriage, 
+  #                             pg_session_logged_in)
+  #marriage_links <- queryAdler("Marriage", "1798-01-01", "1810-01-01", output_file_marriage, 
+  #                             pg_session_logged_in)
+  
+  #save(links, marriage_links, file = file.path(output_dir, "links1798.Rdata"))
+  #save(links, marriage_links, file = file.path(output_dir, "links1810.Rdata"))
+  #load(file = file.path(output_dir, "links1798.Rdata"))
+  #load(file = file.path(output_dir, "links1810.Rdata"))
+  
+  if (opt$article_type == "obit")
+  {
+    links <- queryAdler("Obit", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
+  } else if (opt$article_type == "marriage")
+  {
+    links <- queryAdler("Marriage", opt$start_date, opt$end_date, output_file, pg_session_logged_in)
+  } else
+  {
+    stop("Article Type Not Recognized")
+  }
+  save(links, file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
 }
-save(links, file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
 
 if (opt$get_image)
 {
+  load(file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
   remDr <- RSelenium::remoteDriver(remoteServerAddr = "localhost",
                                    port = 4444L,
                                    browserName = "chrome")
