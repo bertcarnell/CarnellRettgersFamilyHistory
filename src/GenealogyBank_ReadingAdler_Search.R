@@ -246,7 +246,7 @@ getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
   #          to = file.path(img_output_dir, paste0(download_filename, "_", type, ".gif")), 
   #          overwrite = TRUE)
   download_filename_full <- file.path("/home","pi", "Downloads", paste0(download_filename, ".gif"))
-  Sys.sleep(sleep_time)
+  Sys.sleep(2*sleep_time)
   if (!file.exists(download_filename_full))
     stop(paste0("File did not download: ", download_filename_full))
   res <- file.copy(from = download_filename_full,
