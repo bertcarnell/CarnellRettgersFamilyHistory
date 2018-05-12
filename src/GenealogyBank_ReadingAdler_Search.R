@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 # run this as a script with command line arguments
 stopifnot(require(assertthat))
-assertthat::assert_that(require(optparse))
-assertthat::assert_that(require(rvest))
-assertthat::assert_that(require(lubridate))
-assertthat::assert_that(require(RSelenium))
+tmp <- assertthat::assert_that(require(optparse))
+tmp <- assertthat::assert_that(require(rvest))
+tmp <- assertthat::assert_that(require(lubridate))
+tmp <- assertthat::assert_that(require(RSelenium))
 
 currSys <- tolower(Sys.info()["sysname"])
 
@@ -21,7 +21,7 @@ if (currSys == "linux")
   repository_path <- file.path("C:","Users","Rob","Documents","Repositories",
                                "CarnellRettgersFamilyHistory")
 }
-assertthat::assert_that(dir.exists(repository_path))
+tmp <- assertthat::assert_that(dir.exists(repository_path))
 
 option_list <- list(
   make_option(c("-d", "--output_dir"), type="character", 
@@ -31,10 +31,10 @@ option_list <- list(
               default=file.path(repository_path,"search_output","img"), 
               help="output image directory [default = %default]", metavar="character"),
   make_option(c("-b", "--start_date"), type="character",
-              default="11/29/1796",
+              default="1796-11-29",
               help="start date [default = %default]", metavar="character"),
   make_option(c("-e", "--end_date"), type="character",
-              default="12/26/1876",
+              default="1876-12-26",
               help="end date [default = %default]", metavar="character"),
   make_option(c("-p", "--passwd"), type="character",
               default=NULL,
@@ -53,6 +53,10 @@ option_list <- list(
 opt_parser <- OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
 
+tmp <- assertthat::assert_that(opt$article_type == "obit" || opt$article_type == "marriage")
+tmp <- assertthat::assert_that(is.Date(as.Date(opt$start_date)))
+tmp <- assertthat::assert_that(is.Date(as.Date(opt$end_date)))
+
 if (FALSE)
 {
   # Testing
@@ -66,13 +70,22 @@ if (FALSE)
 }
 
 output_dir <- opt$output_dir
-output_file <- file.path(output_dir, paste0("search_result", opt$end_date, ".html"))
+output_file <- file.path(output_dir, paste0("search_result", opt$end_date, "_",
+                                            opt$article_type, ".html"))
+output_save_file <- file.path(output_dir, paste0("links", opt$end_date, "_", 
+                                                 opt$article_type, ".Rdata"))
 img_output_dir <- opt$image_dir
 if (!dir.exists(output_dir))
 {
   dir.create(output_dir)
+}
+if (!dir.exists(img_output_dir))
+{
   dir.create(img_output_dir)
 }
+tmp <- assertthat::assert_that(dir.exists(output_dir))
+tmp <- assertthat::assert_that(dir.exists(img_output_dir))
+
 url <- "https://www.genealogybank.com/"
 
 if (currSys != "linux" && is.null(opt$passwd))
@@ -294,12 +307,12 @@ if (opt$query)
   {
     stop("Article Type Not Recognized")
   }
-  save(links, file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
+  save(links, file = output_save_file)
 }
 
 if (opt$get_image)
 {
-  load(file = file.path(output_dir, paste0("links", opt$end_date, ".Rdata")))
+  load(file = output_save_file)
   remDr <- RSelenium::remoteDriver(remoteServerAddr = "localhost",
                                    port = 4444L,
                                    browserName = "chrome")
