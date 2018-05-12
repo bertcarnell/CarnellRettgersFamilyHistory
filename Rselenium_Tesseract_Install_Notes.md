@@ -183,3 +183,9 @@ eog filename.gif
 # user terminal
 gnome-terminal
 ```
+
+### Start the scraper
+
+```
+nohup Rscript src/GenealogyBank_ReadingAdler_Search.R -b '1810-01-01' -e '1820-01-01' -p 'passwd' -t 'marriage' -g TRUE -q TRUE > log3.txt &
+```
