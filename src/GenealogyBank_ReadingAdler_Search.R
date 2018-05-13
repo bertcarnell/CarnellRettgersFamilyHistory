@@ -53,21 +53,22 @@ option_list <- list(
 opt_parser <- OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
 
-tmp <- assertthat::assert_that(opt$article_type == "obit" || opt$article_type == "marriage")
-tmp <- assertthat::assert_that(is.Date(as.Date(opt$start_date)))
-tmp <- assertthat::assert_that(is.Date(as.Date(opt$end_date)))
-
 if (FALSE)
 {
   # Testing
   opt <- list(output_dir = file.path(repository_path,"search_output"),
               image_dir = file.path(repository_path,"search_output","img"),
-              start_date = "1876-10-01",
-              end_date = "1876-12-26",
+              start_date = "1798-01-01",
+              end_date = "1810-01-01",
               passwd = "test",
               article_type = "obit",
-              get_image = FALSE)
+              get_image = TRUE,
+              query = FALSE)
 }
+
+tmp <- assertthat::assert_that(opt$article_type == "obit" || opt$article_type == "marriage")
+tmp <- assertthat::assert_that(is.Date(as.Date(opt$start_date)))
+tmp <- assertthat::assert_that(is.Date(as.Date(opt$end_date)))
 
 output_dir <- opt$output_dir
 output_file <- file.path(output_dir, paste0("search_result", opt$end_date, "_",
@@ -261,11 +262,26 @@ getArticleImage <- function(remDr, html_link, type="", sleep_time=2)
   download_filename_full <- file.path("/home","pi", "Downloads", paste0(download_filename, ".gif"))
   Sys.sleep(2*sleep_time)
   if (!file.exists(download_filename_full))
-    stop(paste0("File did not download: ", download_filename_full))
-  res <- file.copy(from = download_filename_full,
-                   to = file.path(img_output_dir, paste0(download_filename, "_", type, ".gif")), 
-                   overwrite = TRUE)
-  assertthat::assert_that(res)
+  {
+    # try the png
+    download_filename_full <- file.path("/home","pi", "Downloads", paste0(download_filename, ".png"))
+    if (!file.exists(download_filename_full))
+    {
+      stop(paste0("File did not download: ", download_filename_full))
+    } else
+    {
+      res <- file.copy(from = download_filename_full,
+                       to = file.path(img_output_dir, paste0(download_filename, "_", type, ".png")), 
+                       overwrite = TRUE)
+      assertthat::assert_that(res)
+    }
+  } else
+  {
+    res <- file.copy(from = download_filename_full,
+                     to = file.path(img_output_dir, paste0(download_filename, "_", type, ".gif")), 
+                     overwrite = TRUE)
+    assertthat::assert_that(res)
+  }
   #file.remove(file.path("C:","Users", "Rob", "Downloads", paste0(download_filename, ".gif")))
   res <- file.remove(download_filename_full)
   assertthat::assert_that(res)
@@ -332,20 +348,36 @@ if (opt$get_image)
   elem <- remDr$findElement(using="id", value="btnLogin")
   elem$clickElement()
   
-  for (i in seq_along(links))
+  for (i in 1:length(links))
   {
     print(paste0(i, ": ", links[i]))
     print("Downloading...")
-    if (opt$article_type == "obit")
-    {
-      remDr <- getArticleImage(remDr, links[i], "Obituary")
-    } else if (opt$article_type == "marriage")
-    {
-      remDr <- getArticleImage(remDr, links[i], "Marriage")
-    } else
-    {
-      stop("Article Type Not Recognized")
-    }
+    tryCatch({
+      if (opt$article_type == "obit")
+      {
+        remDr <- getArticleImage(remDr, links[i], "Obituary")
+      } else if (opt$article_type == "marriage")
+      {
+        remDr <- getArticleImage(remDr, links[i], "Marriage")
+      } else
+      {
+        stop("Article Type Not Recognized")
+      }
+    }, error = function(e){
+      print(e)
+      cat("trying again...\n")
+      Sys.sleep(5)
+      if (opt$article_type == "obit")
+      {
+        remDr <- getArticleImage(remDr, links[i], "Obituary")
+      } else if (opt$article_type == "marriage")
+      {
+        remDr <- getArticleImage(remDr, links[i], "Marriage")
+      } else
+      {
+        stop("Article Type Not Recognized")
+      }
+    })
   }
   
   remDr$close()
