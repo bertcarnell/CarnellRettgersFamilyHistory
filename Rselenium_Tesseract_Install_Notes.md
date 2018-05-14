@@ -189,3 +189,27 @@ gnome-terminal
 ```
 nohup Rscript src/GenealogyBank_ReadingAdler_Search.R -b '1810-01-01' -e '1820-01-01' -p 'passwd' -t 'marriage' -g TRUE -q TRUE > log3.txt &
 ```
+
+### OCR example
+
+```
+tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img/Reading_Adler_1798-07-24_[3]_Obituary.gif stdout -l deu_frak
+# error
+# convert -units PixelsPerInch image -density 300 resultimage
+#eog ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+#convert ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff \
+#-morphology Smooth  Octagon:1 ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+convert -units PixelsPerInch ~/repositories/CarnellRettgersFamilyHistory/search_output/img/Reading_Adler_1798-07-24_[3]_Obituary.gif \
+-density 300 -noise 1 -threshold 50% \
+~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff stdout -l deu_frak
+eog ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+
+convert -units PixelsPerInch ~/repositories/CarnellRettgersFamilyHistory/search_output/img/Reading_Adler_1798-07-24_[3]_Obituary.gif \
+-density 600 -noise 1 -threshold 50% -unsharp 0x1 \
+~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff stdout -l deu_frak
+eog ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+rm ~repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+```
+

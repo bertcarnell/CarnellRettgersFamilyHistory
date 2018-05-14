@@ -1,4 +1,4 @@
-nohup Rscript GenealogyBank_ReadingAdler_Search.R -b '1820-01-01' -e '1830-01-01' -p 'Navy1998' -t 'obit' -g TRUE -q FALSE > log1830_obit_v2.txt
+# nohup Rscript GenealogyBank_ReadingAdler_Search.R -b '1820-01-01' -e '1830-01-01' -p 'Navy1998' -t 'obit' -g TRUE -q FALSE > log1830_obit_v2.txt
 
 dirpath <- file.path("~", "repositories","CarnellRettgersFamilyHistory","search_output")
 
@@ -43,6 +43,9 @@ checkDateSet("Reading_Adler_180.*Marriage.[gp][in][fg]", "links1810-01-01_marria
 
 checkDateSet("Reading_Adler_183.*Obituary.[gp][in][fg]", "links1840-01-01_obit.Rdata", filelist)
 checkDateSet("Reading_Adler_183.*Marriage.[gp][in][fg]", "links1840-01-01_marriage.Rdata", filelist)
+
+checkDateSet("Reading_Adler_184.*Obituary.[gp][in][fg]", "links1850-01-01_obit.Rdata", filelist)
+checkDateSet("Reading_Adler_184.*Marriage.[gp][in][fg]", "links1850-01-01_marriage.Rdata", filelist)
 
 load(file.path(dirpath, "links1798.Rdata"))
 
