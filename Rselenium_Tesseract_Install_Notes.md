@@ -206,10 +206,17 @@ tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/
 eog ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
 
 convert -units PixelsPerInch ~/repositories/CarnellRettgersFamilyHistory/search_output/img/Reading_Adler_1798-07-24_[3]_Obituary.gif \
--density 600 -noise 1 -threshold 50% -unsharp 0x1 \
+-resample 300 -noise 1 -threshold 50% \
 ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
-tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff stdout -l deu_frak
+
+tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff \
+stdout -l deu_frak -c tessedit_write_images=true
+
 eog ~/repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
 rm ~repositories/CarnellRettgersFamilyHistory/search_output/img_convert/Reading_Adler_1798-07-24_[3]_Obituary.tiff
+
+tesseract ~/repositories/CarnellRettgersFamilyHistory/search_output/img/Reading_Adler_1870-09-06_[3]_Obituary.png \
+stdout -l deu_frak -c tessedit_write_images=true
+
 ```
 
