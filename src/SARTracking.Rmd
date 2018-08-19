@@ -105,7 +105,9 @@ g$approv <- as.Date(ifelse(g$approv > Sys.Date(), NA, g$approv),
 ## Status
 
 ```{r echo=FALSE}
-dcast(ddply(g, .(type, status), summarize, cnt=length(start)), 
+temp <- subset(g, !grepl("[1-9][0-9]*[/]", status))
+
+dcast(ddply(temp, .(type, status), summarize, cnt=length(start)), 
       type ~ status, value.var="cnt", fill=0)
 ```
 
@@ -123,23 +125,25 @@ ddply(subset(g, status == "Approved"), .(type, status), summarize,
 ## New Members by State
 
 ```{r echo=FALSE}
-ddply(subset(g, status == "Approved" & type == "New"), .(state), summarize,
-      meanDays=as.numeric(mean(approv-start, na.rm=TRUE)),
-      meanMonths=as.numeric(mean(approv-start, na.rm=TRUE))/30,
+temp <- ddply(subset(g, status == "Approved" & type == "New"), .(state), summarize,
+      meanDays=formatC(as.numeric(mean(approv-start, na.rm=TRUE)), 3),
+      meanMonths=formatC(as.numeric(mean(approv-start, na.rm=TRUE))/30, 3),
       minDays=as.numeric(min(approv-start, na.rm=TRUE)),
       maxDays=as.numeric(max(approv-start, na.rm=TRUE)),
       numApps=length(approv))
+temp[order(temp$numApps, decreasing=TRUE),]
 ```
 
 ## Supplemental by State 
 
 ```{r echo=FALSE}
-ddply(subset(g, status == "Approved" & type == "Supplemental"), .(state), summarize,
-      meanDays=as.numeric(mean(approv-start, na.rm=TRUE)),
-      meanMonths=as.numeric(mean(approv-start, na.rm=TRUE))/30,
+temp <- ddply(subset(g, status == "Approved" & type == "Supplemental"), .(state), summarize,
+      meanDays=formatC(as.numeric(mean(approv-start, na.rm=TRUE)), 3),
+      meanMonths=formatC(as.numeric(mean(approv-start, na.rm=TRUE))/30, 3),
       minDays=as.numeric(min(approv-start, na.rm=TRUE)),
       maxDays=as.numeric(max(approv-start, na.rm=TRUE)),
       numApps=length(approv))
+temp[order(temp$numApps, decreasing=TRUE),]
 ```
 
 ## Average time for recent supplemental
