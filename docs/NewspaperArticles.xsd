@@ -100,6 +100,7 @@
             <xsd:enumeration value="The News Journal"/>
             <xsd:enumeration value="Washington County Georgia Newspaper Clippings"/>
             <xsd:enumeration value="Pennsylvania Gazette"/>
+            <xsd:enumeration value="Toledo News-Bee"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">

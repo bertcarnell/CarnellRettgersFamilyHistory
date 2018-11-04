@@ -81,6 +81,8 @@ for (i in 1:length(h))
 {
   for (j in 1:length(h[[i]]))
   {
+    if (is.na(h[[i]][1]) || is.na(h[[i]][[j]]))
+      next
     g <- rbind(g, data.frame(h[[i]][[j]]))    
   }
 }
