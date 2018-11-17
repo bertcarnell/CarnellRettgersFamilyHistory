@@ -101,6 +101,8 @@
             <xsd:enumeration value="Washington County Georgia Newspaper Clippings"/>
             <xsd:enumeration value="Pennsylvania Gazette"/>
             <xsd:enumeration value="Toledo News-Bee"/>
+            <xsd:enumeration value="York Daily Record"/>
+            <xsd:enumeration value="Atlanta Constitution"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">
