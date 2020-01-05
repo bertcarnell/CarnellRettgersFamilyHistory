@@ -88,6 +88,7 @@
             <xsd:enumeration value="Charleston News and Courier"/>
             <xsd:enumeration value="The Patriot"/>
             <xsd:enumeration value="Sunday Patriot &#8212; News"/>
+            <xsd:enumeration value="The Patriot &#8212; News"/>
             <xsd:enumeration value="The Evening News"/>
             <xsd:enumeration value="Post and Courier"/>
             <xsd:enumeration value="Altoona Tribune"/>
@@ -103,6 +104,7 @@
             <xsd:enumeration value="Toledo News-Bee"/>
             <xsd:enumeration value="York Daily Record"/>
             <xsd:enumeration value="Atlanta Constitution"/>
+            <xsd:enumeration value="Shreveport Times"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">
