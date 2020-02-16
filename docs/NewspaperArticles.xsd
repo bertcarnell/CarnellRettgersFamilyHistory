@@ -105,6 +105,9 @@
             <xsd:enumeration value="York Daily Record"/>
             <xsd:enumeration value="Atlanta Constitution"/>
             <xsd:enumeration value="Shreveport Times"/>
+            <xsd:enumeration value="The True Citizen"/>
+            <xsd:enumeration value="Middleburgh Post"/>
+            <xsd:enumeration value="The News and Farmer"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">
