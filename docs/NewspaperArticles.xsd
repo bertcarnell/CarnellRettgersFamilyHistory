@@ -108,6 +108,7 @@
             <xsd:enumeration value="The True Citizen"/>
             <xsd:enumeration value="Middleburgh Post"/>
             <xsd:enumeration value="The News and Farmer"/>
+            <xsd:enumeration value="NA"/> <!-- when the newspaper is not available -->
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="_Types">
