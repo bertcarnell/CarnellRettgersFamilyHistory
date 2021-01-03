@@ -111,6 +111,8 @@
             <xsd:enumeration value="Daily Local News"/>
             <xsd:enumeration value="The Weekend Sentinel"/>
             <xsd:enumeration value="The Item"/>
+            <xsd:enumeration value="The Town Talk"/>
+            <xsd:enumeration value="The Valley Daily Times-News"/>
             <xsd:enumeration value="NA"/> <!-- when the newspaper is not available -->
         </xsd:restriction>
     </xsd:simpleType>
