@@ -15133,8 +15133,26 @@
 		</Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
-
-
+	<SortedNewspaperLinks>
+        <ID>697</ID>
+        <Type>Obituary</Type>
+        <FirstName>Charles</FirstName>
+        <Middle>Wellington</Middle>
+        <LastName>Rettgers</LastName>
+        <DateOfDeath>30 Nov 1968</DateOfDeath>
+        <DayOfTheWeek>Saturday</DayOfTheWeek>
+        <NewspaperName>Philadelphia Inquirer</NewspaperName>
+        <NewspaperDate>3 Dec 1968</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <Page>48</Page>
+        <Column>0</Column>
+        <BurialDate>4 Dec 1968</BurialDate>
+        <BurialDay>Wednesday</BurialDay>
+        <Transcription>
+		&lt;div&gt;RETTGERS On Nov. 30, 1968, CHARLES W . beloved husband of Harriet (nee Lutz). Relatives and friends are invited to a Memorial Service Tues., 8 P. M., at the Bethany United Church of Christ. Magee and Rising Sun Ave. In lieu of flowers, please make contributions to the Church's Memorial Fund.  Int. at the convenience of the family.&lt;/div&gt;
+		</Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
 
 	<!--
     <SortedNewspaperLinks>
