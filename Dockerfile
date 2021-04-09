@@ -50,7 +50,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
 	r-cran-curl \
 	r-cran-rappdirs \
 	r-cran-xml2 \
-	r-cran-caTools \
+	r-cran-catools \
 	r-cran-openssl \
 	r-cran-httr
 
