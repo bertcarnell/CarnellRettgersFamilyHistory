@@ -40,9 +40,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
 	r-recommended \
 	r-cran-xml \
 	r-cran-rcpp \
-	r-cran-rselenium \
 	r-cran-r6 \
 	r-cran-ggplot2 \
 	r-cran-knitr \
 	r-cran-rmarkdown
+
+## r-cran-rselenium is not available
+RUN Rscript -e 'install.packages("RSelenium")'
 
