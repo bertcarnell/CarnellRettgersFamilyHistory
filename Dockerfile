@@ -43,8 +43,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
 	r-cran-r6 \
 	r-cran-ggplot2 \
 	r-cran-knitr \
-	r-cran-rmarkdown
+	r-cran-rmarkdown \
+	r-cran-sys \
+	r-cran-bitops \
+	r-cran-askpass \
+	r-cran-curl \
+	r-cran-rappdirs \
+	r-cran-xml2 \
+	r-cran-caTools \
+	r-cran-openssl \
+	r-cran-httr
 
 ## r-cran-rselenium is not available
-RUN Rscript -e 'install.packages("RSelenium")'
+RUN Rscript -e 'install.packages(c("semver", "wdman", "binman", "RSelenium"))'
 
