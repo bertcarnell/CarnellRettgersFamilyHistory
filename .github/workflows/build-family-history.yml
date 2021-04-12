@@ -24,5 +24,4 @@ jobs:
           sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
           sudo docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v repo:src --entrypoint /bin/bash bertcarnell/crfamhist
           sudo docker exec crfamhist Rscript Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
-        shell: bash
 
