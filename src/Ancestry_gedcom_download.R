@@ -1,30 +1,44 @@
+# script to download a GEDCOM from ancestry.com
+#   Prereqs
+#   1 . must have a docker running selenium available
+#       sudo docker run -d -p 4445:4444 selenium/standalone-firefox:2.53.1
+#   2.  must have RSelenium and httr installed
+#       install.packages("RSelenium")
+
+args <- commandArgs(trailingOnly=TRUE)
 
 if (FALSE)
 {
-  # sudo docker run -d -p 4445:4444 selenium/standalone-firefox:2.53.1
-  # sudo docker ps
-  # sudo apt-get install phantomjs
-  install.packages("RSelenium")
+  args <- c("localhost", "4445", "*********")
 }
 
-require(RSelenium)
-require(httr)
+# expect arg1 = removeServerAddr for the other docker
+#        arg2 = port for the other docker
+
+if (length(args) < 3 || length(args) > 3) 
+{
+  stop("remoteServerAddr and port options are expected.  Rscript --vanilla Ancestry_gedcom_download.R localhost 4445", call.=FALSE)
+} else {
+  my_remoteServerAddr <- args[1]
+  my_port <- args[2]
+  my_passwd <- arg[3]
+}
+
+if (!require(RSelenium) || !require(httr))
+  stop("RSelenium and httr are required to be installed")
 
 remDr <- remoteDriver(
-  remoteServerAddr = "localhost",
-  port = 4445L,
+  remoteServerAddr = my_remoteServerAddr,
+  port = as.integer(my_port),
   browserName = "firefox"
 )
 
 remDr$open()
+
 Sys.sleep(5)
 
-if (FALSE){
-  remDr$getStatus()
-  remDr$getCurrentUrl()
-  XML::htmlParse(remDr$getPageSource()[[1]])
-  remDr$screenshot(display = TRUE)
-}
+if (length(remDr$getStatus()) != 3)
+  stop(paste("server status is", remDr$getStatus()))
 
 ancestry_url <- "https://www.ancestry.com"
 ancestry_list <- httr::parse_url(ancestry_url)
@@ -33,7 +47,7 @@ ancestry_list$query <- list(signUpReturnUrl="https://www.ancestry.com%2Fcs%2Foff
 
 remDr$navigate(httr::build_url(ancestry_list))
 
-Sys.sleep(10)
+Sys.sleep(5)
 
 # <input tabindex="1" aria-required="true" class="success required" id="username" maxlength="64" name="username" placeholder="Email Address or Username" type="text" value="" autocorrect="off" autocapitalize="none" required="true">
 # <input tabindex="2" aria-required="true" class="success required" id="password" name="password" placeholder="Password" type="password" value="" required="true">
@@ -47,7 +61,7 @@ button_element <- remDr$findElement(using = "id", value = "signInBtn")
 
 username_element$sendKeysToElement(list("bertcarnell@gmail.com"))
 Sys.sleep(1)
-password_element$sendKeysToElement(list("******"))
+password_element$sendKeysToElement(list(my_passwd))
 Sys.sleep(1)
 button_element$clickElement()
 Sys.sleep(5)
@@ -56,7 +70,7 @@ ancestry_list <- httr::parse_url(ancestry_url)
 ancestry_list$path <- "family-tree/tree/71905785/settings/info"
 
 remDr$navigate(httr::build_url(ancestry_list))
-Sys.sleep(10)
+Sys.sleep(5)
 
 # <button class="ancBtn sml" id="exportTreeLink" onclick="exportGedcom();" type="button">Export tree</button>
   
@@ -71,8 +85,12 @@ download_element <- remDr$findElement(using = "id", value = "ctl05_ctl00_gedcome
 file_link <- download_element$getElementAttribute("href")[[1]]
 download.file(url = file_link, destfile = "test.ged")
 
-Sys.sleep(15)
+if (!file.exists("test.ged"))
+{
+  remDr$close()
+  stop("Download did not complete properly")
+}
+
+Sys.sleep(5)
 
 remDr$close()
-remDr$closeServer()
-

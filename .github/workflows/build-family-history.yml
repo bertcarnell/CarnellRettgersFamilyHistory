@@ -11,18 +11,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        r-version: [3.6]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-r@master
-        with:
-          r-version: ${{ matrix.r-version }}
-      - name: Install dependencies
+      - name: Check out the Repository
+        uses: actions/checkout@v2
+      - name: Create Docker containers and Download GEDCOM
+        shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          install.packages(c("remotes", "RSelenium", "httr"))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+          sudo docker network create mynetwork
+          sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
+          sudo docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v repo:src --entrypoint /bin/bash bertcarnell/crfamhist
+          sudo docker exec crfamhist Rscript Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
+        shell: bash
+
