@@ -1,0 +1,50 @@
+
+sudo docker network create mynetwork
+sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
+
+sudo docker run -t -i -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v repo:/home/rcc/repositories/CarnellRettgersFamilyHistory/src bertcarnell/crfamhist
+
+
+library(RSelenium)
+remDr <- remoteDriver(
+  remoteServerAddr = "ffdocker",
+  port = 4444L,
+  browserName = "firefox"
+)
+
+
+remDr$open()
+remDr$close()
+
+
+sudo docker rm crfamhist
+sudo docker kill ffdocker
+sudo docker rm ffdocker
+sudo docker network rm mynetwork
+
+###########################################################################################
+
+sudo docker network create mynetwork
+sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
+
+sudo docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v repo:/home/rcc/repositories/CarnellRettgersFamilyHistory/src --entrypoint /bin/bash bertcarnell/crfamhist
+
+sudo docker exec crfamhist Rscript -e 'print("hello")'
+
+library(RSelenium)
+remDr <- remoteDriver(
+  remoteServerAddr = "ffdocker",
+  port = 4444L,
+  browserName = "firefox"
+)
+
+
+remDr$open()
+remDr$close()
+
+sudo docker kill crfamhist
+sudo docker rm crfamhist
+sudo docker kill ffdocker
+sudo docker rm ffdocker
+sudo docker network rm mynetwork
+
