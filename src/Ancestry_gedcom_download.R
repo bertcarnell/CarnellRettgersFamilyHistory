@@ -78,11 +78,15 @@ remDr$navigate(httr::build_url(ancestry_list))
 Sys.sleep(5)
 
 # <button class="ancBtn sml" id="exportTreeLink" onclick="exportGedcom();" type="button">Export tree</button>
-  
-export_element <- remDr$findElement(using = "id", value = "exportTreeLink")
-export_element$clickElement()
 
-Sys.sleep(15)
+tryCatch({  
+  # if this is the first time downloading the file for today, then this works.  If it is the second, then this button might be missing
+  cat("Exporting Tree\n")
+  export_element <- remDr$findElement(using = "id", value = "exportTreeLink")
+  export_element$clickElement()
+  # give time for the export
+  Sys.sleep(15)
+})
 
 # <a id="ctl05_ctl00_gedcomexport_downloadButtonLink" class="ancBtn full320 icon iconDownload" href="https://mediasvc.ancestry.com/v2/stream/namespaces/61515/media/64364eb5-4167-43e1-9f42-734d8d01acb6.ged?Client=Ancestry.Trees&amp;filename=Carnell+-+Rettgers.ged">Download your GEDCOM file</a>
 
