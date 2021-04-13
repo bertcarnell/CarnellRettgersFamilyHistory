@@ -23,13 +23,11 @@ jobs:
       - name: Download R docker container
         shell: bash
         run: |
-          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v /repo:`pwd`/src --entrypoint /bin/bash bertcarnell/crfamhist
+          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
       - name: Download GEDCOM
         shell: bash
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          docker exec crfamhist pwd
-          docker exec crfamhist ls -alh
           docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
 
