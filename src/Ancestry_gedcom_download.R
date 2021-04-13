@@ -21,7 +21,7 @@ if (length(args) < 3 || length(args) > 3)
 } else {
   my_remoteServerAddr <- args[1]
   my_port <- args[2]
-  my_passwd <- arg[3]
+  my_passwd <- args[3]
 }
 
 if (!require(RSelenium) || !require(httr))
