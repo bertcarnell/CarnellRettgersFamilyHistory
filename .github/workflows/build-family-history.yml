@@ -15,13 +15,16 @@ jobs:
     steps:
       - name: Check out the Repository
         uses: actions/checkout@v2
-      - name: Create Docker containers and Download GEDCOM
+      - name: Create Docker Network and Server
+        shell: bash
+        run: |
+          sudo docker network create mynetwork
+          sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
+      - name: Download GEDCOM
         shell: bash
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          sudo docker network create mynetwork
-          sudo docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
-          sudo docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v repo:src --entrypoint /bin/bash bertcarnell/crfamhist
-          sudo docker exec crfamhist Rscript Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
+          sudo docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v /repo:`pwd`/src --entrypoint /bin/bash bertcarnell/crfamhist
+          sudo docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
 

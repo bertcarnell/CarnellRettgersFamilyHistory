@@ -45,6 +45,7 @@ ancestry_list <- httr::parse_url(ancestry_url)
 ancestry_list$path <- "account/signin"
 ancestry_list$query <- list(signUpReturnUrl="https://www.ancestry.com%2Fcs%2Foffers%2Fsubscribe%3Fsub%3D1")
 
+cat("Navigating to Ancestry.com\n")
 remDr$navigate(httr::build_url(ancestry_list))
 
 Sys.sleep(5)
@@ -59,6 +60,8 @@ username_element <- remDr$findElement(using = "id", value = "username")
 password_element <- remDr$findElement(using = "id", value = "password")
 button_element <- remDr$findElement(using = "id", value = "signInBtn")
 
+cat("Entering Username and Password\n")
+
 username_element$sendKeysToElement(list("bertcarnell@gmail.com"))
 Sys.sleep(1)
 password_element$sendKeysToElement(list(my_passwd))
@@ -68,6 +71,8 @@ Sys.sleep(5)
 
 ancestry_list <- httr::parse_url(ancestry_url)
 ancestry_list$path <- "family-tree/tree/71905785/settings/info"
+
+cat("Navigating to GEDCOM download screen\n")
 
 remDr$navigate(httr::build_url(ancestry_list))
 Sys.sleep(5)
@@ -83,6 +88,8 @@ Sys.sleep(15)
 
 download_element <- remDr$findElement(using = "id", value = "ctl05_ctl00_gedcomexport_downloadButtonLink")
 file_link <- download_element$getElementAttribute("href")[[1]]
+
+cat("Downloading...\n")
 download.file(url = file_link, destfile = "test.ged")
 
 if (!file.exists("test.ged"))
