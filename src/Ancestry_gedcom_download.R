@@ -86,15 +86,16 @@ tryCatch({
   export_element$clickElement()
   # give time for the export
   Sys.sleep(15)
-})
+}, error = function(e) cat("Export Button not found\n"))
 
 # <a id="ctl05_ctl00_gedcomexport_downloadButtonLink" class="ancBtn full320 icon iconDownload" href="https://mediasvc.ancestry.com/v2/stream/namespaces/61515/media/64364eb5-4167-43e1-9f42-734d8d01acb6.ged?Client=Ancestry.Trees&amp;filename=Carnell+-+Rettgers.ged">Download your GEDCOM file</a>
 
-download_element <- remDr$findElement(using = "id", value = "ctl05_ctl00_gedcomexport_downloadButtonLink")
-file_link <- download_element$getElementAttribute("href")[[1]]
-
-cat("Downloading...\n")
-download.file(url = file_link, destfile = "test.ged")
+tryCatch({
+  cat("Downloading...\n")
+  download_element <- remDr$findElement(using = "id", value = "ctl05_ctl00_gedcomexport_downloadButtonLink")
+  file_link <- download_element$getElementAttribute("href")[[1]]
+  download.file(url = file_link, destfile = "test.ged")
+}, error = function(e) cat("File Down load Error\n"))
 
 if (!file.exists("test.ged"))
 {
