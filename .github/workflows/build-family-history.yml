@@ -45,5 +45,3 @@ jobs:
           ls -alh
           docker kill ffdocker
           docker rm ffdocker
-          docker network rm mynetwork
-
