@@ -29,5 +29,13 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
+          # docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
+          ls -alh
+      - name: Checkout Gramps
+        uses: actions/checkout@v2
+        with:
+          repository: 'gramps-project/gramps'
+      - name: Check files
+        shell: bash
+        run: ls -alh
 
