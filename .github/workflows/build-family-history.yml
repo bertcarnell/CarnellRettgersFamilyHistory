@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Check out the Repository
         uses: actions/checkout@v2
+        with:
+          repository: 'bertcarnell/CarnellRettgersFamilyHistory'
+          path: ./CarnellRettgersFamilyHistory
       - name: Create Docker Network and Server
         shell: bash
         run: |
@@ -23,7 +26,7 @@ jobs:
       - name: Download R docker container
         shell: bash
         run: |
-          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
+          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/CarnellRettgersFamilyHistory/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
       - name: Download GEDCOM
         shell: bash
         env:
@@ -35,7 +38,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: 'gramps-project/gramps'
-      - name: Check files
+          path: ./gramps
+      - name: Check files and clean up
         shell: bash
-        run: ls -alh
+        run: |
+          ls -alh
+          docker kill ffdocker
+          docker rm ffdocker
+          docker network rm mynetwork
 
