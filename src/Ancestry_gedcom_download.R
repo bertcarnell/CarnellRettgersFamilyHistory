@@ -15,13 +15,14 @@ if (FALSE)
 # expect arg1 = removeServerAddr for the other docker
 #        arg2 = port for the other docker
 
-if (length(args) < 3 || length(args) > 3) 
+if (length(args) != 4) 
 {
-  stop("remoteServerAddr and port options are expected.  Rscript --vanilla Ancestry_gedcom_download.R localhost 4445", call.=FALSE)
+  stop("remoteServerAddr, port options, password, and output file are expected.  Rscript --vanilla Ancestry_gedcom_download.R localhost 4445 pwd out.ged", call.=FALSE)
 } else {
   my_remoteServerAddr <- args[1]
   my_port <- args[2]
   my_passwd <- args[3]
+  my_output_file <- args[4]
 }
 
 if (!require(RSelenium) || !require(httr))
@@ -94,10 +95,10 @@ tryCatch({
   cat("Downloading...\n")
   download_element <- remDr$findElement(using = "id", value = "ctl05_ctl00_gedcomexport_downloadButtonLink")
   file_link <- download_element$getElementAttribute("href")[[1]]
-  download.file(url = file_link, destfile = "test.ged")
+  download.file(url = file_link, destfile = my_output_file)
 }, error = function(e) cat("File Down load Error\n"))
 
-if (!file.exists("test.ged"))
+if (!file.exists(my_output_file))
 {
   remDr$close()
   stop("Download did not complete properly")
