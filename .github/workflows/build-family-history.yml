@@ -50,16 +50,13 @@ jobs:
         run: |
           # get translations
           cd gramps
-          #python3 setup.py build
+          #python3 setup.py build # not building properly
           # create report
           python3 Gramps.py -y -q -i ../CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
-          ls -alh
-          ls -alh CarnellRettgersFamilyHistory/src
-      - name: Check files and clean up
+      - name: Clean up
         shell: bash
         run: |
-          ls -alh
-          #docker kill ffdocker
-          #docker rm ffdocker
-          #docker kill crfamhist
-          #docker rm crfamhist
+          docker kill ffdocker
+          docker rm ffdocker
+          docker kill crfamhist
+          docker rm crfamhist
