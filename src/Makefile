@@ -3,12 +3,11 @@
 # output path
 #   Note:  OUTPUT_PATH cannot use ~/, it must use /home/carnellr to work with 
 #          python3 open()
-OUTPUT_PATH=/home/carnellr/Documents/repositories/CarnellRettgersFamilyHistory
+OUTPUT_PATH=CarnellRettgersFamilyHistory
 
 # Path to GEDCOM
-GEDCOM_FILE=Carnell_2018-01-06.ged
-GEDCOM_PATH=~/share
-VBOXSF_NAME=Family_Tree_Maker
+GEDCOM_FILE=carnell_rettgers.ged
+GEDCOM_PATH=CarnellRettgersFamilyHistory/src
 
 # Ancestor ID numbers from Gramps
 RETTGERS=I0115
@@ -67,10 +66,6 @@ GRAMPSOPTIONSREPORTDEC4=off=tex,living_people=0,name_format=2,incsources=True,
 GRAMPSOPTIONSREPORTDEC5=of=$(OUTPUT_PATH)/tex_input_private/det_descendant_report_
 GRAMPSOPTIONSREPORTDEC=$(GRAMPSOPTIONSREPORTDEC1)$(GRAMPSOPTIONSREPORTDEC2)$(GRAMPSOPTIONSREPORTDEC3)$(GRAMPSOPTIONSREPORTDEC4)$(GRAMPSOPTIONSREPORTDEC5)
 
-# R file
-R_MODIFY_FILE=src/Modify_Gramps_Output.R
-R_GEDCOM_FILE=src/Modify_GEDCOM.R
-
 # LATEX
 # use the package "rubber" to handle multiple latex passes to make the TOC
 #   sudo apt-get install rubber
@@ -83,8 +78,6 @@ TOC=$(wildcard $(OUTPUT_PATH)/pdf_output/*.toc)
 
 .PHONY: gramps # 	Create Gramps detailed ancestor reports
 gramps :
-	# correct GEDCOM Errors
-	Rscript --vanilla $(OUTPUT_PATH)/$(R_GEDCOM_FILE) $(GEDCOM_PATH)/$(GEDCOM_FILE)
 	# process a gedcom file from FamilyTreeMaker with Gramps
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORT)Bechtel.tex,pid=$(BECHTEL)"
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORT)Connell.tex,pid=$(CONNELL)"
@@ -102,11 +95,6 @@ gramps :
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Fett.tex,pid=$(FETT)"
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Rettgers.tex,pid=$(RETTGERS)"
 	$(GRAMPS_COMMAND) $(GRAMPSOPTIONSSTART) "$(GRAMPSOPTIONSREPORTDEC)Smith.tex,pid=$(SMITH)"
-
-.PHONY: r # 	Modifies the Gramps output for the desired tex format
-r :
-	# Process with R
-	Rscript --vanilla $(OUTPUT_PATH)/$(R_MODIFY_FILE)
 
 .PHONY: tex # 	builds the pdf files
 tex :
@@ -130,13 +118,7 @@ clean-tex :
 	rm $(TOC)
 
 .PHONY: all # 	executes gramps, r, tex, and clean-tex
-all : gramps r tex clean-tex
-
-.PHONY: mount # 	mounts a windows file system where teh GEDCOM is kept
-mount :
-	# Ensure that the GEDCOM_PATH is mounted to windows if necessary
-	# mount -t vboxsf [Name in vbox mount] [path in linux]
-	mount -t vboxsf $(VBOXSF_NAME) $(GEDCOM_PATH)
+all : gramps tex clean-tex
 
 .PHONY: clean # 	cleans up all non-repository files
 clean :
