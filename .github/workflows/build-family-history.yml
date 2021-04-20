@@ -32,9 +32,9 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET"
+          docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET" /repo/carnell_rettgers.ged
           ls -alh `pwd`/CarnellRettgersFamilyHistory/src
-          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R "Carnell - Rettgers.ged"
+          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/carnell_rettgers.ged
       - name: Checkout Gramps
         uses: actions/checkout@v2
         with:
