@@ -40,11 +40,15 @@ jobs:
       - name: Install Gramps
         shell: bash
         run: |
-          sudo apt-get install -y gramps 
+          sudo apt-get install -y gramps rubber
       - name: Run Test Gramps Report
         shell: bash
         run: |
-          gramps -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
+          #gramps -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
+          make gramps
+          ls -alh
+          ls -alh CarnellRettgersFamilyHistory
+          ls -alh CarnellRettgersFamilyHistory/src
       - name: Clean up
         shell: bash
         run: |
