@@ -40,9 +40,17 @@ jobs:
         with:
           repository: 'gramps-project/gramps'
           path: ./gramps
+      - name: Run Test Gramps Report
+        shell: bash
+        run: |
+          python3 gramps/Gramps.py -y -q -i `pwd`/CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
+          ls -alh
+          ls -alh `pwd`/CarnellRettgersFamilyHistory/src
       - name: Check files and clean up
         shell: bash
         run: |
           ls -alh
           docker kill ffdocker
           docker rm ffdocker
+          docker kill crfamhist
+          docker rm crfamhist
