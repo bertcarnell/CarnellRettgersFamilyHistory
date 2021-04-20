@@ -21,36 +21,42 @@ jobs:
       - name: Create Docker Network and Server
         shell: bash
         run: |
-          docker network create mynetwork
-          docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
+          #docker network create mynetwork
+          #docker run -d -p 4445:4444 --name ffdocker --network mynetwork selenium/standalone-firefox:2.53.1
       - name: Download R docker container
         shell: bash
         run: |
-          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/CarnellRettgersFamilyHistory/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
+          #docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/CarnellRettgersFamilyHistory/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
       - name: Download GEDCOM
         shell: bash
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET" /repo/carnell_rettgers.ged
-          ls -alh `pwd`/CarnellRettgersFamilyHistory/src
-          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/carnell_rettgers.ged
+          #docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET" /repo/carnell_rettgers.ged
+          #docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/carnell_rettgers.ged
       - name: Checkout Gramps
         uses: actions/checkout@v2
         with:
           repository: 'gramps-project/gramps'
           path: ./gramps
+      - name: Install Gramps Dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip pyICU
       - name: Run Test Gramps Report
         shell: bash
         run: |
-          python3 gramps/Gramps.py -y -q -i `pwd`/CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
+          # get translations
+          python3 gramps/setup.py build
+          # create report
+          #python3 gramps/Gramps.py -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
           ls -alh
-          ls -alh `pwd`/CarnellRettgersFamilyHistory/src
+          ls -alh CarnellRettgersFamilyHistory/src
       - name: Check files and clean up
         shell: bash
         run: |
           ls -alh
-          docker kill ffdocker
-          docker rm ffdocker
-          docker kill crfamhist
-          docker rm crfamhist
+          #docker kill ffdocker
+          #docker rm ffdocker
+          #docker kill crfamhist
+          #docker rm crfamhist
