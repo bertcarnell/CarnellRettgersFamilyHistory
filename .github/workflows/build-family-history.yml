@@ -45,10 +45,8 @@ jobs:
         shell: bash
         run: |
           #gramps -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
-          make gramps
-          ls -alh
-          ls -alh CarnellRettgersFamilyHistory
-          ls -alh CarnellRettgersFamilyHistory/src
+          cd CarnellRettgersFamilyHistory/src
+          make gramps OUTPUT_PATH=.. GEDCOM_FILE=carnell_rettgers.ged GEDCOM_PATH=.
       - name: Clean up
         shell: bash
         run: |
