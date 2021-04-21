@@ -52,7 +52,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
 	r-cran-xml2 \
 	r-cran-catools \
 	r-cran-openssl \
-	r-cran-httr
+	r-cran-httr \
+	r-cran-assertthat \
+	r-cran-stringr
 
 ## r-cran-rselenium is not available
 RUN Rscript -e 'install.packages(c("semver", "wdman", "binman", "RSelenium"))'
