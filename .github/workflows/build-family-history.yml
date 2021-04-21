@@ -47,6 +47,13 @@ jobs:
           #gramps -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
           cd CarnellRettgersFamilyHistory/src
           make gramps OUTPUT_PATH=.. GEDCOM_FILE=carnell_rettgers.ged GEDCOM_PATH=.
+          cd ../..
+          ls -alh CarnellRettgersFamilyHistory/tex_input
+      - name: Upload Tex results
+        uses: actions/upload-artifact@master
+        with:
+          name: det_ancestor_reports
+          path: CarnellRettgersFamilyHistory/tex_input
       - name: Clean up
         shell: bash
         run: |
