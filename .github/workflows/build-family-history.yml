@@ -36,7 +36,7 @@ jobs:
       - name: Modify GEDCOM for Gramps
         shell: bash
         run: |
-          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/src/carnell_rettgers.ged
+          docker exec crfamhist Rscript --vanilla /repo/src/Modify_GEDCOM.R /repo/src/carnell_rettgers.ged
       - name: Install Gramps
         shell: bash
         run: |
