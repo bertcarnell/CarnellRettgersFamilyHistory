@@ -26,29 +26,33 @@ jobs:
       - name: Download R docker container
         shell: bash
         run: |
-          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/CarnellRettgersFamilyHistory/src:/repo --entrypoint /bin/bash bertcarnell/crfamhist
+          docker run -dit -p 4443:4442 --name crfamhist --link ffdocker --network mynetwork -v `pwd`/CarnellRettgersFamilyHistory:/repo --entrypoint /bin/bash bertcarnell/crfamhist
       - name: Download GEDCOM
         shell: bash
         env:
           SUPER_SECRET: ${{ secrets.ANCESTRY_PWD }}
         run: |
-          docker exec crfamhist Rscript /repo/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET" /repo/carnell_rettgers.ged
+          docker exec crfamhist Rscript /repo/src/Ancestry_gedcom_download.R ffdocker 4444 "$SUPER_SECRET" /repo/src/carnell_rettgers.ged
       - name: Modify GEDCOM for Gramps
         shell: bash
         run: |
-          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/carnell_rettgers.ged
+          docker exec crfamhist Rscript --vanilla /repo/Modify_GEDCOM.R /repo/src/carnell_rettgers.ged
       - name: Install Gramps
         shell: bash
         run: |
           sudo apt-get install -y gramps rubber
-      - name: Run Test Gramps Report
+      - name: Run Gramps Reports
         shell: bash
         run: |
-          #gramps -y -q -i CarnellRettgersFamilyHistory/src/carnell_rettgers.ged -a report -p "name=det_descendant_report"
           cd CarnellRettgersFamilyHistory/src
           make gramps OUTPUT_PATH=.. GEDCOM_FILE=carnell_rettgers.ged GEDCOM_PATH=.
           cd ../..
           ls -alh CarnellRettgersFamilyHistory/tex_input
+          ls -alh CarnellRettgersFamilyHistory/tex_input_private
+      - name: Modify Tex Output
+        shell: bash
+        run: |
+          docker exec crfamhist Rscript --vanilla /repo/Modify_Gramps_Output.R /repo
       - name: Upload Tex results
         uses: actions/upload-artifact@master
         with:
