@@ -14653,8 +14653,8 @@
         <DateOfDeath>8 Mar 2018</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <NewspaperName>NA</NewspaperName>
-        <NewspaperDate>00 Jan 1000</NewspaperDate>
-        <NewspaperDay>Sunday</NewspaperDay>
+        <NewspaperDate>8 Mar 2018</NewspaperDate>
+        <NewspaperDay>Thursday</NewspaperDay>
         <Link>https://www.carteroglethorpe.com/obituary/6103931</Link>
         <Transcription>
 &lt;p&gt;Marie Elizabeth Plough, 69, passed away peacefully at home Thursday, March 8, 2018, after a long illness.  She was surrounded by her family.&lt;/p&gt;
@@ -14677,8 +14677,8 @@
         <DateOfDeath>21 Jan 2016</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <NewspaperName>NA</NewspaperName>
-        <NewspaperDate>00 Jan 1000</NewspaperDate>
-        <NewspaperDay>Sunday</NewspaperDay>
+        <NewspaperDate>21 Jan 2016</NewspaperDate>
+        <NewspaperDay>Thursday</NewspaperDay>
         <Link>https://www.carteroglethorpe.com/obituary/6104134</Link>
         <Transcription>
 &lt;div&gt;Ludowici&lt;/div&gt;	
@@ -14958,15 +14958,13 @@
         <ID>689</ID>
         <Type>Obituary</Type>
         <FirstName>Brenda</FirstName>
-        <Middle></Middle>
         <LastName>Quackenbush</LastName>
 		<MaidenName>Blackburn</MaidenName>
         <DateOfDeath>01 Mar 2020</DateOfDeath>
         <DayOfTheWeek>Sunday</DayOfTheWeek>
+        <NewspaperDate>01 Mar 2020</NewspaperDate>
+        <NewspaperDay>Sunday</NewspaperDay>
         <NewspaperName>NA</NewspaperName>
-        <NewspaperDate></NewspaperDate>
-        <NewspaperDay></NewspaperDay>
-        <NewspaperHeading></NewspaperHeading>
         <Link>https://www.leavittfh.com/obituaries/Brenda-Blackburn-Quackenbush?obId=12247699#/obituaryInfo</Link>
         <Transcription>
 		&lt;p&gt;MORVEN – Mrs. Brenda Blackburn Quackenbush, 73, died Sunday, March 1, 2020 at Hospice of Union County in Monroe, NC.&lt;/p&gt;
@@ -14985,9 +14983,6 @@
         <FirstName>Walter</FirstName>
         <Middle>A</Middle>
         <LastName>Ringler</LastName>
-		<MaidenName></MaidenName>
-        <DateOfDeath></DateOfDeath>
-        <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName>Reading Eagle</NewspaperName>
         <NewspaperDate>28 Jun 1921</NewspaperDate>
         <NewspaperDay>Tuesday</NewspaperDay>
@@ -15009,9 +15004,6 @@
         <FirstName>George</FirstName>
         <Middle>E</Middle>
         <LastName>May</LastName>
-		<MaidenName></MaidenName>
-        <DateOfDeath></DateOfDeath>
-        <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName>Reading Eagle</NewspaperName>
         <NewspaperDate>14 Jun 1943</NewspaperDate>
         <NewspaperDay>Monday</NewspaperDay>
@@ -15026,11 +15018,7 @@
         <ID>692</ID>
         <Type>Marriage</Type>
         <FirstName>John</FirstName>
-        <Middle></Middle>
         <LastName>Savage</LastName>
-		<MaidenName></MaidenName>
-        <DateOfDeath></DateOfDeath>
-        <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName>Reading Eagle</NewspaperName>
         <NewspaperDate>21 Oct 1895</NewspaperDate>
         <NewspaperDay>Monday</NewspaperDay>
@@ -15053,13 +15041,8 @@
         <NewspaperName>The Item</NewspaperName>
         <NewspaperDate>4 Jun 2007</NewspaperDate>
         <NewspaperDay>Monday</NewspaperDay>
-        <NewspaperHeading></NewspaperHeading>
         <Page>13</Page>
         <Column>1</Column>
-        <BurialDate></BurialDate>
-        <BurialDay></BurialDay>
-        <Link></Link>
-		<Notes></Notes>
         <Transcription>&lt;div&gt;LILLIE M LANGSTON&lt;/div&gt; 
 		&lt;p&gt;MANNING - Lillie Mae Langston 96 widow of Joseph Sanford Langston died Sunday June 3 2007 at her home in Manning Funeral arrangements will be announced by Stephens Funeral Home &amp; Crematory 304 N Church St Manning (803) 435-2179&lt;/p&gt;
 		</Transcription>
@@ -15071,9 +15054,6 @@
         <FirstName>Raymond</FirstName>
         <Middle>E</Middle>
         <LastName>Wilson</LastName>
-		<MaidenName></MaidenName>
-        <DateOfDeath></DateOfDeath>
-        <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName>Reading Times</NewspaperName>
         <NewspaperDate>29 Jul 1908</NewspaperDate>
         <NewspaperDay>Wednesday</NewspaperDay>
@@ -15102,7 +15082,6 @@
         <Column>3</Column>
         <BurialDate>23 Jan 1991</BurialDate>
         <BurialDay>Wednesday</BurialDay>
-		<Notes></Notes>
         <Transcription>&lt;div&gt;Sarah L. McNeely&lt;/div&gt;
 		&lt;p&gt;WRENS, Ga. Services for Sarah L. McNeely will be at 11 a.m. Wednesday in the chapel of Calloway with the Rev. Jay Weigel officiating. Burial will be in Ebenezer Presbyterian Churh Cemetery under local direction of Comer, Ferriday, La. Mrs. McNeely, 96, of Ferriday, La., died at 5:02 a.m. Sunday in Heritage Manor Nursing Home, Ferriday, La. She had lived in Ferriday, La., since 1977 and was a member of the Ebenezer Presbyterian Church. Survivors include one daughter, Sarah A. Youkey of Ferriday, La.; two grandchildren and five great-grandchildren.&lt;/p&gt;
 		</Transcription>
@@ -15160,8 +15139,6 @@
         <Middle>J</Middle>
         <LastName>Morrison</LastName>
 		<MaidenName></MaidenName>
-        <DateOfDeath></DateOfDeath>
-        <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName>Reading Times</NewspaperName>
         <NewspaperDate>14 Apr 1893</NewspaperDate>
         <NewspaperDay>Friday</NewspaperDay>

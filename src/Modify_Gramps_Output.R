@@ -1,52 +1,59 @@
-# Copyright (c) 2018 Robert Carnell
+# Copyright (c) 2021 Robert Carnell
 
-# R must also be installed on Ubuntu
-#   sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list
-#   gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-#   gpg -a --export E084DAB9 | sudo apt-key add -
-#   sudo apt-get update
-#   sudo apt-get install r-base r-base-dev
-# RStudio is nice - download the Ubuntu / Debian version from Rstudio
-#   sudo apt-get install gdebi-core
-#   sudo gdebi <downloaded .deb file>
-# install required packages
-#   sudo R
-#   install.packages(c("assertthat","stringr"), repos="http://cran.stat.ucla.edu")
+args <- commandArgs(trailingOnly=TRUE)
+private <- TRUE
 
-require(assertthat)
-require(stringr)
+if (length(args) == 0 | length(args) > 1) stop("repository path must be supplied")
 
-if (grepl("Ubuntu",Sys.info()["version"]))
+if (FALSE)
 {
-  repository_path <- file.path("~","Documents","repositories")
-} else
-{
-  repository_path <- file.path("C:","Users","Rob","Documents","Repositories")
+  # debugging
+  args <- as.character(file.path("C:","repositories","CarnellRettgersFamilyHistory"))
+  private <- FALSE
 }
-repository_path_ext <- file.path(repository_path, "CarnellRettgersFamilyHistory")
+
+stopifnot(require(assertthat))
+stopifnot(require(stringr))
+stopifnot(require(xml2))
+
+repository_path_ext <- args[1]
+
+assertthat::assert_that(dir.exists(repository_path_ext),
+                        msg = paste("Repository Path does not exist", args[1]))
+
 tex_input_path <- file.path(repository_path_ext, "tex_input")
-tex_input_private_path <- file.path(repository_path_ext, "tex_input_private")
+if (private)
+  tex_input_private_path <- file.path(repository_path_ext, "tex_input_private")
 tex_output_path <- file.path(repository_path_ext, "tex_output")
 
 obituary_input_path <- file.path(repository_path_ext, "docs")
 obituary_input_file <- file.path(obituary_input_path, "NewspaperArticles.xml")
 obituary_schema_file <- file.path(obituary_input_path, "NewspaperArticles.xsd")
 
-if (!dir.exists(tex_output_path)) dir.create(tex_output_path)
+if (!dir.exists(tex_output_path)) 
+  dir.create(tex_output_path)
 
 ancestor_files <- c(paste0("det_ancestor_report_", 
-                         c("Bechtel","Fett","Hartenstine","Rettgers",
-                           "Connell","Langston","Smith","Josey"), ".tex"),
+                           c("Bechtel","Fett","Hartenstine","Rettgers",
+                             "Connell","Langston","Smith","Josey"), ".tex"))
+ancestor_files_path <- file.path(rep(tex_input_path, 8), ancestor_files)
+
+if (private)
+{
+  ancestor_files <- c(ancestor_files, 
                     paste0("det_descendant_report_", 
                          c("Fett","Rettgers",
                            "Connell","Smith"), ".tex"))
-ancestor_files_path <- file.path(c(rep(tex_input_path, 8), rep(tex_input_private_path, 4)), ancestor_files)
+  ancestor_files_path <- file.path(c(rep(tex_input_path, 8), 
+                                     rep(tex_input_private_path, 4)), ancestor_files)
+}
 
 dummy <- sapply(ancestor_files_path, function(x) {
-  assertthat::assert_that(file.exists(x))
+  assertthat::assert_that(file.exists(x), msg = paste("File Does Not Exist: ", x))
 })
-dummy <- assertthat::assert_that(file.exists(obituary_input_file))
-dummy <- assertthat::assert_that(file.exists(obituary_schema_file))
+
+dummy <- assertthat::assert_that(file.exists(obituary_input_file), msg = paste("File Does Not Exist: ", obituary_input_file))
+dummy <- assertthat::assert_that(file.exists(obituary_schema_file), msg = paste("File Does Not Exist: ", obituary_schema_file))
 
 ################################################################################
 
@@ -202,12 +209,12 @@ dummy <- mapply(function(x, f){
 ################################################################################
 
 cat("Reading Obits\n")
-require(xml2)
 obits <- read_xml(obituary_input_file)
 schema <- read_xml(obituary_schema_file)
 
 # check that the xml is valid
-assertthat::assert_that(xml_validate(obits, schema))
+assertthat::assert_that(xml_validate(obits, schema), 
+                        msg = paste("Invalid XML schema for ", obituary_input_file))
 
 normDate <- function(s)
 {
@@ -305,11 +312,11 @@ for (i in 1:length(temp))
   count <- count + 1
 }
 
-if (berror) stop("errors with Obituary parsing")
+if (berror) 
+  stop("errors with Obituary parsing")
 
 # ensure the output is utf-8 for latex
 obit_lines <- enc2utf8(obit_lines)
 
 cat("Writing Obits\n")
 writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"))
-
