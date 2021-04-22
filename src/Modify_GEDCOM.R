@@ -174,6 +174,24 @@ if (length(ind) > 0)
   X <- X[-to_delete]  
 }
 
+###########################################
+# Remove Any Hierarchy 1 tags after sex 
+#    In GEDCOM 5.5 there are no sub-events after SEX
+
+ind <- grep("^[1][ ]SEX", X)
+to_delete <- NULL
+if (length(ind) > 0)
+{
+  for (i in seq_along(ind))
+  {
+    ind2 <- grep("^[1]", X[(ind[i]+1):(ind[i]+100)])
+    if (ind2[1] == 1)
+      next
+    to_delete <- c(to_delete, (ind[i]+1):(ind[i] + ind2[1] -1))
+  }
+  X <- X[-to_delete]  
+}
+
 ################################################
 # write results
 writeLines(X, con=args[1])
