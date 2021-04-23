@@ -37,10 +37,10 @@ jobs:
         shell: bash
         run: |
           docker exec crfamhist Rscript --vanilla /repo/src/Modify_GEDCOM.R /repo/src/carnell_rettgers.ged
-      - name: Install Gramps
+      - name: Install Gramps and Tex
         shell: bash
         run: |
-          sudo apt-get install -y gramps rubber
+          sudo apt-get install -y gramps rubber texlive-base texlive-fonts-recommended texlive-fonts-extra texlive-bibtex-extra texlive-extra-utils texlive-latex-extra texlive-latex-recommended
       - name: Run Gramps Reports
         shell: bash
         run: |
