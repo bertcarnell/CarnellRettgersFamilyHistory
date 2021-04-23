@@ -52,7 +52,7 @@ jobs:
       - name: Modify Tex Output
         shell: bash
         run: |
-          docker exec crfamhist Rscript --vanilla /repo/Modify_Gramps_Output.R /repo
+          docker exec crfamhist Rscript --vanilla /repo/src/Modify_Gramps_Output.R /repo
       - name: Upload Tex results
         uses: actions/upload-artifact@master
         with:
