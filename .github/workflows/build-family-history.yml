@@ -53,11 +53,29 @@ jobs:
         shell: bash
         run: |
           docker exec crfamhist Rscript --vanilla /repo/src/Modify_Gramps_Output.R /repo
+      - name: Tex the Reports
+        shell: bash
+        run: |
+          cd CarnellRettgersFamilyHistory/src
+          make tex OUTPUT_PATH=.. GEDCOM_FILE=carnell_rettgers.ged GEDCOM_PATH=.
+          cd ../..
       - name: Upload Tex results
         uses: actions/upload-artifact@master
         with:
           name: det_ancestor_reports
-          path: CarnellRettgersFamilyHistory/tex_input
+          path: | 
+            CarnellRettgersFamilyHistory/tex_input
+            CarnellRettgersFamilyHistory/tex_output
+      - name: Upload PDF results
+        uses: actions/upload-artifact@master
+        with:
+          name: pdf_reports
+          path: |
+            CarnellRettgersFamilyHistory/pdf_output/Volume1.pdf
+            CarnellRettgersFamilyHistory/pdf_output/Volume2.pdf
+            CarnellRettgersFamilyHistory/pdf_output/Volume3.pdf
+            CarnellRettgersFamilyHistory/pdf_output/Volume4.pdf
+            CarnellRettgersFamilyHistory/pdf_output/Volume5.pdf
       - name: Clean up
         shell: bash
         run: |
