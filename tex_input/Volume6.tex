@@ -1,4 +1,4 @@
-% Copyright (c) 2018 Robert Carnell
+% Copyright (c) 2021 Robert Carnell
 
 \documentclass[11pt,letter]{book}
 
@@ -19,11 +19,10 @@
 
 % Packages added for the book
 \usepackage[all]{genealogytree} % genealogy-tree package for trees
-\usepackage{draftwatermark} % create draft watermark
-% watermark modifications
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{1}
-%\SetWatermarkColor[rgb]{0.9,0.9,0.9}
+\usepackage[hidelinks]{hyperref} % to break long URL lines, and make TOC clickable
+%\usepackage{draftwatermark} % create draft watermark
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
 
 % --------- Gramps Section ----------
 
@@ -333,7 +332,7 @@
 \parindent 0pt
 \parskip
 \baselineskip
-Copyright \textcopyright{} 2018 Robert Carnell
+Copyright \textcopyright{} 2021 Robert Carnell
 
 All rights reserved.  This book or any portion thereof may not be reproduced or used in any manner whatsoever with the express written permission of the author except for the use or brief quotations in a book review or genealogical research.
 \endgroup
