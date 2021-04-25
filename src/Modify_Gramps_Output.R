@@ -256,7 +256,7 @@ dummy <- assertthat::assert_that(normDate("29-March-1976") == "29 Mar 1976")
 dummy <- assertthat::assert_that(normDate("29 March 1976") == "29 Mar 1976")
 
 cat("Processing Obits\n")
-obit_lines <- character(10000)
+obit_lines <- character(100000)
 count <- 1
 berror <- FALSE
 temp <- xml_children(xml_root(obits))
@@ -272,45 +272,88 @@ for (i in 1:length(temp))
   maiden_name_temp <- xget(temp[[i]], "MaidenName")
   maiden_name <- ifelse(!is.na(maiden_name_temp) & nchar(maiden_name_temp) > 0, paste(maiden_name_temp, " "), "")
   last_name <- xget(temp[[i]], "LastName")
-  obit_lines[count] <- paste0("\\section{", first_name,middle_name, maiden_name, last_name, "}")
+  obit_lines[count] <- paste0("\\section{", first_name, middle_name, maiden_name, last_name, "}")
   count <- count + 1
   obit_lines[count] <- "\\begin{itemize}"
   count <- count + 1
   # catch errors that might be thrown by normDate and indicate problems
   tryCatch({
-    day_of_week_temp <- xget(temp[[i]], "DayOfTheWeek")
-    date_of_death_temp <- xget(temp[[i]], "DateOfDeath")
-    dayOfWeek <- ifelse(day_of_week_temp == "",
-                        strftime(strptime(normDate(date_of_death_temp), "%d %b %Y"), "%A"),
-                        day_of_week_temp)
-    obit_lines[count] <- paste0("\\item \\textbf{Died}: ", dayOfWeek, 
-                               ", ", normDate(date_of_death_temp))
-    count <- count + 1
+    type_temp <- xget(temp[[i]], "Type")
+    if (type_temp == "Obituary")
+    {
+      day_of_week_temp <- xget(temp[[i]], "DayOfTheWeek")
+      date_of_death_temp <- xget(temp[[i]], "DateOfDeath")
+      dayOfWeek <- ifelse(day_of_week_temp == "",
+                          strftime(strptime(normDate(date_of_death_temp), "%d %b %Y"), "%A"),
+                          day_of_week_temp)
+      obit_lines[count] <- paste0("\\item \\textbf{Died}: ", dayOfWeek, 
+                                  ", ", normDate(date_of_death_temp))
+      count <- count + 1
+    } else if (type_temp == "Marriage")
+    {
+      obit_lines[count] <- paste0("\\item \\textbf{Marriage}")
+      count <- count + 1
+    } else if (type_temp == "Other")
+    {
+      obit_lines[count] <- paste0("\\item \\textbf{Other Article}")
+      count <- count + 1
+    } else
+    {
+      stop(paste("unrecognized type", temp[[i]]))      
+    }
     newspaper_name_temp <- xget(temp[[i]], "NewspaperName")
     newspaper_day_temp <- xget(temp[[i]], "NewspaperDay")
     newspaper_date_temp <- xget(temp[[i]], "NewspaperDate")
     newspaper_page_temp <- xget(temp[[i]], "Page")
     newspaper_col_temp <- xget(temp[[i]], "Column")
-    obit_lines[count] <- paste0("\\item \\textbf{Newspaper}: ", 
-                                gsub("[&]","\\\\&", newspaper_name_temp), ", ", 
-                                newspaper_day_temp, ", ", 
-                                normDate(newspaper_date_temp),
-                                ", pg ", newspaper_page_temp, 
-                                ifelse(newspaper_col_temp > 0, paste0(", Column ", newspaper_col_temp), ""))
+    obit_lines[count] <- paste0(
+      ifelse(!is.na(newspaper_name_temp) & newspaper_name_temp != "NA", 
+             paste0("\\item \\textbf{Newspaper}: ", newspaper_name_temp, ", "), 
+             paste0("\\item \\textbf{Published}: ")),
+      ifelse(!is.na(newspaper_day_temp), 
+             paste0(newspaper_day_temp, ", "), ""),
+      ifelse(!is.na(normDate(newspaper_date_temp)), normDate(newspaper_date_temp), ""),
+      ifelse(!is.na(newspaper_page_temp),
+             paste0(", pg ", newspaper_page_temp),
+             ""),
+      ifelse(!is.na(newspaper_col_temp) & newspaper_col_temp > 0,
+             paste0(", Column ", newspaper_col_temp),
+             ""))      
   }, error=function(e) {print(e); print(temp[[i]]); berror <- TRUE})
   count <- count + 1
   obit_lines[count] <- "\\end{itemize}"
   count <- count + 1
-  trans <- gsub("[&]", "\\\\&", xget(temp[[i]], "Transcription"))
-  trans <- gsub("[#]", "\\\\#", trans)
-  trans <- gsub("[$]", "\\\\$", trans)
-  # drop the htmp <div>
-  trans <- gsub("[<]div[>]", "", trans)
-  trans <- gsub("[<][/]div[>]", "", trans)
-  trans <- gsub("[\\][&]nbsp[;]", "", trans)
-  obit_lines[count] <- trans
-  count <- count + 1
+  trans <- xget(temp[[i]], "Transcription")
+  if (!is.na(trans)) 
+  {
+    obit_lines[count] <- trans
+    count <- count + 1
+  }
+  transl <- xget(temp[[i]], "Translation")
+  if (!is.na(transl))
+  {
+    obit_lines[count] <- transl
+    count <- count + 1
+  }
 }
+
+obit_lines <- gsub("[&]amp[;]", "&", obit_lines)
+obit_lines <- gsub("[&]quot[;]", '"', obit_lines)
+obit_lines <- gsub("&", "\\&", obit_lines, fixed = TRUE) # fixed = TRUE is required for the replacement
+obit_lines <- gsub("[#]", "\\\\#", obit_lines)
+obit_lines <- gsub("[$]", "\\\\$", obit_lines)
+obit_lines <- gsub("[<]div[>]", "", obit_lines)
+obit_lines <- gsub("[<][/]div[>]", "\n", obit_lines)
+obit_lines <- gsub("[<]p[>]", "", obit_lines)
+obit_lines <- gsub("[<][/]p[>]", "\n", obit_lines)
+obit_lines <- gsub("[<]h[1-5][>]", "", obit_lines)
+obit_lines <- gsub("[<][/]h[1-5][>]", "\n", obit_lines)
+
+obit_lines <- str_replace_all(obit_lines, "\u2014", "-")
+obit_lines <- str_replace_all(obit_lines, "\u2019", "'")
+
+
+#iconv(obit_lines[160], from = "UTF-8", to = "ASCII", sub = "Unicode")
 
 if (berror) 
   stop("errors with Obituary parsing")
@@ -319,4 +362,4 @@ if (berror)
 obit_lines <- enc2utf8(obit_lines)
 
 cat("Writing Obits\n")
-writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"))
+writeLines(obit_lines[1:count], con=file.path(tex_output_path, "obituaries.tex"), useBytes = TRUE)
