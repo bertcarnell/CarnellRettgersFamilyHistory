@@ -15094,7 +15094,6 @@
         <FirstName>Marcellus</FirstName>
         <Middle>F</Middle>
         <LastName>Hargett</LastName>
-		<MaidenName></MaidenName>
         <DateOfDeath>16 May 1939</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <NewspaperName>The Valley Daily Times-News</NewspaperName>
@@ -15139,7 +15138,6 @@
         <FirstName>George</FirstName>
         <Middle>J</Middle>
         <LastName>Morrison</LastName>
-		<MaidenName></MaidenName>
         <NewspaperName>Reading Times</NewspaperName>
         <NewspaperDate>14 Apr 1893</NewspaperDate>
         <NewspaperDay>Friday</NewspaperDay>
@@ -15155,15 +15153,14 @@
         <FirstName>Larry</FirstName>
         <Middle>Benjamin</Middle>
         <LastName>Gregory</LastName>
-		<MaidenName></MaidenName>
         <DateOfDeath>03 Nov 2021</DateOfDeath>
         <DayOfTheWeek>Wednesday</DayOfTheWeek>
         <NewspaperName>Aiken Standard</NewspaperName>
         <NewspaperDate>5 Nov 2021</NewspaperDate>
         <NewspaperDay>Friday</NewspaperDay>
         <NewspaperHeading></NewspaperHeading>
-        <Page></Page>
-        <Column></Column>
+        <Page>0</Page>
+        <Column>0</Column>
         <BurialDate>07 Nov 2021</BurialDate>
         <BurialDay>Sunday</BurialDay>
         <Link>https://www.genealogybank.com/doc/obituaries/obit/18614F00F15D1D90-18614F00F15D1D90 </Link>
@@ -15178,9 +15175,7 @@
         <ID>700</ID>
         <Type>Obituary</Type>
         <FirstName>Elias</FirstName>
-        <Middle></Middle>
         <LastName>Langston</LastName>
-		    <MaidenName></MaidenName>
         <DateOfDeath>8 Sep 1863</DateOfDeath>
         <DayOfTheWeek>Tuesday</DayOfTheWeek>
         <NewspaperName>Charleston Mercury</NewspaperName>
@@ -15189,10 +15184,8 @@
         <NewspaperHeading></NewspaperHeading>
         <Page>2</Page>
         <Column>5</Column>
-        <BurialDate></BurialDate>
-        <BurialDay></BurialDay>
         <Link>https://www.genealogybank.com/doc/newspapers/image/v2%3A150B54CBC095BD1A%40GB3NEWS-15163C0E039BC078%402401759-1515DEB3E3F02648%401-1515DEB3E3F02648?clipid=ywatiwsjshbpyvpyoprfuiybvucmjcvg_wma-gateway010_1642813600532</Link>
-		<Notes></Notes>
+		    <Notes></Notes>
         <Transcription>
 		&lt;h4&gt;The Siege - Bombardment of Fort Moultrie - Moultrieville Fired By the Enemy&lt;/h4&gt;
 		&lt;p&gt;The circle of fire gathers closer around our harbour entrances.  The monitors and New Ironsides opened fire in earnest Wednesday morning upon Fort Moultrie.  The guns of that post and adjacent batteries promptly returned the fire against the iron fleet, which had taken a position about 1200 yards from Fort Moultrie.  The contest was maintained with more or less spirit all day long.&lt;/p&gt;
@@ -15205,14 +15198,13 @@
 		&lt;p&gt;The total casualties at Fort Moultrie on Tuesday were 39.  Of these 19 were killed and 20 wounded.  We append the official list:&lt;/p&gt;
 		&lt;p&gt;...&lt;/p&gt;
 		&lt;p&gt;Private E.G. Langston, Co. G, shell killed.&lt;/p&gt;
-		</Transcription>
+		    </Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
     <SortedNewspaperLinks>
         <ID>701</ID>
         <Type>Obituary</Type>
         <FirstName>Hannah</FirstName>
-        <Middle></Middle>
         <LastName>Mervine</LastName>
 		    <MaidenName>Hartenstine</MaidenName>
         <DateOfDeath>29 Dec 1873</DateOfDeath>
@@ -15236,9 +15228,7 @@
         <ID>702</ID>
         <Type>Obituary</Type>
         <FirstName>Martin</FirstName>
-        <Middle></Middle>
         <LastName>Richards</LastName>
-		    <MaidenName></MaidenName>
         <DateOfDeath>28 Jul 1887</DateOfDeath>
         <DayOfTheWeek>Thursday</DayOfTheWeek>
         <NewspaperName>Reading Eagle</NewspaperName>
@@ -15253,6 +15243,206 @@
         <Transcription>
           &lt;p&gt;Martin Richards died at the residence of his son, Henry J. Richards, 439 South 6th, at 9 a.m.  Deceased sustained a stroke of palsy about 5 months ago and has been gradually sinking.  He was conscious up to 24 hours before his death when he sank into an unconscious condition and remained in that state.&lt;/p&gt;
           &lt;p&gt;Deceased was born and raised in Warwick township, Chester county, and was the oldest of a family of 10 children.  He removed to this city about 50 years ago and was married to Miss Elizabeth Hartenstine of Chester Co., who died about 11 years ago.  He held the position of janitor of the High school building on North 4th and was highly respected.  Mr. Richards was a member of the 1st Baptist church for many years and was also a member of the Sons of Temperance, an order now extinct.  He was a brother of David Richards, Mrs. Barbara Hill, Mrs. Elizabeth Block, and Mrs. Kate Stackhouse, all of Reading.  Deceased was the father of 5 children, 1 of whom survives.  He died in the 81st year of his age.  Deceased was a well-known citizen.  The funeral will take place on Monday afternoon and services will be held in the 1st Baptist Church, and interment will be made at Charles Evans. &lt;/p&gt;
+        </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>703</ID>
+        <Type>Obituary</Type>
+        <FirstName>William</FirstName>
+        <LastName>Smith</LastName>
+        <DateOfDeath>25 Jun 1877</DateOfDeath>
+        <DayOfTheWeek>Monday</DayOfTheWeek>
+        <NewspaperName>The New Holland Clarion</NewspaperName>
+        <NewspaperDate>30 Jun 1877</NewspaperDate>
+        <NewspaperDay>Saturday</NewspaperDay>
+        <NewspaperHeading>Deaths</NewspaperHeading>
+        <Page>3</Page>
+        <Column>3</Column>
+        <Link>https://digitalarchives.powerlibrary.org/papd/islandora/object/papd%3Anhclar01_452</Link>
+        <Transcription>&lt;p&gt;Smith - June 25, 1877, in Fairville, Wm P Smith, aged 83 years, 2 months and 3 days&lt;/p&gt;</Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>704</ID>
+        <Type>Obituary</Type>
+        <FirstName>William</FirstName>
+        <LastName>Smith</LastName>
+        <DateOfDeath>13 Mar 1901</DateOfDeath>
+        <DayOfTheWeek>Wednesday</DayOfTheWeek>
+        <NewspaperName>The New Holland Clarion</NewspaperName>
+        <NewspaperDate>23 Mar 1901</NewspaperDate>
+        <NewspaperDay>Saturday</NewspaperDay>
+        <NewspaperHeading></NewspaperHeading>
+        <Page>4</Page>
+        <Column>1</Column>
+        <BurialDate>16 Mar 1901</BurialDate>
+        <BurialDay>Saturday</BurialDay>
+        <Link>https://newspaperarchive.com/obituary-clipping-mar-23-1901-3012420/</Link>
+        <Transcription>
+          &lt;h4&gt;Death of the Veteran Auctioneer, William Smith&lt;/h4&gt;
+          &lt;p&gt;William Smith, one of the oldest and best-known citizens of Terre Hill, died at his home in that Village on Wednesday morning of last week, of consumption, in the seventy-seventh year of his age.  Deceased was born at New Holland on October 12, 1824.  After living Hinkletown and Blue Ball for a number of years he moved to Terre Hill where he lived for nearly thirty years.
+          He was married to Susan Louis, which union was blessed with nine children, seven daughters and two sons.  He is survived by four daughters, Emma and Kate at home, Mrs. William M Ruth, of Terre Hill, and Mrs. Lausch, of Blue Ball; one son, Barton, of Terre Hill, and a number of grandchildren.  He has one brother yet, who lives at Sweet Springs, Missouri, and one sister, Mrs. Elizabeth Morrison, living in Reading.
+          Mr. Smith was a shoemaker by trade, and for many years he was also an auctioneer.  He was of a jovial disposition, a kind, helpful friend and a good neighbor, and enjoyed the esteem of all who knew him.  For many years he was a member of Centre Reformed church.&lt;/p&gt;
+          &lt;p&gt;The funeral of the deceased took place on Saturday morning, and the interment was made at Centre.&lt;/p&gt;
+        </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>705</ID>
+        <Type>Obituary</Type>
+        <FirstName>Susanna</FirstName>
+        <Middle></Middle>
+        <LastName>Smith</LastName>
+		    <MaidenName>Lewis</MaidenName>
+        <DateOfDeath>26 Jun 1896</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>The New Holland Clarion</NewspaperName>
+        <NewspaperDate>4 Jul 1896</NewspaperDate>
+        <NewspaperDay>Saturday</NewspaperDay>
+        <NewspaperHeading>Terre Hill Topics</NewspaperHeading>
+        <Page>1</Page>
+        <Column>4</Column>
+        <BurialDate>30 Jun 1896</BurialDate>
+        <BurialDay>Tuesday</BurialDay>
+        <Link>https://newspaperarchive.com/obituary-clipping-jul-04-1896-3014705/</Link>
+        <Transcription>&lt;h4&gt;TERRE HILL TOPICS&lt;/h4&gt;
+        &lt;h5&gt;Death of Mrs. William Smith -- Society Officers Elected -- Knights Will Attend Church&lt;/h5&gt;
+        &lt;p&gt;The funeral of Mrs. William Smith, of this place, was held on Tuesday of this week, when a large number of relatives and friends paid their last tribute of respect.  She leaves a husband and one son, Barton, of this place, and four daughters, Mrs. Louisa Ruth, of this place; Mrs. Mary Lauch, of Blue Ball, and Kate and Emma, who are at home, to mourn her departure.  She was confined to bed for about eight weeks.  Deceased was 68 years, 11 months, and 3 days of age.
+        Interment was made in the Centre church cemetery.  Rev. Wiekert, of Denver, officiated. &lt;/p&gt;
+      </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>706</ID>
+        <Type>Obituary</Type>
+        <FirstName>Jacob</FirstName>
+        <Middle>S</Middle>
+        <LastName>Smith</LastName>
+        <DateOfDeath>18 Apr 1898</DateOfDeath>
+        <DayOfTheWeek>Monday</DayOfTheWeek>
+        <NewspaperName>The Lancaster Examiner</NewspaperName>
+        <NewspaperDate>20 Apr 1898</NewspaperDate>
+        <NewspaperDay>Wednesday</NewspaperDay>
+        <NewspaperHeading>Prison Keeper J.S. Smith Dead</NewspaperHeading>
+        <Page>5</Page>
+        <Column>2</Column>
+        <BurialDate>21 Apr 1898</BurialDate>
+        <BurialDay>Thursday</BurialDay>
+        <Link>https://www.newspapers.com/clip/94473245/jacob-s-smith-obituary/</Link>
+        <Transcription>
+          &lt;h4&gt;PRISON KEEPER J. S. SMITH DEAD&lt;/h4&gt;
+          &lt;h5&gt;Expired After a Brief Illness From Pneumonia - For Many Years a Well-Known Hotel Keeper. &lt;/h5&gt;
+          &lt;p&gt;Prison Keeper Jacob S. Smith died about 4:30 o'clock Monday morning at the Lancaster county prison after an illness of less than a week.  Pneumonia was the direct cause of death.  Mr. Smith's serious illness was noted in the "The Examiner" last week.  On Monday last he was taken with a congestive chill and was compelled to take his bed.  Pneumonia developed on Tuesday and his condition became steadily worse until death ensued.
+          For several years past Mr. Smith had been in poor health, having suffered from catarrh of the stomach, but he had always been able to attend his duties. &lt;/p&gt;
+          &lt;p&gt;Jacob S. Smith was born in New Holland on February 10, 1827, and was therefore in his seventy-second year.  In his early life he learned tailoring and worked at his trade in New Holland for several years.  He was also tax collector in New Holland for many years.  In 1867 he came to Lancaster and was elected underkeeper at the county prison, serving as such for nine years.
+          Leaving the prison he engaged in the hotel business and at different times conducted the Sorrel Horse, Leopard and County House in this city.  Retiring from business in Lancaster he became proprietor of the hotel at Millport.  About eleven years ago deceased was elected prison keeper and on January 1 began the second year of his fourth term in that office.  Deceased was one of the best known men in the county and had a host of friends.
+          With the under officials and all who worked under him at the jail he was extremely popular and his death will be deeply regretted.  He was a staunch Republican and always took an active interest in the affairs of his party.  Deceased was a member of the I.O.O.F lodge of New Holland.
+          Besides his wife three children survive, Isabella, wife of Benjamin Gilbert, of Chester county; John H., of Strasburg, and Albert Smith, stamp clerk at the Lancaster post office.&lt;/p&gt;
+          &lt;p&gt;The funeral will take place Thursday morning at 10 o'clock, with services at the jail and interment at New Holland. &lt;/p&gt;
+        </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>707</ID>
+        <Type>Obituary</Type>
+        <FirstName>Paul</FirstName>
+        <LastName>Rothermel</LastName>
+        <DateOfDeath>13 May 1842</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>Der liberale Beobachter</NewspaperName>
+        <NewspaperDate>07 Jun 1842</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <NewspaperHeading>Starb</NewspaperHeading>
+        <Page>3</Page>
+        <Column>3</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111644454790</Link>
+        <Transcription>&lt;div&gt;Starb am 13ten Mai, in Maidencriek Taun&#383;chip, Paul Rothermel, im Alter von 65 Jahren, 9 Monaten, und 7 Tagen&lt;/div&gt;</Transcription>
+		    <Translation>&lt;div&gt;Died May 13th, in Maidencreek Township, Paul Rothermel, aged 65 years, 9 months, and 7 days&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>708</ID>
+        <Type>Obituary</Type>
+        <FirstName>Paul</FirstName>
+        <LastName>Rothermel</LastName>
+        <DateOfDeath>13 May 1842</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>Reading Adler</NewspaperName>
+        <NewspaperDate>31 May 1842</NewspaperDate>
+        <NewspaperDay>Tuesday</NewspaperDay>
+        <NewspaperHeading>Starb</NewspaperHeading>
+        <Page>2</Page>
+        <Column>6</Column>
+        <Link>https://www.genealogybank.com/nbshare/AC01170102183732225111644457761</Link>
+        <Transcription>&lt;div&gt;Starb am 13ten May, in Maidencriek Taun&#383;chip, die&#383;er Caunty, Paul Rothermel, im Alter von 65 Jahren, 9 Monaten, und 7 Tagen.&lt;/div&gt;</Transcription>
+		    <Translation>&lt;div&gt;Died on May 13th, in Maidencreek Township, this County, Paul Rothermel, aged 65 years, 9 months, and 7 days&lt;/div&gt;</Translation>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>709</ID>
+        <Type>Obituary</Type>
+        <FirstName>Lavina</FirstName>
+        <LastName>Smith</LastName>
+		    <MaidenName>Setley</MaidenName>
+        <DateOfDeath>15 Sep 1902</DateOfDeath>
+        <DayOfTheWeek>Monday</DayOfTheWeek>
+        <NewspaperName>The Lancaster Examiner</NewspaperName>
+        <NewspaperDate>17 Sep 1902</NewspaperDate>
+        <NewspaperDay>Wednesday</NewspaperDay>
+        <NewspaperHeading>MRS. LAVINA SMITH DEAD</NewspaperHeading>
+        <Page>5</Page>
+        <Column>2</Column>
+        <BurialDate>18 Sep 1902</BurialDate>
+        <BurialDay>Thursday</BurialDay>
+        <Link>https://www.newspapers.com/clip/94707245/lavina-setley-smith-obituary/</Link>
+        <Transcription>
+          &lt;h4&gt;MRS. LAVINA SMITH DEAD&lt;/h4&gt;
+          &lt;h5&gt;Widow of Ex-Prison Keeper Smith and a Well-Known Woman Passes Away.&lt;/h5&gt;
+          &lt;p&gt;The death of Mrs. Lavina Smith, widow of ex-Prison Keeper Jacob S. Smith, occured at the home of her son Albert Smith, No. 243 East Chestnut street, on Monday afternoon.  Deceased had been sick for about one month, and death was due to a complication of diseases.  She was in the seventy-seventh year of her age, and had enjoyed the best of health p to the time of her last illness.&lt;/p&gt;
+          &lt;p&gt;She was a Miss Setley before marriage, and resided in New Holland for a long time, after which she came to this city.  Deceased was a member of the Lutheran church, of New Holland, and was a well-known and highly esteemed woman.  Three children survive, as follows:  Isabella, John H., of Strasburg, and Albert, a clerk in the post office in this city.  Capt. Abram Setley, of this city, is the only surviving brother.&lt;/p&gt;
+          &lt;p&gt;The funeral will be held on Thursday morning at 9 o'clock at the house and at 9:30 o'clock the remains will be taken to New Holland by trolley, where services will be held in the Lutheran church at that place.  The remains will be interested in the cemetery adjoining the church.&lt;/p&gt;
+        </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>710</ID>
+        <Type>Obituary</Type>
+        <FirstName>John</FirstName>
+        <Middle>K</Middle>
+        <LastName>Smith</LastName>
+        <DateOfDeath>5 Jun 1896</DateOfDeath>
+        <DayOfTheWeek>Friday</DayOfTheWeek>
+        <NewspaperName>The Lancaster Examiner</NewspaperName>
+        <NewspaperDate>13 Jun 1896</NewspaperDate>
+        <NewspaperDay>Saturday</NewspaperDay>
+        <NewspaperHeading>Died</NewspaperHeading>
+        <Page>5</Page>
+        <Column>5</Column>
+        <Link>https://www.newspapers.com/clip/94751336/john-k-smith-death-notice/</Link>
+        <Transcription>&lt;div&gt;SMITH. June 5, 1896, in Honey Brook, John K. Smith.&lt;/div&gt;</Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>711</ID>
+        <Type>Obituary</Type>
+        <FirstName>Elizabeth</FirstName>
+        <LastName>Smith</LastName>
+		    <MaidenName>Dague</MaidenName>
+        <DateOfDeath>27 Dec 1911</DateOfDeath>
+        <DayOfTheWeek>Wednesday</DayOfTheWeek>
+        <NewspaperName>The New Holland Clarion</NewspaperName>
+        <NewspaperDate>30 Dec 1911</NewspaperDate>
+        <NewspaperDay>Saturday</NewspaperDay>
+        <NewspaperHeading></NewspaperHeading>
+        <Page>1</Page>
+        <Column>5</Column>
+        <BurialDate>30 Dec 1911</BurialDate>
+        <BurialDay>Saturday</BurialDay>
+        <Link>https://newspaperarchive.com/obituary-clipping-dec-30-1911-3023532/</Link>
+        <Transcription>
+          &lt;h4&gt;Mrs. Elizabeth Smith &lt;/h4&gt;
+          &lt;p&gt;Elizabeth, widow of John Smith, formerly of Green Bank, died on Wedenesday, at the home of her son in Perkasie from paralysis.  She was 77 years of age.  One son, John of Perkasie, survives and two daughters: Mrs. Mahlon Welk of Honeybrook, and Elizabeth who is also married and lives near Perkasie.  The funeral will be held this afternoon at 1 o'clock at Rancks Church.  Funeral Director Henninger has charge.&lt;/p&gt;
         </Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>

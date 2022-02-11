@@ -12,7 +12,7 @@
             <xsd:all>
                 <xsd:element name="ID" minOccurs="1" maxOccurs="1" type="xsd:int"/>
                 <xsd:element name="Type" minOccurs="1" maxOccurs="1" type="_Types"/>
-                
+
                 <xsd:element name="FirstName" minOccurs="1" maxOccurs="1" type="xsd:string"/>
                 <xsd:element name="Middle" minOccurs="0" type="xsd:string"/>
                 <xsd:element name="LastName" minOccurs="1" maxOccurs="1" type="xsd:string"/>
@@ -42,7 +42,7 @@
         </xsd:complexType>
     </xsd:element>
     <xsd:simpleType name="_Day">
-        <xsd:restriction base="xsd:string"> 
+        <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Sunday"/>
             <xsd:enumeration value="Monday"/>
             <xsd:enumeration value="Tuesday"/>
@@ -114,6 +114,9 @@
             <xsd:enumeration value="The Town Talk"/>
             <xsd:enumeration value="The Valley Daily Times-News"/>
             <xsd:enumeration value="Charleston Mercury"/>
+            <xsd:enumeration value="The New Holland Clarion"/>
+            <xsd:enumeration value="The Lancaster Examiner"/>
+            <xsd:enumeration value="Der liberale Beobachter"/>
             <xsd:enumeration value="NA"/> <!-- when the newspaper is not available -->
         </xsd:restriction>
     </xsd:simpleType>
