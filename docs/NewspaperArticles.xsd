@@ -120,6 +120,7 @@
             <xsd:enumeration value="Marshall Republican"/>
             <xsd:enumeration value="Lebanon Semi-Weekly News"/>
             <xsd:enumeration value="Allentown Leader"/>
+            <xsd:enumeration value="Salt Lake Tribune"/>
             <xsd:enumeration value="NA"/> <!-- when the newspaper is not available -->
         </xsd:restriction>
     </xsd:simpleType>
