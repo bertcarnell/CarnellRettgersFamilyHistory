@@ -15678,15 +15678,15 @@ She was aged about 82 years and leaves to mourn her death four children as follo
         <FirstName>Sonia</FirstName>
         <Middle>Almira</Middle>
         <LastName>Turner</LastName>
-		    <MaidenName>Cornell</MaidenName>
+		<MaidenName>Cornell</MaidenName>
         <DateOfDeath>4 Jan 2021</DateOfDeath>
         <DayOfTheWeek>Monday</DayOfTheWeek>
-        <NewspaperName></NewspaperName>
-        <NewspaperDate></NewspaperDate>
-        <NewspaperDay></NewspaperDay>
+        <NewspaperName>NA</NewspaperName>
+        <NewspaperDate>4 Jan 2021</NewspaperDate>
+        <NewspaperDay>Monday</NewspaperDay>
         <NewspaperHeading></NewspaperHeading>
         <Page></Page>
-        <Column></Column>
+        <Column>0</Column>
         <BurialDate>9 Jan 2021</BurialDate>
         <BurialDay>Saturday</BurialDay>
         <Link>https://www.tributearchive.com/obituaries/19532938/Sunny-Turner</Link>
@@ -15715,7 +15715,7 @@ She was aged about 82 years and leaves to mourn her death four children as follo
         <NewspaperDay>Sunday</NewspaperDay>
         <NewspaperHeading></NewspaperHeading>
         <Page></Page>
-        <Column></Column>
+        <Column>0</Column>
         <BurialDate>20 Aug 2022</BurialDate>
         <BurialDay>Saturday</BurialDay>
         <Link>https://www.legacy.com/us/obituaries/saltlaketribune/name/staci-pollick-obituary?id=36220612</Link>
@@ -15739,6 +15739,30 @@ he only takes the best."&lt;/div&gt;
 		</Transcription>
         <EnteredOnAncestry>1</EnteredOnAncestry>
     </SortedNewspaperLinks>
+    <SortedNewspaperLinks>
+        <ID>723</ID>
+        <Type>Obituary</Type>
+        <FirstName>Raymond</FirstName>
+        <Middle>Howard</Middle>
+        <LastName>White</LastName>
+        <DateOfDeath>4 Jan 1981</DateOfDeath>
+        <DayOfTheWeek>Sunday</DayOfTheWeek>
+        <NewspaperName>Savannah Evening Press</NewspaperName>
+        <NewspaperDate>5 Jan 1981</NewspaperDate>
+        <NewspaperDay>Monday</NewspaperDay>
+        <NewspaperHeading>Deaths and Funerals</NewspaperHeading>
+        <Page>21</Page>
+        <Column>3</Column>
+		<Notes>From the Live Oak Public Library</Notes>
+        <Transcription>
+&lt;h5&gt;Raymond White&lt;/h5&gt;
+&lt;p&gt;Raymond Howard White, 64, of 231 Ferguson Ave. died Sunday at Memorial Medical Center after a long illness.&lt;/p&gt;
+&lt;p&gt;He was a native of Savannah and was a member of Carpenter's Union Local 256.&lt;/p&gt;
+&lt;p&gt;Surviving are three sons, Raymond H. White Jr and Ronald C White, both of Savannah, and Roland T White of Millen; two daughters, Mrs. Barbara Jo Hickey and Mrs. Beverly Shoemaker, both of Savannah; four brothers, George M. White Jr., John White, Luther White and Edward White, all of Savannah; two sisters, Mrs Arlene Kennedy of Midway and Mrs Mary Beasley of Savannah; 12 grandchildren and several nieces and newphews.&lt;/p&gt;
+&lt;p&gt;Fox and Weeks Funeral Home is in charge.&lt;/p&gt;
+        </Transcription>
+        <EnteredOnAncestry>1</EnteredOnAncestry>
+    </SortedNewspaperLinks>
 
 	<!--
     <SortedNewspaperLinks>
@@ -15747,7 +15771,7 @@ he only takes the best."&lt;/div&gt;
         <FirstName></FirstName>
         <Middle></Middle>
         <LastName></LastName>
-		    <MaidenName></MaidenName>
+		<MaidenName></MaidenName>
         <DateOfDeath></DateOfDeath>
         <DayOfTheWeek></DayOfTheWeek>
         <NewspaperName></NewspaperName>
@@ -15759,9 +15783,9 @@ he only takes the best."&lt;/div&gt;
         <BurialDate></BurialDate>
         <BurialDay></BurialDay>
         <Link></Link>
-		    <Notes></Notes>
+		<Notes></Notes>
         <Transcription></Transcription>
-		    <Translation></Translation>
+		<Translation></Translation>
         <EnteredOnAncestry></EnteredOnAncestry>
     </SortedNewspaperLinks>
 	-->
