@@ -19,7 +19,8 @@
         {
           xhttp = new XMLHttpRequest();
         }
-        xhttp.open("GET", filename, true);
+        xhttp.open("GET", filename, false);
+        try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
         xhttp.send("");
         return xhttp.responseXML;
       }
@@ -29,7 +30,7 @@
         xml = loadXMLDoc("NewspaperArticles.xml");
         xsl = loadXMLDoc("NewspaperArticles.xsl");
         // code for IE
-        if (window.ActiveXObject)
+        if (window.ActiveXObject || xhttp.responseType == "msxml-document")
         {
           ex = xml.transformNode(xsl);
           document.getElementById("article_zone").innerHTML = ex;
@@ -47,7 +48,7 @@
 
     <!-- Bicentennial Logo:  https://en.wikipedia.org/wiki/United_States_Bicentennial -->
     <link rel="stylesheet" type="text/css" href="stylesheets/CarnellRettgersFamily.css">
-    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
 
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -60,7 +61,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- all paragraphs in indented similarly -->
     <style>
@@ -69,8 +70,9 @@
     <title>Newspaper Articles</title>
   </head>
   
+  <!--<body onload="displayResult('NewspaperArticles.xml', 'NewspaperArticles')">-->
   <body onload="displayResult()">
-    <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
+      <div id="includeHeader"></div><script>$("#includeHeader").load("navbar1.html");</script>
 
     <div class="container-fluid" style="padding:0">
       <img class="img-responsive" src="images/ReadingEagle19760329.PNG" alt="ReadingEagle" style="width:100%"/> 
