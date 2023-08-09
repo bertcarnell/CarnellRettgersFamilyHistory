@@ -123,6 +123,7 @@
             <xsd:enumeration value="Salt Lake Tribune"/>
             <xsd:enumeration value="Savannah Evening Press"/>
             <xsd:enumeration value="Ledger-Enquirer"/>
+            <xsd:enumeration value="Sun Herald"/>
             <xsd:enumeration value="NA"/> <!-- when the newspaper is not available -->
         </xsd:restriction>
     </xsd:simpleType>
