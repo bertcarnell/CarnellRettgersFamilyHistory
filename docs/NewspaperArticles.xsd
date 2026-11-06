@@ -104,6 +104,7 @@
             <xsd:enumeration value="Toledo News-Bee"/>
             <xsd:enumeration value="York Daily Record"/>
             <xsd:enumeration value="Atlanta Constitution"/>
+            <xsd:enumeration value="Atlanta Journal"/>
             <xsd:enumeration value="Shreveport Times"/>
             <xsd:enumeration value="The True Citizen"/>
             <xsd:enumeration value="Middleburgh Post"/>
